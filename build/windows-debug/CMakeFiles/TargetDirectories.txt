@@ -1,0 +1,6 @@
+D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/shareaudio_core.dir
+D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/shareaudio_cli.dir
+D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/shareaudio_tests.dir
+D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/test.dir
+D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/edit_cache.dir
+D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/rebuild_cache.dir

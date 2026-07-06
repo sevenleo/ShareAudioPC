@@ -1,0 +1,74 @@
+#pragma once
+
+#include "app/Result.h"
+
+#include <atomic>
+#include <cstdint>
+#include <functional>
+#include <memory>
+#include <mutex>
+#include <span>
+#include <thread>
+#include <vector>
+
+namespace shareaudio {
+
+#ifdef _WIN32
+using NativeSocket = std::uintptr_t;
+#else
+using NativeSocket = int;
+#endif
+
+class TcpSocket {
+public:
+    TcpSocket();
+    explicit TcpSocket(NativeSocket socket);
+    TcpSocket(const TcpSocket&) = delete;
+    TcpSocket& operator=(const TcpSocket&) = delete;
+    TcpSocket(TcpSocket&& other) noexcept;
+    TcpSocket& operator=(TcpSocket&& other) noexcept;
+    ~TcpSocket();
+
+    static Result<TcpSocket> connect_to(const std::string& host, std::uint16_t port);
+
+    Result<void> send_all(std::span<const std::uint8_t> bytes);
+    Result<std::vector<std::uint8_t>> receive_exact(std::size_t byte_count);
+    void close();
+    [[nodiscard]] bool valid() const;
+
+private:
+    NativeSocket socket_;
+};
+
+class TcpTransmitterServer {
+public:
+    using ClientHandler = std::function<void(std::shared_ptr<TcpSocket>)>;
+
+    Result<void> start(std::uint16_t port, ClientHandler handler);
+    void stop();
+    [[nodiscard]] bool running() const;
+    [[nodiscard]] std::size_t accepted_clients() const;
+
+private:
+    std::atomic_bool running_ { false };
+    std::atomic_size_t accepted_clients_ { 0 };
+    NativeSocket listen_socket_ {};
+    std::thread accept_thread_;
+    std::mutex client_threads_mutex_;
+    std::vector<std::thread> client_threads_;
+};
+
+class TcpReceiverClient {
+public:
+    Result<void> connect(const std::string& host, std::uint16_t port);
+    void disconnect();
+    [[nodiscard]] bool connected() const;
+    Result<void> send_all(std::span<const std::uint8_t> bytes);
+    Result<std::vector<std::uint8_t>> receive_exact(std::size_t byte_count);
+
+private:
+    mutable std::mutex mutex_;
+    TcpSocket socket_;
+};
+
+} // namespace shareaudio
