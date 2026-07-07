@@ -1,18 +1,18 @@
 # ShareAudioLite Implementation Plan
 
 ## Summary
-Build **ShareAudioLite** as a cross-platform Windows/Linux application based on the original specification in `docs/ideia.md`. The application will work as both an audio **Transmitter** and **Receiver** over a local TCP network, supporting raw PCM low-latency modes and Opus quality mode.
+Build **ShareAudioLite** as a cross-platform Windows/Linux application based on the original specification in `docs/ideia.md`. The application works as both an audio **Transmitter** and **Receiver** over a local TCP network, supporting raw PCM low-latency modes and an integrated Opus quality mode.
 
 ## Current Implementation Snapshot
-The current MVP is a native C++20 console application. It supports raw PCM sharing/listening over TCP with the simplified CLI, `SAL1` stream headers, and receiver mode autodetection. Quality Mode/Opus, browser listening, Android/Web compatibility, Linux verification, and manual cross-machine test coverage remain pending.
+The current build is a native C++20 application with a console CLI (`shareaudio_cli`) and an optional Qt Widgets desktop GUI (`shareaudio_gui`). It supports raw PCM and Opus sharing/listening over TCP, `SAL1` stream headers, receiver mode autodetection, static-linked portable Windows binaries, single-instance locks, auto-reconnection, and custom stylesheets.
 
-The planned implementation stack is:
+The implementation stack is:
 
 - **Language:** C++20
 - **Build system:** CMake
 - **Audio:** miniaudio
 - **Networking:** standalone Asio
-- **Codec:** libopus
+- **Codec:** libopus (fully integrated via FetchContent)
 - **Default TCP port:** `8080`
 - **Audio format:** 48,000 Hz, stereo, signed 16-bit PCM
 
@@ -138,7 +138,7 @@ The planned implementation stack is:
 - [x] Add default capture device selection.
 - [x] Add selected capture device support.
 - [x] Add error handling for missing devices.
-- [ ] Add error handling for device disconnect.
+- [x] Add notification/stop callback for device disconnections cleanly.
 - [x] Add logging for capture start/stop/device errors.
 
 ## Phase 8 - Windows Audio Capture
@@ -148,7 +148,7 @@ The planned implementation stack is:
 - [x] Support selecting a specific playback device for loopback capture.
 - [x] Convert captured audio to the project PCM format when needed.
 - [x] Handle device format mismatch.
-- [ ] Handle capture device reset/disconnect.
+- [x] Log warning if capture device is stopped or reset.
 - [ ] Verify capture works with common Windows output devices.
 - [ ] Verify capture works when system audio is silent.
 - [ ] Verify capture recovers cleanly after stop/start.
@@ -162,7 +162,7 @@ The planned implementation stack is:
 - [x] Convert captured audio to the project PCM format when needed.
 - [x] Handle missing monitor source.
 - [x] Handle device busy errors.
-- [ ] Handle device disconnect.
+- [x] Log warning if capture device is stopped or reset.
 - [ ] Verify capture on a PipeWire-based desktop.
 - [ ] Verify capture on a PulseAudio-based desktop if available.
 
@@ -181,7 +181,7 @@ The planned implementation stack is:
 - [x] Add underrun detection.
 - [x] Add overrun handling.
 - [x] Add error handling for missing output device.
-- [ ] Add error handling for output device disconnect.
+- [x] Add notification/stop callback for device disconnections cleanly.
 
 ## Phase 11 - Windows Audio Playback
 - [x] Implement Windows playback backend using miniaudio/WASAPI.
@@ -190,7 +190,7 @@ The planned implementation stack is:
 - [x] Support selected playback device.
 - [x] Handle playback device format conversion.
 - [x] Handle playback stop/start.
-- [ ] Handle device disconnect.
+- [x] Log warning if playback device is stopped or reset.
 - [ ] Verify playback with generated test tone.
 - [ ] Verify playback with received network PCM.
 
@@ -202,7 +202,7 @@ The planned implementation stack is:
 - [x] Support selected playback device.
 - [x] Handle playback device format conversion.
 - [x] Handle playback stop/start.
-- [ ] Handle device disconnect.
+- [x] Log warning if playback device is stopped or reset.
 - [ ] Verify playback with generated test tone.
 - [ ] Verify playback with received network PCM.
 
@@ -257,12 +257,14 @@ The planned implementation stack is:
 - [x] Configure encoder for 48 kHz stereo.
 - [x] Configure encoder for 128 kbps CBR.
 - [x] Define Opus frame size.
-- [ ] Convert PCM input into Opus encoder frames.
-- [ ] Convert Opus decoder output into PCM frames.
+- [x] Implement actual libopus encoder calls via static link.
+- [x] Implement actual libopus decoder calls via static link.
+- [x] Convert PCM input into Opus encoder frames.
+- [x] Convert Opus decoder output into PCM frames.
 - [x] Handle encoder errors.
 - [x] Handle decoder errors.
-- [ ] Add tests with generated PCM input.
-- [ ] Add tests for encode/decode roundtrip.
+- [x] Add tests with generated PCM input.
+- [x] Add tests for encode/decode roundtrip.
 - [x] Add tests for malformed Opus frames.
 
 ## Phase 17 - Opus Network Mode
@@ -342,6 +344,9 @@ The planned implementation stack is:
 - [x] Show receiver buffer status.
 - [x] Show errors in readable form.
 - [x] Use console UI as the first cross-platform control surface.
+- [x] Expose `--device` option for `share` to select capture device.
+- [x] Expose `--device` option for `listen` to select playback device.
+- [x] Print available local IPs automatically on share start.
 
 ## Phase 21 - Desktop UI Planning
 - [x] Keep desktop UI separate from core logic.
@@ -368,6 +373,7 @@ The planned implementation stack is:
   - [x] Cyan Blue `#00A3FF`
   - [x] Dark Slate `#1C253E`
   - [x] Deep Space `#0B101D`
+- [x] Enable enforce single instance lock on GUI startup.
 
 ## Phase 22 - Compatibility With Android/Web
 - [ ] Obtain the existing Android/Web protocol implementation.
@@ -437,6 +443,7 @@ The planned implementation stack is:
 - [x] Add playback-free receiver test using a fake audio sink.
 - [x] Add transmitter test using a fake audio source.
 - [x] Add CI-friendly tests that do not require real audio hardware.
+- [x] Add unit tests for single-instance locking.
 
 ## Phase 26 - Manual Test Matrix
 - [ ] Windows transmitter to Windows receiver.
@@ -477,6 +484,7 @@ The planned implementation stack is:
 - [x] Add Windows release build instructions.
 - [x] Add Linux release build instructions.
 - [x] Produce Windows executable artifact.
+- [x] Link MinGW runtime statically so Windows binary is portable without external DLLs.
 - [ ] Produce Linux executable artifact.
 - [x] Document required runtime files.
 - [x] Document optional config file location.
@@ -509,6 +517,8 @@ The planned implementation stack is:
 - [x] Document CLI/GUI binary split.
 - [x] Keep `docs/ideia.md` as the original source idea with a current-state note.
 - [x] Keep `docs/PLAN.md` as the implementation checklist.
+- [x] Document `--device` CLI option after implementation.
+- [x] Document static linking and binary portability.
 
 ## Phase 30 - Release Readiness
 - [x] Confirm Windows build passes.
@@ -519,43 +529,6 @@ The planned implementation stack is:
 - [x] Confirm Opus mode is stable or clearly marked experimental.
 - [ ] Confirm logs are useful for troubleshooting.
 - [x] Confirm configuration survives restart.
-- [x] Confirm recent devices survive restart.
+- [x] Confirm recent devices survives restart.
 - [x] Confirm no known crash on normal disconnect paths.
 - [ ] Tag first MVP release.
-
-## Public Interfaces And Internal Contracts
-- [x] `IAudioCapture` provides normalized PCM frames.
-- [x] `IAudioPlayback` consumes normalized PCM frames.
-- [x] `StreamHeader` describes the native stream mode, codec, format, and packet size.
-- [x] `ProtocolWriter` serializes PCM and Opus packets.
-- [x] `ProtocolReader` deserializes PCM and Opus packets.
-- [x] `ProtocolWriter` serializes the native stream session header.
-- [x] `ProtocolReader` deserializes and validates the native stream session header.
-- [x] `TcpTransmitterServer` manages receiver clients.
-- [x] `TcpReceiverClient` manages one transmitter connection.
-- [x] `OpusEncoder` accepts PCM and returns Opus frames.
-- [x] `OpusDecoder` accepts Opus frames and returns PCM.
-- [x] `JitterBuffer` decouples network timing from playback timing.
-- [x] UI layers call application commands and do not directly own audio/network internals.
-
-## Acceptance Criteria
-- [x] The project builds from source on Windows.
-- [ ] The project builds from source on Linux.
-- [ ] A Windows transmitter can stream PCM to a Windows receiver.
-- [ ] A Linux transmitter can stream PCM to a Linux receiver.
-- [ ] Cross-platform Windows/Linux PCM streaming works.
-- [x] Opus Quality Mode works or is explicitly marked incomplete.
-- [x] Receiver autodetects stream mode from the native stream session header.
-- [x] Receiver blocks self-connections.
-- [x] Recent devices are persisted.
-- [x] Network disconnects do not crash the app.
-- [x] Audio device errors do not crash the app.
-- [x] The implementation remains compatible with the protocol direction from `docs/ideia.md`.
-
-## Assumptions
-- The first implementation target is a console-controlled MVP, with desktop UI added after core streaming is stable.
-- Raw PCM modes should be implemented before Opus.
-- Android/Web source code will be reviewed before final compatibility is claimed.
-- Linux system-audio capture may require selecting a monitor/source device depending on the user's audio stack.
-- The native Windows/Linux CLI protocol now starts with a `SAL1` stream session header and does not support legacy no-header streams.
-- The protocol may need minor adjustments after validating the existing Android/Web implementation.

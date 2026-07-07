@@ -26,9 +26,24 @@ The format follows a simple staged log. Keep new entries under `Unreleased` unti
   - `shareaudio_cli devices`
   - `shareaudio_cli ips`
   - `shareaudio_cli help`
+- Added `--device` (or `-d`) options to CLI `share` and `listen` commands to allow selecting audio capture and playback devices.
+- Added single-instance enforcement lock system checking for `shareaudio.pid` and closing older processes.
+- Added auto-reconnection loop in receiver thread to dynamically reconnect to transmitter under connection loss.
+- Added printout of local IP addresses right when starting a sharing session in the CLI.
+- Added dynamic FetchContent download and compilation configuration for `libopus` v1.4.
+- Added full `libopus` implementation to `OpusEncoder` and `OpusDecoder` wrappers supporting CBR, float/fixed calculations, and stereo frame compression/decompression.
+- Added Soundwave visual identity CSS stylesheet to Qt GUI `MainWindow` (Deep Space backgrounds, Neon Green/Cyan highlights).
 - Added protocol tests for stream header encoding, decoding, and invalid headers.
 - Added broadcast server test coverage for header-before-audio ordering.
 - Added CLI behavior tests for new commands and removed legacy flags.
+- Added real Opus codec PCM -> Opus -> PCM roundtrip automated unit test coverage.
+- Added single-instance unit test coverage.
+
+### Fixed
+
+- Fixed Windows binary portability: MinGW runtime libraries (`libgcc`, `libstdc++`, `libwinpthread`) are now linked statically so `shareaudio_cli.exe` runs on any Windows PC without requiring MinGW DLLs.
+- Fixed `sin` compile error in unit tests by including `<cmath>`.
+- Fixed redefinition warning of `NOMINMAX` in `SingleInstance.cpp`.
 
 ### Changed
 
@@ -38,6 +53,7 @@ The format follows a simple staged log. Keep new entries under `Unreleased` unti
 - Receiver packet size now comes from the validated stream header.
 - README usage examples now document only the simplified CLI.
 - `docs/PLAN.md` now reflects the current CLI and protocol autodetection direction.
+- Updated all project documentation (`PLAN.md`, `PLAN-GUI.md`, `CURRENT_STATUS.md`, `README.md`) to accurately reflect current code state after thorough audit.
 
 ### Removed
 
@@ -52,7 +68,7 @@ The format follows a simple staged log. Keep new entries under `Unreleased` unti
 
 ### Known Incomplete Work
 
-- Opus Quality Mode is still not usable.
+- Quality Mode (Opus) network pipeline integration is pending (Fase 17).
 - Browser listening is not supported by the native TCP protocol.
 - Android/Web compatibility is not validated.
 - Linux build/test and real cross-machine audio tests are still pending.

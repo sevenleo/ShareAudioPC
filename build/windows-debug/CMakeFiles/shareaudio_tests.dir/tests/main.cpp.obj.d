@@ -1047,5 +1047,21 @@ CMakeFiles/shareaudio_tests.dir/tests/main.cpp.obj: \
  D:/GITHUB/ShareAudioPC_2/src/codec/OpusCodec.h \
  D:/GITHUB/ShareAudioPC_2/src/network/LoopbackTest.h \
  D:/GITHUB/ShareAudioPC_2/src/platform/LocalIp.h \
+ D:/GITHUB/ShareAudioPC_2/src/app/SingleInstance.h \
  D:/GITHUB/ShareAudioPC_2/src/ui/ConsoleUi.h \
- C:/Strawberry/c/include/c++/13.2.0/iostream
+ C:/Strawberry/c/include/c++/13.2.0/iostream \
+ C:/Strawberry/c/include/c++/13.2.0/cmath \
+ C:/Strawberry/c/x86_64-w64-mingw32/include/math.h \
+ C:/Strawberry/c/include/c++/13.2.0/bits/specfun.h \
+ C:/Strawberry/c/include/c++/13.2.0/tr1/gamma.tcc \
+ C:/Strawberry/c/include/c++/13.2.0/tr1/special_function_util.h \
+ C:/Strawberry/c/include/c++/13.2.0/tr1/bessel_function.tcc \
+ C:/Strawberry/c/include/c++/13.2.0/tr1/beta_function.tcc \
+ C:/Strawberry/c/include/c++/13.2.0/tr1/ell_integral.tcc \
+ C:/Strawberry/c/include/c++/13.2.0/tr1/exp_integral.tcc \
+ C:/Strawberry/c/include/c++/13.2.0/tr1/hypergeometric.tcc \
+ C:/Strawberry/c/include/c++/13.2.0/tr1/legendre_function.tcc \
+ C:/Strawberry/c/include/c++/13.2.0/tr1/modified_bessel_func.tcc \
+ C:/Strawberry/c/include/c++/13.2.0/tr1/poly_hermite.tcc \
+ C:/Strawberry/c/include/c++/13.2.0/tr1/poly_laguerre.tcc \
+ C:/Strawberry/c/include/c++/13.2.0/tr1/riemann_zeta.tcc

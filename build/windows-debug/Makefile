@@ -64,6 +64,26 @@ CMAKE_BINARY_DIR = D:\GITHUB\ShareAudioPC_2\build\windows-debug
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target package
+package: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Run CPack packaging tool..."
+	C:\Strawberry\c\bin\cpack.exe --config ./CPackConfig.cmake
+.PHONY : package
+
+# Special rule for the target package
+package/fast: package
+.PHONY : package/fast
+
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Run CPack packaging tool for source..."
+	C:\Strawberry\c\bin\cpack.exe --config ./CPackSourceConfig.cmake D:/GITHUB/ShareAudioPC_2/build/windows-debug/CPackSourceConfig.cmake
+.PHONY : package_source
+
+# Special rule for the target package_source
+package_source/fast: package_source
+.PHONY : package_source/fast
+
 # Special rule for the target test
 test:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
@@ -93,6 +113,51 @@ rebuild_cache:
 # Special rule for the target rebuild_cache
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	C:\Strawberry\c\bin\cmake.exe -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	C:\Strawberry\c\bin\cmake.exe -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	C:\Strawberry\c\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	C:\Strawberry\c\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	C:\Strawberry\c\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	C:\Strawberry\c\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -163,6 +228,19 @@ shareaudio_tests: cmake_check_build_system
 shareaudio_tests/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_tests.dir\build.make CMakeFiles/shareaudio_tests.dir/build
 .PHONY : shareaudio_tests/fast
+
+#=============================================================================
+# Target rules for targets named opus
+
+# Build rule for target.
+opus: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 opus
+.PHONY : opus
+
+# fast build rule for target.
+opus/fast:
+	$(MAKE) $(MAKESILENT) -f _deps\opus-build\CMakeFiles\opus.dir\build.make _deps/opus-build/CMakeFiles/opus.dir/build
+.PHONY : opus/fast
 
 src/app/AppController.obj: src/app/AppController.cpp.obj
 .PHONY : src/app/AppController.obj
@@ -283,6 +361,30 @@ src/app/SessionController.s: src/app/SessionController.cpp.s
 src/app/SessionController.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/app/SessionController.cpp.s
 .PHONY : src/app/SessionController.cpp.s
+
+src/app/SingleInstance.obj: src/app/SingleInstance.cpp.obj
+.PHONY : src/app/SingleInstance.obj
+
+# target to build an object file
+src/app/SingleInstance.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/app/SingleInstance.cpp.obj
+.PHONY : src/app/SingleInstance.cpp.obj
+
+src/app/SingleInstance.i: src/app/SingleInstance.cpp.i
+.PHONY : src/app/SingleInstance.i
+
+# target to preprocess a source file
+src/app/SingleInstance.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/app/SingleInstance.cpp.i
+.PHONY : src/app/SingleInstance.cpp.i
+
+src/app/SingleInstance.s: src/app/SingleInstance.cpp.s
+.PHONY : src/app/SingleInstance.s
+
+# target to generate assembly for a file
+src/app/SingleInstance.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/app/SingleInstance.cpp.s
+.PHONY : src/app/SingleInstance.cpp.s
 
 src/audio/AudioAbstractions.obj: src/audio/AudioAbstractions.cpp.obj
 .PHONY : src/audio/AudioAbstractions.obj
@@ -651,8 +753,15 @@ help:
 	@echo ... clean
 	@echo ... depend
 	@echo ... edit_cache
+	@echo ... install
+	@echo ... install/local
+	@echo ... install/strip
+	@echo ... list_install_components
+	@echo ... package
+	@echo ... package_source
 	@echo ... rebuild_cache
 	@echo ... test
+	@echo ... opus
 	@echo ... shareaudio_cli
 	@echo ... shareaudio_core
 	@echo ... shareaudio_tests
@@ -671,6 +780,9 @@ help:
 	@echo ... src/app/SessionController.obj
 	@echo ... src/app/SessionController.i
 	@echo ... src/app/SessionController.s
+	@echo ... src/app/SingleInstance.obj
+	@echo ... src/app/SingleInstance.i
+	@echo ... src/app/SingleInstance.s
 	@echo ... src/audio/AudioAbstractions.obj
 	@echo ... src/audio/AudioAbstractions.i
 	@echo ... src/audio/AudioAbstractions.s

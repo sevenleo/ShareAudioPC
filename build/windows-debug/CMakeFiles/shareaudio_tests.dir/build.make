@@ -93,6 +93,7 @@ shareaudio_tests_EXTERNAL_OBJECTS =
 shareaudio_tests.exe: CMakeFiles/shareaudio_tests.dir/tests/main.cpp.obj
 shareaudio_tests.exe: CMakeFiles/shareaudio_tests.dir/build.make
 shareaudio_tests.exe: libshareaudio_core.a
+shareaudio_tests.exe: _deps/opus-build/libopus.a
 shareaudio_tests.exe: CMakeFiles/shareaudio_tests.dir/linkLibs.rsp
 shareaudio_tests.exe: CMakeFiles/shareaudio_tests.dir/objects1.rsp
 shareaudio_tests.exe: CMakeFiles/shareaudio_tests.dir/link.txt

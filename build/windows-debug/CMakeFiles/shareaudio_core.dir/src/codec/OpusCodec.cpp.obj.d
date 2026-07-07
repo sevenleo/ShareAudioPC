@@ -195,4 +195,10 @@ CMakeFiles/shareaudio_core.dir/src/codec/OpusCodec.cpp.obj: \
  C:/Strawberry/c/include/c++/13.2.0/bits/stl_vector.h \
  C:/Strawberry/c/include/c++/13.2.0/bits/stl_bvector.h \
  C:/Strawberry/c/include/c++/13.2.0/bits/vector.tcc \
- D:/GITHUB/ShareAudioPC_2/src/protocol/Protocol.h
+ D:/GITHUB/ShareAudioPC_2/src/protocol/Protocol.h \
+ D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/include/opus.h \
+ D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/include/opus_types.h \
+ D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/include/opus_defines.h \
+ C:/Strawberry/c/include/c++/13.2.0/cstring \
+ C:/Strawberry/c/x86_64-w64-mingw32/include/string.h \
+ C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/string_s.h

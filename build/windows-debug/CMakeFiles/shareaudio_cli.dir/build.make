@@ -93,6 +93,7 @@ shareaudio_cli_EXTERNAL_OBJECTS =
 shareaudio_cli.exe: CMakeFiles/shareaudio_cli.dir/src/main.cpp.obj
 shareaudio_cli.exe: CMakeFiles/shareaudio_cli.dir/build.make
 shareaudio_cli.exe: libshareaudio_core.a
+shareaudio_cli.exe: _deps/opus-build/libopus.a
 shareaudio_cli.exe: CMakeFiles/shareaudio_cli.dir/linkLibs.rsp
 shareaudio_cli.exe: CMakeFiles/shareaudio_cli.dir/objects1.rsp
 shareaudio_cli.exe: CMakeFiles/shareaudio_cli.dir/link.txt

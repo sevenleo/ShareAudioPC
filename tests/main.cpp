@@ -11,6 +11,7 @@
 #include "protocol/PcmChunker.h"
 #include "protocol/Protocol.h"
 #include "storage/RecentDevices.h"
+#include "app/SingleInstance.h"
 #include "ui/ConsoleUi.h"
 
 #include <filesystem>
@@ -19,6 +20,7 @@
 #include <thread>
 #include <chrono>
 #include <vector>
+#include <cmath>
 
 namespace {
 
@@ -265,17 +267,45 @@ void test_audio_fakes()
     expect(playback.stats().bytes_processed == 4, "null playback tracks bytes");
 }
 
-void test_opus_stub()
+void test_opus_codec()
 {
     shareaudio::OpusEncoder encoder;
-    shareaudio::AudioFormat format;
-    auto init = encoder.initialize(format, shareaudio::Defaults::opus_bitrate_bps);
-    if (init.ok()) {
-        auto encoded = encoder.encode(std::vector<std::uint8_t>(3840, 0));
-        expect(!encoded.ok(), "opus encode wrapper is intentionally incomplete before libopus implementation");
-    } else {
-        expect(init.error().code == shareaudio::ErrorCode::NotSupported, "opus reports not supported without libopus");
+    shareaudio::OpusDecoder decoder;
+    shareaudio::AudioFormat format; // 48kHz, stereo
+
+    auto init_enc = encoder.initialize(format, shareaudio::Defaults::opus_bitrate_bps);
+    auto init_dec = decoder.initialize(format);
+
+#if SHAREAUDIO_HAS_LIBOPUS
+    expect(init_enc.ok(), "opus encoder initialization succeeds");
+    expect(init_dec.ok(), "opus decoder initialization succeeds");
+
+    if (init_enc.ok() && init_dec.ok()) {
+        // Create simple 20ms sine wave or dummy data: 48000 Hz * 0.02s = 960 frames.
+        // 960 frames * 2 channels * 2 bytes/sample = 3840 bytes.
+        std::vector<std::uint8_t> pcm_in(3840);
+        for (std::size_t i = 0; i < pcm_in.size() / 2; ++i) {
+            std::int16_t sample = static_cast<std::int16_t>(1000.0 * sin(2.0 * 3.14159 * 440.0 * i / 48000.0));
+            std::memcpy(&pcm_in[i * 2], &sample, sizeof(sample));
+        }
+
+        auto encoded = encoder.encode(pcm_in);
+        expect(encoded.ok(), "opus encode succeeds");
+        if (encoded.ok()) {
+            expect(!encoded.value().empty(), "encoded opus packet is not empty");
+            expect(encoded.value().size() < pcm_in.size(), "encoded opus packet is compressed (smaller than raw pcm)");
+
+            auto decoded = decoder.decode(encoded.value());
+            expect(decoded.ok(), "opus decode succeeds");
+            if (decoded.ok()) {
+                expect(decoded.value().size() == pcm_in.size(), "decoded pcm size matches input size");
+            }
+        }
     }
+#else
+    expect(init_enc.error().code == shareaudio::ErrorCode::NotSupported, "opus encoder reports not supported without libopus");
+    expect(init_dec.error().code == shareaudio::ErrorCode::NotSupported, "opus decoder reports not supported without libopus");
+#endif
 }
 
 void test_tcp_loopback()
@@ -339,6 +369,15 @@ void test_console_commands()
     expect(ui.run(std::vector<std::string> { "help" }) == 0, "help command succeeds");
 }
 
+void test_single_instance()
+{
+    auto res1 = shareaudio::enforce_single_instance();
+    expect(res1.ok(), "first single instance lock succeeds");
+
+    auto res2 = shareaudio::enforce_single_instance();
+    expect(res2.ok(), "second single instance lock with same PID succeeds");
+}
+
 } // namespace
 
 int main()
@@ -354,10 +393,11 @@ int main()
     test_session_controller();
     test_session_controller_listen_loopback();
     test_audio_fakes();
-    test_opus_stub();
+    test_opus_codec();
     test_tcp_loopback();
     test_pcm_broadcast_server();
     test_console_commands();
+    test_single_instance();
 
     if (failures != 0) {
         std::cerr << failures << " test expectation(s) failed.\n";

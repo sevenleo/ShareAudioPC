@@ -397,3 +397,1342 @@ events:
         
       exitCode: 0
 ...
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:7 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: C:/Strawberry/c/bin/gcc.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.exe"
+      
+      The C compiler identification is GNU, found in:
+        D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/3.29.2/CompilerIdC/a.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:64 (try_compile)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:7 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-jws9ay"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-jws9ay"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-jws9ay'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_b25d9/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_b25d9.dir\\build.make CMakeFiles/cmTC_b25d9.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-jws9ay'
+        Building C object CMakeFiles/cmTC_b25d9.dir/CMakeCCompilerABI.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe   -v -o CMakeFiles\\cmTC_b25d9.dir\\CMakeCCompilerABI.c.obj -c C:\\Strawberry\\c\\share\\cmake-3.29\\Modules\\CMakeCCompilerABI.c
+        Using built-in specs.
+        COLLECT_GCC=C:\\Strawberry\\c\\bin\\gcc.exe
+        OFFLOAD_TARGET_NAMES=nvptx-none
+        Target: x86_64-w64-mingw32
+        Configured with: ../configure --prefix=/R/winlibs64ucrt_stage/inst_gcc-13.2.0/share/gcc --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-offload-targets=nvptx-none --with-pkgversion='MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r8' --with-tune=generic --enable-checking=release --enable-threads=posix --disable-sjlj-exceptions --disable-libunwind-exceptions --disable-serial-configure --disable-bootstrap --enable-host-shared --enable-plugin --disable-default-ssp --disable-rpath --disable-libstdcxx-debug --disable-version-specific-runtime-libs --with-stabs --disable-symvers --enable-languages=c,c++,fortran,lto,objc,obj-c++ --disable-gold --disable-nls --disable-stage1-checking --disable-win32-registry --disable-multilib --enable-ld --enable-libquadmath --enable-libada --enable-libssp --enable-libstdcxx --enable-lto --enable-fully-dynamic-string --enable-libgomp --enable-graphite --enable-mingw-wildcard --enable-libstdcxx-time --enable-libstdcxx-pch --with-mpc=/d/Prog/winlibs64ucrt_stage/custombuilt --with-mpfr=/d/Prog/winlibs64ucrt_stage/custombuilt --with-gmp=/d/Prog/winlibs64ucrt_stage/custombuilt --with-isl=/d/Prog/winlibs64ucrt_stage/custombuilt --disable-libstdcxx-backtrace --enable-install-libiberty --enable-__cxa_atexit --without-included-gettext --with-diagnostics-color=auto --enable-clocale=generic --with-libiconv --with-system-zlib --with-build-sysroot=/R/winlibs64ucrt_stage/gcc-13.2.0/build_mingw/mingw-w64 CFLAGS='-I/d/Prog/winlibs64ucrt_stage/custombuilt/include/libdl-win32   -march=nocona -msahf -mtune=generic -O2' CXXFLAGS='-Wno-int-conversion  -march=nocona -msahf -mtune=generic -O2' LDFLAGS='-pthread -Wl,--no-insert-timestamp -Wl,--dynamicbase -Wl,--high-entropy-va -Wl,--nxcompat -Wl,--tsaware' LD=/d/Prog/winlibs64ucrt_stage/custombuilt/share/binutils/bin/ld.exe
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 13.2.0 (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r8) 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_b25d9.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles\\cmTC_b25d9.dir\\'
+         C:/Strawberry/c/bin/../libexec/gcc/x86_64-w64-mingw32/13.2.0/cc1.exe -quiet -v -iprefix C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/ -D_REENTRANT C:\\Strawberry\\c\\share\\cmake-3.29\\Modules\\CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles\\cmTC_b25d9.dir\\ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -o C:\\Users\\Leonardo\\AppData\\Local\\Temp\\cc1gIGZT.s
+        GNU C17 (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r8) version 13.2.0 (x86_64-w64-mingw32)
+        	compiled by GNU C version 13.2.0, GMP version 6.3.0, MPFR version 4.2.1, MPC version 1.3.1, isl version isl-0.26-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring duplicate directory "C:/Strawberry/c/lib/gcc/../../lib/gcc/x86_64-w64-mingw32/13.2.0/include"
+        ignoring nonexistent directory "R:/winlibs64ucrt_stage/inst_gcc-13.2.0/share/gcc/include"
+        ignoring nonexistent directory "/R/winlibs64ucrt_stage/inst_gcc-13.2.0/share/gcc/include"
+        ignoring duplicate directory "C:/Strawberry/c/lib/gcc/../../lib/gcc/x86_64-w64-mingw32/13.2.0/include-fixed"
+        ignoring duplicate directory "C:/Strawberry/c/lib/gcc/../../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/include"
+        ignoring nonexistent directory "/mingw/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/include
+         C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../include
+         C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/include-fixed
+         C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/include
+        End of search list.
+        Compiler executable checksum: 71996911801439ebea1892f3f3ba3826
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_b25d9.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles\\cmTC_b25d9.dir\\'
+         C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles\\cmTC_b25d9.dir\\CMakeCCompilerABI.c.obj C:\\Users\\Leonardo\\AppData\\Local\\Temp\\cc1gIGZT.s
+        GNU assembler version 2.42 (x86_64-w64-mingw32) using BFD version (Binutils for MinGW-W64 x86_64, built by Brecht Sanders, r8) 2.42
+        COMPILER_PATH=C:/Strawberry/c/bin/../libexec/gcc/x86_64-w64-mingw32/13.2.0/;C:/Strawberry/c/bin/../libexec/gcc/;C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/bin/
+        LIBRARY_PATH=C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/;C:/Strawberry/c/bin/../lib/gcc/;C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/../lib/;C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../lib/;C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/;C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_b25d9.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles\\cmTC_b25d9.dir\\CMakeCCompilerABI.c.'
+        Linking C executable cmTC_b25d9.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_b25d9.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_b25d9.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_b25d9.dir/objects.a @CMakeFiles\\cmTC_b25d9.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe  -v -Wl,-v -Wl,--whole-archive CMakeFiles\\cmTC_b25d9.dir/objects.a -Wl,--no-whole-archive -o cmTC_b25d9.exe -Wl,--out-implib,libcmTC_b25d9.dll.a -Wl,--major-image-version,0,--minor-image-version,0
+        Using built-in specs.
+        COLLECT_GCC=C:\\Strawberry\\c\\bin\\gcc.exe
+        COLLECT_LTO_WRAPPER=C:/Strawberry/c/bin/../libexec/gcc/x86_64-w64-mingw32/13.2.0/lto-wrapper.exe
+        OFFLOAD_TARGET_NAMES=nvptx-none
+        Target: x86_64-w64-mingw32
+        Configured with: ../configure --prefix=/R/winlibs64ucrt_stage/inst_gcc-13.2.0/share/gcc --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-offload-targets=nvptx-none --with-pkgversion='MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r8' --with-tune=generic --enable-checking=release --enable-threads=posix --disable-sjlj-exceptions --disable-libunwind-exceptions --disable-serial-configure --disable-bootstrap --enable-host-shared --enable-plugin --disable-default-ssp --disable-rpath --disable-libstdcxx-debug --disable-version-specific-runtime-libs --with-stabs --disable-symvers --enable-languages=c,c++,fortran,lto,objc,obj-c++ --disable-gold --disable-nls --disable-stage1-checking --disable-win32-registry --disable-multilib --enable-ld --enable-libquadmath --enable-libada --enable-libssp --enable-libstdcxx --enable-lto --enable-fully-dynamic-string --enable-libgomp --enable-graphite --enable-mingw-wildcard --enable-libstdcxx-time --enable-libstdcxx-pch --with-mpc=/d/Prog/winlibs64ucrt_stage/custombuilt --with-mpfr=/d/Prog/winlibs64ucrt_stage/custombuilt --with-gmp=/d/Prog/winlibs64ucrt_stage/custombuilt --with-isl=/d/Prog/winlibs64ucrt_stage/custombuilt --disable-libstdcxx-backtrace --enable-install-libiberty --enable-__cxa_atexit --without-included-gettext --with-diagnostics-color=auto --enable-clocale=generic --with-libiconv --with-system-zlib --with-build-sysroot=/R/winlibs64ucrt_stage/gcc-13.2.0/build_mingw/mingw-w64 CFLAGS='-I/d/Prog/winlibs64ucrt_stage/custombuilt/include/libdl-win32   -march=nocona -msahf -mtune=generic -O2' CXXFLAGS='-Wno-int-conversion  -march=nocona -msahf -mtune=generic -O2' LDFLAGS='-pthread -Wl,--no-insert-timestamp -Wl,--dynamicbase -Wl,--high-entropy-va -Wl,--nxcompat -Wl,--tsaware' LD=/d/Prog/winlibs64ucrt_stage/custombuilt/share/binutils/bin/ld.exe
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 13.2.0 (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r8) 
+        COMPILER_PATH=C:/Strawberry/c/bin/../libexec/gcc/x86_64-w64-mingw32/13.2.0/;C:/Strawberry/c/bin/../libexec/gcc/;C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/bin/
+        LIBRARY_PATH=C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/;C:/Strawberry/c/bin/../lib/gcc/;C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/../lib/;C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../lib/;C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/;C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_b25d9.exe' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_b25d9.'
+         C:/Strawberry/c/bin/../libexec/gcc/x86_64-w64-mingw32/13.2.0/collect2.exe -plugin C:/Strawberry/c/bin/../libexec/gcc/x86_64-w64-mingw32/13.2.0/liblto_plugin.dll -plugin-opt=C:/Strawberry/c/bin/../libexec/gcc/x86_64-w64-mingw32/13.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\Leonardo\\AppData\\Local\\Temp\\ccPSp8h8.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_b25d9.exe C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/crtbegin.o -LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0 -LC:/Strawberry/c/bin/../lib/gcc -LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../lib -LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib -LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_b25d9.dir/objects.a --no-whole-archive --out-implib libcmTC_b25d9.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/crtend.o
+        collect2 version 13.2.0
+        C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe -plugin C:/Strawberry/c/bin/../libexec/gcc/x86_64-w64-mingw32/13.2.0/liblto_plugin.dll -plugin-opt=C:/Strawberry/c/bin/../libexec/gcc/x86_64-w64-mingw32/13.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\Leonardo\\AppData\\Local\\Temp\\ccPSp8h8.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_b25d9.exe C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/crtbegin.o -LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0 -LC:/Strawberry/c/bin/../lib/gcc -LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../lib -LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib -LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_b25d9.dir/objects.a --no-whole-archive --out-implib libcmTC_b25d9.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/crtend.o
+        GNU ld (Binutils for MinGW-W64 x86_64, built by Brecht Sanders, r8) 2.42
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_b25d9.exe' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_b25d9.'
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-jws9ay'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:134 (message)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:7 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/include]
+          add: [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../include]
+          add: [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/include-fixed]
+          add: [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/include]
+        end of search list found
+        collapse include dir [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/include] ==> [C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include]
+        collapse include dir [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../include] ==> [C:/Strawberry/c/include]
+        collapse include dir [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/include-fixed] ==> [C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include-fixed]
+        collapse include dir [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/include] ==> [C:/Strawberry/c/x86_64-w64-mingw32/include]
+        implicit include dirs: [C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include;C:/Strawberry/c/include;C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include-fixed;C:/Strawberry/c/x86_64-w64-mingw32/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:170 (message)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:7 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
+        ignore line: [Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-jws9ay']
+        ignore line: []
+        ignore line: [Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_b25d9/fast]
+        ignore line: [C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_b25d9.dir\\build.make CMakeFiles/cmTC_b25d9.dir/build]
+        ignore line: [mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-jws9ay']
+        ignore line: [Building C object CMakeFiles/cmTC_b25d9.dir/CMakeCCompilerABI.c.obj]
+        ignore line: [C:\\Strawberry\\c\\bin\\gcc.exe   -v -o CMakeFiles\\cmTC_b25d9.dir\\CMakeCCompilerABI.c.obj -c C:\\Strawberry\\c\\share\\cmake-3.29\\Modules\\CMakeCCompilerABI.c]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=C:\\Strawberry\\c\\bin\\gcc.exe]
+        ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
+        ignore line: [Target: x86_64-w64-mingw32]
+        ignore line: [Configured with: ../configure --prefix=/R/winlibs64ucrt_stage/inst_gcc-13.2.0/share/gcc --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-offload-targets=nvptx-none --with-pkgversion='MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r8' --with-tune=generic --enable-checking=release --enable-threads=posix --disable-sjlj-exceptions --disable-libunwind-exceptions --disable-serial-configure --disable-bootstrap --enable-host-shared --enable-plugin --disable-default-ssp --disable-rpath --disable-libstdcxx-debug --disable-version-specific-runtime-libs --with-stabs --disable-symvers --enable-languages=c,c++,fortran,lto,objc,obj-c++ --disable-gold --disable-nls --disable-stage1-checking --disable-win32-registry --disable-multilib --enable-ld --enable-libquadmath --enable-libada --enable-libssp --enable-libstdcxx --enable-lto --enable-fully-dynamic-string --enable-libgomp --enable-graphite --enable-mingw-wildcard --enable-libstdcxx-time --enable-libstdcxx-pch --with-mpc=/d/Prog/winlibs64ucrt_stage/custombuilt --with-mpfr=/d/Prog/winlibs64ucrt_stage/custombuilt --with-gmp=/d/Prog/winlibs64ucrt_stage/custombuilt --with-isl=/d/Prog/winlibs64ucrt_stage/custombuilt --disable-libstdcxx-backtrace --enable-install-libiberty --enable-__cxa_atexit --without-included-gettext --with-diagnostics-color=auto --enable-clocale=generic --with-libiconv --with-system-zlib --with-build-sysroot=/R/winlibs64ucrt_stage/gcc-13.2.0/build_mingw/mingw-w64 CFLAGS='-I/d/Prog/winlibs64ucrt_stage/custombuilt/include/libdl-win32   -march=nocona -msahf -mtune=generic -O2' CXXFLAGS='-Wno-int-conversion  -march=nocona -msahf -mtune=generic -O2' LDFLAGS='-pthread -Wl,--no-insert-timestamp -Wl,--dynamicbase -Wl,--high-entropy-va -Wl,--nxcompat -Wl,--tsaware' LD=/d/Prog/winlibs64ucrt_stage/custombuilt/share/binutils/bin/ld.exe]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 13.2.0 (MinGW-W64 x86_64-ucrt-posix-seh  built by Brecht Sanders  r8) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_b25d9.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles\\cmTC_b25d9.dir\\']
+        ignore line: [ C:/Strawberry/c/bin/../libexec/gcc/x86_64-w64-mingw32/13.2.0/cc1.exe -quiet -v -iprefix C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/ -D_REENTRANT C:\\Strawberry\\c\\share\\cmake-3.29\\Modules\\CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles\\cmTC_b25d9.dir\\ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -o C:\\Users\\Leonardo\\AppData\\Local\\Temp\\cc1gIGZT.s]
+        ignore line: [GNU C17 (MinGW-W64 x86_64-ucrt-posix-seh  built by Brecht Sanders  r8) version 13.2.0 (x86_64-w64-mingw32)]
+        ignore line: [	compiled by GNU C version 13.2.0  GMP version 6.3.0  MPFR version 4.2.1  MPC version 1.3.1  isl version isl-0.26-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring duplicate directory "C:/Strawberry/c/lib/gcc/../../lib/gcc/x86_64-w64-mingw32/13.2.0/include"]
+        ignore line: [ignoring nonexistent directory "R:/winlibs64ucrt_stage/inst_gcc-13.2.0/share/gcc/include"]
+        ignore line: [ignoring nonexistent directory "/R/winlibs64ucrt_stage/inst_gcc-13.2.0/share/gcc/include"]
+        ignore line: [ignoring duplicate directory "C:/Strawberry/c/lib/gcc/../../lib/gcc/x86_64-w64-mingw32/13.2.0/include-fixed"]
+        ignore line: [ignoring duplicate directory "C:/Strawberry/c/lib/gcc/../../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/include"]
+        ignore line: [ignoring nonexistent directory "/mingw/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/include]
+        ignore line: [ C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../include]
+        ignore line: [ C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/include-fixed]
+        ignore line: [ C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/include]
+        ignore line: [End of search list.]
+        ignore line: [Compiler executable checksum: 71996911801439ebea1892f3f3ba3826]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_b25d9.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles\\cmTC_b25d9.dir\\']
+        ignore line: [ C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles\\cmTC_b25d9.dir\\CMakeCCompilerABI.c.obj C:\\Users\\Leonardo\\AppData\\Local\\Temp\\cc1gIGZT.s]
+        ignore line: [GNU assembler version 2.42 (x86_64-w64-mingw32) using BFD version (Binutils for MinGW-W64 x86_64  built by Brecht Sanders  r8) 2.42]
+        ignore line: [COMPILER_PATH=C:/Strawberry/c/bin/../libexec/gcc/x86_64-w64-mingw32/13.2.0/]
+        ignore line: [C:/Strawberry/c/bin/../libexec/gcc/]
+        ignore line: [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/bin/]
+        ignore line: [LIBRARY_PATH=C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/]
+        ignore line: [C:/Strawberry/c/bin/../lib/gcc/]
+        ignore line: [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/../lib/]
+        ignore line: [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../lib/]
+        ignore line: [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/]
+        ignore line: [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles\\cmTC_b25d9.dir\\CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles\\cmTC_b25d9.dir\\CMakeCCompilerABI.c.']
+        ignore line: [Linking C executable cmTC_b25d9.exe]
+        ignore line: [C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_b25d9.dir\\link.txt --verbose=1]
+        ignore line: [C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_b25d9.dir/objects.a]
+        ignore line: [C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_b25d9.dir/objects.a @CMakeFiles\\cmTC_b25d9.dir\\objects1.rsp]
+        ignore line: [C:\\Strawberry\\c\\bin\\gcc.exe  -v -Wl -v -Wl --whole-archive CMakeFiles\\cmTC_b25d9.dir/objects.a -Wl --no-whole-archive -o cmTC_b25d9.exe -Wl --out-implib libcmTC_b25d9.dll.a -Wl --major-image-version 0 --minor-image-version 0]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=C:\\Strawberry\\c\\bin\\gcc.exe]
+        ignore line: [COLLECT_LTO_WRAPPER=C:/Strawberry/c/bin/../libexec/gcc/x86_64-w64-mingw32/13.2.0/lto-wrapper.exe]
+        ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
+        ignore line: [Target: x86_64-w64-mingw32]
+        ignore line: [Configured with: ../configure --prefix=/R/winlibs64ucrt_stage/inst_gcc-13.2.0/share/gcc --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-offload-targets=nvptx-none --with-pkgversion='MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r8' --with-tune=generic --enable-checking=release --enable-threads=posix --disable-sjlj-exceptions --disable-libunwind-exceptions --disable-serial-configure --disable-bootstrap --enable-host-shared --enable-plugin --disable-default-ssp --disable-rpath --disable-libstdcxx-debug --disable-version-specific-runtime-libs --with-stabs --disable-symvers --enable-languages=c,c++,fortran,lto,objc,obj-c++ --disable-gold --disable-nls --disable-stage1-checking --disable-win32-registry --disable-multilib --enable-ld --enable-libquadmath --enable-libada --enable-libssp --enable-libstdcxx --enable-lto --enable-fully-dynamic-string --enable-libgomp --enable-graphite --enable-mingw-wildcard --enable-libstdcxx-time --enable-libstdcxx-pch --with-mpc=/d/Prog/winlibs64ucrt_stage/custombuilt --with-mpfr=/d/Prog/winlibs64ucrt_stage/custombuilt --with-gmp=/d/Prog/winlibs64ucrt_stage/custombuilt --with-isl=/d/Prog/winlibs64ucrt_stage/custombuilt --disable-libstdcxx-backtrace --enable-install-libiberty --enable-__cxa_atexit --without-included-gettext --with-diagnostics-color=auto --enable-clocale=generic --with-libiconv --with-system-zlib --with-build-sysroot=/R/winlibs64ucrt_stage/gcc-13.2.0/build_mingw/mingw-w64 CFLAGS='-I/d/Prog/winlibs64ucrt_stage/custombuilt/include/libdl-win32   -march=nocona -msahf -mtune=generic -O2' CXXFLAGS='-Wno-int-conversion  -march=nocona -msahf -mtune=generic -O2' LDFLAGS='-pthread -Wl,--no-insert-timestamp -Wl,--dynamicbase -Wl,--high-entropy-va -Wl,--nxcompat -Wl,--tsaware' LD=/d/Prog/winlibs64ucrt_stage/custombuilt/share/binutils/bin/ld.exe]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 13.2.0 (MinGW-W64 x86_64-ucrt-posix-seh  built by Brecht Sanders  r8) ]
+        ignore line: [COMPILER_PATH=C:/Strawberry/c/bin/../libexec/gcc/x86_64-w64-mingw32/13.2.0/]
+        ignore line: [C:/Strawberry/c/bin/../libexec/gcc/]
+        ignore line: [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/bin/]
+        ignore line: [LIBRARY_PATH=C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/]
+        ignore line: [C:/Strawberry/c/bin/../lib/gcc/]
+        ignore line: [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/../lib/]
+        ignore line: [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../lib/]
+        ignore line: [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/]
+        ignore line: [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_b25d9.exe' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_b25d9.']
+        link line: [ C:/Strawberry/c/bin/../libexec/gcc/x86_64-w64-mingw32/13.2.0/collect2.exe -plugin C:/Strawberry/c/bin/../libexec/gcc/x86_64-w64-mingw32/13.2.0/liblto_plugin.dll -plugin-opt=C:/Strawberry/c/bin/../libexec/gcc/x86_64-w64-mingw32/13.2.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\Leonardo\\AppData\\Local\\Temp\\ccPSp8h8.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -m i386pep -Bdynamic -o cmTC_b25d9.exe C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/crtbegin.o -LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0 -LC:/Strawberry/c/bin/../lib/gcc -LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../lib -LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib -LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../.. -v --whole-archive CMakeFiles\\cmTC_b25d9.dir/objects.a --no-whole-archive --out-implib libcmTC_b25d9.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/crtend.o]
+          arg [C:/Strawberry/c/bin/../libexec/gcc/x86_64-w64-mingw32/13.2.0/collect2.exe] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [C:/Strawberry/c/bin/../libexec/gcc/x86_64-w64-mingw32/13.2.0/liblto_plugin.dll] ==> ignore
+          arg [-plugin-opt=C:/Strawberry/c/bin/../libexec/gcc/x86_64-w64-mingw32/13.2.0/lto-wrapper.exe] ==> ignore
+          arg [-plugin-opt=-fresolution=C:\\Users\\Leonardo\\AppData\\Local\\Temp\\ccPSp8h8.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmingw32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_eh] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmoldname] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmingwex] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmsvcrt] ==> ignore
+          arg [-plugin-opt=-pass-through=-lkernel32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lpthread] ==> ignore
+          arg [-plugin-opt=-pass-through=-ladvapi32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lshell32] ==> ignore
+          arg [-plugin-opt=-pass-through=-luser32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lkernel32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmingw32] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_eh] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmoldname] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmingwex] ==> ignore
+          arg [-plugin-opt=-pass-through=-lmsvcrt] ==> ignore
+          arg [-plugin-opt=-pass-through=-lkernel32] ==> ignore
+          arg [-m] ==> ignore
+          arg [i386pep] ==> ignore
+          arg [-Bdynamic] ==> search dynamic
+          arg [-o] ==> ignore
+          arg [cmTC_b25d9.exe] ==> ignore
+          arg [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o] ==> obj [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o]
+          arg [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/crtbegin.o] ==> obj [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/crtbegin.o]
+          arg [-LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0] ==> dir [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0]
+          arg [-LC:/Strawberry/c/bin/../lib/gcc] ==> dir [C:/Strawberry/c/bin/../lib/gcc]
+          arg [-LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/../lib] ==> dir [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/../lib]
+          arg [-LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../lib] ==> dir [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../lib]
+          arg [-LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib] ==> dir [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib]
+          arg [-LC:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../..] ==> dir [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../..]
+          arg [-v] ==> ignore
+          arg [--whole-archive] ==> ignore
+          arg [CMakeFiles\\cmTC_b25d9.dir/objects.a] ==> ignore
+          arg [--no-whole-archive] ==> ignore
+          arg [--out-implib] ==> ignore
+          arg [libcmTC_b25d9.dll.a] ==> ignore
+          arg [--major-image-version] ==> ignore
+          arg [0] ==> ignore
+          arg [--minor-image-version] ==> ignore
+          arg [0] ==> ignore
+          arg [-lmingw32] ==> lib [mingw32]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lgcc_eh] ==> lib [gcc_eh]
+          arg [-lmoldname] ==> lib [moldname]
+          arg [-lmingwex] ==> lib [mingwex]
+          arg [-lmsvcrt] ==> lib [msvcrt]
+          arg [-lkernel32] ==> lib [kernel32]
+          arg [-lpthread] ==> lib [pthread]
+          arg [-ladvapi32] ==> lib [advapi32]
+          arg [-lshell32] ==> lib [shell32]
+          arg [-luser32] ==> lib [user32]
+          arg [-lkernel32] ==> lib [kernel32]
+          arg [-lmingw32] ==> lib [mingw32]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lgcc_eh] ==> lib [gcc_eh]
+          arg [-lmoldname] ==> lib [moldname]
+          arg [-lmingwex] ==> lib [mingwex]
+          arg [-lmsvcrt] ==> lib [msvcrt]
+          arg [-lkernel32] ==> lib [kernel32]
+          arg [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/crtend.o] ==> obj [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/crtend.o]
+        linker tool for 'C': Configured with: ../configure --prefix=/R/winlibs64ucrt_stage/inst_gcc-13.2.0/share/gcc --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-offload-targets=nvptx-none --with-pkgversion='MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r8' --with-tune=generic --enable-checking=release --enable-threads=posix --disable-sjlj-exceptions --disable-libunwind-exceptions --disable-serial-configure --disable-bootstrap --enable-host-shared --enable-plugin --disable-default-ssp --disable-rpath --disable-libstdcxx-debug --disable-version-specific-runtime-libs --with-stabs --disable-symvers --enable-languages=c,c++,fortran,lto,objc,obj-c++ --disable-gold --disable-nls --disable-stage1-checking --disable-win32-registry --disable-multilib --enable-ld --enable-libquadmath --enable-libada --enable-libssp --enable-libstdcxx --enable-lto --enable-fully-dynamic-string --enable-libgomp --enable-graphite --enable-mingw-wildcard --enable-libstdcxx-time --enable-libstdcxx-pch --with-mpc=/d/Prog/winlibs64ucrt_stage/custombuilt --with-mpfr=/d/Prog/winlibs64ucrt_stage/custombuilt --with-gmp=/d/Prog/winlibs64ucrt_stage/custombuilt --with-isl=/d/Prog/winlibs64ucrt_stage/custombuilt --disable-libstdcxx-backtrace --enable-install-libiberty --enable-__cxa_atexit --without-included-gettext --with-diagnostics-color=auto --enable-clocale=generic --with-libiconv --with-system-zlib --with-build-sysroot=/R/winlibs64ucrt_stage/gcc-13.2.0/build_mingw/mingw-w64 CFLAGS='-I/d/Prog/winlibs64ucrt_stage/custombuilt/include/libdl-win32   -march=nocona -msahf -mtune=generic -O2' CXXFLAGS='-Wno-int-conversion  -march=nocona -msahf -mtune=generic -O2' LDFLAGS='-pthread -Wl,--no-insert-timestamp -Wl,--dynamicbase -Wl,--high-entropy-va -Wl,--nxcompat -Wl,--tsaware' LD=/d/Prog/winlibs64ucrt_stage/custombuilt/share/binutils/bin/ld.exe
+        remove lib [gcc_eh]
+        remove lib [msvcrt]
+        remove lib [gcc_eh]
+        remove lib [msvcrt]
+        collapse obj [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o] ==> [C:/Strawberry/c/x86_64-w64-mingw32/lib/crt2.o]
+        collapse obj [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/crtbegin.o] ==> [C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/crtbegin.o]
+        collapse obj [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/crtend.o] ==> [C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/crtend.o]
+        collapse library dir [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0] ==> [C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0]
+        collapse library dir [C:/Strawberry/c/bin/../lib/gcc] ==> [C:/Strawberry/c/lib/gcc]
+        collapse library dir [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib/../lib] ==> [C:/Strawberry/c/x86_64-w64-mingw32/lib]
+        collapse library dir [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../lib] ==> [C:/Strawberry/c/lib]
+        collapse library dir [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/lib] ==> [C:/Strawberry/c/x86_64-w64-mingw32/lib]
+        collapse library dir [C:/Strawberry/c/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../..] ==> [C:/Strawberry/c/lib]
+        implicit libs: [mingw32;gcc;moldname;mingwex;kernel32;pthread;advapi32;shell32;user32;kernel32;mingw32;gcc;moldname;mingwex;kernel32]
+        implicit objs: [C:/Strawberry/c/x86_64-w64-mingw32/lib/crt2.o;C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/crtbegin.o;C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/crtend.o]
+        implicit dirs: [C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0;C:/Strawberry/c/lib/gcc;C:/Strawberry/c/x86_64-w64-mingw32/lib;C:/Strawberry/c/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:207 (cmake_determine_linker_id)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:7 (project)"
+    message: |
+      Running the C compiler's linker: "Configured with: ../configure --prefix=/R/winlibs64ucrt_stage/inst_gcc-13.2.0/share/gcc --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-offload-targets=nvptx-none --with-pkgversion='MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r8' --with-tune=generic --enable-checking=release --enable-threads=posix --disable-sjlj-exceptions --disable-libunwind-exceptions --disable-serial-configure --disable-bootstrap --enable-host-shared --enable-plugin --disable-default-ssp --disable-rpath --disable-libstdcxx-debug --disable-version-specific-runtime-libs --with-stabs --disable-symvers --enable-languages=c,c++,fortran,lto,objc,obj-c++ --disable-gold --disable-nls --disable-stage1-checking --disable-win32-registry --disable-multilib --enable-ld --enable-libquadmath --enable-libada --enable-libssp --enable-libstdcxx --enable-lto --enable-fully-dynamic-string --enable-libgomp --enable-graphite --enable-mingw-wildcard --enable-libstdcxx-time --enable-libstdcxx-pch --with-mpc=/d/Prog/winlibs64ucrt_stage/custombuilt --with-mpfr=/d/Prog/winlibs64ucrt_stage/custombuilt --with-gmp=/d/Prog/winlibs64ucrt_stage/custombuilt --with-isl=/d/Prog/winlibs64ucrt_stage/custombuilt --disable-libstdcxx-backtrace --enable-install-libiberty --enable-__cxa_atexit --without-included-gettext --with-diagnostics-color=auto --enable-clocale=generic --with-libiconv --with-system-zlib --with-build-sysroot=/R/winlibs64ucrt_stage/gcc-13.2.0/build_mingw/mingw-w64 CFLAGS='-I/d/Prog/winlibs64ucrt_stage/custombuilt/include/libdl-win32   -march=nocona -msahf -mtune=generic -O2' CXXFLAGS='-Wno-int-conversion  -march=nocona -msahf -mtune=generic -O2' LDFLAGS='-pthread -Wl,--no-insert-timestamp -Wl,--dynamicbase -Wl,--high-entropy-va -Wl,--nxcompat -Wl,--tsaware' LD=/d/Prog/winlibs64ucrt_stage/custombuilt/share/binutils/bin/ld.exe" "-v"
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:207 (cmake_determine_linker_id)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:7 (project)"
+    message: |
+      Running the C compiler's linker: "Configured with: ../configure --prefix=/R/winlibs64ucrt_stage/inst_gcc-13.2.0/share/gcc --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-offload-targets=nvptx-none --with-pkgversion='MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r8' --with-tune=generic --enable-checking=release --enable-threads=posix --disable-sjlj-exceptions --disable-libunwind-exceptions --disable-serial-configure --disable-bootstrap --enable-host-shared --enable-plugin --disable-default-ssp --disable-rpath --disable-libstdcxx-debug --disable-version-specific-runtime-libs --with-stabs --disable-symvers --enable-languages=c,c++,fortran,lto,objc,obj-c++ --disable-gold --disable-nls --disable-stage1-checking --disable-win32-registry --disable-multilib --enable-ld --enable-libquadmath --enable-libada --enable-libssp --enable-libstdcxx --enable-lto --enable-fully-dynamic-string --enable-libgomp --enable-graphite --enable-mingw-wildcard --enable-libstdcxx-time --enable-libstdcxx-pch --with-mpc=/d/Prog/winlibs64ucrt_stage/custombuilt --with-mpfr=/d/Prog/winlibs64ucrt_stage/custombuilt --with-gmp=/d/Prog/winlibs64ucrt_stage/custombuilt --with-isl=/d/Prog/winlibs64ucrt_stage/custombuilt --disable-libstdcxx-backtrace --enable-install-libiberty --enable-__cxa_atexit --without-included-gettext --with-diagnostics-color=auto --enable-clocale=generic --with-libiconv --with-system-zlib --with-build-sysroot=/R/winlibs64ucrt_stage/gcc-13.2.0/build_mingw/mingw-w64 CFLAGS='-I/d/Prog/winlibs64ucrt_stage/custombuilt/include/libdl-win32   -march=nocona -msahf -mtune=generic -O2' CXXFLAGS='-Wno-int-conversion  -march=nocona -msahf -mtune=generic -O2' LDFLAGS='-pthread -Wl,--no-insert-timestamp -Wl,--dynamicbase -Wl,--high-entropy-va -Wl,--nxcompat -Wl,--tsaware' LD=/d/Prog/winlibs64ucrt_stage/custombuilt/share/binutils/bin/ld.exe" "-V"
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:207 (cmake_determine_linker_id)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:7 (project)"
+    message: |
+      Running the C compiler's linker: "Configured with: ../configure --prefix=/R/winlibs64ucrt_stage/inst_gcc-13.2.0/share/gcc --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-offload-targets=nvptx-none --with-pkgversion='MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r8' --with-tune=generic --enable-checking=release --enable-threads=posix --disable-sjlj-exceptions --disable-libunwind-exceptions --disable-serial-configure --disable-bootstrap --enable-host-shared --enable-plugin --disable-default-ssp --disable-rpath --disable-libstdcxx-debug --disable-version-specific-runtime-libs --with-stabs --disable-symvers --enable-languages=c,c++,fortran,lto,objc,obj-c++ --disable-gold --disable-nls --disable-stage1-checking --disable-win32-registry --disable-multilib --enable-ld --enable-libquadmath --enable-libada --enable-libssp --enable-libstdcxx --enable-lto --enable-fully-dynamic-string --enable-libgomp --enable-graphite --enable-mingw-wildcard --enable-libstdcxx-time --enable-libstdcxx-pch --with-mpc=/d/Prog/winlibs64ucrt_stage/custombuilt --with-mpfr=/d/Prog/winlibs64ucrt_stage/custombuilt --with-gmp=/d/Prog/winlibs64ucrt_stage/custombuilt --with-isl=/d/Prog/winlibs64ucrt_stage/custombuilt --disable-libstdcxx-backtrace --enable-install-libiberty --enable-__cxa_atexit --without-included-gettext --with-diagnostics-color=auto --enable-clocale=generic --with-libiconv --with-system-zlib --with-build-sysroot=/R/winlibs64ucrt_stage/gcc-13.2.0/build_mingw/mingw-w64 CFLAGS='-I/d/Prog/winlibs64ucrt_stage/custombuilt/include/libdl-win32   -march=nocona -msahf -mtune=generic -O2' CXXFLAGS='-Wno-int-conversion  -march=nocona -msahf -mtune=generic -O2' LDFLAGS='-pthread -Wl,--no-insert-timestamp -Wl,--dynamicbase -Wl,--high-entropy-va -Wl,--nxcompat -Wl,--tsaware' LD=/d/Prog/winlibs64ucrt_stage/custombuilt/share/binutils/bin/ld.exe" "--version"
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "build/windows-debug/_deps/opus-src/cmake/CFeatureCheck.cmake:30 (try_compile)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:27 (c_feature_check)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-build/CMakeFiles/CMakeTmp"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-build/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "COMPILE_VLA_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-build/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_0bd56/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_0bd56.dir\\build.make CMakeFiles/cmTC_0bd56.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-build/CMakeFiles/CMakeTmp'
+        Building C object CMakeFiles/cmTC_0bd56.dir/vla.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe    -o CMakeFiles\\cmTC_0bd56.dir\\vla.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\_deps\\opus-src\\cmake\\vla.c
+        Linking C executable cmTC_0bd56.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_0bd56.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_0bd56.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_0bd56.dir/objects.a @CMakeFiles\\cmTC_0bd56.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_0bd56.dir/objects.a -Wl,--no-whole-archive -o cmTC_0bd56.exe -Wl,--out-implib,libcmTC_0bd56.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_0bd56.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-build/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:30 (check_include_file)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for alloca.h"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ocrl0z"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ocrl0z"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "HAVE_ALLOCA_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ocrl0z'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_d4f59/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_d4f59.dir\\build.make CMakeFiles/cmTC_d4f59.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ocrl0z'
+        Building C object CMakeFiles/cmTC_d4f59.dir/CheckIncludeFile.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe    -o CMakeFiles\\cmTC_d4f59.dir\\CheckIncludeFile.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-ocrl0z\\CheckIncludeFile.c
+        D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-ocrl0z\\CheckIncludeFile.c:1:10: fatal error: alloca.h: No such file or directory
+            1 | #include <alloca.h>
+              |          ^~~~~~~~~~
+        compilation terminated.
+        mingw32-make[1]: *** [CMakeFiles\\cmTC_d4f59.dir\\build.make:77: CMakeFiles/cmTC_d4f59.dir/CheckIncludeFile.c.obj] Error 1
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ocrl0z'
+        mingw32-make: *** [Makefile:126: cmTC_d4f59/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckSymbolExists.cmake:140 (try_compile)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckSymbolExists.cmake:66 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:37 (check_symbol_exists)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for alloca"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-eddv2r"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-eddv2r"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "USE_ALLOCA_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-eddv2r'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_14e91/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_14e91.dir\\build.make CMakeFiles/cmTC_14e91.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-eddv2r'
+        Building C object CMakeFiles/cmTC_14e91.dir/CheckSymbolExists.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe    -o CMakeFiles\\cmTC_14e91.dir\\CheckSymbolExists.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-eddv2r\\CheckSymbolExists.c
+        Linking C executable cmTC_14e91.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_14e91.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_14e91.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_14e91.dir/objects.a @CMakeFiles\\cmTC_14e91.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_14e91.dir/objects.a -Wl,--no-whole-archive -o cmTC_14e91.exe -Wl,--out-implib,libcmTC_14e91.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_14e91.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-eddv2r'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckLibraryExists.cmake:69 (try_compile)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:43 (check_library_exists)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for floor in m"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-9wwpz7"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-9wwpz7"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "HAVE_LIBM"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-9wwpz7'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_b2927/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_b2927.dir\\build.make CMakeFiles/cmTC_b2927.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-9wwpz7'
+        Building C object CMakeFiles/cmTC_b2927.dir/CheckFunctionExists.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe   -DCHECK_FUNCTION_EXISTS=floor -std=gnu99 -o CMakeFiles\\cmTC_b2927.dir\\CheckFunctionExists.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-9wwpz7\\CheckFunctionExists.c
+        <command-line>: warning: conflicting types for built-in function 'floor'; expected 'double(double)' [-Wbuiltin-declaration-mismatch]
+        D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-9wwpz7\\CheckFunctionExists.c:7:3: note: in expansion of macro 'CHECK_FUNCTION_EXISTS'
+            7 |   CHECK_FUNCTION_EXISTS(void);
+              |   ^~~~~~~~~~~~~~~~~~~~~
+        D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-9wwpz7\\CheckFunctionExists.c:1:1: note: 'floor' is declared in header '<math.h>'
+          +++ |+#include <math.h>
+            1 | #ifdef CHECK_FUNCTION_EXISTS
+        Linking C executable cmTC_b2927.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_b2927.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_b2927.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_b2927.dir/objects.a @CMakeFiles\\cmTC_b2927.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe  -DCHECK_FUNCTION_EXISTS=floor -Wl,--whole-archive CMakeFiles\\cmTC_b2927.dir/objects.a -Wl,--no-whole-archive -o cmTC_b2927.exe -Wl,--out-implib,libcmTC_b2927.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_b2927.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-9wwpz7'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckSymbolExists.cmake:140 (try_compile)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckSymbolExists.cmake:66 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:49 (check_symbol_exists)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for lrintf"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-nf8rvs"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-nf8rvs"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "HAVE_LRINTF"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-nf8rvs'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_4bd86/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_4bd86.dir\\build.make CMakeFiles/cmTC_4bd86.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-nf8rvs'
+        Building C object CMakeFiles/cmTC_4bd86.dir/CheckSymbolExists.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe    -o CMakeFiles\\cmTC_4bd86.dir\\CheckSymbolExists.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-nf8rvs\\CheckSymbolExists.c
+        Linking C executable cmTC_4bd86.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_4bd86.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_4bd86.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_4bd86.dir/objects.a @CMakeFiles\\cmTC_4bd86.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_4bd86.dir/objects.a -Wl,--no-whole-archive -o cmTC_4bd86.exe -Wl,--out-implib,libcmTC_4bd86.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_4bd86.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-nf8rvs'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckSymbolExists.cmake:140 (try_compile)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckSymbolExists.cmake:66 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:50 (check_symbol_exists)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for lrint"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-knxidm"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-knxidm"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "HAVE_LRINT"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-knxidm'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_3b42d/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_3b42d.dir\\build.make CMakeFiles/cmTC_3b42d.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-knxidm'
+        Building C object CMakeFiles/cmTC_3b42d.dir/CheckSymbolExists.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe    -o CMakeFiles\\cmTC_3b42d.dir\\CheckSymbolExists.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-knxidm\\CheckSymbolExists.c
+        Linking C executable cmTC_3b42d.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_3b42d.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_3b42d.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_3b42d.dir/objects.a @CMakeFiles\\cmTC_3b42d.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_3b42d.dir/objects.a -Wl,--no-whole-archive -o cmTC_3b42d.exe -Wl,--out-implib,libcmTC_3b42d.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_3b42d.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-knxidm'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "build/windows-debug/_deps/opus-src/cmake/CFeatureCheck.cmake:30 (try_compile)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusFunctions.cmake:155 (c_feature_check)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:64 (opus_supports_cpu_detection)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-build/CMakeFiles/CMakeTmp"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-build/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "COMPILE_CPU_INFO_BY_ASM_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-build/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_91540/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_91540.dir\\build.make CMakeFiles/cmTC_91540.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-build/CMakeFiles/CMakeTmp'
+        Building C object CMakeFiles/cmTC_91540.dir/cpu_info_by_asm.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe    -o CMakeFiles\\cmTC_91540.dir\\cpu_info_by_asm.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\_deps\\opus-src\\cmake\\cpu_info_by_asm.c
+        Linking C executable cmTC_91540.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_91540.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_91540.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_91540.dir/objects.a @CMakeFiles\\cmTC_91540.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_91540.dir/objects.a -Wl,--no-whole-archive -o cmTC_91540.exe -Wl,--out-implib,libcmTC_91540.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_91540.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-build/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusFunctions.cmake:157 (check_include_file)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:64 (opus_supports_cpu_detection)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for cpuid.h"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-9fl8p0"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-9fl8p0"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "HAVE_CPUID_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-9fl8p0'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_affc0/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_affc0.dir\\build.make CMakeFiles/cmTC_affc0.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-9fl8p0'
+        Building C object CMakeFiles/cmTC_affc0.dir/CheckIncludeFile.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe    -o CMakeFiles\\cmTC_affc0.dir\\CheckIncludeFile.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-9fl8p0\\CheckIncludeFile.c
+        Linking C executable cmTC_affc0.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_affc0.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_affc0.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_affc0.dir/objects.a @CMakeFiles\\cmTC_affc0.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_affc0.dir/objects.a -Wl,--no-whole-archive -o cmTC_affc0.exe -Wl,--out-implib,libcmTC_affc0.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_affc0.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-9fl8p0'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "build/windows-debug/_deps/opus-src/cmake/CFeatureCheck.cmake:30 (try_compile)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusFunctions.cmake:159 (c_feature_check)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:64 (opus_supports_cpu_detection)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-build/CMakeFiles/CMakeTmp"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-build/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "COMPILE_CPU_INFO_BY_C_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-build/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_3738e/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_3738e.dir\\build.make CMakeFiles/cmTC_3738e.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-build/CMakeFiles/CMakeTmp'
+        Building C object CMakeFiles/cmTC_3738e.dir/cpu_info_by_c.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe    -o CMakeFiles\\cmTC_3738e.dir\\cpu_info_by_c.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\_deps\\opus-src\\cmake\\cpu_info_by_c.c
+        Linking C executable cmTC_3738e.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_3738e.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_3738e.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_3738e.dir/objects.a @CMakeFiles\\cmTC_3738e.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_3738e.dir/objects.a -Wl,--no-whole-archive -o cmTC_3738e.exe -Wl,--out-implib,libcmTC_3738e.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_3738e.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-build/CMakeFiles/CMakeTmp'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusFunctions.cmake:56 (check_include_file)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:68 (opus_detect_sse)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for xmmintrin.h"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-vodppp"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-vodppp"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "HAVE_XMMINTRIN_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-vodppp'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_875be/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_875be.dir\\build.make CMakeFiles/cmTC_875be.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-vodppp'
+        Building C object CMakeFiles/cmTC_875be.dir/CheckIncludeFile.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe    -o CMakeFiles\\cmTC_875be.dir\\CheckIncludeFile.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-vodppp\\CheckIncludeFile.c
+        Linking C executable cmTC_875be.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_875be.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_875be.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_875be.dir/objects.a @CMakeFiles\\cmTC_875be.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_875be.dir/objects.a -Wl,--no-whole-archive -o cmTC_875be.exe -Wl,--out-implib,libcmTC_875be.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_875be.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-vodppp'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusFunctions.cmake:46 (check_c_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusFunctions.cmake:68 (check_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:68 (opus_detect_sse)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Performing Test SSE1_SUPPORTED"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ew8ous"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ew8ous"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "SSE1_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ew8ous'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_d67aa/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_d67aa.dir\\build.make CMakeFiles/cmTC_d67aa.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ew8ous'
+        Building C object CMakeFiles/cmTC_d67aa.dir/src.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe -DSSE1_SUPPORTED  -std=gnu99   -msse -o CMakeFiles\\cmTC_d67aa.dir\\src.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-ew8ous\\src.c
+        Linking C executable cmTC_d67aa.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_d67aa.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_d67aa.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_d67aa.dir/objects.a @CMakeFiles\\cmTC_d67aa.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_d67aa.dir/objects.a -Wl,--no-whole-archive -o cmTC_d67aa.exe -Wl,--out-implib,libcmTC_d67aa.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_d67aa.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ew8ous'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusFunctions.cmake:76 (check_include_file)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:68 (opus_detect_sse)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for emmintrin.h"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-es7h8i"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-es7h8i"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "HAVE_EMMINTRIN_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-es7h8i'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_145c5/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_145c5.dir\\build.make CMakeFiles/cmTC_145c5.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-es7h8i'
+        Building C object CMakeFiles/cmTC_145c5.dir/CheckIncludeFile.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe    -o CMakeFiles\\cmTC_145c5.dir\\CheckIncludeFile.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-es7h8i\\CheckIncludeFile.c
+        Linking C executable cmTC_145c5.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_145c5.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_145c5.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_145c5.dir/objects.a @CMakeFiles\\cmTC_145c5.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_145c5.dir/objects.a -Wl,--no-whole-archive -o cmTC_145c5.exe -Wl,--out-implib,libcmTC_145c5.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_145c5.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-es7h8i'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusFunctions.cmake:46 (check_c_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusFunctions.cmake:87 (check_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:68 (opus_detect_sse)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Performing Test SSE2_SUPPORTED"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-e9q407"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-e9q407"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "SSE2_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-e9q407'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_7379e/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_7379e.dir\\build.make CMakeFiles/cmTC_7379e.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-e9q407'
+        Building C object CMakeFiles/cmTC_7379e.dir/src.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe -DSSE2_SUPPORTED  -std=gnu99   -msse2 -o CMakeFiles\\cmTC_7379e.dir\\src.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-e9q407\\src.c
+        Linking C executable cmTC_7379e.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_7379e.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_7379e.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_7379e.dir/objects.a @CMakeFiles\\cmTC_7379e.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_7379e.dir/objects.a -Wl,--no-whole-archive -o cmTC_7379e.exe -Wl,--out-implib,libcmTC_7379e.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_7379e.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-e9q407'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusFunctions.cmake:95 (check_include_file)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:68 (opus_detect_sse)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for smmintrin.h"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-k5dw4p"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-k5dw4p"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "HAVE_SMMINTRIN_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-k5dw4p'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_06065/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_06065.dir\\build.make CMakeFiles/cmTC_06065.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-k5dw4p'
+        Building C object CMakeFiles/cmTC_06065.dir/CheckIncludeFile.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe    -o CMakeFiles\\cmTC_06065.dir\\CheckIncludeFile.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-k5dw4p\\CheckIncludeFile.c
+        Linking C executable cmTC_06065.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_06065.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_06065.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_06065.dir/objects.a @CMakeFiles\\cmTC_06065.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_06065.dir/objects.a -Wl,--no-whole-archive -o cmTC_06065.exe -Wl,--out-implib,libcmTC_06065.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_06065.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-k5dw4p'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusFunctions.cmake:46 (check_c_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusFunctions.cmake:106 (check_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:68 (opus_detect_sse)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Performing Test SSE4_1_SUPPORTED"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-zo1c8n"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-zo1c8n"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "SSE4_1_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-zo1c8n'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_59e00/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_59e00.dir\\build.make CMakeFiles/cmTC_59e00.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-zo1c8n'
+        Building C object CMakeFiles/cmTC_59e00.dir/src.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe -DSSE4_1_SUPPORTED  -std=gnu99   -msse4.1 -o CMakeFiles\\cmTC_59e00.dir\\src.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-zo1c8n\\src.c
+        Linking C executable cmTC_59e00.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_59e00.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_59e00.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_59e00.dir/objects.a @CMakeFiles\\cmTC_59e00.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_59e00.dir/objects.a -Wl,--no-whole-archive -o cmTC_59e00.exe -Wl,--out-implib,libcmTC_59e00.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_59e00.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-zo1c8n'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusFunctions.cmake:114 (check_include_file)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:68 (opus_detect_sse)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for immintrin.h"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-zwmbww"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-zwmbww"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "HAVE_IMMINTRIN_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-zwmbww'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_ed334/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_ed334.dir\\build.make CMakeFiles/cmTC_ed334.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-zwmbww'
+        Building C object CMakeFiles/cmTC_ed334.dir/CheckIncludeFile.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe    -o CMakeFiles\\cmTC_ed334.dir\\CheckIncludeFile.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-zwmbww\\CheckIncludeFile.c
+        Linking C executable cmTC_ed334.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_ed334.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_ed334.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_ed334.dir/objects.a @CMakeFiles\\cmTC_ed334.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_ed334.dir/objects.a -Wl,--no-whole-archive -o cmTC_ed334.exe -Wl,--out-implib,libcmTC_ed334.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_ed334.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-zwmbww'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusFunctions.cmake:46 (check_c_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusFunctions.cmake:119 (check_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:68 (opus_detect_sse)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Performing Test AVX_SUPPORTED"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-sbobxw"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-sbobxw"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "AVX_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-sbobxw'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_e6d67/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_e6d67.dir\\build.make CMakeFiles/cmTC_e6d67.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-sbobxw'
+        Building C object CMakeFiles/cmTC_e6d67.dir/src.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe -DAVX_SUPPORTED  -std=gnu99   -mavx -o CMakeFiles\\cmTC_e6d67.dir\\src.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-sbobxw\\src.c
+        Linking C executable cmTC_e6d67.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_e6d67.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_e6d67.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_e6d67.dir/objects.a @CMakeFiles\\cmTC_e6d67.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_e6d67.dir/objects.a -Wl,--no-whole-archive -o cmTC_e6d67.exe -Wl,--out-implib,libcmTC_e6d67.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_e6d67.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-sbobxw'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusFunctions.cmake:46 (check_c_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:88 (check_flag)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Performing Test FAST_MATH_SUPPORTED"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-8m5cm2"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-8m5cm2"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "FAST_MATH_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-8m5cm2'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_2b523/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_2b523.dir\\build.make CMakeFiles/cmTC_2b523.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-8m5cm2'
+        Building C object CMakeFiles/cmTC_2b523.dir/src.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe -DFAST_MATH_SUPPORTED  -std=gnu99   -ffast-math -o CMakeFiles\\cmTC_2b523.dir\\src.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-8m5cm2\\src.c
+        Linking C executable cmTC_2b523.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_2b523.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_2b523.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_2b523.dir/objects.a @CMakeFiles\\cmTC_2b523.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_2b523.dir/objects.a -Wl,--no-whole-archive -o cmTC_2b523.exe -Wl,--out-implib,libcmTC_2b523.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_2b523.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-8m5cm2'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusFunctions.cmake:46 (check_c_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:89 (check_flag)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Performing Test STACK_PROTECTOR_SUPPORTED"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-khw8xk"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-khw8xk"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "STACK_PROTECTOR_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-khw8xk'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_f3fd8/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_f3fd8.dir\\build.make CMakeFiles/cmTC_f3fd8.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-khw8xk'
+        Building C object CMakeFiles/cmTC_f3fd8.dir/src.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe -DSTACK_PROTECTOR_SUPPORTED  -std=gnu99   -fstack-protector-strong -o CMakeFiles\\cmTC_f3fd8.dir\\src.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-khw8xk\\src.c
+        Linking C executable cmTC_f3fd8.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_f3fd8.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_f3fd8.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_f3fd8.dir/objects.a @CMakeFiles\\cmTC_f3fd8.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_f3fd8.dir/objects.a -Wl,--no-whole-archive -o cmTC_f3fd8.exe -Wl,--out-implib,libcmTC_f3fd8.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_f3fd8.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-khw8xk'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusFunctions.cmake:46 (check_c_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:90 (check_flag)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Performing Test HIDDEN_VISIBILITY_SUPPORTED"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-kbz677"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-kbz677"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "HIDDEN_VISIBILITY_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-kbz677'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_c25c4/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_c25c4.dir\\build.make CMakeFiles/cmTC_c25c4.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-kbz677'
+        Building C object CMakeFiles/cmTC_c25c4.dir/src.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe -DHIDDEN_VISIBILITY_SUPPORTED  -std=gnu99   -fvisibility=hidden -o CMakeFiles\\cmTC_c25c4.dir\\src.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-kbz677\\src.c
+        Linking C executable cmTC_c25c4.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_c25c4.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_c25c4.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_c25c4.dir/objects.a @CMakeFiles\\cmTC_c25c4.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_c25c4.dir/objects.a -Wl,--no-whole-archive -o cmTC_c25c4.exe -Wl,--out-implib,libcmTC_c25c4.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_c25c4.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-kbz677'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckLibraryExists.cmake:69 (try_compile)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:97 (check_library_exists)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for __stack_chk_fail in ssp"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-1d3u4b"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-1d3u4b"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "HAVE_LIBSSP"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-1d3u4b'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_dbec9/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_dbec9.dir\\build.make CMakeFiles/cmTC_dbec9.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-1d3u4b'
+        Building C object CMakeFiles/cmTC_dbec9.dir/CheckFunctionExists.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe   -DCHECK_FUNCTION_EXISTS=__stack_chk_fail -std=gnu99 -o CMakeFiles\\cmTC_dbec9.dir\\CheckFunctionExists.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-1d3u4b\\CheckFunctionExists.c
+        Linking C executable cmTC_dbec9.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_dbec9.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_dbec9.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_dbec9.dir/objects.a @CMakeFiles\\cmTC_dbec9.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe  -DCHECK_FUNCTION_EXISTS=__stack_chk_fail -Wl,--whole-archive CMakeFiles\\cmTC_dbec9.dir/objects.a -Wl,--no-whole-archive -o cmTC_dbec9.exe -Wl,--out-implib,libcmTC_dbec9.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_dbec9.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-1d3u4b'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:110 (check_c_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Performing Test Wall_SUPPORTED"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-uwca2j"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-uwca2j"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "Wall_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-uwca2j'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_4a575/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_4a575.dir\\build.make CMakeFiles/cmTC_4a575.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-uwca2j'
+        Building C object CMakeFiles/cmTC_4a575.dir/src.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe -DWall_SUPPORTED  -std=gnu99   -Wall -o CMakeFiles\\cmTC_4a575.dir\\src.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-uwca2j\\src.c
+        Linking C executable cmTC_4a575.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_4a575.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_4a575.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_4a575.dir/objects.a @CMakeFiles\\cmTC_4a575.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_4a575.dir/objects.a -Wl,--no-whole-archive -o cmTC_4a575.exe -Wl,--out-implib,libcmTC_4a575.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_4a575.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-uwca2j'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:110 (check_c_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Performing Test W_SUPPORTED"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ne41r5"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ne41r5"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "W_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ne41r5'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_3fbc2/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_3fbc2.dir\\build.make CMakeFiles/cmTC_3fbc2.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ne41r5'
+        Building C object CMakeFiles/cmTC_3fbc2.dir/src.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe -DW_SUPPORTED  -std=gnu99   -W -o CMakeFiles\\cmTC_3fbc2.dir\\src.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-ne41r5\\src.c
+        Linking C executable cmTC_3fbc2.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_3fbc2.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_3fbc2.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_3fbc2.dir/objects.a @CMakeFiles\\cmTC_3fbc2.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_3fbc2.dir/objects.a -Wl,--no-whole-archive -o cmTC_3fbc2.exe -Wl,--out-implib,libcmTC_3fbc2.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_3fbc2.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ne41r5'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:110 (check_c_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Performing Test Wstrictprototypes_SUPPORTED"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-fpg6ua"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-fpg6ua"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "Wstrictprototypes_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-fpg6ua'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_cb69c/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_cb69c.dir\\build.make CMakeFiles/cmTC_cb69c.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-fpg6ua'
+        Building C object CMakeFiles/cmTC_cb69c.dir/src.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe -DWstrictprototypes_SUPPORTED  -std=gnu99   -Wstrict-prototypes -o CMakeFiles\\cmTC_cb69c.dir\\src.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-fpg6ua\\src.c
+        Linking C executable cmTC_cb69c.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_cb69c.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_cb69c.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_cb69c.dir/objects.a @CMakeFiles\\cmTC_cb69c.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_cb69c.dir/objects.a -Wl,--no-whole-archive -o cmTC_cb69c.exe -Wl,--out-implib,libcmTC_cb69c.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_cb69c.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-fpg6ua'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:110 (check_c_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Performing Test Wextra_SUPPORTED"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-0zjvsy"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-0zjvsy"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "Wextra_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-0zjvsy'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_7189c/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_7189c.dir\\build.make CMakeFiles/cmTC_7189c.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-0zjvsy'
+        Building C object CMakeFiles/cmTC_7189c.dir/src.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe -DWextra_SUPPORTED  -std=gnu99   -Wextra -o CMakeFiles\\cmTC_7189c.dir\\src.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-0zjvsy\\src.c
+        Linking C executable cmTC_7189c.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_7189c.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_7189c.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_7189c.dir/objects.a @CMakeFiles\\cmTC_7189c.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_7189c.dir/objects.a -Wl,--no-whole-archive -o cmTC_7189c.exe -Wl,--out-implib,libcmTC_7189c.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_7189c.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-0zjvsy'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:110 (check_c_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Performing Test Wcastalign_SUPPORTED"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-n7vovo"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-n7vovo"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "Wcastalign_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-n7vovo'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_2a239/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_2a239.dir\\build.make CMakeFiles/cmTC_2a239.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-n7vovo'
+        Building C object CMakeFiles/cmTC_2a239.dir/src.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe -DWcastalign_SUPPORTED  -std=gnu99   -Wcast-align -o CMakeFiles\\cmTC_2a239.dir\\src.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-n7vovo\\src.c
+        Linking C executable cmTC_2a239.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_2a239.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_2a239.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_2a239.dir/objects.a @CMakeFiles\\cmTC_2a239.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_2a239.dir/objects.a -Wl,--no-whole-archive -o cmTC_2a239.exe -Wl,--out-implib,libcmTC_2a239.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_2a239.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-n7vovo'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:110 (check_c_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Performing Test Wnestedexterns_SUPPORTED"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ngz4b0"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ngz4b0"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "Wnestedexterns_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ngz4b0'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_b9b33/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_b9b33.dir\\build.make CMakeFiles/cmTC_b9b33.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ngz4b0'
+        Building C object CMakeFiles/cmTC_b9b33.dir/src.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe -DWnestedexterns_SUPPORTED  -std=gnu99   -Wnested-externs -o CMakeFiles\\cmTC_b9b33.dir\\src.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-ngz4b0\\src.c
+        Linking C executable cmTC_b9b33.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_b9b33.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_b9b33.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_b9b33.dir/objects.a @CMakeFiles\\cmTC_b9b33.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_b9b33.dir/objects.a -Wl,--no-whole-archive -o cmTC_b9b33.exe -Wl,--out-implib,libcmTC_b9b33.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_b9b33.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-ngz4b0'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Strawberry/c/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/cmake/OpusConfig.cmake:110 (check_c_compiler_flag)"
+      - "build/windows-debug/_deps/opus-src/CMakeLists.txt:11 (include)"
+    checks:
+      - "Performing Test Wshadow_SUPPORTED"
+    directories:
+      source: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-6wxq83"
+      binary: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-6wxq83"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/cmake"
+    buildResult:
+      variable: "Wshadow_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-6wxq83'
+        
+        Run Build Command(s): C:/Strawberry/c/bin/cmake.exe -E env VERBOSE=1 C:/Strawberry/c/bin/mingw32-make.exe -f Makefile cmTC_5ccfe/fast
+        C:/Strawberry/c/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_5ccfe.dir\\build.make CMakeFiles/cmTC_5ccfe.dir/build
+        mingw32-make[1]: Entering directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-6wxq83'
+        Building C object CMakeFiles/cmTC_5ccfe.dir/src.c.obj
+        C:\\Strawberry\\c\\bin\\gcc.exe -DWshadow_SUPPORTED  -std=gnu99   -Wshadow -o CMakeFiles\\cmTC_5ccfe.dir\\src.c.obj -c D:\\GITHUB\\ShareAudioPC_2\\build\\windows-debug\\CMakeFiles\\CMakeScratch\\TryCompile-6wxq83\\src.c
+        Linking C executable cmTC_5ccfe.exe
+        C:\\Strawberry\\c\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_5ccfe.dir\\link.txt --verbose=1
+        C:\\Strawberry\\c\\bin\\cmake.exe -E rm -f CMakeFiles\\cmTC_5ccfe.dir/objects.a
+        C:\\Strawberry\\c\\bin\\ar.exe qc CMakeFiles\\cmTC_5ccfe.dir/objects.a @CMakeFiles\\cmTC_5ccfe.dir\\objects1.rsp
+        C:\\Strawberry\\c\\bin\\gcc.exe -Wl,--whole-archive CMakeFiles\\cmTC_5ccfe.dir/objects.a -Wl,--no-whole-archive -o cmTC_5ccfe.exe -Wl,--out-implib,libcmTC_5ccfe.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\\cmTC_5ccfe.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'D:/GITHUB/ShareAudioPC_2/build/windows-debug/CMakeFiles/CMakeScratch/TryCompile-6wxq83'
+        
+      exitCode: 0
+...

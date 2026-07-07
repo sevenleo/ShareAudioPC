@@ -462,6 +462,7 @@ CMakeFiles/shareaudio_tests.dir/tests/main.cpp.obj
  D:/GITHUB/ShareAudioPC_2/src/app/Config.h
  D:/GITHUB/ShareAudioPC_2/src/app/Result.h
  D:/GITHUB/ShareAudioPC_2/src/app/SessionController.h
+ D:/GITHUB/ShareAudioPC_2/src/app/SingleInstance.h
  D:/GITHUB/ShareAudioPC_2/src/audio/AudioAbstractions.h
  D:/GITHUB/ShareAudioPC_2/src/audio/AudioPipeline.h
  D:/GITHUB/ShareAudioPC_2/src/audio/AudioTypes.h

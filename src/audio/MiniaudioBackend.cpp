@@ -156,6 +156,7 @@ Result<void> MiniaudioCapture::initialize(const AudioFormat& format, std::string
     config.capture.channels = static_cast<ma_uint32>(format_.channels);
     config.sampleRate = static_cast<ma_uint32>(format_.sample_rate);
     config.dataCallback = &MiniaudioCapture::data_callback;
+    config.notificationCallback = &MiniaudioCapture::notification_callback;
     config.pUserData = this;
 
     ma_device_id selected {};
@@ -228,6 +229,16 @@ void MiniaudioCapture::data_callback(ma_device* device, void* output, const void
     auto* self = static_cast<MiniaudioCapture*>(device->pUserData);
     if (self != nullptr) {
         self->handle_data(input, frame_count);
+    }
+}
+
+void MiniaudioCapture::notification_callback(const ma_device_notification* pNotification)
+{
+    if (pNotification == nullptr) return;
+    if (pNotification->type == ma_device_notification_type_stopped) {
+        Logger::warning("Miniaudio capture device stopped.");
+    } else if (pNotification->type == ma_device_notification_type_rerouted) {
+        Logger::warning("Miniaudio capture device rerouted/reset.");
     }
 }
 
@@ -305,6 +316,7 @@ Result<void> MiniaudioPlayback::initialize(const AudioFormat& format, std::strin
     config.playback.channels = static_cast<ma_uint32>(format_.channels);
     config.sampleRate = static_cast<ma_uint32>(format_.sample_rate);
     config.dataCallback = &MiniaudioPlayback::data_callback;
+    config.notificationCallback = &MiniaudioPlayback::notification_callback;
     config.pUserData = this;
 
     ma_device_id selected {};
@@ -399,6 +411,16 @@ void MiniaudioPlayback::data_callback(ma_device* device, void* output, const voi
     auto* self = static_cast<MiniaudioPlayback*>(device->pUserData);
     if (self != nullptr) {
         self->fill_output(output, frame_count);
+    }
+}
+
+void MiniaudioPlayback::notification_callback(const ma_device_notification* pNotification)
+{
+    if (pNotification == nullptr) return;
+    if (pNotification->type == ma_device_notification_type_stopped) {
+        Logger::warning("Miniaudio playback device stopped.");
+    } else if (pNotification->type == ma_device_notification_type_rerouted) {
+        Logger::warning("Miniaudio playback device rerouted/reset.");
     }
 }
 

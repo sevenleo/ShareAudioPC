@@ -461,6 +461,7 @@ CMakeFiles/shareaudio_tests.dir/tests/main.cpp.obj: D:/GITHUB/ShareAudioPC_2/tes
   D:/GITHUB/ShareAudioPC_2/src/app/Config.h \
   D:/GITHUB/ShareAudioPC_2/src/app/Result.h \
   D:/GITHUB/ShareAudioPC_2/src/app/SessionController.h \
+  D:/GITHUB/ShareAudioPC_2/src/app/SingleInstance.h \
   D:/GITHUB/ShareAudioPC_2/src/audio/AudioAbstractions.h \
   D:/GITHUB/ShareAudioPC_2/src/audio/AudioPipeline.h \
   D:/GITHUB/ShareAudioPC_2/src/audio/AudioTypes.h \
@@ -1408,6 +1409,10 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/base_from_canc
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/atomic_count.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/assert.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/scheduler.ipp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/array_fwd.hpp:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/cldemoteintrin.h:
 
@@ -2459,6 +2464,8 @@ C:/Strawberry/c/x86_64-w64-mingw32/include/in6addr.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/interlockedapi.h:
 
+D:/GITHUB/ShareAudioPC_2/src/app/SingleInstance.h:
+
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/as_tuple.hpp:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/jobapi.h:
@@ -2782,7 +2789,3 @@ D:/GITHUB/ShareAudioPC_2/tests/main.cpp:
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/tsxldtrkintrin.h:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/array.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/scheduler.ipp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/array_fwd.hpp:

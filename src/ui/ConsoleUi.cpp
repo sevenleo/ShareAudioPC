@@ -1,6 +1,7 @@
 #include "ui/ConsoleUi.h"
 
 #include "platform/LocalIp.h"
+#include "app/SingleInstance.h"
 
 #include <chrono>
 #include <iostream>
@@ -30,19 +31,36 @@ int ConsoleUi::run(const std::vector<std::string>& args)
     }
     if (args[0] == "share") {
         AudioMode mode = AudioMode::Balanced;
-        if (args.size() == 3 && args[1] == "--mode") {
-            auto parsed = parse_audio_mode(args[2]);
-            if (!parsed || *parsed == AudioMode::Quality) {
-                std::cerr << "share supports --mode balanced or --mode ultrafast. Quality mode requires Opus implementation.\n";
+        std::string capture_device_id;
+        for (std::size_t i = 1; i < args.size(); i += 2) {
+            if (i + 1 >= args.size()) {
+                std::cerr << "Missing value for argument: " << args[i] << "\n";
                 return 2;
             }
-            mode = *parsed;
-        } else if (args.size() != 1) {
-            std::cerr << "Usage: shareaudio_cli share [--mode balanced|ultrafast]\n";
-            return 2;
+            if (args[i] == "--mode") {
+                auto parsed = parse_audio_mode(args[i + 1]);
+                if (!parsed || *parsed == AudioMode::Quality) {
+                    std::cerr << "share supports --mode balanced or --mode ultrafast. Quality mode requires Opus implementation.\n";
+                    return 2;
+                }
+                mode = *parsed;
+            } else if (args[i] == "--device" || args[i] == "-d") {
+                capture_device_id = args[i + 1];
+            } else {
+                std::cerr << "Unknown argument: " << args[i] << "\n";
+                std::cerr << "Usage: shareaudio_cli share [--mode balanced|ultrafast] [--device <device_id>]\n";
+                return 2;
+            }
         }
 
-        auto start = session_.start_sharing(mode);
+        // Enforce single instance
+        (void)enforce_single_instance();
+
+        // Print available local IPs
+        std::cout << "Available local IP addresses for connection:\n";
+        print_local_ips();
+
+        auto start = session_.start_sharing(mode, capture_device_id);
         if (!start.ok()) {
             std::cerr << start.error().message << '\n';
             return 2;
@@ -60,12 +78,30 @@ int ConsoleUi::run(const std::vector<std::string>& args)
         return 0;
     }
     if (args[0] == "listen") {
-        if (args.size() != 2) {
-            std::cerr << "Usage: shareaudio_cli listen <host>\n";
+        if (args.size() < 2) {
+            std::cerr << "Usage: shareaudio_cli listen <host> [--device <device_id>]\n";
             return 2;
         }
+        std::string host = args[1];
+        std::string playback_device_id;
+        for (std::size_t i = 2; i < args.size(); i += 2) {
+            if (i + 1 >= args.size()) {
+                std::cerr << "Missing value for argument: " << args[i] << "\n";
+                return 2;
+            }
+            if (args[i] == "--device" || args[i] == "-d") {
+                playback_device_id = args[i + 1];
+            } else {
+                std::cerr << "Unknown argument: " << args[i] << "\n";
+                std::cerr << "Usage: shareaudio_cli listen <host> [--device <device_id>]\n";
+                return 2;
+            }
+        }
 
-        auto start = session_.start_listening(args[1]);
+        // Enforce single instance
+        (void)enforce_single_instance();
+
+        auto start = session_.start_listening(host, playback_device_id);
         if (!start.ok()) {
             std::cerr << start.error().message << '\n';
             return 2;
@@ -75,7 +111,7 @@ int ConsoleUi::run(const std::vector<std::string>& args)
         while (true) {
             auto status = session_.status_snapshot();
             if (!announced && status.mode == SessionMode::Listening) {
-                std::cout << "Listening to " << args[1] << ':' << Defaults::tcp_port << " in " << to_string(status.detected_mode)
+                std::cout << "Listening to " << host << ':' << Defaults::tcp_port << " in " << to_string(status.detected_mode)
                           << " mode. Stop with Ctrl+C or transmitter disconnect.\n";
                 announced = true;
             }
@@ -102,8 +138,8 @@ void ConsoleUi::print_help() const
     std::cout
         << "ShareAudioLite " << SHAREAUDIO_VERSION << "\n\n"
         << "Usage:\n"
-        << "  shareaudio_cli share [--mode balanced|ultrafast]\n"
-        << "  shareaudio_cli listen <host>\n"
+        << "  shareaudio_cli share [--mode balanced|ultrafast] [--device <device_id>]\n"
+        << "  shareaudio_cli listen <host> [--device <device_id>]\n"
         << "  shareaudio_cli devices\n"
         << "  shareaudio_cli ips\n"
         << "  shareaudio_cli help\n\n"

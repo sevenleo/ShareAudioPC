@@ -18,6 +18,8 @@
 - [x] GUI rejects/blocks Quality Mode until Opus is implemented.
 - [x] GUI blocks self-connections like the CLI.
 - [x] GUI exposes readable errors equivalent to CLI errors.
+- [x] GUI passes selected capture device to `start_sharing`.
+- [x] GUI passes selected playback device to `start_listening`.
 
 ## Core Refactor
 - [x] Extract streaming logic from `ConsoleUi`.
@@ -49,6 +51,8 @@
 - [x] Diagnostics/log panel.
 - [x] Copy diagnostics button.
 - [x] Help/About dialog.
+- [x] Apply Soundwave visual identity colors (Neon Green `#1DF09A`, Cyan Blue `#00A3FF`, Dark Slate `#1C253E`, Deep Space `#0B101D`) via Qt stylesheet.
+- [x] Enable enforce single instance lock on GUI startup.
 
 ## Build System
 - [x] Add optional Qt6 Widgets discovery.
@@ -86,8 +90,8 @@
 - [x] Core tests for Quality rejection.
 - [x] Core tests for self-connection rejection.
 - [x] CLI regression tests.
-- [ ] GUI construction test.
-- [ ] GUI button/controller interaction test.
+- [ ] GUI construction test (requires Qt6 installed).
+- [ ] GUI button/controller interaction test (requires Qt6 installed).
 - [ ] Manual GUI-to-CLI streaming test.
 - [ ] Manual CLI-to-GUI streaming test.
 - [ ] Manual GUI-to-GUI streaming test.
@@ -113,7 +117,7 @@
 - [x] GUI handles errors without crashing.
 
 ## Verification Notes
-- [x] `cmake --build --preset windows-debug` passed without requiring Qt.
+- [x] `cmake --build --preset windows-debug` passed.
 - [x] `ctest --preset windows-debug` passed.
 - [x] `cmake --preset windows-gui-debug` was attempted.
 - [ ] Qt6 Widgets was not available in this workspace, so `shareaudio_gui` compile verification remains pending.

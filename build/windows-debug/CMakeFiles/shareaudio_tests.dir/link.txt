@@ -1,3 +1,3 @@
 C:\Strawberry\c\bin\cmake.exe -E rm -f CMakeFiles\shareaudio_tests.dir/objects.a
 C:\Strawberry\c\bin\ar.exe qc CMakeFiles\shareaudio_tests.dir/objects.a @CMakeFiles\shareaudio_tests.dir\objects1.rsp
-C:\Strawberry\c\bin\c++.exe -g -Wl,--whole-archive CMakeFiles\shareaudio_tests.dir/objects.a -Wl,--no-whole-archive -o shareaudio_tests.exe -Wl,--out-implib,libshareaudio_tests.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\shareaudio_tests.dir\linkLibs.rsp
+C:\Strawberry\c\bin\c++.exe -g -static-libgcc -static-libstdc++ -static -Wl,--whole-archive CMakeFiles\shareaudio_tests.dir/objects.a -Wl,--no-whole-archive -o shareaudio_tests.exe -Wl,--out-implib,libshareaudio_tests.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\shareaudio_tests.dir\linkLibs.rsp

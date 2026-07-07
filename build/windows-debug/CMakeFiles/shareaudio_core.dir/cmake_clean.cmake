@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/shareaudio_core.dir/src/app/Logger.cpp.obj.d"
   "CMakeFiles/shareaudio_core.dir/src/app/SessionController.cpp.obj"
   "CMakeFiles/shareaudio_core.dir/src/app/SessionController.cpp.obj.d"
+  "CMakeFiles/shareaudio_core.dir/src/app/SingleInstance.cpp.obj"
+  "CMakeFiles/shareaudio_core.dir/src/app/SingleInstance.cpp.obj.d"
   "CMakeFiles/shareaudio_core.dir/src/audio/AudioAbstractions.cpp.obj"
   "CMakeFiles/shareaudio_core.dir/src/audio/AudioAbstractions.cpp.obj.d"
   "CMakeFiles/shareaudio_core.dir/src/audio/AudioPipeline.cpp.obj"

@@ -1045,4 +1045,5 @@ CMakeFiles/shareaudio_core.dir/src/ui/ConsoleUi.cpp.obj: \
  D:/GITHUB/ShareAudioPC_2/src/protocol/Protocol.h \
  D:/GITHUB/ShareAudioPC_2/src/storage/RecentDevices.h \
  D:/GITHUB/ShareAudioPC_2/src/platform/LocalIp.h \
+ D:/GITHUB/ShareAudioPC_2/src/app/SingleInstance.h \
  C:/Strawberry/c/include/c++/13.2.0/iostream

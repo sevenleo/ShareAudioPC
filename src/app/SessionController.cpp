@@ -207,95 +207,146 @@ Result<void> SessionController::start_listening(std::string host, std::string pl
 
     listener_stop_requested_ = false;
     listener_worker_ = std::thread([this, host = std::move(host), playback_device_id = std::move(playback_device_id)] {
-        auto connected = TcpSocket::connect_to(host, config_.receiver.port);
-        if (!connected.ok()) {
-            set_error(connected.error().message);
-            finish_listening();
-            return;
-        }
-
-        auto socket = std::make_shared<TcpSocket>(std::move(connected.value()));
-        {
-            std::scoped_lock lock(mutex_);
-            receiver_socket_ = socket;
-        }
-
-        auto header_bytes = socket->receive_exact(ProtocolWriter::stream_header_size);
-        if (!header_bytes.ok()) {
-            set_error(header_bytes.error().message);
-            finish_listening();
-            return;
-        }
-
-        auto header = ProtocolReader::parse_stream_header(header_bytes.value());
-        if (!header.ok()) {
-            set_error(header.error().message);
-            finish_listening();
-            return;
-        }
-        if (header.value().codec != StreamCodec::PcmS16Le || header.value().mode == AudioMode::Quality) {
-            set_error("This build can only listen to balanced or ultrafast PCM streams. Quality mode requires Opus implementation.");
-            finish_listening();
-            return;
-        }
-
-        auto playback = make_playback();
-        auto init_playback = playback->initialize(config_.audio, playback_device_id);
-        if (!init_playback.ok()) {
-            set_error(init_playback.error().message);
-            finish_listening();
-            return;
-        }
-
-        auto receiver = std::make_unique<PcmReceiverPipeline>(*playback, header.value().packet_size * 8);
-        auto start_playback = receiver->start();
-        if (!start_playback.ok()) {
-            set_error(start_playback.error().message);
-            finish_listening();
-            return;
-        }
-
-        {
-            std::scoped_lock lock(mutex_);
-            playback_ = std::move(playback);
-            receiver_ = std::move(receiver);
-            detected_mode_ = header.value().mode;
-            has_detected_mode_ = true;
-            mode_ = SessionMode::Listening;
-            config_.receiver.mode = header.value().mode;
-            add_log_locked("Listening session started.");
-        }
-        {
-            std::scoped_lock lock(mutex_);
-            recent_.add(host);
-        }
-        state_changed_.notify_all();
-
-        const auto packet_size = static_cast<std::size_t>(header.value().packet_size);
         while (!listener_stop_requested_) {
-            auto packet = socket->receive_exact(packet_size);
-            if (!packet.ok()) {
-                if (!listener_stop_requested_) {
-                    set_error(packet.error().message);
+            {
+                std::scoped_lock lock(mutex_);
+                mode_ = SessionMode::Connecting;
+                add_log_locked("Connecting to transmitter...");
+            }
+            state_changed_.notify_all();
+
+            auto connected = TcpSocket::connect_to(host, config_.receiver.port);
+            if (!connected.ok()) {
+                set_error("Connection failed: " + connected.error().message + ". Retrying...");
+                for (int i = 0; i < 30 && !listener_stop_requested_; ++i) {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(50));
                 }
-                break;
+                continue;
             }
 
-            Result<void> received = Result<void>::success();
-            Result<void> pumped = Result<void>::success();
+            auto socket = std::make_shared<TcpSocket>(std::move(connected.value()));
+            {
+                std::scoped_lock lock(mutex_);
+                receiver_socket_ = socket;
+            }
+
+            auto header_bytes = socket->receive_exact(ProtocolWriter::stream_header_size);
+            if (!header_bytes.ok()) {
+                set_error("Failed to receive stream header: " + header_bytes.error().message + ". Retrying...");
+                socket->close();
+                for (int i = 0; i < 30 && !listener_stop_requested_; ++i) {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                }
+                continue;
+            }
+
+            auto header = ProtocolReader::parse_stream_header(header_bytes.value());
+            if (!header.ok()) {
+                set_error("Invalid stream header: " + header.error().message + ". Retrying...");
+                socket->close();
+                for (int i = 0; i < 30 && !listener_stop_requested_; ++i) {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                }
+                continue;
+            }
+            if (header.value().codec != StreamCodec::PcmS16Le || header.value().mode == AudioMode::Quality) {
+                set_error("This build can only listen to balanced or ultrafast PCM streams. Quality mode requires Opus implementation.");
+                socket->close();
+                break; // Fatal error: do not retry
+            }
+
+            auto playback = make_playback();
+            auto init_playback = playback->initialize(config_.audio, playback_device_id);
+            if (!init_playback.ok()) {
+                set_error("Playback initialization failed: " + init_playback.error().message);
+                socket->close();
+                break; // Fatal error: do not retry
+            }
+
+            auto receiver = std::make_unique<PcmReceiverPipeline>(*playback, header.value().packet_size * 8);
+            auto start_playback = receiver->start();
+            if (!start_playback.ok()) {
+                set_error("Playback start failed: " + start_playback.error().message);
+                socket->close();
+                break; // Fatal error: do not retry
+            }
+
+            {
+                std::scoped_lock lock(mutex_);
+                playback_ = std::move(playback);
+                receiver_ = std::move(receiver);
+                detected_mode_ = header.value().mode;
+                has_detected_mode_ = true;
+                mode_ = SessionMode::Listening;
+                config_.receiver.mode = header.value().mode;
+                add_log_locked("Listening session started.");
+            }
+            {
+                std::scoped_lock lock(mutex_);
+                recent_.add(host);
+            }
+            state_changed_.notify_all();
+
+            const auto packet_size = static_cast<std::size_t>(header.value().packet_size);
+            bool connection_lost = false;
+            while (!listener_stop_requested_) {
+                auto packet = socket->receive_exact(packet_size);
+                if (!packet.ok()) {
+                    if (!listener_stop_requested_) {
+                        set_error("Connection lost: " + packet.error().message + ". Retrying...");
+                        connection_lost = true;
+                    }
+                    break;
+                }
+
+                Result<void> received = Result<void>::success();
+                Result<void> pumped = Result<void>::success();
+                {
+                    std::scoped_lock lock(mutex_);
+                    if (receiver_) {
+                        received = receiver_->receive_pcm(packet.value());
+                        pumped = receiver_->pump_playback(packet_size);
+                    }
+                }
+                if (!received.ok()) {
+                    set_error("Receive error: " + received.error().message + ". Retrying...");
+                    connection_lost = true;
+                    break;
+                }
+                if (!pumped.ok()) {
+                    set_error("Playback pump error: " + pumped.error().message + ". Retrying...");
+                    connection_lost = true;
+                    break;
+                }
+            }
+
+            // Save final stats for this attempt before cleanup
             {
                 std::scoped_lock lock(mutex_);
                 if (receiver_) {
-                    received = receiver_->receive_pcm(packet.value());
-                    pumped = receiver_->pump_playback(packet_size);
+                    const auto receiver_stats = receiver_->stats();
+                    last_completed_status_.bytes_received = receiver_stats.bytes_received;
+                    last_completed_status_.bytes_played = receiver_stats.bytes_played;
+                    last_completed_status_.underruns = receiver_stats.buffer.underruns + receiver_stats.playback.underruns;
+                    last_completed_status_.jitter_buffer_depth = receiver_stats.buffer.depth_bytes;
                 }
             }
-            if (!received.ok()) {
-                set_error(received.error().message);
-                break;
+
+            // Cleanup for this attempt
+            if (playback_) {
+                playback_->stop();
             }
-            if (!pumped.ok()) {
-                set_error(pumped.error().message);
+            socket->close();
+
+            {
+                std::scoped_lock lock(mutex_);
+                playback_.reset();
+                receiver_.reset();
+                receiver_socket_.reset();
+                has_detected_mode_ = false;
+            }
+
+            if (!connection_lost) {
                 break;
             }
         }
@@ -453,6 +504,11 @@ void SessionController::finish_listening()
             completed.bytes_played = receiver_stats.bytes_played;
             completed.underruns = receiver_stats.buffer.underruns + receiver_stats.playback.underruns;
             completed.jitter_buffer_depth = receiver_stats.buffer.depth_bytes;
+        } else {
+            completed.bytes_received = last_completed_status_.bytes_received;
+            completed.bytes_played = last_completed_status_.bytes_played;
+            completed.underruns = last_completed_status_.underruns;
+            completed.jitter_buffer_depth = last_completed_status_.jitter_buffer_depth;
         }
     }
 

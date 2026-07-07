@@ -81,6 +81,97 @@ MainWindow::MainWindow(QWidget* parent)
     , controller_(load_startup_config())
 {
     build_ui();
+    setStyleSheet(R"(
+        QMainWindow {
+            background-color: #0B101D;
+        }
+        QGroupBox {
+            background-color: #1C253E;
+            color: #FFFFFF;
+            border: 1px solid #2A3656;
+            border-radius: 8px;
+            margin-top: 12px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        QGroupBox::title {
+            subcontrol-origin: margin;
+            subcontrol-position: top left;
+            left: 10px;
+            padding: 2px 6px;
+            color: #00A3FF;
+        }
+        QLabel {
+            color: #E2E8F0;
+            font-size: 12px;
+        }
+        QLineEdit {
+            background-color: #0B101D;
+            color: #FFFFFF;
+            border: 1px solid #2A3656;
+            border-radius: 4px;
+            padding: 6px;
+            font-size: 12px;
+        }
+        QLineEdit:focus {
+            border: 1px solid #00A3FF;
+        }
+        QComboBox {
+            background-color: #0B101D;
+            color: #FFFFFF;
+            border: 1px solid #2A3656;
+            border-radius: 4px;
+            padding: 6px;
+            min-width: 120px;
+        }
+        QComboBox:focus {
+            border: 1px solid #00A3FF;
+        }
+        QComboBox QAbstractItemView {
+            background-color: #0B101D;
+            color: #FFFFFF;
+            selection-background-color: #1DF09A;
+            selection-color: #0B101D;
+        }
+        QPushButton {
+            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #1DF09A, stop:1 #00A3FF);
+            color: #0B101D;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        QPushButton:hover {
+            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #22ffa4, stop:1 #1ab0ff);
+        }
+        QPushButton:pressed {
+            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #19cf85, stop:1 #008ecc);
+        }
+        QPushButton:disabled {
+            background-color: #2D3748;
+            color: #718096;
+        }
+        QListWidget {
+            background-color: #0B101D;
+            color: #E2E8F0;
+            border: 1px solid #2A3656;
+            border-radius: 4px;
+            padding: 4px;
+        }
+        QListWidget::item:selected {
+            background-color: #1DF09A;
+            color: #0B101D;
+        }
+        QPlainTextEdit {
+            background-color: #0B101D;
+            color: #A0AEC0;
+            font-family: Consolas, monospace;
+            font-size: 11px;
+            border: 1px solid #2A3656;
+            border-radius: 4px;
+        }
+    )");
     refresh_all();
 
     refresh_timer_ = new QTimer(this);

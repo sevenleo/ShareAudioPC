@@ -28,6 +28,7 @@ public:
 
 private:
     static void data_callback(ma_device* device, void* output, const void* input, ma_uint32 frame_count);
+    static void notification_callback(const ma_device_notification* pNotification);
     void handle_data(const void* input, ma_uint32 frame_count);
     Result<void> ensure_context();
     Result<ma_device_id> find_device_id(const std::string& id) const;
@@ -57,6 +58,7 @@ public:
 
 private:
     static void data_callback(ma_device* device, void* output, const void* input, ma_uint32 frame_count);
+    static void notification_callback(const ma_device_notification* pNotification);
     void fill_output(void* output, ma_uint32 frame_count);
     Result<void> ensure_context();
     Result<ma_device_id> find_device_id(const std::string& id) const;

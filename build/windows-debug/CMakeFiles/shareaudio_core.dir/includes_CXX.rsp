@@ -1,1 +1,1 @@
--ID:/GITHUB/ShareAudioPC_2/src -I"D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include" -I"D:/GITHUB/ShareAudioPC_2/third_party/miniaudio-src"
+-ID:/GITHUB/ShareAudioPC_2/src -I"D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include" -I"D:/GITHUB/ShareAudioPC_2/third_party/miniaudio-src" -I"D:/GITHUB/ShareAudioPC_2/build/windows-debug/_deps/opus-src/include"

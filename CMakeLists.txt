@@ -24,6 +24,7 @@ add_library(shareaudio_core
     src/app/Config.cpp
     src/app/Logger.cpp
     src/app/SessionController.cpp
+    src/app/SingleInstance.cpp
     src/audio/AudioAbstractions.cpp
     src/audio/MiniaudioBackend.cpp
     src/audio/AudioPipeline.cpp
@@ -64,6 +65,11 @@ endif()
 
 if(WIN32)
     target_link_libraries(shareaudio_core PUBLIC ws2_32 mswsock ole32 uuid winmm avrt)
+    # Link MinGW runtime libraries statically so the .exe is portable
+    # without requiring libgcc_s_seh-1.dll, libstdc++-6.dll, or libwinpthread-1.dll
+    if(MINGW)
+        target_link_options(shareaudio_core PUBLIC -static-libgcc -static-libstdc++ -static)
+    endif()
 else()
     target_link_libraries(shareaudio_core PUBLIC dl m)
 endif()
@@ -71,19 +77,22 @@ endif()
 target_link_libraries(shareaudio_core PUBLIC Threads::Threads)
 
 if(SHAREAUDIO_ENABLE_OPUS)
-    find_package(PkgConfig QUIET)
-    if(PkgConfig_FOUND)
-        pkg_check_modules(OPUS QUIET opus)
-    endif()
-
-    if(OPUS_FOUND)
-        target_include_directories(shareaudio_core PUBLIC ${OPUS_INCLUDE_DIRS})
-        target_link_libraries(shareaudio_core PUBLIC ${OPUS_LIBRARIES})
-        target_compile_definitions(shareaudio_core PUBLIC SHAREAUDIO_HAS_LIBOPUS=1)
-    else()
-        message(WARNING "SHAREAUDIO_ENABLE_OPUS is ON, but libopus was not found. The codec wrapper will report NotSupported at runtime.")
-        target_compile_definitions(shareaudio_core PUBLIC SHAREAUDIO_HAS_LIBOPUS=0)
-    endif()
+    include(FetchContent)
+    FetchContent_Declare(
+        opus
+        GIT_REPOSITORY https://github.com/xiph/opus.git
+        GIT_TAG v1.4
+    )
+    
+    set(OPUS_BUILD_SHARED_LIBRARY OFF CACHE BOOL "" FORCE)
+    set(OPUS_BUILD_TESTING OFF CACHE BOOL "" FORCE)
+    set(OPUS_BUILD_PROGRAMS OFF CACHE BOOL "" FORCE)
+    set(OPUS_BUILD_EXTRA_DEBUG OFF CACHE BOOL "" FORCE)
+    
+    FetchContent_MakeAvailable(opus)
+    
+    target_link_libraries(shareaudio_core PUBLIC opus)
+    target_compile_definitions(shareaudio_core PUBLIC SHAREAUDIO_HAS_LIBOPUS=1)
 else()
     target_compile_definitions(shareaudio_core PUBLIC SHAREAUDIO_HAS_LIBOPUS=0)
 endif()
