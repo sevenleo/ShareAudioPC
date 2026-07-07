@@ -126,5 +126,5 @@
 - [x] `cmake --preset windows-gui-release` with MinGW 13.1.0 toolchain passed.
 - [x] `shareaudio_gui.exe` release compile and icon embedding verified.
 - [x] Qt6 Widgets dependencies packaged using `windeployqt.exe`.
-- [x] Simple Mode default layout verified (compact 3-line 640×240 window).
-- [x] Advanced Mode toggle verified (full tabbed 850×560 dashboard).
+- [x] Simple Mode default layout verified (compact 3-line 830x310 window, resizable).
+- [x] Advanced Mode toggle verified (full tabbed 1100x730 dashboard, resizable).

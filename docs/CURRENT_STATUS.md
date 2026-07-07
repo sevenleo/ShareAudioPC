@@ -25,8 +25,8 @@ GUI parity:
 - Listen panel covers `listen <host>`.
 - Quality Mode (Opus) is fully implemented and integrated in transmitter and receiver.
 - GUI passes selected capture/playback devices to the session controller.
-- **Redesigned 3-Line Simple Mode**: Starts in a compact 640x240 window showing precisely 3 lines: Status (State, dynamic IP info, Port, and last message), Server Transmit button, and Client Receive controls (server IP text field + connect/disconnect button).
-- **Advanced Mode Toggle**: Clicking "Show Advanced Options" resizes the window dynamically to 850x560, exposing quality/device selector comboboxes and the full tabbed dashboard (Network, Hardware, Diagnostics).
+- **Redesigned 3-Line Simple Mode**: Starts in a resizable `830x310` window showing precisely 3 lines: Status (State, dynamic IP info, Port, and last message), Server Transmit button, and Client Receive controls (server IP text field + connect/disconnect button).
+- **Advanced Mode Toggle**: Clicking "Show Advanced Options" resizes the window dynamically to `1100x730`, exposing quality/device selector comboboxes and the full tabbed dashboard (Network, Hardware, Diagnostics). Both views can be resized freely.
 - **Default Device Pre-selection**: Automatically detects, pre-selects, and highlights the system's default capture and playback devices on startup, ensuring a smooth experience.
 - **Embedded brand icon**: `logo.ico` is bundled inside the compiled `shareaudio_gui.exe` binary via Windows resource script. The window title bar and taskbar display the project logo.
 - **Qt resource bundling**: `logo.png` and `logo.svg` are embedded inside the executable via `resources.qrc` (CMake AUTORCC).

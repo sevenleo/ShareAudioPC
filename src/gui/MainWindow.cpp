@@ -264,7 +264,7 @@ void MainWindow::build_ui()
 {
     setWindowTitle("ShareAudioLite");
     setWindowIcon(QIcon(":/icon/logo.png"));
-    setMinimumSize(850, 560);
+    setMinimumSize(800, 300);
 
     auto* central = new QWidget(this);
     auto* root = new QVBoxLayout(central);
@@ -541,16 +541,16 @@ void MainWindow::update_layout_visibility()
     }
 
     if (advanced_mode_) {
-        setMinimumSize(850, 560);
+        setMinimumSize(1000, 600);
         setMaximumSize(16777215, 16777215);
-        resize(850, 560);
+        resize(1100, 730);
         if (toggle_mode_button_) {
             toggle_mode_button_->setText("Hide Advanced Options");
         }
     } else {
-        setMinimumSize(640, 240);
-        setMaximumSize(640, 240);
-        resize(640, 240);
+        setMinimumSize(800, 300);
+        setMaximumSize(16777215, 16777215);
+        resize(830, 310);
         if (toggle_mode_button_) {
             toggle_mode_button_->setText("Show Advanced Options");
         }

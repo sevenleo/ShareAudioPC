@@ -4,6 +4,13 @@ All notable project changes should be recorded in this file.
 
 The format follows a simple staged log.
 
+## [0.5.1] - 2026-07-07
+
+### Fixed
+
+- Optimized GUI Window Sizing & Resizing: Increased the default and minimum window sizes by 30% for both Simple and Advanced modes (new Simple Mode size: `830x310` with minimum `800x300`; new Advanced Mode size: `1100x730` with minimum `1000x600`).
+- Removed Fixed Maximum Sizing Constraints: Enabled users to drag and resize the GUI window freely in all modes to fit their desktop workspaces.
+
 ## [0.5.0] - 2026-07-07
 
 ### Added

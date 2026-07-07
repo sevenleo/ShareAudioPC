@@ -185,12 +185,12 @@ d:\GITHUB\ShareAudioPC_2\qt6\6.6.3\mingw_64\bin\windeployqt.exe D:\GITHUB\ShareA
 
 ## 🖥️ Desktop GUI Features
 The GUI target (`shareaudio_gui.exe`) has been personalized and styled to look modern, clean, and professional:
-- **Redesigned 3-Line Simple Mode**: To keep things extremely simple, the app opens in a compact 640x240 window with precisely three clean lines:
+- **Redesigned 3-Line Simple Mode**: To keep things extremely simple, the app opens in a resizable `830x310` window with precisely three clean lines:
   - **Line 1 (Status)**: Displays the current application state, server/client IP details dynamically depending on the mode, TCP Port, and the last error message or status event.
   - **Line 2 (Server)**: A single green/red button to start or stop sharing the system sound.
   - **Line 3 (Client)**: A clean line edit to enter the transmitter's IP address and a single blue/red connect/disconnect button to listen to the broadcast.
 - **Default Device Auto-Selection**: On launch, the app automatically pre-selects the system's default capture (microphone/loopback) and playback (speaker) audio devices, highlighting them in the settings, so users don't have to worry about selecting the wrong sound card.
-- **Interactive Toggle**: Clicking **"Show Advanced Options"** resizes the window to 850x560 and exposes:
+- **Interactive Toggle**: Clicking **"Show Advanced Options"** resizes the window to `1100x730` and exposes:
   - **Quality mode selection** (Balanced / Ultrafast).
   - **Selected capture and playback audio devices** (via combobox dropdowns).
   - **Full Network & Devices tabs** (including local IPs list and connection history).
