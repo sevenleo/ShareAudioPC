@@ -144,9 +144,9 @@ cmake --build build/windows-debug
 GUI release build status in this workspace (Release):
 
 ```powershell
-cmake --preset windows-release -DCMAKE_C_COMPILER="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/gcc.exe" -DCMAKE_CXX_COMPILER="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/g++.exe" -DCMAKE_MAKE_PROGRAM="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/mingw32-make.exe" -DCMAKE_PREFIX_PATH="d:/GITHUB/ShareAudioPC_2/qt6/6.6.3/mingw_64"
+cmake --preset windows-release -DCMAKE_C_COMPILER="./qt6/Tools/mingw1310_64/bin/gcc.exe" -DCMAKE_CXX_COMPILER="./qt6/Tools/mingw1310_64/bin/g++.exe" -DCMAKE_MAKE_PROGRAM="./qt6/Tools/mingw1310_64/bin/mingw32-make.exe" -DCMAKE_PREFIX_PATH="./qt6/6.6.3/mingw_64"
 cmake --build build/windows-release --config Release
-d:\GITHUB\ShareAudioPC_2\qt6\6.6.3\mingw_64\bin\windeployqt.exe D:\GITHUB\ShareAudioPC_2\build\windows-release\shareaudio_gui.exe
+./qt6/6.6.3/mingw_64/bin/windeployqt.exe build/windows-release/final/shareaudio_gui.exe --no-compiler-runtime --no-translations --no-system-d3d-compiler --no-opengl-sw --no-ffmpeg --skip-plugin-types sqldrivers,networkinformation
 ```
 
 Result: Passed successfully. Executable compiled with embedded icon, AUTORCC resources, and Simple/Advanced toggle layout. Packaged with windeployqt.exe.
