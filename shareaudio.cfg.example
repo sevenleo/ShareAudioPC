@@ -1,0 +1,36 @@
+# ShareAudioLite Startup Configuration Template
+# Rename this file to 'shareaudio.cfg' and place it in the same directory
+# as the executable (shareaudio_cli.exe or shareaudio_gui.exe) to use it.
+
+# AUTOSTART (true | false)
+# The master switch. If false or commented out, the configuration file
+# will only pre-fill fields in the GUI and will not auto-start any sessions.
+AUTOSTART=false
+
+# MODE (server | client)
+# Configures the mode for autostart.
+# - 'server': starts sharing system audio.
+# - 'client': connects and listens to the specified SERVER_IP.
+MODE=server
+
+# SHARE_QUALITY (balanced | ultrafast | quality)
+# The audio stream transmission quality mode.
+# - 'balanced': standard configuration (2048 bytes packets).
+# - 'ultrafast': ultra low-latency configuration (1024 bytes packets).
+# - 'quality': high-fidelity Opus compressed codec mode.
+SHARE_QUALITY=balanced
+
+# DEVICE_ID (string)
+# Pre-selects a specific hardware capture audio device ID for the transmitter.
+# If commented out or empty, it will use the system's default capture device.
+# DEVICE_ID=
+
+# PLAYBACK_DEVICE_ID (string)
+# Pre-selects a specific hardware playback audio device ID for the receiver.
+# If commented out or empty, it will use the system's default playback device.
+# PLAYBACK_DEVICE_ID=
+
+# SERVER_IP (string)
+# The IP address or hostname of the transmitter/server to connect to.
+# (This variable is required only when MODE=client)
+SERVER_IP=192.168.1.100
