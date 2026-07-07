@@ -50,3 +50,11 @@ desktop.ini
 
 # Vendored repository metadata
 third_party/*/.git/
+
+# Local Qt installation
+qt6/
+qt6_new/
+
+# Runtime locks
+*.pid
+shareaudio.pid

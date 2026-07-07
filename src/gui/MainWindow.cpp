@@ -6,6 +6,8 @@
 #include <QClipboard>
 #include <QCloseEvent>
 #include <QComboBox>
+#include <QIcon>
+#include <QTabWidget>
 #include <QFormLayout>
 #include <QGridLayout>
 #include <QGroupBox>
@@ -17,6 +19,7 @@
 #include <QMessageBox>
 #include <QPlainTextEdit>
 #include <QPushButton>
+#include <QStyle>
 #include <QTimer>
 #include <QVBoxLayout>
 #include <QVariant>
@@ -29,7 +32,13 @@ namespace {
 
 QString qstr(const std::string& value)
 {
-    return QString::fromStdString(value);
+    return QString::fromUtf8(value.data(), static_cast<int>(value.size()));
+}
+
+std::string std_str(const QString& value)
+{
+    QByteArray bytes = value.toUtf8();
+    return std::string(bytes.constData(), static_cast<std::size_t>(bytes.size()));
 }
 
 QString mode_label(AudioMode mode)
@@ -74,6 +83,17 @@ void select_combo_data(QComboBox* combo, const QVariant& data)
     }
 }
 
+void update_button_style(QPushButton* button, const QString& object_name, const QString& text)
+{
+    button->setText(text);
+    if (button->objectName() != object_name) {
+        button->setObjectName(object_name);
+        button->style()->unpolish(button);
+        button->style()->polish(button);
+        button->update();
+    }
+}
+
 } // namespace
 
 MainWindow::MainWindow(QWidget* parent)
@@ -83,32 +103,33 @@ MainWindow::MainWindow(QWidget* parent)
     build_ui();
     setStyleSheet(R"(
         QMainWindow {
-            background-color: #0B101D;
+            background-color: #0A0F1D;
         }
         QGroupBox {
-            background-color: #1C253E;
+            background-color: #151F3C;
             color: #FFFFFF;
-            border: 1px solid #2A3656;
+            border: 1px solid #25335A;
             border-radius: 8px;
             margin-top: 12px;
+            padding-top: 16px;
             font-weight: bold;
             font-size: 13px;
         }
         QGroupBox::title {
             subcontrol-origin: margin;
             subcontrol-position: top left;
-            left: 10px;
-            padding: 2px 6px;
+            left: 12px;
+            padding: 0 4px;
             color: #00A3FF;
         }
         QLabel {
-            color: #E2E8F0;
+            color: #BAC7DE;
             font-size: 12px;
         }
         QLineEdit {
-            background-color: #0B101D;
+            background-color: #0A0F1D;
             color: #FFFFFF;
-            border: 1px solid #2A3656;
+            border: 1px solid #25335A;
             border-radius: 4px;
             padding: 6px;
             font-size: 12px;
@@ -117,25 +138,26 @@ MainWindow::MainWindow(QWidget* parent)
             border: 1px solid #00A3FF;
         }
         QComboBox {
-            background-color: #0B101D;
+            background-color: #0A0F1D;
             color: #FFFFFF;
-            border: 1px solid #2A3656;
+            border: 1px solid #25335A;
             border-radius: 4px;
             padding: 6px;
-            min-width: 120px;
+            font-size: 12px;
+            min-width: 140px;
         }
         QComboBox:focus {
             border: 1px solid #00A3FF;
         }
         QComboBox QAbstractItemView {
-            background-color: #0B101D;
+            background-color: #0A0F1D;
             color: #FFFFFF;
             selection-background-color: #1DF09A;
-            selection-color: #0B101D;
+            selection-color: #0A0F1D;
         }
         QPushButton {
-            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #1DF09A, stop:1 #00A3FF);
-            color: #0B101D;
+            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #1A73E8, stop:1 #0078FF);
+            color: #FFFFFF;
             border: none;
             border-radius: 6px;
             padding: 8px 16px;
@@ -143,32 +165,76 @@ MainWindow::MainWindow(QWidget* parent)
             font-size: 13px;
         }
         QPushButton:hover {
-            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #22ffa4, stop:1 #1ab0ff);
+            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #2b82f6, stop:1 #1c85ff);
         }
         QPushButton:pressed {
-            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #19cf85, stop:1 #008ecc);
+            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #155bb5, stop:1 #005fcc);
         }
         QPushButton:disabled {
             background-color: #2D3748;
             color: #718096;
         }
+        QPushButton#stopButton {
+            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #E53935, stop:1 #D32F2F);
+            color: #FFFFFF;
+        }
+        QPushButton#stopButton:hover {
+            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #ef5350, stop:1 #e53935);
+        }
+        QPushButton#startShareButton {
+            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #1DF09A, stop:1 #00FF88);
+            color: #0A0F1D;
+        }
+        QPushButton#startShareButton:hover {
+            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #33fcae, stop:1 #24ff9c);
+        }
+        QPushButton#connectButton {
+            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #0078FF, stop:1 #00C6FF);
+            color: #FFFFFF;
+        }
+        QPushButton#connectButton:hover {
+            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #1c88ff, stop:1 #1cd0ff);
+        }
+        QTabWidget::pane {
+            border: 1px solid #25335A;
+            background-color: #151F3C;
+            border-radius: 8px;
+            top: -1px;
+        }
+        QTabBar::tab {
+            background-color: #0A0F1D;
+            color: #BAC7DE;
+            border: 1px solid #25335A;
+            border-bottom-color: none;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            padding: 8px 16px;
+            margin-right: 2px;
+            font-weight: bold;
+        }
+        QTabBar::tab:selected {
+            background-color: #151F3C;
+            color: #FFFFFF;
+            border-bottom-color: #151F3C;
+            font-weight: bold;
+        }
         QListWidget {
-            background-color: #0B101D;
+            background-color: #0A0F1D;
             color: #E2E8F0;
-            border: 1px solid #2A3656;
+            border: 1px solid #25335A;
             border-radius: 4px;
             padding: 4px;
         }
         QListWidget::item:selected {
-            background-color: #1DF09A;
-            color: #0B101D;
+            background-color: #0078FF;
+            color: #FFFFFF;
         }
         QPlainTextEdit {
-            background-color: #0B101D;
+            background-color: #0A0F1D;
             color: #A0AEC0;
             font-family: Consolas, monospace;
             font-size: 11px;
-            border: 1px solid #2A3656;
+            border: 1px solid #25335A;
             border-radius: 4px;
         }
     )");
@@ -197,107 +263,182 @@ void MainWindow::closeEvent(QCloseEvent* event)
 void MainWindow::build_ui()
 {
     setWindowTitle("ShareAudioLite");
-    setMinimumSize(980, 680);
+    setWindowIcon(QIcon(":/icon/logo.png"));
+    setMinimumSize(850, 560);
 
     auto* central = new QWidget(this);
     auto* root = new QVBoxLayout(central);
     root->setContentsMargins(12, 12, 12, 12);
     root->setSpacing(10);
 
-    auto* top = new QGroupBox("Status", central);
-    auto* top_layout = new QGridLayout(top);
-    state_label_ = new QLabel("idle", top);
-    port_label_ = new QLabel(QString::number(Defaults::tcp_port), top);
-    error_label_ = new QLabel("-", top);
+    // Global Top Status Indicator (Simple - Line 1)
+    auto* status_card = new QGroupBox("Connection Status", central);
+    auto* status_layout = new QHBoxLayout(status_card);
+    status_layout->setContentsMargins(12, 8, 12, 8);
+    
+    state_label_ = new QLabel("Ready", status_card);
+    state_label_->setStyleSheet("font-weight: bold; font-size: 13px; color: #00FF88;");
+    
+    ip_info_label_ = new QLabel("-", status_card);
+    ip_info_label_->setStyleSheet("font-weight: bold; color: #00C6FF;");
+    
+    port_label_ = new QLabel(QString::number(Defaults::tcp_port), status_card);
+    port_label_->setStyleSheet("font-weight: bold; color: #FFFFFF;");
+    
+    error_label_ = new QLabel("-", status_card);
+    error_label_->setStyleSheet("color: #FF5555;");
     error_label_->setWordWrap(true);
-    stop_button_ = new QPushButton("Stop", top);
-    connect(stop_button_, &QPushButton::clicked, this, [this] {
-        stop_session();
+    
+    toggle_mode_button_ = new QPushButton("Show Advanced Options", status_card);
+    connect(toggle_mode_button_, &QPushButton::clicked, this, [this] {
+        advanced_mode_ = !advanced_mode_;
+        update_layout_visibility();
     });
-    top_layout->addWidget(new QLabel("State:", top), 0, 0);
-    top_layout->addWidget(state_label_, 0, 1);
-    top_layout->addWidget(new QLabel("TCP Port:", top), 0, 2);
-    top_layout->addWidget(port_label_, 0, 3);
-    top_layout->addWidget(stop_button_, 0, 4);
-    top_layout->addWidget(new QLabel("Last error:", top), 1, 0);
-    top_layout->addWidget(error_label_, 1, 1, 1, 4);
-    root->addWidget(top);
+    
+    status_layout->addWidget(new QLabel("State:", status_card));
+    status_layout->addWidget(state_label_);
+    status_layout->addWidget(new QLabel("IP/Host:", status_card));
+    status_layout->addWidget(ip_info_label_);
+    status_layout->addWidget(new QLabel("Port:", status_card));
+    status_layout->addWidget(port_label_);
+    status_layout->addWidget(new QLabel("Msg:", status_card));
+    status_layout->addWidget(error_label_, 1);
+    status_layout->addWidget(toggle_mode_button_);
+    
+    root->addWidget(status_card);
 
-    auto* columns = new QHBoxLayout();
-    columns->setSpacing(10);
+    // --- LINE 2: Server (Transmitter) Card ---
+    auto* server_card = new QGroupBox("Server (Transmitter)", central);
+    auto* server_layout = new QHBoxLayout(server_card);
+    server_layout->setContentsMargins(12, 8, 12, 8);
+    server_layout->setSpacing(10);
 
-    auto* share_box = new QGroupBox("Share", central);
-    auto* share_layout = new QVBoxLayout(share_box);
-    mode_combo_ = new QComboBox(share_box);
-    mode_combo_->addItem("Balanced", QVariant::fromValue(static_cast<int>(AudioMode::Balanced)));
-    mode_combo_->addItem("Ultrafast", QVariant::fromValue(static_cast<int>(AudioMode::Ultrafast)));
-    mode_combo_->addItem("Quality (Coming Soon)", QVariant::fromValue(static_cast<int>(AudioMode::Quality)));
-    mode_combo_->setItemData(2, false, Qt::UserRole - 1);
-    capture_combo_ = new QComboBox(share_box);
-    start_share_button_ = new QPushButton("Start Sharing", share_box);
+    // Left part (Always visible): Title and Start/Stop Button
+    auto* server_simple_widget = new QWidget(server_card);
+    auto* server_simple_layout = new QHBoxLayout(server_simple_widget);
+    server_simple_layout->setContentsMargins(0, 0, 0, 0);
+    server_simple_layout->setSpacing(10);
+    
+    auto* server_title_label = new QLabel("Transmit Audio:", server_simple_widget);
+    server_title_label->setStyleSheet("font-weight: bold;");
+    start_share_button_ = new QPushButton("Start Sharing", server_simple_widget);
+    start_share_button_->setObjectName("startShareButton");
     connect(start_share_button_, &QPushButton::clicked, this, [this] {
-        start_sharing();
+        const auto status = controller_.status_snapshot();
+        if (status.mode == SessionMode::Sharing) {
+            stop_session();
+        } else {
+            start_sharing();
+        }
     });
-    clients_label_ = new QLabel("0", share_box);
-    bytes_sent_label_ = new QLabel("0", share_box);
-    packets_label_ = new QLabel("0", share_box);
-    dropped_label_ = new QLabel("0", share_box);
-    auto* share_form = new QFormLayout();
-    share_form->addRow("Mode", mode_combo_);
-    share_form->addRow("Capture device", capture_combo_);
-    share_form->addRow("Connected clients", clients_label_);
-    share_form->addRow("Bytes sent", bytes_sent_label_);
-    share_form->addRow("Packets", packets_label_);
-    share_form->addRow("Dropped", dropped_label_);
-    share_layout->addLayout(share_form);
-    share_layout->addWidget(start_share_button_);
-    columns->addWidget(share_box);
+    server_simple_layout->addWidget(server_title_label);
+    server_simple_layout->addWidget(start_share_button_);
+    server_layout->addWidget(server_simple_widget);
 
-    auto* listen_box = new QGroupBox("Listen", central);
-    auto* listen_layout = new QVBoxLayout(listen_box);
-    host_input_ = new QLineEdit(listen_box);
-    host_input_->setPlaceholderText("Transmitter IP, for example 192.168.1.50");
-    playback_combo_ = new QComboBox(listen_box);
-    connect_button_ = new QPushButton("Connect", listen_box);
+    // Right part (Advanced panel)
+    server_advanced_widget_ = new QWidget(server_card);
+    auto* server_adv_layout = new QHBoxLayout(server_advanced_widget_);
+    server_adv_layout->setContentsMargins(0, 0, 0, 0);
+    server_adv_layout->setSpacing(10);
+
+    mode_combo_ = new QComboBox(server_advanced_widget_);
+    mode_combo_->addItem("Balanced (Recommended)", QVariant::fromValue(static_cast<int>(AudioMode::Balanced)));
+    mode_combo_->addItem("Ultrafast (Low Latency)", QVariant::fromValue(static_cast<int>(AudioMode::Ultrafast)));
+    mode_combo_->addItem("Quality (Opus - Coming Soon)", QVariant::fromValue(static_cast<int>(AudioMode::Quality)));
+    mode_combo_->setItemData(2, false, Qt::UserRole - 1);
+    
+    capture_combo_ = new QComboBox(server_advanced_widget_);
+    
+    clients_label_ = new QLabel("0", server_advanced_widget_);
+    clients_label_->setStyleSheet("font-weight: bold; color: #FFFFFF;");
+
+    share_form_ = new QFormLayout();
+    share_form_->setSpacing(6);
+    share_form_->addRow("Quality Mode:", mode_combo_);
+    share_form_->addRow("Audio Device:", capture_combo_);
+    share_form_->addRow("Clients:", clients_label_);
+
+    server_adv_layout->addLayout(share_form_);
+    server_layout->addWidget(server_advanced_widget_);
+    root->addWidget(server_card);
+
+    // --- LINE 3: Client (Receiver) Card ---
+    auto* listen_card = new QGroupBox("Client (Receiver)", central);
+    auto* listen_layout = new QHBoxLayout(listen_card);
+    listen_layout->setContentsMargins(12, 8, 12, 8);
+    listen_layout->setSpacing(10);
+
+    // Left part (Always visible): Input and Connect Button
+    auto* client_simple_widget = new QWidget(listen_card);
+    auto* client_simple_layout = new QHBoxLayout(client_simple_widget);
+    client_simple_layout->setContentsMargins(0, 0, 0, 0);
+    client_simple_layout->setSpacing(10);
+
+    auto* client_title_label = new QLabel("Receive Audio:", client_simple_widget);
+    client_title_label->setStyleSheet("font-weight: bold;");
+    
+    host_input_ = new QLineEdit(client_simple_widget);
+    host_input_->setPlaceholderText("Transmitter IP (e.g. 192.168.1.50)");
+    
+    connect_button_ = new QPushButton("Connect Receiver", client_simple_widget);
+    connect_button_->setObjectName("connectButton");
     connect(connect_button_, &QPushButton::clicked, this, [this] {
-        start_listening();
+        const auto status = controller_.status_snapshot();
+        if (status.mode == SessionMode::Listening || status.mode == SessionMode::Connecting) {
+            stop_session();
+        } else {
+            start_listening();
+        }
     });
-    listen_mode_label_ = new QLabel("-", listen_box);
-    bytes_received_label_ = new QLabel("0", listen_box);
-    bytes_played_label_ = new QLabel("0", listen_box);
-    buffer_label_ = new QLabel("0", listen_box);
-    underruns_label_ = new QLabel("0", listen_box);
-    recent_devices_list_ = new QListWidget(listen_box);
+
+    client_simple_layout->addWidget(client_title_label);
+    client_simple_layout->addWidget(host_input_);
+    client_simple_layout->addWidget(connect_button_);
+    listen_layout->addWidget(client_simple_widget);
+
+    // Right part (Advanced panel)
+    client_advanced_widget_ = new QWidget(listen_card);
+    auto* client_adv_layout = new QHBoxLayout(client_advanced_widget_);
+    client_adv_layout->setContentsMargins(0, 0, 0, 0);
+    client_adv_layout->setSpacing(10);
+
+    playback_combo_ = new QComboBox(client_advanced_widget_);
+    
+    listen_mode_label_ = new QLabel("-", client_advanced_widget_);
+    listen_mode_label_->setStyleSheet("font-weight: bold; color: #FFFFFF;");
+
+    listen_form_ = new QFormLayout();
+    listen_form_->setSpacing(6);
+    listen_form_->addRow("Audio Speaker:", playback_combo_);
+    listen_form_->addRow("Stream Mode:", listen_mode_label_);
+
+    client_adv_layout->addLayout(listen_form_);
+    listen_layout->addWidget(client_advanced_widget_);
+    root->addWidget(listen_card);
+
+    // --- LINE 4: Tabs Widget ---
+    tabs_ = new QTabWidget(central);
+    tabs_->setObjectName("mainTabs");
+
+    // Tab 1: Network & History
+    auto* dev_tab = new QWidget(tabs_);
+    auto* dev_layout = new QHBoxLayout(dev_tab);
+    dev_layout->setSpacing(12);
+    dev_layout->setContentsMargins(10, 10, 10, 10);
+
+    auto* net_card = new QGroupBox("Network Status", dev_tab);
+    auto* net_layout = new QVBoxLayout(net_card);
+    local_ips_list_ = new QListWidget(net_card);
+    recent_devices_list_ = new QListWidget(net_card);
     connect(recent_devices_list_, &QListWidget::itemDoubleClicked, this, [this](QListWidgetItem* item) {
         if (item) {
             host_input_->setText(item->text());
         }
     });
-    auto* listen_form = new QFormLayout();
-    listen_form->addRow("Host/IP", host_input_);
-    listen_form->addRow("Playback device", playback_combo_);
-    listen_form->addRow("Detected mode", listen_mode_label_);
-    listen_form->addRow("Bytes received", bytes_received_label_);
-    listen_form->addRow("Bytes played", bytes_played_label_);
-    listen_form->addRow("Buffer bytes", buffer_label_);
-    listen_form->addRow("Underruns", underruns_label_);
-    listen_layout->addLayout(listen_form);
-    listen_layout->addWidget(connect_button_);
-    listen_layout->addWidget(new QLabel("Recent devices", listen_box));
-    listen_layout->addWidget(recent_devices_list_);
-    columns->addWidget(listen_box);
 
-    root->addLayout(columns);
-
-    auto* lower = new QHBoxLayout();
-    lower->setSpacing(10);
-
-    auto* ips_box = new QGroupBox("Local IPs", central);
-    auto* ips_layout = new QVBoxLayout(ips_box);
-    local_ips_list_ = new QListWidget(ips_box);
     auto* ip_buttons = new QHBoxLayout();
-    auto* refresh_ips_button = new QPushButton("Refresh", ips_box);
-    auto* copy_ip_button = new QPushButton("Copy IP", ips_box);
+    auto* refresh_ips_button = new QPushButton("Refresh", net_card);
+    auto* copy_ip_button = new QPushButton("Copy Selected IP", net_card);
     connect(refresh_ips_button, &QPushButton::clicked, this, [this] {
         refresh_ips();
     });
@@ -306,46 +447,115 @@ void MainWindow::build_ui()
     });
     ip_buttons->addWidget(refresh_ips_button);
     ip_buttons->addWidget(copy_ip_button);
-    ips_layout->addWidget(local_ips_list_);
-    ips_layout->addLayout(ip_buttons);
-    lower->addWidget(ips_box);
 
-    auto* devices_box = new QGroupBox("Devices", central);
+    net_layout->addWidget(new QLabel("Your Local IP Addresses:", net_card));
+    net_layout->addWidget(local_ips_list_);
+    net_layout->addLayout(ip_buttons);
+    net_layout->addWidget(new QLabel("Recent Hosts (Double-click to set):", net_card));
+    net_layout->addWidget(recent_devices_list_);
+    dev_layout->addWidget(net_card);
+
+    // Tab 2: Hardware Audio Devices
+    auto* devices_box = new QGroupBox("Hardware Audio Devices", dev_tab);
     auto* devices_layout = new QVBoxLayout(devices_box);
     capture_devices_list_ = new QListWidget(devices_box);
     playback_devices_list_ = new QListWidget(devices_box);
-    auto* refresh_devices_button = new QPushButton("Refresh Devices", devices_box);
+    auto* refresh_devices_button = new QPushButton("Refresh Devices List", devices_box);
     connect(refresh_devices_button, &QPushButton::clicked, this, [this] {
         refresh_devices();
     });
-    devices_layout->addWidget(new QLabel("Capture", devices_box));
+    devices_layout->addWidget(new QLabel("Available Input/Capture Sources:", devices_box));
     devices_layout->addWidget(capture_devices_list_);
-    devices_layout->addWidget(new QLabel("Playback", devices_box));
+    devices_layout->addWidget(new QLabel("Available Output/Playback Speakers:", devices_box));
     devices_layout->addWidget(playback_devices_list_);
     devices_layout->addWidget(refresh_devices_button);
-    lower->addWidget(devices_box);
+    dev_layout->addWidget(devices_box);
 
-    auto* diagnostics_box = new QGroupBox("Diagnostics", central);
-    auto* diagnostics_layout = new QVBoxLayout(diagnostics_box);
-    log_view_ = new QPlainTextEdit(diagnostics_box);
+    tabs_->addTab(dev_tab, "Network & Hardware");
+
+    // Tab 3: Diagnostics & Help
+    auto* diag_tab = new QWidget(tabs_);
+    auto* diag_layout = new QVBoxLayout(diag_tab);
+    diag_layout->setSpacing(10);
+    diag_layout->setContentsMargins(10, 10, 10, 10);
+
+    auto* stats_row = new QHBoxLayout();
+    bytes_sent_label_ = new QLabel("0", diag_tab);
+    packets_label_ = new QLabel("0", diag_tab);
+    dropped_label_ = new QLabel("0", diag_tab);
+    bytes_received_label_ = new QLabel("0", diag_tab);
+    bytes_played_label_ = new QLabel("0", diag_tab);
+    buffer_label_ = new QLabel("0", diag_tab);
+    underruns_label_ = new QLabel("0", diag_tab);
+
+    auto* stat_form_l = new QFormLayout();
+    stat_form_l->addRow("Bytes Sent:", bytes_sent_label_);
+    stat_form_l->addRow("Packets Produced:", packets_label_);
+    stat_form_l->addRow("Packets Dropped:", dropped_label_);
+    stats_row->addLayout(stat_form_l);
+
+    auto* stat_form_r = new QFormLayout();
+    stat_form_r->addRow("Bytes Received:", bytes_received_label_);
+    stat_form_r->addRow("Bytes Played:", bytes_played_label_);
+    stat_form_r->addRow("Jitter Buffer Bytes:", buffer_label_);
+    stat_form_r->addRow("Playback Underruns:", underruns_label_);
+    stats_row->addLayout(stat_form_r);
+
+    diag_layout->addLayout(stats_row);
+
+    log_view_ = new QPlainTextEdit(diag_tab);
     log_view_->setReadOnly(true);
-    auto* diagnostics_buttons = new QHBoxLayout();
-    auto* copy_diagnostics_button = new QPushButton("Copy Diagnostics", diagnostics_box);
-    auto* help_button = new QPushButton("Help", diagnostics_box);
-    connect(copy_diagnostics_button, &QPushButton::clicked, this, [this] {
+    diag_layout->addWidget(new QLabel("System Event Log:", diag_tab));
+    diag_layout->addWidget(log_view_);
+
+    auto* diag_buttons = new QHBoxLayout();
+    auto* copy_diag_button = new QPushButton("Copy Diagnostics to Clipboard", diag_tab);
+    auto* help_button = new QPushButton("Help Guide", diag_tab);
+    connect(copy_diag_button, &QPushButton::clicked, this, [this] {
         copy_diagnostics();
     });
     connect(help_button, &QPushButton::clicked, this, [this] {
         show_help();
     });
-    diagnostics_buttons->addWidget(copy_diagnostics_button);
-    diagnostics_buttons->addWidget(help_button);
-    diagnostics_layout->addWidget(log_view_);
-    diagnostics_layout->addLayout(diagnostics_buttons);
-    lower->addWidget(diagnostics_box);
+    diag_buttons->addWidget(copy_diag_button);
+    diag_buttons->addWidget(help_button);
+    diag_layout->addLayout(diag_buttons);
 
-    root->addLayout(lower);
+    tabs_->addTab(diag_tab, "Diagnostics & Help");
+
+    root->addWidget(tabs_);
     setCentralWidget(central);
+
+    update_layout_visibility();
+}
+
+void MainWindow::update_layout_visibility()
+{
+    if (server_advanced_widget_) {
+        server_advanced_widget_->setVisible(advanced_mode_);
+    }
+    if (client_advanced_widget_) {
+        client_advanced_widget_->setVisible(advanced_mode_);
+    }
+    if (tabs_) {
+        tabs_->setVisible(advanced_mode_);
+    }
+
+    if (advanced_mode_) {
+        setMinimumSize(850, 560);
+        setMaximumSize(16777215, 16777215);
+        resize(850, 560);
+        if (toggle_mode_button_) {
+            toggle_mode_button_->setText("Hide Advanced Options");
+        }
+    } else {
+        setMinimumSize(640, 240);
+        setMaximumSize(640, 240);
+        resize(640, 240);
+        if (toggle_mode_button_) {
+            toggle_mode_button_->setText("Show Advanced Options");
+        }
+    }
 }
 
 void MainWindow::refresh_all()
@@ -365,8 +575,31 @@ void MainWindow::refresh_status()
 {
     const auto status = controller_.status_snapshot();
     const bool idle = status.mode == SessionMode::Idle;
+    const bool sharing = status.mode == SessionMode::Sharing;
+    const bool listening = status.mode == SessionMode::Listening || status.mode == SessionMode::Connecting;
+
     state_label_->setText(session_mode_label(status.mode));
     port_label_->setText(QString::number(status.port));
+    
+    // Format IP info label depending on the mode initiated
+    if (sharing) {
+        QString ips_str;
+        const auto ips = controller_.list_local_ips();
+        if (!ips.empty()) {
+            ips_str = qstr(ips.front());
+            if (ips.size() > 1) {
+                ips_str += QString(" (+%1 more)").arg(ips.size() - 1);
+            }
+        } else {
+            ips_str = "No IP found";
+        }
+        ip_info_label_->setText(ips_str);
+    } else if (listening) {
+        ip_info_label_->setText(qstr(status.host));
+    } else {
+        ip_info_label_->setText("-");
+    }
+
     error_label_->setText(status.last_error.empty() ? "-" : qstr(status.last_error));
     clients_label_->setText(QString::number(status.connected_clients));
     bytes_sent_label_->setText(QString::number(status.bytes_sent));
@@ -378,9 +611,22 @@ void MainWindow::refresh_status()
     buffer_label_->setText(QString::number(status.jitter_buffer_depth));
     underruns_label_->setText(QString::number(status.underruns));
 
-    start_share_button_->setEnabled(idle);
-    connect_button_->setEnabled(idle);
-    stop_button_->setEnabled(!idle);
+    // Server button toggle state and text
+    if (sharing) {
+        update_button_style(start_share_button_, "stopButton", "Stop Sharing");
+    } else {
+        update_button_style(start_share_button_, "startShareButton", "Start Sharing");
+    }
+
+    // Client button toggle state and text
+    if (listening) {
+        update_button_style(connect_button_, "stopButton", "Disconnect");
+    } else {
+        update_button_style(connect_button_, "connectButton", "Connect Receiver");
+    }
+
+    start_share_button_->setEnabled(idle || sharing);
+    connect_button_->setEnabled(idle || listening);
     mode_combo_->setEnabled(idle);
     capture_combo_->setEnabled(idle);
     playback_combo_->setEnabled(idle);
@@ -419,8 +665,52 @@ void MainWindow::refresh_devices()
     }
 
     const auto config = controller_.config_snapshot();
-    select_combo_data(capture_combo_, qstr(config.transmitter.capture_device_id));
-    select_combo_data(playback_combo_, qstr(config.receiver.playback_device_id));
+
+    // Find the default capture device
+    std::string default_capture_id;
+    for (const auto& device : controller_.list_capture_devices()) {
+        if (device.is_default) {
+            default_capture_id = device.id;
+            break;
+        }
+    }
+
+    // Find the default playback device
+    std::string default_playback_id;
+    for (const auto& device : controller_.list_playback_devices()) {
+        if (device.is_default) {
+            default_playback_id = device.id;
+            break;
+        }
+    }
+
+    // Use saved device from config if present, otherwise select the default device
+    std::string select_capture = config.transmitter.capture_device_id.empty() ? default_capture_id : config.transmitter.capture_device_id;
+    std::string select_playback = config.receiver.playback_device_id.empty() ? default_playback_id : config.receiver.playback_device_id;
+
+    if (select_capture.empty() && !controller_.list_capture_devices().empty()) {
+        select_capture = controller_.list_capture_devices().front().id;
+    }
+    if (select_playback.empty() && !controller_.list_playback_devices().empty()) {
+        select_playback = controller_.list_playback_devices().front().id;
+    }
+
+    select_combo_data(capture_combo_, qstr(select_capture));
+    select_combo_data(playback_combo_, qstr(select_playback));
+
+    // Highlight the defaults/saved selections in the lists as well
+    for (int i = 0; i < capture_combo_->count(); ++i) {
+        if (capture_combo_->itemData(i).toString() == qstr(select_capture)) {
+            capture_devices_list_->setCurrentRow(i);
+            break;
+        }
+    }
+    for (int i = 0; i < playback_combo_->count(); ++i) {
+        if (playback_combo_->itemData(i).toString() == qstr(select_playback)) {
+            playback_devices_list_->setCurrentRow(i);
+            break;
+        }
+    }
 }
 
 void MainWindow::refresh_recent_devices()
@@ -452,7 +742,7 @@ void MainWindow::start_sharing()
         show_error("Quality mode requires Opus implementation.");
         return;
     }
-    const auto device_id = capture_combo_->currentData().toString().toStdString();
+    const auto device_id = std_str(capture_combo_->currentData().toString());
     auto result = controller_.start_sharing(selected, device_id);
     if (!result.ok()) {
         show_error(qstr(result.error().message));
@@ -469,8 +759,8 @@ void MainWindow::start_listening()
         show_error("Host/IP is required.");
         return;
     }
-    const auto device_id = playback_combo_->currentData().toString().toStdString();
-    auto result = controller_.start_listening(host.toStdString(), device_id);
+    const auto device_id = std_str(playback_combo_->currentData().toString());
+    auto result = controller_.start_listening(std_str(host), device_id);
     if (!result.ok()) {
         show_error(qstr(result.error().message));
     } else {

@@ -51,7 +51,11 @@
 - [x] Diagnostics/log panel.
 - [x] Copy diagnostics button.
 - [x] Help/About dialog.
-- [x] Apply Soundwave visual identity colors (Neon Green `#1DF09A`, Cyan Blue `#00A3FF`, Dark Slate `#1C253E`, Deep Space `#0B101D`) via Qt stylesheet.
+- [x] Apply dark theme stylesheet with contextual button colors (green Share, blue Connect, red Stop).
+- [x] Embed brand icon (`logo.ico`) in executable via Windows resource script.
+- [x] Bundle logo assets (`logo.png`, `logo.svg`) inside binary via Qt resource file (AUTORCC).
+- [x] Add 3-Line Simple vs Advanced layout toggle (compact 3-line view + expandable full tabs view).
+- [x] Always pre-select and highlight the default audio capture/playback devices on startup.
 - [x] Enable enforce single instance lock on GUI startup.
 
 ## Build System
@@ -108,7 +112,7 @@
 
 ## Acceptance Criteria
 - [x] `shareaudio_cli` still builds.
-- [ ] `shareaudio_gui` builds when Qt is available.
+- [x] `shareaudio_gui` builds when Qt is available (verified with MinGW 13.1.0 + Qt 6.6.3).
 - [x] CLI tests pass.
 - [x] GUI exposes every current CLI function.
 - [x] GUI can start and stop sharing.
@@ -119,5 +123,8 @@
 ## Verification Notes
 - [x] `cmake --build --preset windows-debug` passed.
 - [x] `ctest --preset windows-debug` passed.
-- [x] `cmake --preset windows-gui-debug` was attempted.
-- [ ] Qt6 Widgets was not available in this workspace, so `shareaudio_gui` compile verification remains pending.
+- [x] `cmake --preset windows-gui-release` with MinGW 13.1.0 toolchain passed.
+- [x] `shareaudio_gui.exe` release compile and icon embedding verified.
+- [x] Qt6 Widgets dependencies packaged using `windeployqt.exe`.
+- [x] Simple Mode default layout verified (compact 3-line 640×240 window).
+- [x] Advanced Mode toggle verified (full tabbed 850×560 dashboard).

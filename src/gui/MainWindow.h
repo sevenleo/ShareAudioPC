@@ -6,11 +6,13 @@
 
 class QCloseEvent;
 class QComboBox;
+class QFormLayout;
 class QLabel;
 class QLineEdit;
 class QListWidget;
 class QPlainTextEdit;
 class QPushButton;
+class QTabWidget;
 class QTimer;
 
 namespace shareaudio::gui {
@@ -25,6 +27,7 @@ protected:
 
 private:
     void build_ui();
+    void update_layout_visibility();
     void refresh_all();
     void refresh_status();
     void refresh_ips();
@@ -45,6 +48,7 @@ private:
     QLabel* state_label_ {};
     QLabel* port_label_ {};
     QLabel* error_label_ {};
+    QLabel* ip_info_label_ {};
     QLabel* clients_label_ {};
     QLabel* bytes_sent_label_ {};
     QLabel* packets_label_ {};
@@ -68,6 +72,13 @@ private:
     QPushButton* start_share_button_ {};
     QPushButton* connect_button_ {};
     QPushButton* stop_button_ {};
+    QPushButton* toggle_mode_button_ {};
+    QTabWidget* tabs_ {};
+    QFormLayout* share_form_ {};
+    QFormLayout* listen_form_ {};
+    QWidget* server_advanced_widget_ {};
+    QWidget* client_advanced_widget_ {};
+    bool advanced_mode_ { false };
 };
 
 } // namespace shareaudio::gui

@@ -168,6 +168,37 @@ cmake --preset windows-release -DSHAREAUDIO_ENABLE_OPUS=ON
 cmake --build --preset windows-release
 ```
 
+#### Building the Desktop GUI (with Brand Logo and Assets):
+To compile the portable GUI and avoid C-runtime/allocator heap conflicts, configure the build using the Qt MinGW toolchain:
+```powershell
+# Configure release build using the matching Qt compiler
+cmake --preset windows-gui-release -DCMAKE_C_COMPILER="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/gcc.exe" -DCMAKE_CXX_COMPILER="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/g++.exe" -DCMAKE_MAKE_PROGRAM="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/mingw32-make.exe" -DCMAKE_PREFIX_PATH="d:/GITHUB/ShareAudioPC_2/qt6/6.6.3/mingw_64" -DSHAREAUDIO_ENABLE_OPUS=ON
+
+# Compile the release binaries
+cmake --build build/windows-gui-release --config Release
+
+# Deploy Qt DLL dependencies using windeployqt
+d:\GITHUB\ShareAudioPC_2\qt6\6.6.3\mingw_64\bin\windeployqt.exe D:\GITHUB\ShareAudioPC_2\build\windows-gui-release\shareaudio_gui.exe
+```
+
+---
+
+## 🖥️ Desktop GUI Features
+The GUI target (`shareaudio_gui.exe`) has been personalized and styled to look modern, clean, and professional:
+- **Redesigned 3-Line Simple Mode**: To keep things extremely simple, the app opens in a compact 640x240 window with precisely three clean lines:
+  - **Line 1 (Status)**: Displays the current application state, server/client IP details dynamically depending on the mode, TCP Port, and the last error message or status event.
+  - **Line 2 (Server)**: A single green/red button to start or stop sharing the system sound.
+  - **Line 3 (Client)**: A clean line edit to enter the transmitter's IP address and a single blue/red connect/disconnect button to listen to the broadcast.
+- **Default Device Auto-Selection**: On launch, the app automatically pre-selects the system's default capture (microphone/loopback) and playback (speaker) audio devices, highlighting them in the settings, so users don't have to worry about selecting the wrong sound card.
+- **Interactive Toggle**: Clicking **"Show Advanced Options"** resizes the window to 850x560 and exposes:
+  - **Quality mode selection** (Balanced / Ultrafast).
+  - **Selected capture and playback audio devices** (via combobox dropdowns).
+  - **Full Network & Devices tabs** (including local IPs list and connection history).
+  - **System Logs and Stats** (under the Diagnostics & Help tab).
+- **Embedded Brand Identity**: The project icon (`logo.ico`) is embedded directly into the Windows executable binary, and the UI features dynamic neon-themed buttons and dark mode styling.
+
+---
+
 ### CLI Command Options
 
 * **Start Audio Server (Transmitter)**:

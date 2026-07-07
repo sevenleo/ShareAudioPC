@@ -65,11 +65,7 @@ endif()
 
 if(WIN32)
     target_link_libraries(shareaudio_core PUBLIC ws2_32 mswsock ole32 uuid winmm avrt)
-    # Link MinGW runtime libraries statically so the .exe is portable
-    # without requiring libgcc_s_seh-1.dll, libstdc++-6.dll, or libwinpthread-1.dll
-    if(MINGW)
-        target_link_options(shareaudio_core PUBLIC -static-libgcc -static-libstdc++ -static)
-    endif()
+    # Core imports standard libraries and networking on Windows
 else()
     target_link_libraries(shareaudio_core PUBLIC dl m)
 endif()
@@ -100,6 +96,9 @@ endif()
 if(SHAREAUDIO_ENABLE_CONSOLE_UI)
     add_executable(shareaudio_cli src/main.cpp)
     target_link_libraries(shareaudio_cli PRIVATE shareaudio_core)
+    if(WIN32 AND MINGW)
+        target_link_options(shareaudio_cli PRIVATE -static-libgcc -static-libstdc++ -static)
+    endif()
 endif()
 
 if(SHAREAUDIO_ENABLE_DESKTOP_UI)
@@ -107,8 +106,14 @@ if(SHAREAUDIO_ENABLE_DESKTOP_UI)
     add_executable(shareaudio_gui
         src/gui/main.cpp
         src/gui/MainWindow.cpp
+        resources.qrc
+        resources.rc
     )
+    set_target_properties(shareaudio_gui PROPERTIES AUTORCC ON)
     target_link_libraries(shareaudio_gui PRIVATE shareaudio_core Qt6::Widgets)
+    if(MINGW)
+        target_link_options(shareaudio_gui PRIVATE -static-libgcc -static-libstdc++)
+    endif()
     if(WIN32)
         set_target_properties(shareaudio_gui PROPERTIES WIN32_EXECUTABLE TRUE)
     endif()
@@ -120,5 +125,8 @@ if(SHAREAUDIO_ENABLE_TESTS)
         tests/main.cpp
     )
     target_link_libraries(shareaudio_tests PRIVATE shareaudio_core)
+    if(WIN32 AND MINGW)
+        target_link_options(shareaudio_tests PRIVATE -static-libgcc -static-libstdc++ -static)
+    endif()
     add_test(NAME shareaudio_tests COMMAND shareaudio_tests)
 endif()

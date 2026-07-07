@@ -25,7 +25,12 @@ GUI parity:
 - Listen panel covers `listen <host>`.
 - Quality Mode (Opus) is visible but disabled in transmitter (network mode integration pending).
 - GUI passes selected capture/playback devices to the session controller.
-- Soundwave visual identity applied via Qt stylesheet (Deep Space `#0B101D` and Slate Dark `#1C253E` background, Neon Green `#1DF09A` and Cyan Blue `#00A3FF` accents).
+- **Redesigned 3-Line Simple Mode**: Starts in a compact 640x240 window showing precisely 3 lines: Status (State, dynamic IP info, Port, and last message), Server Transmit button, and Client Receive controls (server IP text field + connect/disconnect button).
+- **Advanced Mode Toggle**: Clicking "Show Advanced Options" resizes the window dynamically to 850x560, exposing quality/device selector comboboxes and the full tabbed dashboard (Network, Hardware, Diagnostics).
+- **Default Device Pre-selection**: Automatically detects, pre-selects, and highlights the system's default capture and playback devices on startup, ensuring a smooth experience.
+- **Embedded brand icon**: `logo.ico` is bundled inside the compiled `shareaudio_gui.exe` binary via Windows resource script. The window title bar and taskbar display the project logo.
+- **Qt resource bundling**: `logo.png` and `logo.svg` are embedded inside the executable via `resources.qrc` (CMake AUTORCC).
+- Updated color palette: Dark Space `#0A0F1D`, Card Dark `#151F3C`, accent borders `#25335A`, with contextual button colors — green for Share, blue for Connect, red for Stop.
 
 Removed legacy commands:
 
@@ -55,8 +60,11 @@ Removed legacy commands:
 - libopus encoder and decoder wrappers (fully implemented and statically linked).
 - Automated unit and loopback tests (including real Opus encode/decode roundtrip).
 - Qt-free `SessionController` shared by CLI and GUI.
-- Optional Qt Widgets dashboard GUI target with Soundwave stylesheet.
-- Static-linked MinGW runtime for portable Windows binaries.
+- Qt Widgets tabbed GUI target with Simple/Advanced toggle layout and embedded brand assets.
+- Windows resource script (`resources.rc`) embedding `logo.ico` inside the compiled `.exe`.
+- Qt resource file (`resources.qrc`) embedding `logo.png` and `logo.svg` via CMake AUTORCC.
+- Static-linked C++ runtime (`-static-libgcc -static-libstdc++`) for the GUI, dynamic C heap shared with Qt DLLs to avoid allocator conflicts.
+- Dedicated MinGW 13.1.0 toolchain (`qt6/Tools/mingw1310_64`) configured for the GUI build to match Qt6 prebuilt DLL ABI.
 - Single-instance lock mechanism (PIDs checked and old processes closed at start).
 - Auto-reconnection logic (receiver continuously tries to reconnect to transmitter under connection loss).
 - Hybrid TCP/HTTP server auto-detection (150ms timeout window) supporting `/info`, `/stream` and `/` endpoints.
@@ -101,8 +109,10 @@ The application supports a dual-protocol handshake:
 Windows:
 
 - CMake configure/build/test has been verified with the `windows-debug` preset.
-- Release builds produce a fully portable `.exe` — MinGW runtime libraries (`libgcc`, `libstdc++`, `libwinpthread`) are linked statically.
-- `windows-gui-debug` configure was attempted, but Qt6 Widgets was not installed or discoverable in this workspace.
+- CLI release builds produce a fully portable `.exe` — MinGW runtime libraries linked statically.
+- GUI release build (`windows-gui-release`) verified using MinGW 13.1.0 and local Qt 6.6.3 installation.
+- `shareaudio_gui.exe` packages logo icon in binary, starts in Simple Mode, and expands to Advanced Mode on demand.
+- Dependencies deployed via `windeployqt.exe` — the entire `build/windows-gui-release/` folder is portable.
 - Capture uses miniaudio loopback against playback devices.
 - Playback uses miniaudio playback devices.
 
@@ -131,13 +141,15 @@ cmake --build --preset windows-debug
 ctest --preset windows-debug
 ```
 
-GUI configure status in this workspace:
+GUI release build status in this workspace:
 
 ```powershell
-cmake --preset windows-gui-debug
+cmake --preset windows-gui-release -DCMAKE_C_COMPILER="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/gcc.exe" -DCMAKE_CXX_COMPILER="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/g++.exe" -DCMAKE_MAKE_PROGRAM="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/mingw32-make.exe" -DCMAKE_PREFIX_PATH="d:/GITHUB/ShareAudioPC_2/qt6/6.6.3/mingw_64" -DSHAREAUDIO_ENABLE_OPUS=ON
+cmake --build build/windows-gui-release --config Release
+d:\GITHUB\ShareAudioPC_2\qt6\6.6.3\mingw_64\bin\windeployqt.exe D:\GITHUB\ShareAudioPC_2\build\windows-gui-release\shareaudio_gui.exe
 ```
 
-Result: failed because Qt6 Widgets was not installed or not in `CMAKE_PREFIX_PATH`.
+Result: Passed successfully. Executable compiled with embedded icon, AUTORCC resources, and Simple/Advanced toggle layout. Packaged with windeployqt.exe.
 
 Automated coverage includes:
 

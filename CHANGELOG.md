@@ -4,6 +4,28 @@ All notable project changes should be recorded in this file.
 
 The format follows a simple staged log.
 
+## [0.4.0] - 2026-07-07
+
+### Added
+
+- Added Redesigned 3-Line Simple Layout: The compact GUI now lists precisely 3 lines in simple mode:
+  - Line 1: Real-time Status details (App state, dynamic server/client IP, port, last message).
+  - Line 2: Server button (dynamic start/stop button to transmit audio).
+  - Line 3: Client input field (to enter server IP) and dynamic connect/disconnect button.
+- Added Automatic Default Device Pre-selection: On startup, the default system capture and playback devices are pre-selected in the comboboxes and highlighted in the lists, preventing users from selecting incorrect sound settings.
+
+## [0.3.0] - 2026-07-07
+
+### Added
+
+- Added Windows Executable Icon: bundled `icon/logo.ico` resource into the GUI executable so it has the custom brand icon in Windows Explorer and the taskbar.
+- Added Qt Resource Bundling: configured `resources.qrc` and CMake AUTORCC to embed png/svg assets directly inside the compiled binary.
+- Added Simple vs Advanced UI Toggle: introduced a `"Show Advanced Options"` dashboard toggle that collapses the interface into a sleek, basic-only layout or expands it into a comprehensive tabbed panel for power users.
+
+### Fixed
+
+- Fixed GUI Heap Allocator and Startup Mismatch: resolved standard library runtime entry-point issues (`_M_replace_cold`) and heap allocator conflicts (`RtlFreeHeap`/`0xc0000139` crashes) by installing/configuring a local MinGW GCC 13.1.0 toolchain and compiling the GUI with `-static-libgcc -static-libstdc++`.
+
 ## [0.2.0] - 2026-07-07
 
 ### Added
