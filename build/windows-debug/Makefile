@@ -260,6 +260,30 @@ src/app/Logger.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/app/Logger.cpp.s
 .PHONY : src/app/Logger.cpp.s
 
+src/app/SessionController.obj: src/app/SessionController.cpp.obj
+.PHONY : src/app/SessionController.obj
+
+# target to build an object file
+src/app/SessionController.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/app/SessionController.cpp.obj
+.PHONY : src/app/SessionController.cpp.obj
+
+src/app/SessionController.i: src/app/SessionController.cpp.i
+.PHONY : src/app/SessionController.i
+
+# target to preprocess a source file
+src/app/SessionController.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/app/SessionController.cpp.i
+.PHONY : src/app/SessionController.cpp.i
+
+src/app/SessionController.s: src/app/SessionController.cpp.s
+.PHONY : src/app/SessionController.s
+
+# target to generate assembly for a file
+src/app/SessionController.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/app/SessionController.cpp.s
+.PHONY : src/app/SessionController.cpp.s
+
 src/audio/AudioAbstractions.obj: src/audio/AudioAbstractions.cpp.obj
 .PHONY : src/audio/AudioAbstractions.obj
 
@@ -644,6 +668,9 @@ help:
 	@echo ... src/app/Logger.obj
 	@echo ... src/app/Logger.i
 	@echo ... src/app/Logger.s
+	@echo ... src/app/SessionController.obj
+	@echo ... src/app/SessionController.i
+	@echo ... src/app/SessionController.s
 	@echo ... src/audio/AudioAbstractions.obj
 	@echo ... src/audio/AudioAbstractions.i
 	@echo ... src/audio/AudioAbstractions.s

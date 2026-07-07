@@ -46,8 +46,12 @@ Result<void> RecentDevices::load()
 
 Result<void> RecentDevices::save() const
 {
-    if (path_.has_parent_path()) {
-        std::filesystem::create_directories(path_.parent_path());
+    try {
+        if (path_.has_parent_path()) {
+            std::filesystem::create_directories(path_.parent_path());
+        }
+    } catch (const std::filesystem::filesystem_error& error) {
+        return Result<void>::failure(make_error(ErrorCode::IoError, "Unable to create recent devices directory: " + std::string(error.what())));
     }
 
     std::ofstream file(path_);

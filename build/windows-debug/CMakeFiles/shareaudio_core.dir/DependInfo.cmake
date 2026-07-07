@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "D:/GITHUB/ShareAudioPC_2/src/app/Application.cpp" "CMakeFiles/shareaudio_core.dir/src/app/Application.cpp.obj" "gcc" "CMakeFiles/shareaudio_core.dir/src/app/Application.cpp.obj.d"
   "D:/GITHUB/ShareAudioPC_2/src/app/Config.cpp" "CMakeFiles/shareaudio_core.dir/src/app/Config.cpp.obj" "gcc" "CMakeFiles/shareaudio_core.dir/src/app/Config.cpp.obj.d"
   "D:/GITHUB/ShareAudioPC_2/src/app/Logger.cpp" "CMakeFiles/shareaudio_core.dir/src/app/Logger.cpp.obj" "gcc" "CMakeFiles/shareaudio_core.dir/src/app/Logger.cpp.obj.d"
+  "D:/GITHUB/ShareAudioPC_2/src/app/SessionController.cpp" "CMakeFiles/shareaudio_core.dir/src/app/SessionController.cpp.obj" "gcc" "CMakeFiles/shareaudio_core.dir/src/app/SessionController.cpp.obj.d"
   "D:/GITHUB/ShareAudioPC_2/src/audio/AudioAbstractions.cpp" "CMakeFiles/shareaudio_core.dir/src/audio/AudioAbstractions.cpp.obj" "gcc" "CMakeFiles/shareaudio_core.dir/src/audio/AudioAbstractions.cpp.obj.d"
   "D:/GITHUB/ShareAudioPC_2/src/audio/AudioPipeline.cpp" "CMakeFiles/shareaudio_core.dir/src/audio/AudioPipeline.cpp.obj" "gcc" "CMakeFiles/shareaudio_core.dir/src/audio/AudioPipeline.cpp.obj.d"
   "D:/GITHUB/ShareAudioPC_2/src/audio/MiniaudioBackend.cpp" "CMakeFiles/shareaudio_core.dir/src/audio/MiniaudioBackend.cpp.obj" "gcc" "CMakeFiles/shareaudio_core.dir/src/audio/MiniaudioBackend.cpp.obj.d"

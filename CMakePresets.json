@@ -38,6 +38,42 @@
       }
     },
     {
+      "name": "windows-gui-debug",
+      "displayName": "Windows GUI Debug",
+      "generator": "MinGW Makefiles",
+      "binaryDir": "${sourceDir}/build/windows-gui-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "SHAREAUDIO_ENABLE_TESTS": "ON",
+        "SHAREAUDIO_ENABLE_CONSOLE_UI": "ON",
+        "SHAREAUDIO_ENABLE_DESKTOP_UI": "ON",
+        "SHAREAUDIO_ENABLE_OPUS": "OFF"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+    {
+      "name": "windows-gui-release",
+      "displayName": "Windows GUI Release",
+      "generator": "MinGW Makefiles",
+      "binaryDir": "${sourceDir}/build/windows-gui-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "SHAREAUDIO_ENABLE_TESTS": "ON",
+        "SHAREAUDIO_ENABLE_CONSOLE_UI": "ON",
+        "SHAREAUDIO_ENABLE_DESKTOP_UI": "ON",
+        "SHAREAUDIO_ENABLE_OPUS": "OFF"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+    {
       "name": "linux-debug",
       "displayName": "Linux Debug",
       "generator": "Unix Makefiles",
@@ -72,6 +108,42 @@
         "lhs": "${hostSystemName}",
         "rhs": "Linux"
       }
+    },
+    {
+      "name": "linux-gui-debug",
+      "displayName": "Linux GUI Debug",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build/linux-gui-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "SHAREAUDIO_ENABLE_TESTS": "ON",
+        "SHAREAUDIO_ENABLE_CONSOLE_UI": "ON",
+        "SHAREAUDIO_ENABLE_DESKTOP_UI": "ON",
+        "SHAREAUDIO_ENABLE_OPUS": "OFF"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "linux-gui-release",
+      "displayName": "Linux GUI Release",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build/linux-gui-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "SHAREAUDIO_ENABLE_TESTS": "ON",
+        "SHAREAUDIO_ENABLE_CONSOLE_UI": "ON",
+        "SHAREAUDIO_ENABLE_DESKTOP_UI": "ON",
+        "SHAREAUDIO_ENABLE_OPUS": "OFF"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
     }
   ],
   "buildPresets": [
@@ -84,12 +156,28 @@
       "configurePreset": "windows-release"
     },
     {
+      "name": "windows-gui-debug",
+      "configurePreset": "windows-gui-debug"
+    },
+    {
+      "name": "windows-gui-release",
+      "configurePreset": "windows-gui-release"
+    },
+    {
       "name": "linux-debug",
       "configurePreset": "linux-debug"
     },
     {
       "name": "linux-release",
       "configurePreset": "linux-release"
+    },
+    {
+      "name": "linux-gui-debug",
+      "configurePreset": "linux-gui-debug"
+    },
+    {
+      "name": "linux-gui-release",
+      "configurePreset": "linux-gui-release"
     }
   ],
   "testPresets": [

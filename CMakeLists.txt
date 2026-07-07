@@ -23,6 +23,7 @@ add_library(shareaudio_core
     src/app/AppController.cpp
     src/app/Config.cpp
     src/app/Logger.cpp
+    src/app/SessionController.cpp
     src/audio/AudioAbstractions.cpp
     src/audio/MiniaudioBackend.cpp
     src/audio/AudioPipeline.cpp
@@ -90,6 +91,18 @@ endif()
 if(SHAREAUDIO_ENABLE_CONSOLE_UI)
     add_executable(shareaudio_cli src/main.cpp)
     target_link_libraries(shareaudio_cli PRIVATE shareaudio_core)
+endif()
+
+if(SHAREAUDIO_ENABLE_DESKTOP_UI)
+    find_package(Qt6 REQUIRED COMPONENTS Widgets)
+    add_executable(shareaudio_gui
+        src/gui/main.cpp
+        src/gui/MainWindow.cpp
+    )
+    target_link_libraries(shareaudio_gui PRIVATE shareaudio_core Qt6::Widgets)
+    if(WIN32)
+        set_target_properties(shareaudio_gui PROPERTIES WIN32_EXECUTABLE TRUE)
+    endif()
 endif()
 
 if(SHAREAUDIO_ENABLE_TESTS)

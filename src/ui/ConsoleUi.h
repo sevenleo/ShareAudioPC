@@ -1,6 +1,7 @@
 #pragma once
 
 #include "app/AppController.h"
+#include "app/SessionController.h"
 
 #include <string>
 #include <vector>
@@ -18,6 +19,7 @@ private:
     void print_audio_devices() const;
 
     AppController& controller_;
+    mutable SessionController session_;
 };
 
 } // namespace shareaudio

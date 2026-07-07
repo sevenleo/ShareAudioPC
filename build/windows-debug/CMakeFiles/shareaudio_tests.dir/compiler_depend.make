@@ -460,6 +460,7 @@ CMakeFiles/shareaudio_tests.dir/tests/main.cpp.obj: D:/GITHUB/ShareAudioPC_2/tes
   D:/GITHUB/ShareAudioPC_2/src/app/AppController.h \
   D:/GITHUB/ShareAudioPC_2/src/app/Config.h \
   D:/GITHUB/ShareAudioPC_2/src/app/Result.h \
+  D:/GITHUB/ShareAudioPC_2/src/app/SessionController.h \
   D:/GITHUB/ShareAudioPC_2/src/audio/AudioAbstractions.h \
   D:/GITHUB/ShareAudioPC_2/src/audio/AudioPipeline.h \
   D:/GITHUB/ShareAudioPC_2/src/audio/AudioTypes.h \
@@ -1244,8 +1245,6 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/reactor_op_que
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/reactor_op.hpp:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/reactor.hpp:
-
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/config.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/posix_thread.hpp:
@@ -1407,6 +1406,8 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/base_from_comp
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/base_from_cancellation_state.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/atomic_count.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/assert.hpp:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/cldemoteintrin.h:
 
@@ -2672,6 +2673,10 @@ D:/GITHUB/ShareAudioPC_2/src/app/AppController.h:
 
 D:/GITHUB/ShareAudioPC_2/src/app/Config.h:
 
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/reactor.hpp:
+
+D:/GITHUB/ShareAudioPC_2/src/app/SessionController.h:
+
 C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/stdio_s.h:
 
 D:/GITHUB/ShareAudioPC_2/src/audio/AudioTypes.h:
@@ -2781,5 +2786,3 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/array.hpp:
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/scheduler.ipp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/array_fwd.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/assert.hpp:

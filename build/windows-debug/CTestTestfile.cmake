@@ -5,4 +5,4 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 add_test([=[shareaudio_tests]=] "D:/GITHUB/ShareAudioPC_2/build/windows-debug/shareaudio_tests.exe")
-set_tests_properties([=[shareaudio_tests]=] PROPERTIES  _BACKTRACE_TRIPLES "D:/GITHUB/ShareAudioPC_2/CMakeLists.txt;101;add_test;D:/GITHUB/ShareAudioPC_2/CMakeLists.txt;0;")
+set_tests_properties([=[shareaudio_tests]=] PROPERTIES  _BACKTRACE_TRIPLES "D:/GITHUB/ShareAudioPC_2/CMakeLists.txt;114;add_test;D:/GITHUB/ShareAudioPC_2/CMakeLists.txt;0;")

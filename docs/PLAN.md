@@ -345,18 +345,24 @@ The planned implementation stack is:
 
 ## Phase 21 - Desktop UI Planning
 - [x] Keep desktop UI separate from core logic.
-- [ ] Choose desktop UI only after console MVP is stable.
+- [x] Choose desktop UI only after console MVP is stable.
 - [x] Preserve three main sections:
   - [x] Transmitter
   - [x] Receiver
   - [x] Settings
 - [x] Expose the same commands used by console UI.
-- [ ] Show transmitter status.
-- [ ] Show local IP with copy action.
-- [ ] Show audio mode selection.
-- [ ] Show receiver connection field.
-- [ ] Show recent devices.
-- [ ] Show selected capture/playback devices.
+- [x] Add optional Qt Widgets desktop GUI target.
+- [x] Keep `shareaudio_cli` as a separate binary.
+- [x] Add `shareaudio_gui` as a separate binary when Qt is available.
+- [x] Share CLI and GUI runtime behavior through a Qt-free session controller.
+- [x] Show transmitter status.
+- [x] Show local IP with copy action.
+- [x] Show audio mode selection.
+- [x] Show receiver connection field.
+- [x] Show recent devices.
+- [x] Show selected capture/playback devices.
+- [x] Show diagnostics and recent log events.
+- [x] Disable Quality Mode until Opus is implemented.
 - [x] Apply Soundwave visual identity:
   - [x] Neon Green `#1DF09A`
   - [x] Cyan Blue `#00A3FF`
@@ -483,6 +489,7 @@ The planned implementation stack is:
 - [x] Write `README.md`.
 - [x] Write `CHANGELOG.md`.
 - [x] Write `docs/CURRENT_STATUS.md`.
+- [x] Write `docs/PLAN-GUI.md`.
 - [x] Document project goals.
 - [x] Document supported platforms.
 - [x] Document build steps.
@@ -498,6 +505,8 @@ The planned implementation stack is:
 - [x] Document `SAL1` stream session header behavior.
 - [x] Document current browser/Android/Web status.
 - [x] Document current Opus/Quality Mode limitation.
+- [x] Document optional Qt GUI dependency.
+- [x] Document CLI/GUI binary split.
 - [x] Keep `docs/ideia.md` as the original source idea with a current-state note.
 - [x] Keep `docs/PLAN.md` as the implementation checklist.
 

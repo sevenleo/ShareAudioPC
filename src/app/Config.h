@@ -68,6 +68,7 @@ std::optional<AudioMode> parse_audio_mode(std::string value);
 std::string to_json(const AppConfig& config);
 Result<AppConfig> load_config_file(const std::filesystem::path& path);
 Result<void> save_config_file(const std::filesystem::path& path, const AppConfig& config);
+std::filesystem::path default_config_path();
 Result<void> validate(const AppConfig& config);
 std::size_t packet_size_for_mode(AudioMode mode);
 

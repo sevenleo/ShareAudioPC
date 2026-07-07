@@ -1,5 +1,6 @@
 #include "app/AppController.h"
 #include "app/Config.h"
+#include "app/SessionController.h"
 #include "audio/AudioAbstractions.h"
 #include "audio/AudioPipeline.h"
 #include "codec/OpusCodec.h"
@@ -194,6 +195,65 @@ void test_app_controller()
     expect(!controller.connect_receiver("127.0.0.1").ok(), "self connection is blocked");
 }
 
+void test_session_controller()
+{
+    shareaudio::AppConfig config;
+    config.transmitter.network.port = 0;
+    config.receiver.port = 0;
+    shareaudio::SessionControllerOptions options;
+    options.backend = shareaudio::SessionAudioBackend::Fake;
+    options.recent_devices_path = std::filesystem::temp_directory_path() / "shareaudio-session-recent-test.json";
+    shareaudio::SessionController session(config, options);
+
+    expect(session.start_sharing(shareaudio::AudioMode::Quality).error().code == shareaudio::ErrorCode::NotSupported, "session rejects quality sharing");
+    expect(session.start_sharing(shareaudio::AudioMode::Balanced).ok(), "session starts fake sharing");
+    expect(session.start_listening("192.168.1.50").error().code == shareaudio::ErrorCode::InvalidState, "session blocks listening while sharing");
+    auto sharing_status = session.status_snapshot();
+    expect(sharing_status.mode == shareaudio::SessionMode::Sharing, "session status is sharing");
+    expect(session.stop_sharing().ok(), "session stops fake sharing");
+    expect(session.stop_sharing().ok(), "session sharing stop is idempotent");
+
+    shareaudio::SessionController self_blocking(config, options);
+    expect(!self_blocking.start_listening("127.0.0.1").ok(), "session blocks self connection");
+}
+
+void test_session_controller_listen_loopback()
+{
+    constexpr std::uint16_t port = 39093;
+
+    shareaudio::PcmBroadcastServer server;
+    auto started = server.start(port, shareaudio::AudioMode::Balanced);
+    expect(started.ok(), started.ok() ? "session loopback server started" : started.error().message);
+    if (!started.ok()) {
+        return;
+    }
+
+    shareaudio::AppConfig config;
+    config.receiver.port = port;
+    config.transmitter.network.port = port;
+    shareaudio::SessionControllerOptions options;
+    options.backend = shareaudio::SessionAudioBackend::Fake;
+    options.allow_self_connection = true;
+    options.recent_devices_path = std::filesystem::temp_directory_path() / "shareaudio-session-loopback-recent-test.json";
+    shareaudio::SessionController session(config, options);
+    expect(session.start_listening("127.0.0.1").ok(), "session starts loopback listening");
+
+    bool listening = false;
+    for (int i = 0; i < 50; ++i) {
+        if (session.status_snapshot().mode == shareaudio::SessionMode::Listening) {
+            listening = true;
+            break;
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(20));
+    }
+    expect(listening, "session reaches listening state after SAL1 header");
+    auto status = session.status_snapshot();
+    expect(status.has_detected_mode && status.detected_mode == shareaudio::AudioMode::Balanced, "session autodetects balanced mode");
+    expect(session.stop_listening().ok(), "session stops loopback listening");
+    expect(session.stop_listening().ok(), "session listening stop is idempotent");
+    server.stop();
+}
+
 void test_audio_fakes()
 {
     shareaudio::NullAudioPlayback playback;
@@ -291,6 +351,8 @@ int main()
     test_local_ip();
     test_recent_devices();
     test_app_controller();
+    test_session_controller();
+    test_session_controller_listen_loopback();
     test_audio_fakes();
     test_opus_stub();
     test_tcp_loopback();

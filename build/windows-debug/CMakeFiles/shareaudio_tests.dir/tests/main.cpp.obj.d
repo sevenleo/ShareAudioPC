@@ -189,8 +189,7 @@ CMakeFiles/shareaudio_tests.dir/tests/main.cpp.obj: \
  C:/Strawberry/c/include/c++/13.2.0/bits/stl_uninitialized.h \
  C:/Strawberry/c/include/c++/13.2.0/bits/fs_dir.h \
  C:/Strawberry/c/include/c++/13.2.0/bits/fs_ops.h \
- D:/GITHUB/ShareAudioPC_2/src/audio/AudioAbstractions.h \
- D:/GITHUB/ShareAudioPC_2/src/audio/IAudioCapture.h \
+ D:/GITHUB/ShareAudioPC_2/src/app/SessionController.h \
  D:/GITHUB/ShareAudioPC_2/src/audio/AudioTypes.h \
  C:/Strawberry/c/include/c++/13.2.0/functional \
  C:/Strawberry/c/include/c++/13.2.0/bits/std_function.h \
@@ -211,32 +210,23 @@ CMakeFiles/shareaudio_tests.dir/tests/main.cpp.obj: \
  C:/Strawberry/c/include/c++/13.2.0/bits/uniform_int_dist.h \
  C:/Strawberry/c/include/c++/13.2.0/bits/stl_tempbuf.h \
  C:/Strawberry/c/include/c++/13.2.0/span \
- D:/GITHUB/ShareAudioPC_2/src/audio/IAudioPlayback.h \
- C:/Strawberry/c/include/c++/13.2.0/atomic \
- C:/Strawberry/c/include/c++/13.2.0/bits/atomic_base.h \
- C:/Strawberry/c/include/c++/13.2.0/bits/atomic_lockfree_defines.h \
- C:/Strawberry/c/include/c++/13.2.0/bits/atomic_wait.h \
- C:/Strawberry/c/include/c++/13.2.0/bits/std_mutex.h \
- C:/Strawberry/c/include/c++/13.2.0/mutex \
- C:/Strawberry/c/include/c++/13.2.0/bits/unique_lock.h \
- C:/Strawberry/c/include/c++/13.2.0/thread \
- C:/Strawberry/c/include/c++/13.2.0/stop_token \
- C:/Strawberry/c/include/c++/13.2.0/bits/std_thread.h \
- C:/Strawberry/c/include/c++/13.2.0/semaphore \
- C:/Strawberry/c/include/c++/13.2.0/bits/semaphore_base.h \
- C:/Strawberry/c/include/c++/13.2.0/bits/atomic_timed_wait.h \
- C:/Strawberry/c/include/c++/13.2.0/bits/this_thread_sleep.h \
- C:/Strawberry/c/x86_64-w64-mingw32/include/semaphore.h \
  D:/GITHUB/ShareAudioPC_2/src/audio/AudioPipeline.h \
+ D:/GITHUB/ShareAudioPC_2/src/audio/IAudioCapture.h \
+ D:/GITHUB/ShareAudioPC_2/src/audio/IAudioPlayback.h \
  D:/GITHUB/ShareAudioPC_2/src/protocol/JitterBuffer.h \
  C:/Strawberry/c/include/c++/13.2.0/deque \
  C:/Strawberry/c/include/c++/13.2.0/bits/stl_deque.h \
  C:/Strawberry/c/include/c++/13.2.0/bits/deque.tcc \
+ C:/Strawberry/c/include/c++/13.2.0/mutex \
+ C:/Strawberry/c/include/c++/13.2.0/bits/std_mutex.h \
+ C:/Strawberry/c/include/c++/13.2.0/bits/unique_lock.h \
  D:/GITHUB/ShareAudioPC_2/src/protocol/PcmChunker.h \
+ C:/Strawberry/c/include/c++/13.2.0/atomic \
+ C:/Strawberry/c/include/c++/13.2.0/bits/atomic_base.h \
+ C:/Strawberry/c/include/c++/13.2.0/bits/atomic_lockfree_defines.h \
+ C:/Strawberry/c/include/c++/13.2.0/bits/atomic_wait.h \
  C:/Strawberry/c/include/c++/13.2.0/queue \
  C:/Strawberry/c/include/c++/13.2.0/bits/stl_queue.h \
- D:/GITHUB/ShareAudioPC_2/src/codec/OpusCodec.h \
- D:/GITHUB/ShareAudioPC_2/src/network/LoopbackTest.h \
  D:/GITHUB/ShareAudioPC_2/src/network/PcmBroadcastServer.h \
  D:/GITHUB/ShareAudioPC_2/src/network/TcpSocket.h \
  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio.hpp \
@@ -949,6 +939,13 @@ CMakeFiles/shareaudio_tests.dir/tests/main.cpp.obj: \
  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/future.hpp \
  C:/Strawberry/c/include/c++/13.2.0/future \
  C:/Strawberry/c/include/c++/13.2.0/condition_variable \
+ C:/Strawberry/c/include/c++/13.2.0/stop_token \
+ C:/Strawberry/c/include/c++/13.2.0/bits/std_thread.h \
+ C:/Strawberry/c/include/c++/13.2.0/semaphore \
+ C:/Strawberry/c/include/c++/13.2.0/bits/semaphore_base.h \
+ C:/Strawberry/c/include/c++/13.2.0/bits/atomic_timed_wait.h \
+ C:/Strawberry/c/include/c++/13.2.0/bits/this_thread_sleep.h \
+ C:/Strawberry/c/x86_64-w64-mingw32/include/semaphore.h \
  C:/Strawberry/c/include/c++/13.2.0/bits/atomic_futex.h \
  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/placeholders.hpp \
  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/posix/basic_descriptor.hpp \
@@ -1043,8 +1040,12 @@ CMakeFiles/shareaudio_tests.dir/tests/main.cpp.obj: \
  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/write.hpp \
  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/write_at.hpp \
  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/write_at.hpp \
+ C:/Strawberry/c/include/c++/13.2.0/thread \
  D:/GITHUB/ShareAudioPC_2/src/protocol/Protocol.h \
- D:/GITHUB/ShareAudioPC_2/src/platform/LocalIp.h \
  D:/GITHUB/ShareAudioPC_2/src/storage/RecentDevices.h \
+ D:/GITHUB/ShareAudioPC_2/src/audio/AudioAbstractions.h \
+ D:/GITHUB/ShareAudioPC_2/src/codec/OpusCodec.h \
+ D:/GITHUB/ShareAudioPC_2/src/network/LoopbackTest.h \
+ D:/GITHUB/ShareAudioPC_2/src/platform/LocalIp.h \
  D:/GITHUB/ShareAudioPC_2/src/ui/ConsoleUi.h \
  C:/Strawberry/c/include/c++/13.2.0/iostream

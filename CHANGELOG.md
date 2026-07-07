@@ -11,6 +11,11 @@ The format follows a simple staged log. Keep new entries under `Unreleased` unti
 - Added the current project documentation inventory in `docs/CURRENT_STATUS.md`.
 - Added this `CHANGELOG.md` to track recent changes by implementation stage.
 - Added a current-state note to `docs/ideia.md` clarifying that it is historical input, not the current implementation contract.
+- Added `docs/PLAN-GUI.md` with the GUI implementation checklist.
+- Added a Qt-free shared `SessionController` for CLI and GUI runtime behavior.
+- Added optional Qt Widgets GUI target `shareaudio_gui`.
+- Added GUI dashboard source with Share, Listen, Local IPs, Devices, Diagnostics, and Help areas.
+- Added GUI CMake presets for Windows/Linux debug/release builds.
 - Added native `SAL1` stream session header support.
 - Added receiver mode autodetection from the stream session header.
 - Added PCM broadcast behavior that sends the stream header before audio bytes to every receiver.
@@ -29,6 +34,7 @@ The format follows a simple staged log. Keep new entries under `Unreleased` unti
 
 - `share` now defaults to Balanced Mode when `--mode` is omitted.
 - `listen <host>` no longer accepts or requires an audio mode argument.
+- `ConsoleUi` now uses the shared session controller instead of owning streaming internals directly.
 - Receiver packet size now comes from the validated stream header.
 - README usage examples now document only the simplified CLI.
 - `docs/PLAN.md` now reflects the current CLI and protocol autodetection direction.
@@ -50,6 +56,7 @@ The format follows a simple staged log. Keep new entries under `Unreleased` unti
 - Browser listening is not supported by the native TCP protocol.
 - Android/Web compatibility is not validated.
 - Linux build/test and real cross-machine audio tests are still pending.
+- GUI build verification is pending until Qt6 Widgets is installed or configured in `CMAKE_PREFIX_PATH`.
 
 ## Earlier MVP Work
 

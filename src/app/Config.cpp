@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cctype>
+#include <cstdlib>
 #include <fstream>
 #include <regex>
 #include <sstream>
@@ -185,8 +186,12 @@ Result<void> save_config_file(const std::filesystem::path& path, const AppConfig
         return validation;
     }
 
-    if (path.has_parent_path()) {
-        std::filesystem::create_directories(path.parent_path());
+    try {
+        if (path.has_parent_path()) {
+            std::filesystem::create_directories(path.parent_path());
+        }
+    } catch (const std::filesystem::filesystem_error& error) {
+        return Result<void>::failure(make_error(ErrorCode::IoError, "Unable to create config directory: " + std::string(error.what())));
     }
 
     std::ofstream file(path);
@@ -195,6 +200,22 @@ Result<void> save_config_file(const std::filesystem::path& path, const AppConfig
     }
     file << to_json(config);
     return Result<void>::success();
+}
+
+std::filesystem::path default_config_path()
+{
+#ifdef _WIN32
+    const char* appdata = std::getenv("APPDATA");
+    if (appdata != nullptr) {
+        return std::filesystem::path(appdata) / "ShareAudioLite" / "config.json";
+    }
+#else
+    const char* home = std::getenv("HOME");
+    if (home != nullptr) {
+        return std::filesystem::path(home) / ".config" / "shareaudiolite" / "config.json";
+    }
+#endif
+    return std::filesystem::temp_directory_path() / "shareaudiolite-config.json";
 }
 
 } // namespace shareaudio

@@ -2,7 +2,7 @@
 
 ShareAudioLite is a cross-platform Windows/Linux LAN audio transmitter and receiver based on the original idea in `docs/ideia.md`.
 
-The project is currently a console-controlled MVP written in C++20. It can share and listen to raw PCM audio over TCP on a local network, using miniaudio for capture/playback and standalone Asio for networking.
+The project is currently a C++20 MVP with a console CLI and an optional Qt Widgets desktop GUI. It can share and listen to raw PCM audio over TCP on a local network, using miniaudio for capture/playback and standalone Asio for networking.
 
 ## Current State
 
@@ -12,6 +12,7 @@ Implemented:
 - Windows and Linux build presets.
 - Vendored miniaudio and standalone Asio source dependencies.
 - Console CLI executable: `shareaudio_cli`.
+- Optional Qt Widgets desktop executable target: `shareaudio_gui`.
 - Raw PCM transmitter and receiver pipeline.
 - Balanced Mode: 2048-byte PCM packets.
 - Ultrafast Mode: 1024-byte PCM packets.
@@ -34,7 +35,7 @@ Not complete yet:
 - Android/Web compatibility has not been validated.
 - Linux build/test has not been verified in this workspace.
 - Manual cross-machine audio validation is still pending.
-- Desktop UI is only planned; the current user-facing app is the CLI.
+- GUI build verification requires Qt6 Widgets; Qt6 was not available in this workspace.
 
 ## Build
 
@@ -70,12 +71,23 @@ cmake --build --preset linux-release
 - `SHAREAUDIO_ENABLE_OPUS=ON`: attempts to link libopus. The network Quality Mode pipeline is still incomplete.
 - `SHAREAUDIO_ENABLE_TESTS=ON`: builds `shareaudio_tests`. Default in presets: `ON`.
 - `SHAREAUDIO_ENABLE_CONSOLE_UI=ON`: builds `shareaudio_cli`. Default in presets: `ON`.
-- `SHAREAUDIO_ENABLE_DESKTOP_UI=OFF`: reserved for a future desktop UI.
+- `SHAREAUDIO_ENABLE_DESKTOP_UI=OFF`: skips the optional Qt GUI target. Default in normal presets: `OFF`.
+- `SHAREAUDIO_ENABLE_DESKTOP_UI=ON`: builds `shareaudio_gui` and requires Qt6 Widgets.
 
 Example:
 
 ```bash
 cmake --preset linux-debug -DSHAREAUDIO_ENABLE_OPUS=ON
+```
+
+GUI presets require Qt6 Widgets to be installed and discoverable by CMake:
+
+```bash
+cmake --preset windows-gui-debug
+cmake --build --preset windows-gui-debug
+
+cmake --preset linux-gui-debug
+cmake --build --preset linux-gui-debug
 ```
 
 ## Dependencies
@@ -147,6 +159,27 @@ Removed legacy flags:
 
 Quality Mode is intentionally rejected by the CLI until the Opus encode/decode and network pipeline are complete.
 
+## Desktop GUI Usage
+
+When built with `SHAREAUDIO_ENABLE_DESKTOP_UI=ON`, the project also produces:
+
+```bash
+shareaudio_gui
+```
+
+The GUI exposes the same current functions as the CLI:
+
+- Help/About for `shareaudio_cli help`.
+- Local IPs panel for `shareaudio_cli ips`.
+- Devices panel for `shareaudio_cli devices`.
+- Share panel for `shareaudio_cli share`.
+- Mode selector for `shareaudio_cli share --mode ultrafast`.
+- Listen panel for `shareaudio_cli listen <host>`.
+
+The GUI uses the same `SAL1` receiver autodetection path as the CLI. Quality Mode is shown as unavailable until Opus is implemented.
+
+The GUI persists the last selected mode, host, capture device, playback device, and recent devices using the existing local JSON storage.
+
 ## Testing Real Audio
 
 Use two different machines on the same LAN. Self-connections are blocked by design.
@@ -209,6 +242,7 @@ Android/Web compatibility is intentionally not claimed yet. The existing Android
 
 - `docs/ideia.md`: original source idea, kept as historical product input.
 - `docs/PLAN.md`: implementation checklist and remaining work.
+- `docs/PLAN-GUI.md`: GUI checklist.
 - `docs/CURRENT_STATUS.md`: current technical state and known gaps.
 - `CHANGELOG.md`: recent changes by implementation stage.
 - `third_party/README.md`: pinned dependency and license notes.

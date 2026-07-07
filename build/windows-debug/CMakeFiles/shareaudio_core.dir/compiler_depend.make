@@ -198,12 +198,23 @@ CMakeFiles/shareaudio_core.dir/src/app/AppController.cpp.obj: D:/GITHUB/ShareAud
   D:/GITHUB/ShareAudioPC_2/src/platform/LocalIp.h
 
 CMakeFiles/shareaudio_core.dir/src/app/Application.cpp.obj: D:/GITHUB/ShareAudioPC_2/src/app/Application.cpp \
+  C:/Strawberry/c/include/c++/13.2.0/algorithm \
+  C:/Strawberry/c/include/c++/13.2.0/any \
+  C:/Strawberry/c/include/c++/13.2.0/array \
+  C:/Strawberry/c/include/c++/13.2.0/atomic \
+  C:/Strawberry/c/include/c++/13.2.0/backward/auto_ptr.h \
   C:/Strawberry/c/include/c++/13.2.0/backward/binders.h \
   C:/Strawberry/c/include/c++/13.2.0/bit \
+  C:/Strawberry/c/include/c++/13.2.0/bits/algorithmfwd.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/align.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/alloc_traits.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/allocated_ptr.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/allocator.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/atomic_base.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/atomic_futex.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/atomic_lockfree_defines.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/atomic_timed_wait.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/atomic_wait.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/basic_ios.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/basic_ios.tcc \
   C:/Strawberry/c/include/c++/13.2.0/bits/basic_string.h \
@@ -211,12 +222,15 @@ CMakeFiles/shareaudio_core.dir/src/app/Application.cpp.obj: D:/GITHUB/ShareAudio
   C:/Strawberry/c/include/c++/13.2.0/bits/char_traits.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/charconv.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/chrono.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/chrono_io.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/codecvt.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/concept_check.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/cpp_type_traits.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/cxxabi_forced.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/cxxabi_init_exception.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/deque.tcc \
   C:/Strawberry/c/include/c++/13.2.0/bits/enable_special_members.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/erase_if.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/exception.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/exception_defines.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/exception_ptr.h \
@@ -227,10 +241,13 @@ CMakeFiles/shareaudio_core.dir/src/app/Application.cpp.obj: D:/GITHUB/ShareAudio
   C:/Strawberry/c/include/c++/13.2.0/bits/functexcept.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/functional_hash.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/hash_bytes.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/hashtable.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/hashtable_policy.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/invoke.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/ios_base.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/istream.tcc \
   C:/Strawberry/c/include/c++/13.2.0/bits/iterator_concepts.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/list.tcc \
   C:/Strawberry/c/include/c++/13.2.0/bits/locale_classes.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/locale_classes.tcc \
   C:/Strawberry/c/include/c++/13.2.0/bits/locale_conv.h \
@@ -245,6 +262,7 @@ CMakeFiles/shareaudio_core.dir/src/app/Application.cpp.obj: D:/GITHUB/ShareAudio
   C:/Strawberry/c/include/c++/13.2.0/bits/move.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/nested_exception.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/new_allocator.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/node_handle.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/ostream.tcc \
   C:/Strawberry/c/include/c++/13.2.0/bits/ostream_insert.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/parse_numbers.h \
@@ -253,50 +271,78 @@ CMakeFiles/shareaudio_core.dir/src/app/Application.cpp.obj: D:/GITHUB/ShareAudio
   C:/Strawberry/c/include/c++/13.2.0/bits/ptr_traits.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/quoted_string.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/range_access.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/ranges_algo.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/ranges_algobase.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/ranges_base.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/ranges_cmp.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/ranges_uninitialized.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/ranges_util.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/refwrap.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/requires_hosted.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/semaphore_base.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/shared_ptr.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/shared_ptr_atomic.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/shared_ptr_base.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/sstream.tcc \
   C:/Strawberry/c/include/c++/13.2.0/bits/std_abs.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/std_function.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/std_mutex.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/std_thread.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_algo.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/stl_algobase.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/stl_bvector.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/stl_construct.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_deque.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/stl_function.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_heap.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/stl_iterator.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/stl_iterator_base_funcs.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/stl_iterator_base_types.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_list.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/stl_pair.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_queue.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_raw_storage_iter.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/stl_relops.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_tempbuf.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/stl_uninitialized.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/stl_vector.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stream_iterator.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/streambuf.tcc \
   C:/Strawberry/c/include/c++/13.2.0/bits/streambuf_iterator.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/string_view.tcc \
   C:/Strawberry/c/include/c++/13.2.0/bits/stringfwd.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/this_thread_sleep.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/uniform_int_dist.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/unique_lock.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/unique_ptr.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/unordered_map.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/uses_allocator.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/uses_allocator_args.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/utility.h \
   C:/Strawberry/c/include/c++/13.2.0/bits/vector.tcc \
+  C:/Strawberry/c/include/c++/13.2.0/cassert \
   C:/Strawberry/c/include/c++/13.2.0/cctype \
   C:/Strawberry/c/include/c++/13.2.0/cerrno \
+  C:/Strawberry/c/include/c++/13.2.0/charconv \
+  C:/Strawberry/c/include/c++/13.2.0/chrono \
+  C:/Strawberry/c/include/c++/13.2.0/climits \
   C:/Strawberry/c/include/c++/13.2.0/clocale \
   C:/Strawberry/c/include/c++/13.2.0/codecvt \
   C:/Strawberry/c/include/c++/13.2.0/compare \
   C:/Strawberry/c/include/c++/13.2.0/concepts \
+  C:/Strawberry/c/include/c++/13.2.0/condition_variable \
+  C:/Strawberry/c/include/c++/13.2.0/coroutine \
   C:/Strawberry/c/include/c++/13.2.0/cstddef \
   C:/Strawberry/c/include/c++/13.2.0/cstdint \
   C:/Strawberry/c/include/c++/13.2.0/cstdio \
   C:/Strawberry/c/include/c++/13.2.0/cstdlib \
+  C:/Strawberry/c/include/c++/13.2.0/cstring \
   C:/Strawberry/c/include/c++/13.2.0/ctime \
   C:/Strawberry/c/include/c++/13.2.0/cwchar \
   C:/Strawberry/c/include/c++/13.2.0/cwctype \
   C:/Strawberry/c/include/c++/13.2.0/debug/assertions.h \
   C:/Strawberry/c/include/c++/13.2.0/debug/debug.h \
+  C:/Strawberry/c/include/c++/13.2.0/deque \
   C:/Strawberry/c/include/c++/13.2.0/exception \
   C:/Strawberry/c/include/c++/13.2.0/ext/aligned_buffer.h \
   C:/Strawberry/c/include/c++/13.2.0/ext/alloc_traits.h \
@@ -306,31 +352,49 @@ CMakeFiles/shareaudio_core.dir/src/app/Application.cpp.obj: D:/GITHUB/ShareAudio
   C:/Strawberry/c/include/c++/13.2.0/ext/string_conversions.h \
   C:/Strawberry/c/include/c++/13.2.0/ext/type_traits.h \
   C:/Strawberry/c/include/c++/13.2.0/filesystem \
+  C:/Strawberry/c/include/c++/13.2.0/format \
+  C:/Strawberry/c/include/c++/13.2.0/functional \
+  C:/Strawberry/c/include/c++/13.2.0/future \
   C:/Strawberry/c/include/c++/13.2.0/initializer_list \
   C:/Strawberry/c/include/c++/13.2.0/iomanip \
   C:/Strawberry/c/include/c++/13.2.0/ios \
   C:/Strawberry/c/include/c++/13.2.0/iosfwd \
   C:/Strawberry/c/include/c++/13.2.0/istream \
+  C:/Strawberry/c/include/c++/13.2.0/iterator \
   C:/Strawberry/c/include/c++/13.2.0/limits \
+  C:/Strawberry/c/include/c++/13.2.0/list \
   C:/Strawberry/c/include/c++/13.2.0/locale \
+  C:/Strawberry/c/include/c++/13.2.0/memory \
+  C:/Strawberry/c/include/c++/13.2.0/mutex \
   C:/Strawberry/c/include/c++/13.2.0/new \
   C:/Strawberry/c/include/c++/13.2.0/numbers \
   C:/Strawberry/c/include/c++/13.2.0/optional \
   C:/Strawberry/c/include/c++/13.2.0/ostream \
+  C:/Strawberry/c/include/c++/13.2.0/pstl/execution_defs.h \
+  C:/Strawberry/c/include/c++/13.2.0/pstl/glue_algorithm_defs.h \
+  C:/Strawberry/c/include/c++/13.2.0/pstl/glue_memory_defs.h \
   C:/Strawberry/c/include/c++/13.2.0/pstl/pstl_config.h \
+  C:/Strawberry/c/include/c++/13.2.0/queue \
   C:/Strawberry/c/include/c++/13.2.0/ratio \
+  C:/Strawberry/c/include/c++/13.2.0/semaphore \
+  C:/Strawberry/c/include/c++/13.2.0/span \
   C:/Strawberry/c/include/c++/13.2.0/sstream \
   C:/Strawberry/c/include/c++/13.2.0/stdexcept \
   C:/Strawberry/c/include/c++/13.2.0/stdlib.h \
+  C:/Strawberry/c/include/c++/13.2.0/stop_token \
   C:/Strawberry/c/include/c++/13.2.0/streambuf \
   C:/Strawberry/c/include/c++/13.2.0/string \
   C:/Strawberry/c/include/c++/13.2.0/string_view \
   C:/Strawberry/c/include/c++/13.2.0/system_error \
+  C:/Strawberry/c/include/c++/13.2.0/thread \
   C:/Strawberry/c/include/c++/13.2.0/tuple \
   C:/Strawberry/c/include/c++/13.2.0/type_traits \
   C:/Strawberry/c/include/c++/13.2.0/typeinfo \
+  C:/Strawberry/c/include/c++/13.2.0/unordered_map \
   C:/Strawberry/c/include/c++/13.2.0/utility \
+  C:/Strawberry/c/include/c++/13.2.0/variant \
   C:/Strawberry/c/include/c++/13.2.0/vector \
+  C:/Strawberry/c/include/c++/13.2.0/version \
   C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/atomic_word.h \
   C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++allocator.h \
   C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++config.h \
@@ -344,55 +408,719 @@ CMakeFiles/shareaudio_core.dir/src/app/Application.cpp.obj: D:/GITHUB/ShareAudio
   C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/messages_members.h \
   C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/os_defines.h \
   C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/time_members.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/adxintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/ammintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/amxbf16intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/amxcomplexintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/amxfp16intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/amxint8intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/amxtileintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx2intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx5124fmapsintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx5124vnniwintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512bf16intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512bf16vlintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512bitalgintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512bwintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512cdintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512dqintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512erintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512fintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512fp16intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512fp16vlintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512ifmaintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512ifmavlintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512pfintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vbmi2intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vbmi2vlintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vbmiintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vbmivlintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vlbwintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vldqintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vlintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vnniintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vnnivlintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vp2intersectintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vp2intersectvlintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vpopcntdqintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vpopcntdqvlintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxifmaintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxneconvertintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxvnniint8intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxvnniintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/bmi2intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/bmiintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/cetintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/cldemoteintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/clflushoptintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/clwbintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/clzerointrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/cmpccxaddintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/emmintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/enqcmdintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/f16cintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/fma4intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/fmaintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/fxsrintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/gfniintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/hresetintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/ia32intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/immintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/keylockerintrin.h \
   C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/lwpintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/lzcntintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm3dnow.h \
   C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mmintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/movdirintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mwaitintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mwaitxintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/pconfigintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/pkuintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/pmmintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/popcntintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/prfchiintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/prfchwintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/raointintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/rdseedintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/rtmintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/serializeintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/sgxintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/shaintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/smmintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdarg.h \
   C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h \
   C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h \
   C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/tbmintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/tmmintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/tsxldtrkintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/uintrintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/vaesintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/vpclmulqdqintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/waitpkgintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/wbnoinvdintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/wmmintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/x86gprintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/x86intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xmmintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xopintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xsavecintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xsaveintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xsaveoptintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xsavesintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xtestintrin.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/_bsd_types.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/_mingw.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/_mingw_mac.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/_mingw_off_t.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/_mingw_secapi.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/_mingw_stat64.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/_mingw_stdarg.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/_mingw_unicode.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/_timeval.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/apiset.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/apisetcconv.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/assert.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/basetsd.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/bcrypt.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/bemapiset.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/concurrencysal.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/corecrt.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/corecrt_startup.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/corecrt_stdio_config.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/corecrt_wstdlib.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/crtdefs.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/ctype.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/datetimeapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/debugapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/driverspecs.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/errhandlingapi.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/errno.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/excpt.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/fibersapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/fileapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/fltwinerror.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/guiddef.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/handleapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/heapapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/imm.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/in6addr.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/inaddr.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/interlockedapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/io.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/ioapiset.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/jobapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/ktmtypes.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/libloaderapi.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/limits.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/locale.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/malloc.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/mcx.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/memoryapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/minwinbase.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/minwindef.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/mstcpip.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/mswsock.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/namedpipeapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/namespaceapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/poppack.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/process.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/processenv.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/processthreadsapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/processtopologyapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/profileapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_fd_types.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_ip_mreq1.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_ip_types.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_socket_types.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_ws1_undef.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_wsa_errnos.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_wsadata.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_xmitfile.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/intrin-impl.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/pshpack1.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/pshpack2.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/pshpack4.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/pshpack8.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/pthread.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/pthread_compat.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/pthread_signal.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/pthread_time.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/pthread_unistd.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/qos.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/realtimeapiset.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/reason.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/sal.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/sdkddkver.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/stdio_s.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/stdlib_s.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/stralign_s.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/string_s.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/sys/timeb_s.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/wchar_s.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/securityappcontainer.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/securitybaseapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/semaphore.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/signal.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/specstrings.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/stdarg.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/stddef.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/stdint.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/stdio.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/stdlib.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/stralign.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/string.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/stringapiset.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/swprintf.inl \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/synchapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/sys/stat.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/sys/timeb.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/sys/types.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/sysinfoapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/systemtopologyapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/threadpoolapiset.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/threadpoollegacyapiset.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/time.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/timezoneapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/tvout.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/utilapiset.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/vadefs.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/virtdisk.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/wchar.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/wctype.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winapifamily.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winbase.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/wincon.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/windef.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/windows.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winerror.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/wingdi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winnetwk.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winnls.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winnt.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winreg.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winsock2.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winsvc.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winuser.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winver.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/wnnc.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/wow64apiset.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/ws2def.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/ws2ipdef.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/ws2tcpip.h \
   D:/GITHUB/ShareAudioPC_2/src/app/AppController.h \
   D:/GITHUB/ShareAudioPC_2/src/app/Application.h \
   D:/GITHUB/ShareAudioPC_2/src/app/Config.h \
   D:/GITHUB/ShareAudioPC_2/src/app/Result.h \
-  D:/GITHUB/ShareAudioPC_2/src/ui/ConsoleUi.h
+  D:/GITHUB/ShareAudioPC_2/src/app/SessionController.h \
+  D:/GITHUB/ShareAudioPC_2/src/audio/AudioPipeline.h \
+  D:/GITHUB/ShareAudioPC_2/src/audio/AudioTypes.h \
+  D:/GITHUB/ShareAudioPC_2/src/audio/IAudioCapture.h \
+  D:/GITHUB/ShareAudioPC_2/src/audio/IAudioPlayback.h \
+  D:/GITHUB/ShareAudioPC_2/src/network/PcmBroadcastServer.h \
+  D:/GITHUB/ShareAudioPC_2/src/network/TcpSocket.h \
+  D:/GITHUB/ShareAudioPC_2/src/protocol/JitterBuffer.h \
+  D:/GITHUB/ShareAudioPC_2/src/protocol/PcmChunker.h \
+  D:/GITHUB/ShareAudioPC_2/src/protocol/Protocol.h \
+  D:/GITHUB/ShareAudioPC_2/src/storage/RecentDevices.h \
+  D:/GITHUB/ShareAudioPC_2/src/ui/ConsoleUi.h \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/any_completion_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/any_completion_handler.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/any_io_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/append.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/as_tuple.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/associated_allocator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/associated_cancellation_slot.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/associated_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/associated_immediate_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/associator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/async_result.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/awaitable.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_datagram_socket.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_file.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_io_object.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_random_access_file.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_raw_socket.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_readable_pipe.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_seq_packet_socket.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_serial_port.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_signal_set.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_socket.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_socket_acceptor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_socket_iostream.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_socket_streambuf.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_stream_file.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_stream_socket.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_streambuf.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_streambuf_fwd.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_waitable_timer.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_writable_pipe.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/bind_allocator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/bind_cancellation_slot.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/bind_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/bind_immediate_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffer.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffer_registration.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_read_stream.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_read_stream_fwd.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_stream.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_stream_fwd.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_write_stream.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_write_stream_fwd.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffers_iterator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/cancel_after.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/cancel_at.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/cancellation_signal.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/cancellation_state.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/cancellation_type.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/co_composed.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/co_spawn.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/completion_condition.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/compose.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/composed.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/config.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/connect.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/connect_pipe.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/consign.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/coroutine.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/default_completion_token.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/defer.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/deferred.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detached.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/array.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/array_fwd.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/assert.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/atomic_count.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/base_from_cancellation_state.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/base_from_completion_cond.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/bind_handler.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/blocking_executor_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/buffer_resize_guard.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/buffer_sequence_adapter.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/buffered_stream_storage.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/call_stack.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/chrono.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/chrono_time_traits.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/completion_handler.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/completion_message.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/completion_payload.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/completion_payload_handler.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/composed_work.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/concurrency_hint.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/conditionally_enabled_event.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/conditionally_enabled_mutex.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/config.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/consuming_buffers.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/cstddef.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/cstdint.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/date_time_fwd.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/deadline_timer_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/dependent_type.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/event.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/executor_function.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/executor_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/fd_set_adapter.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/fenced_block.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/functional.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/future.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/global.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/handler_alloc_helpers.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/handler_cont_helpers.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/handler_tracking.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/handler_type_requirements.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/handler_work.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/hash_map.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/buffer_sequence_adapter.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/handler_tracking.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/null_event.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/posix_thread.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/resolver_service_base.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/resolver_thread_pool.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/scheduler.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/select_reactor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/select_reactor.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/service_registry.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/service_registry.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/signal_set_service.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/socket_ops.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/socket_select_interrupter.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/strand_executor_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/strand_executor_service.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/strand_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/strand_service.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/thread_context.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/throw_error.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/timer_queue_set.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_event.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_iocp_file_service.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_iocp_handle_service.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_iocp_io_context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_iocp_io_context.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_iocp_serial_port_service.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_iocp_socket_service_base.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_object_handle_service.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_static_mutex.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_tss_ptr.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/winsock_init.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/initiate_defer.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/initiate_dispatch.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/initiate_post.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/initiation_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/io_control.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/io_object_impl.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/is_buffer_sequence.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/is_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/limits.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/local_free_on_block_exit.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/memory.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/mutex.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/non_const_lvalue.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/noncopyable.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/null_event.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/null_reactor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/null_signal_blocker.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/old_win_sdk_compat.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/op_queue.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/operation.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/pop_options.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/posix_fd_set_adapter.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/posix_thread.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/push_options.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/reactor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/reactor_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/reactor_op_queue.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/recycling_allocator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/regex_fwd.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/resolve_endpoint_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/resolve_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/resolve_query_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/resolver_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/resolver_service_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/resolver_thread_pool.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/scheduler.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/scheduler_operation.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/scheduler_task.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/scheduler_thread_info.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/scoped_lock.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/scoped_ptr.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/select_interrupter.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/select_reactor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/service_registry.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/signal_blocker.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/signal_handler.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/signal_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/signal_set_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/slim_mutex.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/socket_holder.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/socket_ops.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/socket_option.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/socket_select_interrupter.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/socket_types.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/static_mutex.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/std_fenced_block.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/strand_executor_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/strand_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/string_view.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/thread.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/thread_context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/thread_group.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/thread_info_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/throw_error.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/throw_exception.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/timed_cancel_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/timer_queue.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/timer_queue_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/timer_queue_set.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/timer_scheduler.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/timer_scheduler_fwd.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/tss_ptr.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/type_traits.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/utility.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/wait_handler.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/wait_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_event.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_fd_set_adapter.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_global.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_file_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_handle_read_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_handle_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_handle_write_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_io_context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_null_buffers_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_operation.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_overlapped_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_overlapped_ptr.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_serial_port_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_accept_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_connect_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_recv_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_recvfrom_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_recvmsg_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_send_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_service_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_thread_info.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_wait_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_mutex.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_object_handle_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_static_mutex.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_tss_ptr.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/winsock_init.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/work_dispatcher.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/wrapped_handler.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/dispatch.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/disposition.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/error.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/error_code.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/allocator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/any_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/bad_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/blocking.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/blocking_adaptation.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/context_as.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/impl/bad_executor.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/inline_exception_handling.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/invocable_archetype.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/mapping.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/occupancy.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/outstanding_work.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/prefer_only.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/relationship.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution_context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/executor_work_guard.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/file_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/generic/basic_endpoint.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/generic/datagram_protocol.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/generic/detail/endpoint.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/generic/detail/impl/endpoint.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/generic/raw_protocol.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/generic/seq_packet_protocol.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/generic/stream_protocol.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/handler_continuation_hook.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/high_resolution_timer.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/immediate.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/any_completion_executor.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/any_io_executor.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/append.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/as_tuple.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/awaitable.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/awaitable.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/buffered_read_stream.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/buffered_write_stream.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/cancel_after.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/cancel_at.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/cancellation_signal.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/co_spawn.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/config.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/config.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/connect.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/connect_pipe.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/connect_pipe.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/consign.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/deferred.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/detached.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/error.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/error_code.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/execution_context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/execution_context.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/executor.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/io_context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/io_context.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/multiple_exceptions.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/prepend.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/read.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/read_at.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/read_until.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/redirect_disposition.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/redirect_error.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/serial_port_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/serial_port_base.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/system_context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/system_context.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/system_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/thread_pool.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/thread_pool.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/use_awaitable.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/use_future.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/write.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/write_at.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/inline_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/inline_or_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/io_context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/io_context_strand.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/address.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/address_v4.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/address_v4_iterator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/address_v4_range.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/address_v6.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/address_v6_iterator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/address_v6_range.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/bad_address_cast.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/basic_endpoint.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/basic_resolver.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/basic_resolver_entry.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/basic_resolver_iterator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/basic_resolver_query.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/basic_resolver_results.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/detail/endpoint.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/detail/impl/endpoint.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/detail/socket_option.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/host_name.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/icmp.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/address.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/address.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/address_v4.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/address_v4.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/address_v6.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/address_v6.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/basic_endpoint.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/host_name.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/network_v4.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/network_v4.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/network_v6.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/network_v6.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/multicast.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/network_v4.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/network_v6.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/resolver_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/resolver_query_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/tcp.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/udp.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/unicast.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/v6_only.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/is_applicable_property.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/is_contiguous_iterator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/is_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/is_read_buffered.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/is_write_buffered.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/basic_endpoint.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/connect_pair.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/datagram_protocol.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/detail/endpoint.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/detail/impl/endpoint.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/seq_packet_protocol.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/stream_protocol.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/multiple_exceptions.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/packaged_task.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/placeholders.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/posix/basic_descriptor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/posix/basic_stream_descriptor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/posix/descriptor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/posix/descriptor_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/posix/stream_descriptor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/post.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/prefer.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/prepend.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/query.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/random_access_file.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/read.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/read_at.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/read_until.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/readable_pipe.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/recycling_allocator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/redirect_disposition.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/redirect_error.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/registered_buffer.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/require.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/require_concept.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/serial_port.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/serial_port_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/signal_set.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/signal_set_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/socket_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/static_thread_pool.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/steady_timer.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/strand.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/stream_file.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/streambuf.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/system_context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/system_error.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/system_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/system_timer.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/this_coro.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/thread.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/thread_pool.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/equality_comparable.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/execute_member.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/prefer_free.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/prefer_member.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/query_free.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/query_member.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/query_static_constexpr_member.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/require_concept_free.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/require_concept_member.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/require_free.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/require_member.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/static_query.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/static_require.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/static_require_concept.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/use_awaitable.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/use_future.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/uses_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/version.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/wait_traits.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/basic_object_handle.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/basic_overlapped_handle.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/basic_random_access_handle.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/basic_stream_handle.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/object_handle.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/overlapped_handle.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/overlapped_ptr.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/random_access_handle.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/stream_handle.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/writable_pipe.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/write.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/write_at.hpp
 
 CMakeFiles/shareaudio_core.dir/src/app/Config.cpp.obj: D:/GITHUB/ShareAudioPC_2/src/app/Config.cpp \
   C:/Strawberry/c/include/c++/13.2.0/algorithm \
@@ -825,6 +1553,932 @@ CMakeFiles/shareaudio_core.dir/src/app/Logger.cpp.obj: D:/GITHUB/ShareAudioPC_2/
   C:/Strawberry/c/x86_64-w64-mingw32/include/wchar.h \
   C:/Strawberry/c/x86_64-w64-mingw32/include/wctype.h \
   D:/GITHUB/ShareAudioPC_2/src/app/Logger.h
+
+CMakeFiles/shareaudio_core.dir/src/app/SessionController.cpp.obj: D:/GITHUB/ShareAudioPC_2/src/app/SessionController.cpp \
+  C:/Strawberry/c/include/c++/13.2.0/algorithm \
+  C:/Strawberry/c/include/c++/13.2.0/any \
+  C:/Strawberry/c/include/c++/13.2.0/array \
+  C:/Strawberry/c/include/c++/13.2.0/atomic \
+  C:/Strawberry/c/include/c++/13.2.0/backward/auto_ptr.h \
+  C:/Strawberry/c/include/c++/13.2.0/backward/binders.h \
+  C:/Strawberry/c/include/c++/13.2.0/bit \
+  C:/Strawberry/c/include/c++/13.2.0/bits/algorithmfwd.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/align.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/alloc_traits.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/allocated_ptr.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/allocator.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/atomic_base.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/atomic_futex.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/atomic_lockfree_defines.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/atomic_timed_wait.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/atomic_wait.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/basic_ios.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/basic_ios.tcc \
+  C:/Strawberry/c/include/c++/13.2.0/bits/basic_string.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/basic_string.tcc \
+  C:/Strawberry/c/include/c++/13.2.0/bits/char_traits.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/charconv.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/chrono.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/chrono_io.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/codecvt.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/concept_check.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/cpp_type_traits.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/cxxabi_forced.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/cxxabi_init_exception.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/deque.tcc \
+  C:/Strawberry/c/include/c++/13.2.0/bits/enable_special_members.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/erase_if.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/exception.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/exception_defines.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/exception_ptr.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/fs_dir.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/fs_fwd.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/fs_ops.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/fs_path.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/functexcept.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/functional_hash.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/hash_bytes.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/hashtable.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/hashtable_policy.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/invoke.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/ios_base.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/istream.tcc \
+  C:/Strawberry/c/include/c++/13.2.0/bits/iterator_concepts.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/list.tcc \
+  C:/Strawberry/c/include/c++/13.2.0/bits/locale_classes.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/locale_classes.tcc \
+  C:/Strawberry/c/include/c++/13.2.0/bits/locale_conv.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/locale_facets.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/locale_facets.tcc \
+  C:/Strawberry/c/include/c++/13.2.0/bits/locale_facets_nonio.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/locale_facets_nonio.tcc \
+  C:/Strawberry/c/include/c++/13.2.0/bits/localefwd.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/max_size_type.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/memory_resource.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/memoryfwd.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/move.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/nested_exception.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/new_allocator.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/node_handle.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/ostream.tcc \
+  C:/Strawberry/c/include/c++/13.2.0/bits/ostream_insert.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/parse_numbers.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/postypes.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/predefined_ops.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/ptr_traits.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/quoted_string.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/range_access.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/ranges_algo.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/ranges_algobase.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/ranges_base.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/ranges_cmp.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/ranges_uninitialized.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/ranges_util.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/refwrap.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/requires_hosted.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/semaphore_base.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/shared_ptr.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/shared_ptr_atomic.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/shared_ptr_base.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/sstream.tcc \
+  C:/Strawberry/c/include/c++/13.2.0/bits/std_abs.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/std_function.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/std_mutex.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/std_thread.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_algo.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_algobase.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_bvector.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_construct.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_deque.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_function.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_heap.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_iterator.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_iterator_base_funcs.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_iterator_base_types.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_list.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_pair.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_queue.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_raw_storage_iter.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_relops.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_tempbuf.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_uninitialized.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stl_vector.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stream_iterator.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/streambuf.tcc \
+  C:/Strawberry/c/include/c++/13.2.0/bits/streambuf_iterator.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/string_view.tcc \
+  C:/Strawberry/c/include/c++/13.2.0/bits/stringfwd.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/this_thread_sleep.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/uniform_int_dist.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/unique_lock.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/unique_ptr.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/unordered_map.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/uses_allocator.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/uses_allocator_args.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/utility.h \
+  C:/Strawberry/c/include/c++/13.2.0/bits/vector.tcc \
+  C:/Strawberry/c/include/c++/13.2.0/cassert \
+  C:/Strawberry/c/include/c++/13.2.0/cctype \
+  C:/Strawberry/c/include/c++/13.2.0/cerrno \
+  C:/Strawberry/c/include/c++/13.2.0/charconv \
+  C:/Strawberry/c/include/c++/13.2.0/chrono \
+  C:/Strawberry/c/include/c++/13.2.0/climits \
+  C:/Strawberry/c/include/c++/13.2.0/clocale \
+  C:/Strawberry/c/include/c++/13.2.0/codecvt \
+  C:/Strawberry/c/include/c++/13.2.0/compare \
+  C:/Strawberry/c/include/c++/13.2.0/concepts \
+  C:/Strawberry/c/include/c++/13.2.0/condition_variable \
+  C:/Strawberry/c/include/c++/13.2.0/coroutine \
+  C:/Strawberry/c/include/c++/13.2.0/cstddef \
+  C:/Strawberry/c/include/c++/13.2.0/cstdint \
+  C:/Strawberry/c/include/c++/13.2.0/cstdio \
+  C:/Strawberry/c/include/c++/13.2.0/cstdlib \
+  C:/Strawberry/c/include/c++/13.2.0/cstring \
+  C:/Strawberry/c/include/c++/13.2.0/ctime \
+  C:/Strawberry/c/include/c++/13.2.0/cwchar \
+  C:/Strawberry/c/include/c++/13.2.0/cwctype \
+  C:/Strawberry/c/include/c++/13.2.0/debug/assertions.h \
+  C:/Strawberry/c/include/c++/13.2.0/debug/debug.h \
+  C:/Strawberry/c/include/c++/13.2.0/deque \
+  C:/Strawberry/c/include/c++/13.2.0/exception \
+  C:/Strawberry/c/include/c++/13.2.0/ext/aligned_buffer.h \
+  C:/Strawberry/c/include/c++/13.2.0/ext/alloc_traits.h \
+  C:/Strawberry/c/include/c++/13.2.0/ext/atomicity.h \
+  C:/Strawberry/c/include/c++/13.2.0/ext/concurrence.h \
+  C:/Strawberry/c/include/c++/13.2.0/ext/numeric_traits.h \
+  C:/Strawberry/c/include/c++/13.2.0/ext/string_conversions.h \
+  C:/Strawberry/c/include/c++/13.2.0/ext/type_traits.h \
+  C:/Strawberry/c/include/c++/13.2.0/filesystem \
+  C:/Strawberry/c/include/c++/13.2.0/format \
+  C:/Strawberry/c/include/c++/13.2.0/functional \
+  C:/Strawberry/c/include/c++/13.2.0/future \
+  C:/Strawberry/c/include/c++/13.2.0/initializer_list \
+  C:/Strawberry/c/include/c++/13.2.0/iomanip \
+  C:/Strawberry/c/include/c++/13.2.0/ios \
+  C:/Strawberry/c/include/c++/13.2.0/iosfwd \
+  C:/Strawberry/c/include/c++/13.2.0/istream \
+  C:/Strawberry/c/include/c++/13.2.0/iterator \
+  C:/Strawberry/c/include/c++/13.2.0/limits \
+  C:/Strawberry/c/include/c++/13.2.0/list \
+  C:/Strawberry/c/include/c++/13.2.0/locale \
+  C:/Strawberry/c/include/c++/13.2.0/memory \
+  C:/Strawberry/c/include/c++/13.2.0/mutex \
+  C:/Strawberry/c/include/c++/13.2.0/new \
+  C:/Strawberry/c/include/c++/13.2.0/numbers \
+  C:/Strawberry/c/include/c++/13.2.0/optional \
+  C:/Strawberry/c/include/c++/13.2.0/ostream \
+  C:/Strawberry/c/include/c++/13.2.0/pstl/execution_defs.h \
+  C:/Strawberry/c/include/c++/13.2.0/pstl/glue_algorithm_defs.h \
+  C:/Strawberry/c/include/c++/13.2.0/pstl/glue_memory_defs.h \
+  C:/Strawberry/c/include/c++/13.2.0/pstl/pstl_config.h \
+  C:/Strawberry/c/include/c++/13.2.0/queue \
+  C:/Strawberry/c/include/c++/13.2.0/ratio \
+  C:/Strawberry/c/include/c++/13.2.0/semaphore \
+  C:/Strawberry/c/include/c++/13.2.0/span \
+  C:/Strawberry/c/include/c++/13.2.0/sstream \
+  C:/Strawberry/c/include/c++/13.2.0/stdexcept \
+  C:/Strawberry/c/include/c++/13.2.0/stdlib.h \
+  C:/Strawberry/c/include/c++/13.2.0/stop_token \
+  C:/Strawberry/c/include/c++/13.2.0/streambuf \
+  C:/Strawberry/c/include/c++/13.2.0/string \
+  C:/Strawberry/c/include/c++/13.2.0/string_view \
+  C:/Strawberry/c/include/c++/13.2.0/system_error \
+  C:/Strawberry/c/include/c++/13.2.0/thread \
+  C:/Strawberry/c/include/c++/13.2.0/tuple \
+  C:/Strawberry/c/include/c++/13.2.0/type_traits \
+  C:/Strawberry/c/include/c++/13.2.0/typeinfo \
+  C:/Strawberry/c/include/c++/13.2.0/unordered_map \
+  C:/Strawberry/c/include/c++/13.2.0/utility \
+  C:/Strawberry/c/include/c++/13.2.0/variant \
+  C:/Strawberry/c/include/c++/13.2.0/vector \
+  C:/Strawberry/c/include/c++/13.2.0/version \
+  C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/atomic_word.h \
+  C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++allocator.h \
+  C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++config.h \
+  C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++locale.h \
+  C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/cpu_defines.h \
+  C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/ctype_base.h \
+  C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/ctype_inline.h \
+  C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/error_constants.h \
+  C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/gthr-default.h \
+  C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/gthr.h \
+  C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/messages_members.h \
+  C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/os_defines.h \
+  C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/time_members.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/adxintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/ammintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/amxbf16intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/amxcomplexintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/amxfp16intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/amxint8intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/amxtileintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx2intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx5124fmapsintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx5124vnniwintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512bf16intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512bf16vlintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512bitalgintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512bwintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512cdintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512dqintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512erintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512fintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512fp16intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512fp16vlintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512ifmaintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512ifmavlintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512pfintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vbmi2intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vbmi2vlintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vbmiintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vbmivlintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vlbwintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vldqintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vlintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vnniintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vnnivlintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vp2intersectintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vp2intersectvlintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vpopcntdqintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vpopcntdqvlintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxifmaintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxneconvertintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxvnniint8intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxvnniintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/bmi2intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/bmiintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/cetintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/cldemoteintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/clflushoptintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/clwbintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/clzerointrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/cmpccxaddintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/emmintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/enqcmdintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/f16cintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/fma4intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/fmaintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/fxsrintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/gfniintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/hresetintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/ia32intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/immintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/keylockerintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/lwpintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/lzcntintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm3dnow.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mmintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/movdirintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mwaitintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mwaitxintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/pconfigintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/pkuintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/pmmintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/popcntintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/prfchiintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/prfchwintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/raointintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/rdseedintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/rtmintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/serializeintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/sgxintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/shaintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/smmintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdarg.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stddef.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdint.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/syslimits.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/tbmintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/tmmintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/tsxldtrkintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/uintrintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/vaesintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/vpclmulqdqintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/waitpkgintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/wbnoinvdintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/wmmintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/x86gprintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/x86intrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xmmintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xopintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xsavecintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xsaveintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xsaveoptintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xsavesintrin.h \
+  C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xtestintrin.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/_bsd_types.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/_mingw.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/_mingw_mac.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/_mingw_off_t.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/_mingw_secapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/_mingw_stat64.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/_mingw_stdarg.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/_mingw_unicode.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/_timeval.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/apiset.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/apisetcconv.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/assert.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/basetsd.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/bcrypt.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/bemapiset.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/concurrencysal.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/corecrt.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/corecrt_startup.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/corecrt_stdio_config.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/corecrt_wstdlib.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/crtdefs.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/ctype.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/datetimeapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/debugapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/driverspecs.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/errhandlingapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/errno.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/excpt.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/fibersapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/fileapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/fltwinerror.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/guiddef.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/handleapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/heapapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/imm.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/in6addr.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/inaddr.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/interlockedapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/io.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/ioapiset.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/jobapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/ktmtypes.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/libloaderapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/limits.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/locale.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/malloc.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/mcx.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/memoryapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/minwinbase.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/minwindef.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/mstcpip.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/mswsock.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/namedpipeapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/namespaceapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/poppack.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/process.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/processenv.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/processthreadsapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/processtopologyapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/profileapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_fd_types.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_ip_mreq1.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_ip_types.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_socket_types.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_ws1_undef.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_wsa_errnos.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_wsadata.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_xmitfile.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/intrin-impl.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/pshpack1.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/pshpack2.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/pshpack4.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/pshpack8.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/pthread.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/pthread_compat.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/pthread_signal.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/pthread_time.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/pthread_unistd.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/qos.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/realtimeapiset.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/reason.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/sal.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/sdkddkver.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/stdio_s.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/stdlib_s.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/stralign_s.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/string_s.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/sys/timeb_s.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/wchar_s.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/securityappcontainer.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/securitybaseapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/semaphore.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/signal.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/specstrings.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/stdarg.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/stddef.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/stdint.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/stdio.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/stdlib.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/stralign.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/string.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/stringapiset.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/swprintf.inl \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/synchapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/sys/stat.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/sys/timeb.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/sys/types.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/sysinfoapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/systemtopologyapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/threadpoolapiset.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/threadpoollegacyapiset.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/time.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/timezoneapi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/tvout.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/utilapiset.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/vadefs.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/virtdisk.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/wchar.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/wctype.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winapifamily.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winbase.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/wincon.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/windef.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/windows.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winerror.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/wingdi.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winnetwk.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winnls.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winnt.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winreg.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winsock2.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winsvc.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winuser.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/winver.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/wnnc.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/wow64apiset.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/ws2def.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/ws2ipdef.h \
+  C:/Strawberry/c/x86_64-w64-mingw32/include/ws2tcpip.h \
+  D:/GITHUB/ShareAudioPC_2/src/app/Config.h \
+  D:/GITHUB/ShareAudioPC_2/src/app/Result.h \
+  D:/GITHUB/ShareAudioPC_2/src/app/SessionController.h \
+  D:/GITHUB/ShareAudioPC_2/src/audio/AudioAbstractions.h \
+  D:/GITHUB/ShareAudioPC_2/src/audio/AudioPipeline.h \
+  D:/GITHUB/ShareAudioPC_2/src/audio/AudioTypes.h \
+  D:/GITHUB/ShareAudioPC_2/src/audio/IAudioCapture.h \
+  D:/GITHUB/ShareAudioPC_2/src/audio/IAudioPlayback.h \
+  D:/GITHUB/ShareAudioPC_2/src/audio/MiniaudioBackend.h \
+  D:/GITHUB/ShareAudioPC_2/src/network/PcmBroadcastServer.h \
+  D:/GITHUB/ShareAudioPC_2/src/network/TcpSocket.h \
+  D:/GITHUB/ShareAudioPC_2/src/platform/LocalIp.h \
+  D:/GITHUB/ShareAudioPC_2/src/protocol/JitterBuffer.h \
+  D:/GITHUB/ShareAudioPC_2/src/protocol/PcmChunker.h \
+  D:/GITHUB/ShareAudioPC_2/src/protocol/Protocol.h \
+  D:/GITHUB/ShareAudioPC_2/src/storage/RecentDevices.h \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/any_completion_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/any_completion_handler.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/any_io_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/append.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/as_tuple.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/associated_allocator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/associated_cancellation_slot.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/associated_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/associated_immediate_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/associator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/async_result.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/awaitable.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_datagram_socket.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_file.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_io_object.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_random_access_file.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_raw_socket.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_readable_pipe.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_seq_packet_socket.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_serial_port.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_signal_set.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_socket.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_socket_acceptor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_socket_iostream.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_socket_streambuf.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_stream_file.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_stream_socket.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_streambuf.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_streambuf_fwd.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_waitable_timer.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_writable_pipe.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/bind_allocator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/bind_cancellation_slot.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/bind_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/bind_immediate_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffer.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffer_registration.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_read_stream.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_read_stream_fwd.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_stream.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_stream_fwd.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_write_stream.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_write_stream_fwd.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffers_iterator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/cancel_after.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/cancel_at.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/cancellation_signal.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/cancellation_state.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/cancellation_type.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/co_composed.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/co_spawn.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/completion_condition.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/compose.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/composed.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/config.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/connect.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/connect_pipe.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/consign.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/coroutine.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/default_completion_token.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/defer.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/deferred.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detached.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/array.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/array_fwd.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/assert.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/atomic_count.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/base_from_cancellation_state.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/base_from_completion_cond.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/bind_handler.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/blocking_executor_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/buffer_resize_guard.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/buffer_sequence_adapter.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/buffered_stream_storage.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/call_stack.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/chrono.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/chrono_time_traits.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/completion_handler.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/completion_message.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/completion_payload.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/completion_payload_handler.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/composed_work.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/concurrency_hint.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/conditionally_enabled_event.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/conditionally_enabled_mutex.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/config.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/consuming_buffers.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/cstddef.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/cstdint.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/date_time_fwd.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/deadline_timer_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/dependent_type.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/event.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/executor_function.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/executor_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/fd_set_adapter.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/fenced_block.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/functional.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/future.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/global.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/handler_alloc_helpers.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/handler_cont_helpers.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/handler_tracking.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/handler_type_requirements.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/handler_work.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/hash_map.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/buffer_sequence_adapter.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/handler_tracking.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/null_event.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/posix_thread.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/resolver_service_base.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/resolver_thread_pool.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/scheduler.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/select_reactor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/select_reactor.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/service_registry.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/service_registry.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/signal_set_service.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/socket_ops.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/socket_select_interrupter.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/strand_executor_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/strand_executor_service.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/strand_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/strand_service.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/thread_context.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/throw_error.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/timer_queue_set.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_event.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_iocp_file_service.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_iocp_handle_service.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_iocp_io_context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_iocp_io_context.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_iocp_serial_port_service.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_iocp_socket_service_base.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_object_handle_service.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_static_mutex.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_tss_ptr.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/winsock_init.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/initiate_defer.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/initiate_dispatch.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/initiate_post.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/initiation_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/io_control.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/io_object_impl.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/is_buffer_sequence.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/is_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/limits.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/local_free_on_block_exit.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/memory.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/mutex.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/non_const_lvalue.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/noncopyable.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/null_event.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/null_reactor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/null_signal_blocker.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/old_win_sdk_compat.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/op_queue.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/operation.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/pop_options.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/posix_fd_set_adapter.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/posix_thread.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/push_options.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/reactor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/reactor_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/reactor_op_queue.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/recycling_allocator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/regex_fwd.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/resolve_endpoint_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/resolve_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/resolve_query_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/resolver_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/resolver_service_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/resolver_thread_pool.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/scheduler.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/scheduler_operation.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/scheduler_task.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/scheduler_thread_info.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/scoped_lock.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/scoped_ptr.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/select_interrupter.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/select_reactor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/service_registry.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/signal_blocker.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/signal_handler.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/signal_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/signal_set_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/slim_mutex.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/socket_holder.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/socket_ops.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/socket_option.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/socket_select_interrupter.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/socket_types.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/static_mutex.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/std_fenced_block.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/strand_executor_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/strand_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/string_view.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/thread.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/thread_context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/thread_group.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/thread_info_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/throw_error.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/throw_exception.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/timed_cancel_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/timer_queue.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/timer_queue_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/timer_queue_set.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/timer_scheduler.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/timer_scheduler_fwd.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/tss_ptr.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/type_traits.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/utility.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/wait_handler.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/wait_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_event.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_fd_set_adapter.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_global.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_file_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_handle_read_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_handle_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_handle_write_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_io_context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_null_buffers_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_operation.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_overlapped_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_overlapped_ptr.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_serial_port_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_accept_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_connect_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_recv_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_recvfrom_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_recvmsg_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_send_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_service_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_thread_info.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_wait_op.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_mutex.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_object_handle_service.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_static_mutex.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_tss_ptr.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/winsock_init.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/work_dispatcher.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/wrapped_handler.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/dispatch.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/disposition.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/error.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/error_code.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/allocator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/any_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/bad_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/blocking.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/blocking_adaptation.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/context_as.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/impl/bad_executor.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/inline_exception_handling.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/invocable_archetype.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/mapping.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/occupancy.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/outstanding_work.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/prefer_only.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/relationship.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution_context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/executor_work_guard.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/file_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/generic/basic_endpoint.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/generic/datagram_protocol.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/generic/detail/endpoint.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/generic/detail/impl/endpoint.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/generic/raw_protocol.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/generic/seq_packet_protocol.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/generic/stream_protocol.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/handler_continuation_hook.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/high_resolution_timer.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/immediate.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/any_completion_executor.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/any_io_executor.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/append.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/as_tuple.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/awaitable.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/awaitable.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/buffered_read_stream.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/buffered_write_stream.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/cancel_after.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/cancel_at.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/cancellation_signal.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/co_spawn.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/config.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/config.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/connect.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/connect_pipe.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/connect_pipe.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/consign.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/deferred.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/detached.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/error.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/error_code.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/execution_context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/execution_context.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/executor.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/io_context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/io_context.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/multiple_exceptions.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/prepend.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/read.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/read_at.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/read_until.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/redirect_disposition.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/redirect_error.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/serial_port_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/serial_port_base.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/system_context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/system_context.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/system_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/thread_pool.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/thread_pool.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/use_awaitable.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/use_future.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/write.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/write_at.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/inline_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/inline_or_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/io_context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/io_context_strand.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/address.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/address_v4.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/address_v4_iterator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/address_v4_range.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/address_v6.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/address_v6_iterator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/address_v6_range.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/bad_address_cast.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/basic_endpoint.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/basic_resolver.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/basic_resolver_entry.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/basic_resolver_iterator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/basic_resolver_query.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/basic_resolver_results.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/detail/endpoint.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/detail/impl/endpoint.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/detail/socket_option.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/host_name.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/icmp.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/address.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/address.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/address_v4.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/address_v4.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/address_v6.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/address_v6.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/basic_endpoint.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/host_name.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/network_v4.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/network_v4.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/network_v6.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/network_v6.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/multicast.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/network_v4.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/network_v6.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/resolver_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/resolver_query_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/tcp.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/udp.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/unicast.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/v6_only.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/is_applicable_property.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/is_contiguous_iterator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/is_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/is_read_buffered.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/is_write_buffered.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/basic_endpoint.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/connect_pair.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/datagram_protocol.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/detail/endpoint.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/detail/impl/endpoint.ipp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/seq_packet_protocol.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/stream_protocol.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/multiple_exceptions.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/packaged_task.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/placeholders.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/posix/basic_descriptor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/posix/basic_stream_descriptor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/posix/descriptor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/posix/descriptor_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/posix/stream_descriptor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/post.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/prefer.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/prepend.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/query.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/random_access_file.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/read.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/read_at.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/read_until.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/readable_pipe.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/recycling_allocator.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/redirect_disposition.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/redirect_error.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/registered_buffer.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/require.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/require_concept.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/serial_port.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/serial_port_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/signal_set.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/signal_set_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/socket_base.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/static_thread_pool.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/steady_timer.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/strand.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/stream_file.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/streambuf.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/system_context.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/system_error.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/system_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/system_timer.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/this_coro.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/thread.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/thread_pool.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/equality_comparable.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/execute_member.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/prefer_free.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/prefer_member.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/query_free.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/query_member.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/query_static_constexpr_member.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/require_concept_free.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/require_concept_member.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/require_free.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/require_member.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/static_query.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/static_require.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/static_require_concept.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/use_awaitable.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/use_future.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/uses_executor.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/version.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/wait_traits.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/basic_object_handle.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/basic_overlapped_handle.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/basic_random_access_handle.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/basic_stream_handle.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/object_handle.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/overlapped_handle.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/overlapped_ptr.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/random_access_handle.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/stream_handle.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/writable_pipe.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/write.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/write_at.hpp \
+  D:/GITHUB/ShareAudioPC_2/third_party/miniaudio-src/miniaudio.h
 
 CMakeFiles/shareaudio_core.dir/src/audio/AudioAbstractions.cpp.obj: D:/GITHUB/ShareAudioPC_2/src/audio/AudioAbstractions.cpp \
   C:/Strawberry/c/include/c++/13.2.0/array \
@@ -6336,18 +7990,18 @@ CMakeFiles/shareaudio_core.dir/src/ui/ConsoleUi.cpp.obj: D:/GITHUB/ShareAudioPC_
   D:/GITHUB/ShareAudioPC_2/src/app/AppController.h \
   D:/GITHUB/ShareAudioPC_2/src/app/Config.h \
   D:/GITHUB/ShareAudioPC_2/src/app/Result.h \
-  D:/GITHUB/ShareAudioPC_2/src/audio/AudioAbstractions.h \
+  D:/GITHUB/ShareAudioPC_2/src/app/SessionController.h \
   D:/GITHUB/ShareAudioPC_2/src/audio/AudioPipeline.h \
   D:/GITHUB/ShareAudioPC_2/src/audio/AudioTypes.h \
   D:/GITHUB/ShareAudioPC_2/src/audio/IAudioCapture.h \
   D:/GITHUB/ShareAudioPC_2/src/audio/IAudioPlayback.h \
-  D:/GITHUB/ShareAudioPC_2/src/audio/MiniaudioBackend.h \
   D:/GITHUB/ShareAudioPC_2/src/network/PcmBroadcastServer.h \
   D:/GITHUB/ShareAudioPC_2/src/network/TcpSocket.h \
   D:/GITHUB/ShareAudioPC_2/src/platform/LocalIp.h \
   D:/GITHUB/ShareAudioPC_2/src/protocol/JitterBuffer.h \
   D:/GITHUB/ShareAudioPC_2/src/protocol/PcmChunker.h \
   D:/GITHUB/ShareAudioPC_2/src/protocol/Protocol.h \
+  D:/GITHUB/ShareAudioPC_2/src/storage/RecentDevices.h \
   D:/GITHUB/ShareAudioPC_2/src/ui/ConsoleUi.h \
   D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio.hpp \
   D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/any_completion_executor.hpp \
@@ -6801,17 +8455,96 @@ CMakeFiles/shareaudio_core.dir/src/ui/ConsoleUi.cpp.obj: D:/GITHUB/ShareAudioPC_
   D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/stream_handle.hpp \
   D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/writable_pipe.hpp \
   D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/write.hpp \
-  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/write_at.hpp \
-  D:/GITHUB/ShareAudioPC_2/third_party/miniaudio-src/miniaudio.h
+  D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/write_at.hpp
 
 
 D:/GITHUB/ShareAudioPC_2/src/storage/RecentDevices.cpp:
 
 D:/GITHUB/ShareAudioPC_2/src/protocol/Protocol.cpp:
 
-D:/GITHUB/ShareAudioPC_2/src/network/PcmBroadcastServer.h:
-
 D:/GITHUB/ShareAudioPC_2/src/network/PcmBroadcastServer.cpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_thread.ipp:
+
+D:/GITHUB/ShareAudioPC_2/src/network/LoopbackTest.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/wtypes.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/winsmcrd.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/winscard.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/winperf.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/winioctl.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/winefs.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/wincrypt.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/urlmon.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/unknwnbase.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/shellapi.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/rpcndr.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/rpc.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/propidl.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/oleauto.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/objidlbase.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/objidl.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/objbase.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/nb30.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/mmsyscom.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/mmiscapi2.h:
+
+D:/GITHUB/ShareAudioPC_2/src/audio/MiniaudioBackend.cpp:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/math.h:
+
+C:/Strawberry/c/include/c++/13.2.0/tr1/bessel_function.tcc:
+
+C:/Strawberry/c/include/c++/13.2.0/cmath:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/specfun.h:
+
+D:/GITHUB/ShareAudioPC_2/src/audio/AudioAbstractions.cpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/miniaudio-src/miniaudio.h:
+
+D:/GITHUB/ShareAudioPC_2/src/app/SessionController.cpp:
+
+D:/GITHUB/ShareAudioPC_2/src/app/Logger.h:
+
+D:/GITHUB/ShareAudioPC_2/src/app/Logger.cpp:
+
+C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++io.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/stl_tree.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/stl_map.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/regex_scanner.tcc:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/regex_executor.tcc:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/regex_constants.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/regex.tcc:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/regex.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/fstream.tcc:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/write_at.hpp:
 
@@ -6827,6 +8560,10 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/basic_random_
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/basic_overlapped_handle.hpp:
 
+C:/Strawberry/c/x86_64-w64-mingw32/include/timeapi.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/basic_object_handle.hpp:
+
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/wait_traits.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/uses_executor.hpp:
@@ -6837,6 +8574,14 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/require_member
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/require_free.hpp:
 
+C:/Strawberry/c/x86_64-w64-mingw32/include/mciapi.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/require_concept_free.hpp:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/joystickapi.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/query_free.hpp:
+
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/prefer_member.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/equality_comparable.hpp:
@@ -6846,6 +8591,10 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/thread_pool.hpp:
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/system_timer.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/system_executor.hpp:
+
+C:/Strawberry/c/include/c++/13.2.0/tr1/modified_bessel_func.tcc:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/system_error.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/stream_file.hpp:
 
@@ -6871,9 +8620,21 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/posix/descriptor_base
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/multiple_exceptions.hpp:
 
+C:/Strawberry/c/x86_64-w64-mingw32/include/mmsystem.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/seq_packet_protocol.hpp:
+
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/detail/endpoint.hpp:
 
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_thread.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/connect_pair.hpp:
+
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/basic_endpoint.hpp:
+
+C:/Strawberry/c/include/c++/13.2.0/tr1/ell_integral.tcc:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/is_executor.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/is_contiguous_iterator.hpp:
 
@@ -6907,6 +8668,12 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/detail/impl/endpoi
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/detail/endpoint.hpp:
 
+C:/Strawberry/c/include/c++/13.2.0/tr1/riemann_zeta.tcc:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/this_coro.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/basic_resolver_iterator.hpp:
+
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/basic_resolver_entry.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/basic_endpoint.hpp:
@@ -6935,6 +8702,10 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/serial_port_base
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/redirect_error.hpp:
 
+D:/GITHUB/ShareAudioPC_2/src/network/LoopbackTest.cpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/read_until.hpp:
+
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/executor.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/error.ipp:
@@ -6947,11 +8718,13 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/connect_pipe.ipp
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/config.ipp:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/posix_thread.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/config.hpp:
-
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/cancel_after.hpp:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/playsoundapi.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/placeholders.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/buffered_write_stream.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/awaitable.hpp:
 
@@ -6961,9 +8734,19 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/append.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/any_completion_executor.ipp:
 
+D:/GITHUB/ShareAudioPC_2/src/codec/OpusCodec.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/high_resolution_timer.hpp:
+
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/file_base.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/executor_work_guard.hpp:
+
+C:/Strawberry/c/include/c++/13.2.0/tr1/poly_hermite.tcc:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/multiple_exceptions.ipp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/executor.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/immediate.hpp:
 
@@ -6976,6 +8759,10 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/mapping.hpp
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/invocable_archetype.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/inline_exception_handling.hpp:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/ddeml.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/blocking_adaptation.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/bad_executor.hpp:
 
@@ -6993,9 +8780,9 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/dispatch.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/wrapped_handler.hpp:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/connect_pair.hpp:
+C:/Strawberry/c/x86_64-w64-mingw32/include/unknwn.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_thread.hpp:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_static_mutex.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/signal_set_base.hpp:
 
@@ -7013,11 +8800,19 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socke
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_recvmsg_op.hpp:
 
+C:/Strawberry/c/x86_64-w64-mingw32/include/winsock.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_connect_op.hpp:
+
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_serial_port_service.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_null_buffers_op.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_io_context.hpp:
+
+C:/Strawberry/c/include/c++/13.2.0/tr1/poly_laguerre.tcc:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_global.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_fd_set_adapter.hpp:
 
@@ -7099,7 +8894,9 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/reactor_op_que
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/reactor_op.hpp:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/reactor.hpp:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/config.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/posix_thread.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/posix_fd_set_adapter.hpp:
 
@@ -7141,9 +8938,17 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/initiate_post.
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/initiate_dispatch.hpp:
 
+C:/Strawberry/c/x86_64-w64-mingw32/include/rpcasync.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/io_object_impl.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/initiate_defer.hpp:
+
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/winsock_init.ipp:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_thread.ipp:
+D:/GITHUB/ShareAudioPC_2/src/audio/MiniaudioBackend.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_static_mutex.ipp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/outstanding_work.hpp:
 
@@ -7245,245 +9050,43 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/call_stack.hpp
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/buffer_sequence_adapter.hpp:
 
+C:/Strawberry/c/include/c++/13.2.0/bits/stl_stack.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/system_context.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/bind_handler.hpp:
+
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/executor.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/base_from_completion_cond.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/base_from_cancellation_state.hpp:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/atomic_count.hpp:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/stream_protocol.hpp:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/assert.hpp:
+C:/Strawberry/c/include/c++/13.2.0/thread:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/scheduler.ipp:
+C:/Strawberry/c/include/c++/13.2.0/bits/stl_vector.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/array_fwd.hpp:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_overlapped_ptr.hpp:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/string_view.hpp:
+C:/Strawberry/c/include/c++/13.2.0/cwctype:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/deferred.hpp:
+C:/Strawberry/c/include/c++/13.2.0/queue:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/default_completion_token.hpp:
+C:/Strawberry/c/include/c++/13.2.0/bits/regex_error.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/consign.hpp:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/posix_thread.ipp:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/is_read_buffered.hpp:
+C:/Strawberry/c/x86_64-w64-mingw32/include/threadpoollegacyapiset.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/error_code.ipp:
+C:/Strawberry/c/include/c++/13.2.0/bitset:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/connect_pipe.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/compose.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/completion_condition.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/co_spawn.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/io_context.ipp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_tss_ptr.ipp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/cancellation_type.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/resolver_base.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/prepend.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/cancellation_signal.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/thread.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/buffer_resize_guard.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/cancel_at.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_stream_fwd.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_stream.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_read_stream.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/read_at.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffer_registration.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffer.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/bind_immediate_executor.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/object_handle.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/bind_executor.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_handle_service.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/bind_cancellation_slot.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/bind_allocator.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_streambuf_fwd.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_streambuf.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_stream_file.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_socket_acceptor.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_signal_set.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/use_awaitable.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_seq_packet_socket.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/serial_port_base.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/basic_resolver_query.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_readable_pipe.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/serial_port.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_raw_socket.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_io_object.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_file.hpp:
-
-D:/GITHUB/ShareAudioPC_2/src/ui/ConsoleUi.cpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_datagram_socket.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/awaitable.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/associator.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/associated_executor.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/as_tuple.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/unicast.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/append.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/wait_op.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/any_io_executor.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/any_completion_handler.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/any_completion_executor.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio.hpp:
-
-D:/GITHUB/ShareAudioPC_2/src/network/LoopbackTest.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_handle_read_op.hpp:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/ws2ipdef.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/winsock2.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/qos.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_stream_socket.hpp:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_ws1_undef.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/mswsock.h:
-
-C:/Strawberry/c/include/c++/13.2.0/version:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/limits.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/memory:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/stl_set.h:
-
-C:/Strawberry/c/include/c++/13.2.0/iterator:
+C:/Strawberry/c/include/c++/13.2.0/pstl/glue_memory_defs.h:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/strand.hpp:
 
 C:/Strawberry/c/include/c++/13.2.0/future:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/occupancy.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/condition_variable:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/stream_iterator.h:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/stl_list.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/winsock_init.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/ranges_uninitialized.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_mutex.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/backward/auto_ptr.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/read_until.hpp:
-
-D:/GITHUB/ShareAudioPC_2/src/network/LoopbackTest.cpp:
-
-D:/GITHUB/ShareAudioPC_2/src/protocol/Protocol.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/high_resolution_timer.hpp:
-
-D:/GITHUB/ShareAudioPC_2/src/codec/OpusCodec.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/miniaudio-src/miniaudio.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_static_mutex.ipp:
-
-D:/GITHUB/ShareAudioPC_2/src/audio/MiniaudioBackend.h:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/atomic_wait.h:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/erase_if.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/scheduler_thread_info.hpp:
-
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512bitalgintrin.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/cstddef.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/variant:
-
-C:/Strawberry/c/include/c++/13.2.0/charconv:
-
-C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++io.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/write.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_write_stream_fwd.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/basic_file.h:
-
-C:/Strawberry/c/include/c++/13.2.0/climits:
-
-C:/Strawberry/c/include/c++/13.2.0/regex:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/stddef.h:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/stl_map.h:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/basic_ios.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/stralign_s.h:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/stl_heap.h:
-
-D:/GITHUB/ShareAudioPC_2/src/audio/AudioAbstractions.cpp:
-
-C:/Strawberry/c/include/c++/13.2.0/pstl/glue_algorithm_defs.h:
-
-C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++config.h:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/stl_algo.h:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/regex_scanner.tcc:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/objbase.h:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/thread_pool.hpp:
 
@@ -7495,45 +9098,89 @@ C:/Strawberry/c/include/c++/13.2.0/format:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/guiddef.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_writable_pipe.hpp:
+C:/Strawberry/c/include/c++/13.2.0/cstring:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/regex_scanner.h:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/occupancy.hpp:
 
-D:/GITHUB/ShareAudioPC_2/src/app/Logger.cpp:
+C:/Strawberry/c/include/c++/13.2.0/condition_variable:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/regex_executor.tcc:
+C:/Strawberry/c/include/c++/13.2.0/charconv:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/regex_constants.h:
+C:/Strawberry/c/x86_64-w64-mingw32/include/ncrypt.h:
 
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512erintrin.h:
+C:/Strawberry/c/include/c++/13.2.0/cassert:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_ip_mreq1.h:
+C:/Strawberry/c/include/c++/13.2.0/bits/unordered_map.h:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/cxxabi_forced.h:
+C:/Strawberry/c/x86_64-w64-mingw32/include/lzexpand.h:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/regex.tcc:
+C:/Strawberry/c/x86_64-w64-mingw32/include/io.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/query_member.hpp:
+C:/Strawberry/c/include/c++/13.2.0/bits/this_thread_sleep.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/completion_message.hpp:
+C:/Strawberry/c/x86_64-w64-mingw32/include/process.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_write_stream.hpp:
+C:/Strawberry/c/include/c++/13.2.0/bits/stl_queue.h:
 
-C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/atomic_word.h:
+C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/gthr-default.h:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/regex.h:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/consign.hpp:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/stl_list.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/basic_ios.tcc:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_operation.hpp:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/sys/stat.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/stl_heap.h:
+
+C:/Strawberry/c/include/c++/13.2.0/pstl/glue_algorithm_defs.h:
+
+C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++config.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/stl_algo.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/vadefs.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/winsock_init.hpp:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/ranges_uninitialized.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/ranges_algo.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/memoryapi.h:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/unordered_map.h:
+C:/Strawberry/c/include/c++/13.2.0/bits/erase_if.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/vadefs.h:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/scheduler_thread_info.hpp:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/io.h:
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512bitalgintrin.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/lzexpand.h:
+C:/Strawberry/c/include/c++/13.2.0/bits/atomic_wait.h:
+
+C:/Strawberry/c/include/c++/13.2.0/iostream:
+
+C:/Strawberry/c/include/c++/13.2.0/chrono:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_mutex.hpp:
+
+C:/Strawberry/c/include/c++/13.2.0/backward/auto_ptr.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/stl_relops.h:
+
+C:/Strawberry/c/include/c++/13.2.0/array:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/stl_set.h:
+
+C:/Strawberry/c/include/c++/13.2.0/iterator:
+
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/prfchwintrin.h:
+
+C:/Strawberry/c/include/c++/13.2.0/functional:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_file.hpp:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/winver.h:
 
@@ -7545,9 +9192,9 @@ C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/wchar_s.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/sys/timeb_s.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_static_mutex.hpp:
+D:/GITHUB/ShareAudioPC_2/src/audio/AudioAbstractions.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/unknwn.h:
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512bwintrin.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h:
 
@@ -7559,15 +9206,25 @@ C:/Strawberry/c/include/c++/13.2.0/bits/std_mutex.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/pthread_time.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/address_v4.hpp:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/connect_pipe.hpp:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detached.hpp:
+C:/Strawberry/c/x86_64-w64-mingw32/include/threadpoolapiset.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/streambuf_iterator.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/pthread_signal.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/address_v4.hpp:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/cetintrin.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/ranges_algobase.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/pthread_signal.h:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detached.hpp:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/mmiscapi.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/pthread_compat.h:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/posix/basic_stream_descriptor.hpp:
 
@@ -7575,19 +9232,9 @@ C:/Strawberry/c/x86_64-w64-mingw32/include/malloc.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/stl_deque.h:
 
-C:/Strawberry/c/include/c++/13.2.0/pstl/glue_memory_defs.h:
-
-C:/Strawberry/c/include/c++/13.2.0/bitset:
-
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/handler_continuation_hook.hpp:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/corecrt_stdio_config.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/async_result.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/list.tcc:
-
-D:/GITHUB/ShareAudioPC_2/src/audio/AudioPipeline.cpp:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/semaphore_base.h:
 
@@ -7607,15 +9254,15 @@ C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/immintrin.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/_timeval.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/co_composed.hpp:
+C:/Strawberry/c/include/c++/13.2.0/tr1/exp_integral.tcc:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/hashtable.h:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/buffered_stream_storage.hpp:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/reason.h:
+C:/Strawberry/c/include/c++/13.2.0/bits/algorithmfwd.h:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/stl_tree.h:
+C:/Strawberry/c/include/c++/13.2.0/bits/locale_facets_nonio.tcc:
 
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxneconvertintrin.h:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/awaitable.hpp:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/tbmintrin.h:
 
@@ -7640,16 +9287,6 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/io_context.hpp:
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/resolver_service_base.ipp:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/limits.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/nb30.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/blocking_adaptation.hpp:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/ddeml.h:
-
-C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/gthr-default.h:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/stl_queue.h:
 
 C:/Strawberry/c/include/c++/13.2.0/span:
 
@@ -7685,27 +9322,23 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_tss_ptr.hp
 
 C:/Strawberry/c/include/c++/13.2.0/utility:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/generic/basic_endpoint.hpp:
+C:/Strawberry/c/include/c++/13.2.0/bits/regex_scanner.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/in6addr.h:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_writable_pipe.hpp:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/ranges_cmp.h:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio.hpp:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/align.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/rpcnsip.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/basic_string.tcc:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/null_signal_blocker.hpp:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/range_access.h:
 
-C:/Strawberry/c/include/c++/13.2.0/queue:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/posix_thread.ipp:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/regex_error.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/threadpoollegacyapiset.h:
-
-D:/GITHUB/ShareAudioPC_2/src/app/Logger.h:
+C:/Strawberry/c/x86_64-w64-mingw32/include/stddef.h:
 
 C:/Strawberry/c/include/c++/13.2.0/cstdint:
 
@@ -7713,9 +9346,9 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_iocp_
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512fp16vlintrin.h:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/stl_raw_storage_iter.h:
+C:/Strawberry/c/x86_64-w64-mingw32/include/rpcsal.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/sys/timeb.h:
+C:/Strawberry/c/include/c++/13.2.0/pstl/execution_defs.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/parse_numbers.h:
 
@@ -7723,17 +9356,9 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/chrono.hpp:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/stdlib_s.h:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/atomic_base.h:
+C:/Strawberry/c/include/c++/13.2.0/regex:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/pthread.h:
-
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/amxtileintrin.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/system_context.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/bind_handler.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/stl_stack.h:
+C:/Strawberry/c/include/c++/13.2.0/climits:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/std_function.h:
 
@@ -7743,13 +9368,15 @@ C:/Strawberry/c/include/c++/13.2.0/bits/std_abs.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/minwindef.h:
 
+C:/Strawberry/c/include/c++/13.2.0/bits/atomic_base.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/pthread.h:
+
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/amxtileintrin.h:
+
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/amxint8intrin.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/crtdefs.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_read_stream_fwd.hpp:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/time.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/functional_hash.h:
 
@@ -7759,27 +9386,23 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/awaitable.ipp:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/lwpintrin.h:
 
+C:/Strawberry/c/x86_64-w64-mingw32/include/sys/timeb.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/stl_raw_storage_iter.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/co_spawn.hpp:
+
 C:/Strawberry/c/include/c++/13.2.0/bits/refwrap.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/driverspecs.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/composed.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/locale_facets_nonio.h:
-
 C:/Strawberry/c/include/c++/13.2.0/bits/max_size_type.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/read_at.hpp:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_socket_types.h:
-
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/fma4intrin.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/locale_facets.h:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxifmaintrin.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/shellapi.h:
+C:/Strawberry/c/x86_64-w64-mingw32/include/qos.h:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/chrono_time_traits.hpp:
 
@@ -7795,35 +9418,25 @@ C:/Strawberry/c/include/c++/13.2.0/list:
 
 C:/Strawberry/c/include/c++/13.2.0/string:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/this_coro.hpp:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/bind_immediate_executor.hpp:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/basic_resolver_iterator.hpp:
+C:/Strawberry/c/include/c++/13.2.0/semaphore:
 
-C:/Strawberry/c/include/c++/13.2.0/tr1/riemann_zeta.tcc:
+C:/Strawberry/c/include/c++/13.2.0/bits/nested_exception.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/processtopologyapi.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/timed_cancel_op.hpp:
+C:/Strawberry/c/x86_64-w64-mingw32/include/cguid.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/defer.hpp:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/use_future.hpp:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/invoke.h:
+C:/Strawberry/c/include/c++/13.2.0/bits/unique_lock.h:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/redirect_disposition.hpp:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/localefwd.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/hash_bytes.h:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/stl_vector.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_overlapped_ptr.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/cwctype:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/nested_exception.h:
-
-C:/Strawberry/c/include/c++/13.2.0/semaphore:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/timer_queue_set.hpp:
 
@@ -7839,23 +9452,13 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/connect.hpp:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/ptr_traits.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/basic_object_handle.hpp:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/timeapi.h:
-
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/datagram_protocol.hpp:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/charconv.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/ostream_insert.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/oleauto.h:
-
 C:/Strawberry/c/include/c++/13.2.0/bits/fs_fwd.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/require_concept_free.hpp:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/mciapi.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/namedpipeapi.h:
 
@@ -7885,35 +9488,33 @@ C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/clwbintrin.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/excpt.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_iocp_handle_service.ipp:
-
-C:/Strawberry/c/include/c++/13.2.0/coroutine:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/errno.h:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/associator.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/generic/stream_protocol.hpp:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/stl_bvector.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_global.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/tr1/poly_laguerre.tcc:
-
 C:/Strawberry/c/include/c++/13.2.0/set:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/associated_cancellation_slot.hpp:
-
 D:/GITHUB/ShareAudioPC_2/src/app/Config.cpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/associated_cancellation_slot.hpp:
 
 C:/Strawberry/c/include/c++/13.2.0/ext/numeric_traits.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/shared_ptr_base.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/cancel_after.hpp:
+C:/Strawberry/c/x86_64-w64-mingw32/include/strings.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/prsht.h:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_recv_op.hpp:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/fstream.tcc:
+C:/Strawberry/c/include/c++/13.2.0/bit:
+
+C:/Strawberry/c/include/c++/13.2.0/tr1/special_function_util.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/shared_ptr_atomic.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/alloc_traits.h:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/read.hpp:
 
@@ -7939,25 +9540,27 @@ C:/Strawberry/c/include/c++/13.2.0/ext/string_conversions.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/string.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/network_v6.hpp:
-
 D:/GITHUB/ShareAudioPC_2/src/codec/OpusCodec.cpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/network_v6.hpp:
 
 D:/GITHUB/ShareAudioPC_2/src/app/AppController.cpp:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xtestintrin.h:
 
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/any_completion_handler.hpp:
+
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/execution/impl/bad_executor.ipp:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/_mingw_off_t.h:
-
-D:/GITHUB/ShareAudioPC_2/src/audio/IAudioCapture.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/concurrencysal.h:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/emmintrin.h:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xsavesintrin.h:
+
+D:/GITHUB/ShareAudioPC_2/src/audio/IAudioCapture.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/chrono.h:
 
@@ -7971,23 +9574,11 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/work_dispatche
 
 C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++allocator.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/multiple_exceptions.ipp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/executor.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/tr1/poly_hermite.tcc:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/timezoneapi.h:
-
 C:/Strawberry/c/include/c++/13.2.0/bits/locale_classes.tcc:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/stl_iterator_base_funcs.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/locale_conv.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_socket_streambuf.hpp:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/oleidl.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/hashtable_policy.h:
 
@@ -8001,8 +9592,6 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/push_options.h
 
 C:/Strawberry/c/include/c++/13.2.0/bits/uses_allocator.h:
 
-C:/Strawberry/c/include/c++/13.2.0/tr1/bessel_function.tcc:
-
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/udp.hpp:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/limits.h:
@@ -8015,33 +9604,13 @@ C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mmintrin.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/winnt.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/io_object_impl.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/initiate_defer.hpp:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/rpcasync.h:
-
 C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/messages_members.h:
-
-C:/Strawberry/c/include/c++/13.2.0/pstl/execution_defs.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/rpcsal.h:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/static_query.hpp:
 
 C:/Strawberry/c/include/c++/13.2.0/cstddef:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/basic_ios.tcc:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_operation.hpp:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/sys/stat.h:
-
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/sgxintrin.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/query_free.hpp:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/joystickapi.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/enable_special_members.h:
 
@@ -8051,27 +9620,25 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/address_v4.hp
 
 C:/Strawberry/c/include/c++/13.2.0/algorithm:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/semaphore.h:
-
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/connect.hpp:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/inaddr.h:
 
+C:/Strawberry/c/x86_64-w64-mingw32/include/semaphore.h:
+
 C:/Strawberry/c/include/c++/13.2.0/ext/concurrence.h:
 
-D:/GITHUB/ShareAudioPC_2/src/protocol/JitterBuffer.cpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/generic/detail/impl/endpoint.ipp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/strand_service.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_socket.hpp:
-
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/vaesintrin.h:
-
-D:/GITHUB/ShareAudioPC_2/src/app/Application.h:
+C:/Strawberry/c/include/c++/13.2.0/bits/cxxabi_forced.h:
 
 C:/Strawberry/c/include/c++/13.2.0/deque:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/commdlg.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/regex_compiler.h:
+
+D:/GITHUB/ShareAudioPC_2/src/app/AppController.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/locale_facets.tcc:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/wingdi.h:
 
@@ -8091,29 +9658,21 @@ C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512fintrin.h:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vp2intersectintrin.h:
 
+C:/Strawberry/c/x86_64-w64-mingw32/include/dde.h:
+
+C:/Strawberry/c/include/c++/13.2.0/any:
+
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/cancellation_state.hpp:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/exception_ptr.h:
 
-C:/Strawberry/c/include/c++/13.2.0/chrono:
-
-C:/Strawberry/c/include/c++/13.2.0/iostream:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/signal_set_service.ipp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_waitable_timer.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/stdexcept:
-
 C:/Strawberry/c/x86_64-w64-mingw32/include/wchar.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/process.h:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/this_thread_sleep.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/concept_check.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/vector.tcc:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/std_thread.h:
 
 C:/Strawberry/c/include/c++/13.2.0/ext/alloc_traits.h:
 
@@ -8125,6 +9684,10 @@ C:/Strawberry/c/include/c++/13.2.0/bits/iterator_concepts.h:
 
 C:/Strawberry/c/include/c++/13.2.0/exception:
 
+C:/Strawberry/c/include/c++/13.2.0/tr1/beta_function.tcc:
+
+D:/GITHUB/ShareAudioPC_2/src/app/Config.h:
+
 C:/Strawberry/c/include/c++/13.2.0/bits/deque.tcc:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/stl_iterator.h:
@@ -8135,45 +9698,31 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/timer_queue.hp
 
 C:/Strawberry/c/include/c++/13.2.0/bits/ios_base.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/coroutine.hpp:
-
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/bmiintrin.h:
-
-D:/GITHUB/ShareAudioPC_2/src/storage/RecentDevices.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/thread_context.ipp:
-
-C:/Strawberry/c/include/c++/13.2.0/ctime:
-
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/popcntintrin.h:
-
-C:/Strawberry/c/include/c++/13.2.0/ios:
-
 C:/Strawberry/c/include/c++/13.2.0/bits/fs_path.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/io_control.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/numbers:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/stdlib.h:
-
-C:/Strawberry/c/include/c++/13.2.0/stack:
+C:/Strawberry/c/include/c++/13.2.0/bits/stream_iterator.h:
 
 C:/Strawberry/c/include/c++/13.2.0/pstl/pstl_config.h:
-
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/gfniintrin.h:
-
-C:/Strawberry/c/include/c++/13.2.0/tuple:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/uniform_int_dist.h:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/address_v6.hpp:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/shared_ptr.h:
 
+C:/Strawberry/c/x86_64-w64-mingw32/include/rpcnterr.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/stl_uninitialized.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/basic_ios.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/stralign_s.h:
+
 C:/Strawberry/c/include/c++/13.2.0/cctype:
 
 C:/Strawberry/c/include/c++/13.2.0/sstream:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/limits.hpp:
+
+C:/Strawberry/c/include/c++/13.2.0/memory:
 
 C:/Strawberry/c/include/c++/13.2.0/tr1/gamma.tcc:
 
@@ -8193,7 +9742,11 @@ C:/Strawberry/c/include/c++/13.2.0/fstream:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512bf16intrin.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/rpcndr.h:
+C:/Strawberry/c/x86_64-w64-mingw32/include/rpcdce.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/signal_set.hpp:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/virtdisk.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/specstrings.h:
 
@@ -8205,13 +9758,11 @@ D:/GITHUB/ShareAudioPC_2/src/protocol/PcmChunker.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/stl_function.h:
 
+C:/Strawberry/c/x86_64-w64-mingw32/include/ole2.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_serial_port.hpp:
+
 C:/Strawberry/c/include/c++/13.2.0/string_view:
-
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/x86intrin.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/intrin-impl.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/wincrypt.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/postypes.h:
 
@@ -8225,18 +9776,6 @@ C:/Strawberry/c/x86_64-w64-mingw32/include/swprintf.inl:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/uintrintrin.h:
 
-C:/Strawberry/c/include/c++/13.2.0/array:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/stl_relops.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/stream_protocol.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/thread:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_random_access_file.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/streambuf.tcc:
-
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/inline_or_executor.hpp:
 
 C:/Strawberry/c/include/c++/13.2.0/stdlib.h:
@@ -8245,17 +9784,17 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/handler_t
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/pthread_unistd.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/system_error.hpp:
+C:/Strawberry/c/x86_64-w64-mingw32/include/servprov.h:
 
-C:/Strawberry/c/include/c++/13.2.0/tr1/modified_bessel_func.tcc:
+C:/Strawberry/c/x86_64-w64-mingw32/include/oaidl.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/uses_allocator_args.h:
+
+D:/GITHUB/ShareAudioPC_2/src/app/Application.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/windows.h:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vnniintrin.h:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/stl_uninitialized.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/rpcnterr.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/cderr.h:
 
@@ -8269,25 +9808,27 @@ C:/Strawberry/c/x86_64-w64-mingw32/include/_mingw_secapi.h:
 
 C:/Strawberry/c/include/c++/13.2.0/clocale:
 
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_iocp_handle_service.ipp:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/errno.h:
+
+C:/Strawberry/c/include/c++/13.2.0/coroutine:
+
+C:/Strawberry/c/include/c++/13.2.0/stack:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/io_control.hpp:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/stdlib.h:
+
+C:/Strawberry/c/include/c++/13.2.0/numbers:
+
 C:/Strawberry/c/include/c++/13.2.0/concepts:
 
+C:/Strawberry/c/include/c++/13.2.0/bits/locale_facets_nonio.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/composed.hpp:
+
 C:/Strawberry/c/include/c++/13.2.0/cstdio:
-
-D:/GITHUB/ShareAudioPC_2/src/app/AppController.h:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/locale_facets.tcc:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/regex_compiler.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/commdlg.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/mstcpip.h:
-
-C:/Strawberry/c/include/c++/13.2.0/filesystem:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_socket_iostream.hpp:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/basetsd.h:
 
 D:/GITHUB/ShareAudioPC_2/src/network/TcpSocket.h:
 
@@ -8309,11 +9850,23 @@ C:/Strawberry/c/include/c++/13.2.0/ext/type_traits.h:
 
 C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/gthr.h:
 
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_handle_read_op.hpp:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/ws2ipdef.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/mmeapi.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/char_traits.h:
+
+C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/ctype_base.h:
+
 C:/Strawberry/c/x86_64-w64-mingw32/include/fibersapi.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/predefined_ops.h:
 
 C:/Strawberry/c/include/c++/13.2.0/iosfwd:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_stream.hpp:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/locale_classes.h:
 
@@ -8325,15 +9878,13 @@ C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vbmivlintrin.h:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/tmmintrin.h:
 
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/default_completion_token.hpp:
+
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/utility.hpp:
 
 C:/Strawberry/c/include/c++/13.2.0/locale:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_accept_op.hpp:
-
-D:/GITHUB/ShareAudioPC_2/src/ui/ConsoleUi.h:
-
-C:/Strawberry/c/include/c++/13.2.0/debug/debug.h:
+C:/Strawberry/c/include/c++/13.2.0/stop_token:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/corecrt.h:
 
@@ -8353,79 +9904,17 @@ C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mwaitxintrin.h:
 
 C:/Strawberry/c/include/c++/13.2.0/ostream:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/specfun.h:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/cstddef.hpp:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/std_thread.h:
+C:/Strawberry/c/include/c++/13.2.0/variant:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/pthread_compat.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/mmiscapi.h:
-
-C:/Strawberry/c/include/c++/13.2.0/cmath:
-
-C:/Strawberry/c/include/c++/13.2.0/functional:
-
-C:/Strawberry/c/include/c++/13.2.0/stop_token:
-
-D:/GITHUB/ShareAudioPC_2/src/app/Config.h:
-
-C:/Strawberry/c/include/c++/13.2.0/tr1/beta_function.tcc:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/is_executor.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/tr1/ell_integral.tcc:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/buffered_stream_storage.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/algorithmfwd.h:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/locale_facets_nonio.tcc:
-
-C:/Strawberry/c/include/c++/13.2.0/tr1/exp_integral.tcc:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/winioctl.h:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/shared_ptr_atomic.h:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/alloc_traits.h:
-
-C:/Strawberry/c/include/c++/13.2.0/tr1/special_function_util.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffers_iterator.hpp:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_socket_acceptor.hpp:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/fxsrintrin.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/math.h:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffers_iterator.hpp:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/stl_pair.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/_bsd_types.h:
-
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512bwintrin.h:
-
-D:/GITHUB/ShareAudioPC_2/src/audio/AudioAbstractions.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/stdio_s.h:
-
-D:/GITHUB/ShareAudioPC_2/src/audio/AudioTypes.h:
-
-D:/GITHUB/ShareAudioPC_2/src/audio/IAudioPlayback.h:
-
-C:/Strawberry/c/include/c++/13.2.0/unordered_map:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_ip_types.h:
-
-D:/GITHUB/ShareAudioPC_2/src/protocol/JitterBuffer.h:
-
-D:/GITHUB/ShareAudioPC_2/src/audio/MiniaudioBackend.cpp:
-
-C:/Strawberry/c/include/c++/13.2.0/cstring:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/connect_pipe.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/streambuf_iterator.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/threadpoolapiset.h:
+C:/Strawberry/c/include/c++/13.2.0/version:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/_mingw_unicode.h:
 
@@ -8441,17 +9930,15 @@ C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/amxbf16intrin.h:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/amxfp16intrin.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/winsmcrd.h:
-
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/associated_allocator.hpp:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx5124fmapsintrin.h:
 
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/cmpccxaddintrin.h:
-
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vnnivlintrin.h:
-
 C:/Strawberry/c/x86_64-w64-mingw32/include/wincon.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/combaseapi.h:
+
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx5124vnniwintrin.h:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/signal_op.hpp:
 
@@ -8465,13 +9952,17 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/write_at.hpp:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512dqintrin.h:
 
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512fp16intrin.h:
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512erintrin.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/ws2tcpip.h:
+C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_ip_mreq1.h:
+
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512fp16intrin.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/node_handle.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/windef.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/ws2tcpip.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/string_view.tcc:
 
@@ -8489,12 +9980,6 @@ C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512pfintrin.h:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/movdirintrin.h:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/char_traits.h:
-
-C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/ctype_base.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/mmeapi.h:
-
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/query.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/select_reactor.ipp:
@@ -8504,6 +9989,16 @@ C:/Strawberry/c/include/c++/13.2.0/backward/binders.h:
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vbmi2intrin.h:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/stdarg.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/streambuf.tcc:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_random_access_file.hpp:
+
+C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/basic_file.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/write.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_write_stream_fwd.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/serial_port_base.hpp:
 
@@ -8533,9 +10028,21 @@ C:/Strawberry/c/x86_64-w64-mingw32/include/processthreadsapi.h:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vlintrin.h:
 
+C:/Strawberry/c/x86_64-w64-mingw32/include/rpcnsi.h:
+
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vp2intersectvlintrin.h:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/stl_pair.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/_bsd_types.h:
+
 C:/Strawberry/c/include/c++/13.2.0/bits/requires_hosted.h:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxintrin.h:
+
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxneconvertintrin.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_io_object.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/static_mutex.hpp:
 
@@ -8550,6 +10057,28 @@ C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avxvnniintrin.h:
 C:/Strawberry/c/include/c++/13.2.0/tr1/legendre_function.tcc:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/cldemoteintrin.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/use_awaitable.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_seq_packet_socket.hpp:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/dlgs.h:
+
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/clzerointrin.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/intrin-impl.h:
+
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/x86intrin.h:
+
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vnnivlintrin.h:
+
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/cmpccxaddintrin.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/thread.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/buffer_resize_guard.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/cancel_at.hpp:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/pkuintrin.h:
 
@@ -8567,6 +10096,12 @@ C:/Strawberry/c/x86_64-w64-mingw32/include/ctype.h:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/fmaintrin.h:
 
+C:/Strawberry/c/include/c++/13.2.0/tuple:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/uniform_int_dist.h:
+
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/gfniintrin.h:
+
 C:/Strawberry/c/x86_64-w64-mingw32/include/dpapi.h:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/hresetintrin.h:
@@ -8575,13 +10110,21 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/posix/descriptor.hpp:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/ia32intrin.h:
 
-D:/GITHUB/ShareAudioPC_2/src/platform/LocalIp.cpp:
+C:/Strawberry/c/x86_64-w64-mingw32/include/msxml.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/namespaceapi.h:
-
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/lzcntintrin.h:
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm3dnow.h:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/pconfigintrin.h:
+
+C:/Strawberry/c/include/c++/13.2.0/ios:
+
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/popcntintrin.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_accept_op.hpp:
+
+C:/Strawberry/c/include/c++/13.2.0/debug/debug.h:
+
+D:/GITHUB/ShareAudioPC_2/src/ui/ConsoleUi.h:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/detail/impl/endpoint.ipp:
 
@@ -8593,15 +10136,17 @@ C:/Strawberry/c/include/c++/13.2.0/compare:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/prfchiintrin.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/winefs.h:
+C:/Strawberry/c/x86_64-w64-mingw32/include/prsht.h:
 
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/prfchwintrin.h:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/cancel_after.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/executor_function.hpp:
 
 C:/Strawberry/c/include/c++/13.2.0/mutex:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/raointintrin.h:
+
+D:/GITHUB/ShareAudioPC_2/src/network/PcmBroadcastServer.h:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/deferred.hpp:
 
@@ -8617,10 +10162,6 @@ C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/serializeintrin.h:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/shaintrin.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/array.hpp:
-
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/tsxldtrkintrin.h:
-
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/vpclmulqdqintrin.h:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/waitpkgintrin.h:
@@ -8635,6 +10176,8 @@ C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/wbnoinvdintrin.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/securityappcontainer.h:
 
+C:/Strawberry/c/x86_64-w64-mingw32/include/winsock2.h:
+
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/wmmintrin.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/allocated_ptr.h:
@@ -8644,6 +10187,10 @@ C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/x86gprintrin.h:
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/static_require_concept.hpp:
 
 C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xmmintrin.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/read_at.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffer_registration.hpp:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/timer_scheduler_fwd.hpp:
 
@@ -8665,6 +10212,12 @@ C:/Strawberry/c/x86_64-w64-mingw32/include/_mingw_stdarg.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/apiset.h:
 
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/serial_port_base.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/basic_resolver_query.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_readable_pipe.hpp:
+
 C:/Strawberry/c/x86_64-w64-mingw32/include/assert.h:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/event.hpp:
@@ -8677,27 +10230,13 @@ C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx2intrin.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/bemapiset.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/use_future.hpp:
+C:/Strawberry/c/include/c++/13.2.0/bits/hashtable.h:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/unique_lock.h:
+C:/Strawberry/c/x86_64-w64-mingw32/include/reason.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/cguid.h:
-
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx5124vnniwintrin.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/combaseapi.h:
-
-C:/Strawberry/c/include/c++/13.2.0/istream:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/winspool.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/libloaderapi.h:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/co_composed.hpp:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/datetimeapi.h:
-
-C:/Strawberry/c/include/c++/13.2.0/any:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/dde.h:
 
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/scheduler_operation.hpp:
 
@@ -8705,9 +10244,11 @@ C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/rdseedintrin.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/debugapi.h:
 
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/clzerointrin.h:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/io_context.ipp:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/dlgs.h:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/win_tss_ptr.ipp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/cancellation_type.hpp:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/fltwinerror.h:
 
@@ -8715,23 +10256,27 @@ C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/keylockerintrin.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/handleapi.h:
 
-C:/Strawberry/c/include/c++/13.2.0/cerrno:
-
 C:/Strawberry/c/x86_64-w64-mingw32/include/wtypesbase.h:
+
+C:/Strawberry/c/include/c++/13.2.0/cerrno:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/heapapi.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/imm.h:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/basic_string.tcc:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/rpcnsip.h:
-
 D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/prefer_free.hpp:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/winnls.h:
 
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/generic/basic_endpoint.hpp:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/ranges_cmp.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/in6addr.h:
+
 C:/Strawberry/c/x86_64-w64-mingw32/include/interlockedapi.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/as_tuple.hpp:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/jobapi.h:
 
@@ -8741,41 +10286,41 @@ C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/xsaveintrin.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/ktmtypes.h:
 
+D:/GITHUB/ShareAudioPC_2/src/protocol/JitterBuffer.cpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/generic/detail/impl/endpoint.ipp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/strand_service.hpp:
+
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/vaesintrin.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_socket.hpp:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/winspool.h:
+
+C:/Strawberry/c/include/c++/13.2.0/istream:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/libloaderapi.h:
+
 C:/Strawberry/c/x86_64-w64-mingw32/include/minwinbase.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/mmiscapi2.h:
+C:/Strawberry/c/include/c++/13.2.0/filesystem:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/mmsyscom.h:
+C:/Strawberry/c/x86_64-w64-mingw32/include/mstcpip.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/local/seq_packet_protocol.hpp:
+C:/Strawberry/c/x86_64-w64-mingw32/include/mswsock.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/mmsystem.h:
+D:/GITHUB/ShareAudioPC_2/src/platform/LocalIp.cpp:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/wtypes.h:
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/lzcntintrin.h:
 
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm3dnow.h:
+C:/Strawberry/c/x86_64-w64-mingw32/include/namespaceapi.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/msxml.h:
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/read_at.hpp:
 
-C:/Strawberry/c/include/c++/13.2.0/cassert:
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/fma4intrin.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/ncrypt.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/objidl.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/objidlbase.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_serial_port.hpp:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/ole2.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/placeholders.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/buffered_write_stream.hpp:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/playsoundapi.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/propidl.h:
+C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_socket_types.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/poppack.h:
 
@@ -8785,7 +10330,15 @@ C:/Strawberry/c/x86_64-w64-mingw32/include/profileapi.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_fd_types.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/urlmon.h:
+C:/Strawberry/c/include/c++/13.2.0/unordered_map:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_ip_types.h:
+
+D:/GITHUB/ShareAudioPC_2/src/audio/IAudioPlayback.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_stream_socket.hpp:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_ws1_undef.h:
 
 C:/Strawberry/c/include/c++/13.2.0/bits/regex_automaton.h:
 
@@ -8797,15 +10350,15 @@ C:/Strawberry/c/x86_64-w64-mingw32/include/psdk_inc/_xmitfile.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/pshpack1.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/host_name.ipp:
-
 C:/Strawberry/c/include/c++/13.2.0/bits/regex_automaton.tcc:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/impl/host_name.ipp:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/pshpack4.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/service_registry.hpp:
-
 C:/Strawberry/c/include/c++/13.2.0/math.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/service_registry.hpp:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/corecrt_wstdlib.h:
 
@@ -8813,47 +10366,29 @@ C:/Strawberry/c/x86_64-w64-mingw32/include/pshpack8.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/realtimeapiset.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/rpc.h:
-
-C:/Strawberry/c/include/c++/13.2.0/type_traits:
-
-C:/Strawberry/c/include/c++/13.2.0/bits/cpp_type_traits.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/winuser.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/signal_set.hpp:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/virtdisk.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/rpcdce.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/require.hpp:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/config.hpp:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/rpcdcep.h:
-
-C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/avx512vp2intersectvlintrin.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/rpcnsi.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/unknwnbase.h:
-
 C:/Strawberry/c/x86_64-w64-mingw32/include/sal.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/sdkddkver.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/thread_context.ipp:
+
+C:/Strawberry/c/include/c++/13.2.0/ctime:
+
+D:/GITHUB/ShareAudioPC_2/src/storage/RecentDevices.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/securitybaseapi.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/sysinfoapi.h:
 
-C:/Strawberry/c/include/c++/13.2.0/bits/uses_allocator_args.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/oaidl.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/servprov.h:
-
 C:/Strawberry/c/x86_64-w64-mingw32/include/stdarg.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/traits/query_member.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/completion_message.hpp:
+
+C:/Strawberry/c/include/c++/13.2.0/x86_64-w64-mingw32/bits/atomic_word.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_write_stream.hpp:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/stralign.h:
 
@@ -8863,19 +10398,7 @@ C:/Strawberry/c/x86_64-w64-mingw32/include/apisetcconv.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/stringapiset.h:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_recv_op.hpp:
-
-C:/Strawberry/c/include/c++/13.2.0/bit:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/strings.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/winperf.h:
-
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/associated_immediate_executor.hpp:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/ws2def.h:
-
-C:/Strawberry/c/x86_64-w64-mingw32/include/synchapi.h:
+C:/Strawberry/c/x86_64-w64-mingw32/include/timezoneapi.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/utilapiset.h:
 
@@ -8887,10 +10410,144 @@ D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/tss_ptr.hpp:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/winreg.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/winscard.h:
+C:/Strawberry/c/include/c++/13.2.0/type_traits:
 
-D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_socket_connect_op.hpp:
+C:/Strawberry/c/include/c++/13.2.0/bits/cpp_type_traits.h:
 
-C:/Strawberry/c/x86_64-w64-mingw32/include/winsock.h:
+C:/Strawberry/c/x86_64-w64-mingw32/include/winuser.h:
 
 C:/Strawberry/c/x86_64-w64-mingw32/include/wow64apiset.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/associated_immediate_executor.hpp:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/synchapi.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/ws2def.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/unicast.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/append.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/reactor.hpp:
+
+D:/GITHUB/ShareAudioPC_2/src/app/SessionController.h:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/sec_api/stdio_s.h:
+
+D:/GITHUB/ShareAudioPC_2/src/audio/AudioTypes.h:
+
+D:/GITHUB/ShareAudioPC_2/src/protocol/JitterBuffer.h:
+
+D:/GITHUB/ShareAudioPC_2/src/protocol/Protocol.h:
+
+D:/GITHUB/ShareAudioPC_2/src/ui/ConsoleUi.cpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_datagram_socket.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/any_completion_executor.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/wait_op.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/any_io_executor.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/associated_executor.hpp:
+
+D:/GITHUB/ShareAudioPC_2/src/audio/AudioPipeline.cpp:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/list.tcc:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/async_result.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/serial_port.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_raw_socket.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/atomic_count.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_signal_set.hpp:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/basetsd.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_socket_iostream.hpp:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/oleidl.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_socket_streambuf.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_stream_file.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_streambuf.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_streambuf_fwd.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/signal_set_service.ipp:
+
+C:/Strawberry/c/include/c++/13.2.0/stdexcept:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/basic_waitable_timer.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/bind_allocator.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/win_iocp_handle_service.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/bind_cancellation_slot.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/windows/object_handle.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/bind_executor.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffer.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_read_stream.hpp:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/time.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_read_stream_fwd.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/buffered_stream_fwd.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/ip/resolver_base.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/prepend.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/cancellation_signal.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/completion_condition.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/compose.hpp:
+
+C:/Strawberry/c/x86_64-w64-mingw32/include/rpcdcep.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/require.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/config.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/is_read_buffered.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/impl/error_code.ipp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/connect_pipe.hpp:
+
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/bmiintrin.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/coroutine.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/timed_cancel_op.hpp:
+
+C:/Strawberry/c/include/c++/13.2.0/bits/invoke.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/defer.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/string_view.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/deferred.hpp:
+
+C:/Strawberry/c/lib/gcc/x86_64-w64-mingw32/13.2.0/include/tsxldtrkintrin.h:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/array.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/impl/scheduler.ipp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/array_fwd.hpp:
+
+D:/GITHUB/ShareAudioPC_2/third_party/asio-src/include/asio/detail/assert.hpp:
