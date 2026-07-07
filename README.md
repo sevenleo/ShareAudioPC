@@ -186,6 +186,25 @@ Remove-Item -Recurse -Force build/windows-release/final/lib; Remove-Item -Recurs
 d:\GITHUB\ShareAudioPC_2\qt6\6.6.3\mingw_64\bin\windeployqt.exe build/windows-release/final/shareaudio_gui.exe --no-compiler-runtime --no-translations --no-system-d3d-compiler --no-opengl-sw --no-ffmpeg --skip-plugin-types sqldrivers,networkinformation
 ```
 
+### 📦 Single Executable Packaging (GUI)
+
+By default, `shareaudio_gui.exe` depends on dynamic Qt6 DLLs and plugin directories. If you want to distribute the GUI as a **single self-contained executable** (similar to the CLI version), you can use one of the following methods:
+
+#### Method 1: File Virtualization (Recommended & Fast)
+You can bundle the contents of the `build/windows-release/final/` folder into a single executable using a virtualization tool such as **Enigma Virtual Box** (free):
+1. Download and open **Enigma Virtual Box**.
+2. Select `build/windows-release/final/shareaudio_gui.exe` as the **Input File**.
+3. Drag and drop all other files and folders (e.g., `Qt6Core.dll`, `platforms/`, etc.) from the `final/` folder into the **Files Box** of the Enigma UI.
+4. Click **Process**. This will output a single, self-contained `shareaudio_gui_boxed.exe` which runs directly without extracting any files to disk.
+
+#### Method 2: Self-Extracting Archive (SFX)
+Create a self-extracting archive using **7-Zip** or **WinRAR**:
+1. Select all files in `build/windows-release/final/` and create an SFX archive.
+2. Configure the SFX settings to extract files to a temporary directory (`%TEMP%`), run `shareaudio_gui.exe` automatically, and clean up the temporary directory upon exit.
+
+#### Method 3: Static Qt6 Build (Native)
+Recompile the Qt6 framework from source using the `-static` configuration flag. Once built statically, CMake will automatically bundle all Qt dependencies inside `shareaudio_gui.exe` at link time. *(Note: Compiling Qt6 from source can take several hours).*
+
 ---
 
 ## 🖥️ Desktop GUI Features
