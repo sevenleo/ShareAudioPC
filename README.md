@@ -155,30 +155,29 @@ Following the 16-byte header, data is transmitted continuously as follows:
 
 Ensure CMake 3.24+ is installed.
 
-#### Debug build (with Opus enabled):
+#### Debug Build (CLI, GUI & Tests):
 ```powershell
-cmake --preset windows-debug -DSHAREAUDIO_ENABLE_OPUS=ON
-cmake --build --preset windows-debug
-ctest --preset windows-debug
+# Configure build
+cmake --preset windows-debug
+
+# Compile
+cmake --build build/windows-debug
+
+# Run tests
+.\build\windows-debug\shareaudio_tests.exe
 ```
 
-#### Release build (with Opus enabled & statically linked for distribution):
-```powershell
-cmake --preset windows-release -DSHAREAUDIO_ENABLE_OPUS=ON
-cmake --build --preset windows-release
-```
-
-#### Building the Desktop GUI (with Brand Logo and Assets):
-To compile the portable GUI and avoid C-runtime/allocator heap conflicts, configure the build using the Qt MinGW toolchain:
+#### Final Release Build (CLI & GUI for Distribution):
+To compile the portable release version and deploy its dependencies, use the matching Qt MinGW toolchain:
 ```powershell
 # Configure release build using the matching Qt compiler
-cmake --preset windows-gui-release -DCMAKE_C_COMPILER="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/gcc.exe" -DCMAKE_CXX_COMPILER="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/g++.exe" -DCMAKE_MAKE_PROGRAM="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/mingw32-make.exe" -DCMAKE_PREFIX_PATH="d:/GITHUB/ShareAudioPC_2/qt6/6.6.3/mingw_64" -DSHAREAUDIO_ENABLE_OPUS=ON
+cmake --preset windows-release -DCMAKE_C_COMPILER="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/gcc.exe" -DCMAKE_CXX_COMPILER="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/g++.exe" -DCMAKE_MAKE_PROGRAM="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/mingw32-make.exe" -DCMAKE_PREFIX_PATH="d:/GITHUB/ShareAudioPC_2/qt6/6.6.3/mingw_64"
 
-# Compile the release binaries
-cmake --build build/windows-gui-release --config Release
+# Compile all release binaries
+cmake --build build/windows-release --config Release
 
-# Deploy Qt DLL dependencies using windeployqt
-d:\GITHUB\ShareAudioPC_2\qt6\6.6.3\mingw_64\bin\windeployqt.exe D:\GITHUB\ShareAudioPC_2\build\windows-gui-release\shareaudio_gui.exe
+# Deploy Qt DLL dependencies to make the release folder fully portable
+d:\GITHUB\ShareAudioPC_2\qt6\6.6.3\mingw_64\bin\windeployqt.exe D:\GITHUB\ShareAudioPC_2\build\windows-release\shareaudio_gui.exe
 ```
 
 ---

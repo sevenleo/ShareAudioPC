@@ -110,9 +110,9 @@ Windows:
 
 - CMake configure/build/test has been verified with the `windows-debug` preset.
 - CLI release builds produce a fully portable `.exe` — MinGW runtime libraries linked statically.
-- GUI release build (`windows-gui-release`) verified using MinGW 13.1.0 and local Qt 6.6.3 installation.
+- GUI release build (`windows-release`) verified using MinGW 13.1.0 and local Qt 6.6.3 installation.
 - `shareaudio_gui.exe` packages logo icon in binary, starts in Simple Mode, and expands to Advanced Mode on demand.
-- Dependencies deployed via `windeployqt.exe` — the entire `build/windows-gui-release/` folder is portable.
+- Dependencies deployed via `windeployqt.exe` — the entire `build/windows-release/` folder is portable.
 - Capture uses miniaudio loopback against playback devices.
 - Playback uses miniaudio playback devices.
 
@@ -133,20 +133,20 @@ Android/Web:
 
 ## Verification Status
 
-Last verified commands in this workspace:
+Last verified commands in this workspace (Debug):
 
 ```powershell
-cmake --preset windows-debug -DSHAREAUDIO_ENABLE_OPUS=ON
-cmake --build --preset windows-debug
-ctest --preset windows-debug
+cmake --preset windows-debug
+cmake --build build/windows-debug
+.\build\windows-debug\shareaudio_tests.exe
 ```
 
-GUI release build status in this workspace:
+GUI release build status in this workspace (Release):
 
 ```powershell
-cmake --preset windows-gui-release -DCMAKE_C_COMPILER="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/gcc.exe" -DCMAKE_CXX_COMPILER="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/g++.exe" -DCMAKE_MAKE_PROGRAM="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/mingw32-make.exe" -DCMAKE_PREFIX_PATH="d:/GITHUB/ShareAudioPC_2/qt6/6.6.3/mingw_64" -DSHAREAUDIO_ENABLE_OPUS=ON
-cmake --build build/windows-gui-release --config Release
-d:\GITHUB\ShareAudioPC_2\qt6\6.6.3\mingw_64\bin\windeployqt.exe D:\GITHUB\ShareAudioPC_2\build\windows-gui-release\shareaudio_gui.exe
+cmake --preset windows-release -DCMAKE_C_COMPILER="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/gcc.exe" -DCMAKE_CXX_COMPILER="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/g++.exe" -DCMAKE_MAKE_PROGRAM="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/mingw32-make.exe" -DCMAKE_PREFIX_PATH="d:/GITHUB/ShareAudioPC_2/qt6/6.6.3/mingw_64"
+cmake --build build/windows-release --config Release
+d:\GITHUB\ShareAudioPC_2\qt6\6.6.3\mingw_64\bin\windeployqt.exe D:\GITHUB\ShareAudioPC_2\build\windows-release\shareaudio_gui.exe
 ```
 
 Result: Passed successfully. Executable compiled with embedded icon, AUTORCC resources, and Simple/Advanced toggle layout. Packaged with windeployqt.exe.

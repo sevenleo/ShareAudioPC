@@ -1,3 +1,0 @@
-CMakeFiles/shareaudio_cli.dir/src/main.cpp.obj: \
- D:\GITHUB\ShareAudioPC_2\src\main.cpp \
- D:\GITHUB\ShareAudioPC_2\src\app/Application.h

@@ -121,9 +121,8 @@
 - [x] GUI handles errors without crashing.
 
 ## Verification Notes
-- [x] `cmake --build --preset windows-debug` passed.
-- [x] `ctest --preset windows-debug` passed.
-- [x] `cmake --preset windows-gui-release` with MinGW 13.1.0 toolchain passed.
+- [x] `cmake --preset windows-debug` configures and builds all targets successfully.
+- [x] `cmake --preset windows-release` with MinGW 13.1.0 toolchain configured successfully.
 - [x] `shareaudio_gui.exe` release compile and icon embedding verified.
 - [x] Qt6 Widgets dependencies packaged using `windeployqt.exe`.
 - [x] Simple Mode default layout verified (compact 3-line 830x310 window, resizable).
