@@ -1,0 +1,47 @@
+me responda se essas questoes foram implementadas
+
+1 
+na gui sempre inicie a tela marcando o Default Audio Device ou o Default Playback Device como item a ser compartilhado na lista dos disponíveis isso evita do usuario escolher o dispositivo errado caso nao saiba o que fazer
+
+2
+garanta a reconexao, ou seja, se eu iniciar um server e um cliente se conectar, eu posso fechar e reabrir tanto o server como o cliente quantas vezes eu quiser que ao iniciar eles se reconectam, para isso se o server fechar nao feche o cliente pois o server pode voltar a qualquer momento
+
+3
+ao iniciar o share do cli mostre no terminal os ips disponiveis para conexão
+
+4
+na gui sempre inicie a tela marcando o Default Audio Device ou o Default Playback Device como item a ser compartilhado na lista dos disponíveis isso evita do usuario escolher o dispositivo errado caso nao saiba o que fazer
+
+
+
+
+
+
+
+
+LAYOUT
+
+o modo simples nao ficou muito bom
+no modo simples deve contar os seguintes itens
+separados em 3 linhas
+
+linha 1 status
+informacoes do que o app esta fazendo atualmente como state ip do server ou do client dependendo do modo iniciado porta tcp e last mensagem
+
+linha 2 server
+um botao de start/stop indicando se quer iniciar o servico de transmissao ou desligar
+
+linha 3 client
+deve haver um campo para o usuario digitar o ip do server ao qual deseja se conectar e um botao de start/stop de estados e textos alternados para se ligar ou desligar ao server selecioando e iniciar a reproducao 
+
+
+
+
+
+
+
+
+DOCS
+
+
+apos fazer as mudancas atualiza e documentacao e marque nos arquivos de planejamento o que ja foi feito
