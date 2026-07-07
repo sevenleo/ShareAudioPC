@@ -4,6 +4,16 @@ All notable project changes should be recorded in this file.
 
 The format follows a simple staged log.
 
+## [0.6.0] - 2026-07-07
+
+### Added
+
+- **Portable Startup Configuration (`shareaudio.cfg`)**: Place a `shareaudio.cfg` file next to the executable to auto-configure and auto-start the application. Supports variables: `AUTOSTART` (master switch), `MODE` (server/client), `SHARE_QUALITY`, `DEVICE_ID`, `PLAYBACK_DEVICE_ID`, and `SERVER_IP`.
+- **CLI Zero-Argument Fallback**: Running `shareaudio_cli` with no arguments now loads `shareaudio.cfg` if present and auto-starts as server or client based on the config. Explicit CLI arguments always override the config file entirely.
+- **GUI Pre-Fill from Config**: The GUI pre-fills the mode combobox, device selections, and server IP field from `shareaudio.cfg` on startup. If `AUTOSTART=true` and the config is valid, the session starts automatically after the window opens.
+- **Graceful Validation**: Invalid or incomplete configs (e.g., `MODE=client` without `SERVER_IP`) are silently ignored in the GUI, which opens normally without auto-starting.
+- Comprehensive unit tests for config file parsing (6 test scenarios covering missing files, full/partial configs, comments, case-insensitivity, and unknown keys).
+
 ## [0.5.1] - 2026-07-07
 
 ### Fixed

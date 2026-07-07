@@ -40,6 +40,7 @@ private:
     void copy_diagnostics();
     void show_help();
     void show_error(const QString& message);
+    void apply_startup_config();
     QString diagnostics_text() const;
 
     SessionController controller_;

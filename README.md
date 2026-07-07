@@ -227,3 +227,38 @@ The GUI target (`shareaudio_gui.exe`) has been personalized and styled to look m
   ```bash
   shareaudio_cli devices
   ```
+
+---
+
+## ⚙️ Portable Startup Configuration (`shareaudio.cfg`)
+
+You can place a configuration file named `shareaudio.cfg` in the same directory as the executable (`shareaudio_cli.exe` or `shareaudio_gui.exe`) to configure and auto-start sessions without user intervention.
+
+### Example `shareaudio.cfg`
+```ini
+# ShareAudioLite Startup Configuration
+# Place this next to the executable (CLI or GUI)
+
+# Master switch (must be true to enable autostart)
+AUTOSTART=true
+
+# Mode: 'server' (transmitting) or 'client' (receiving)
+MODE=server
+
+# Audio quality mode: 'balanced', 'ultrafast', or 'quality'
+SHARE_QUALITY=balanced
+
+# Optional hardware devices IDs
+# DEVICE_ID=
+# PLAYBACK_DEVICE_ID=
+
+# Server IP/Host (Required only when MODE=client)
+SERVER_IP=192.168.1.100
+```
+
+### Features & Behavior:
+- **AUTOSTART Switch**: If `AUTOSTART` is `false` or missing, the file is loaded but no session is automatically started.
+- **GUI Autostart**: If `AUTOSTART=true` and settings are valid, the GUI automatically opens and initiates the session (sharing or connecting) after a brief initialization window.
+- **GUI Pre-Fill**: Regardless of the `AUTOSTART` setting, the fields in the GUI (Host/IP, capture device, playback device, quality mode) are pre-filled with the values defined in the file.
+- **CLI Behavior**: Running `shareaudio_cli` with no arguments loads `shareaudio.cfg` and initiates the connection or broadcast. If any explicit command line arguments are provided (e.g. `shareaudio_cli share`), the configuration file is **completely ignored**.
+

@@ -12,9 +12,11 @@
 #include "protocol/Protocol.h"
 #include "storage/RecentDevices.h"
 #include "app/SingleInstance.h"
+#include "app/StartupConfig.h"
 #include "ui/ConsoleUi.h"
 
 #include <filesystem>
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <thread>
@@ -461,6 +463,124 @@ void test_single_instance()
     expect(res2.ok(), "second single instance lock with same PID succeeds");
 }
 
+void test_startup_config()
+{
+    namespace fs = std::filesystem;
+    auto tmp_dir = fs::temp_directory_path() / "shareaudio-cfg-test";
+    fs::create_directories(tmp_dir);
+
+    // Test 1: Missing file returns default config
+    {
+        auto result = shareaudio::load_startup_config(tmp_dir / "nonexistent.cfg");
+        expect(result.ok(), "missing cfg file returns success");
+        expect(!result.value().autostart, "missing cfg has autostart=false");
+        expect(result.value().mode.empty(), "missing cfg has empty mode");
+    }
+
+    // Test 2: Full config file
+    {
+        auto cfg_path = tmp_dir / "full.cfg";
+        std::ofstream out(cfg_path);
+        out << "# ShareAudioLite test config\n";
+        out << "AUTOSTART=true\n";
+        out << "MODE=server\n";
+        out << "SHARE_QUALITY=quality\n";
+        out << "DEVICE_ID=my_capture_device\n";
+        out << "PLAYBACK_DEVICE_ID=my_playback_device\n";
+        out << "SERVER_IP=192.168.1.100\n";
+        out.close();
+
+        auto result = shareaudio::load_startup_config(cfg_path);
+        expect(result.ok(), "full cfg loads successfully");
+        auto& cfg = result.value();
+        expect(cfg.autostart, "full cfg autostart is true");
+        expect(cfg.is_server(), "full cfg mode is server");
+        expect(cfg.share_quality == "quality", "full cfg share_quality is quality");
+        expect(cfg.device_id == "my_capture_device", "full cfg device_id matches");
+        expect(cfg.playback_device_id == "my_playback_device", "full cfg playback_device_id matches");
+        expect(cfg.server_ip == "192.168.1.100", "full cfg server_ip matches");
+        expect(cfg.parsed_quality().has_value(), "full cfg parsed_quality is valid");
+        expect(*cfg.parsed_quality() == shareaudio::AudioMode::Quality, "full cfg parsed_quality is Quality");
+        fs::remove(cfg_path);
+    }
+
+    // Test 3: Partial config (only autostart and mode)
+    {
+        auto cfg_path = tmp_dir / "partial.cfg";
+        std::ofstream out(cfg_path);
+        out << "AUTOSTART=yes\n";
+        out << "MODE=client\n";
+        out.close();
+
+        auto result = shareaudio::load_startup_config(cfg_path);
+        expect(result.ok(), "partial cfg loads successfully");
+        auto& cfg = result.value();
+        expect(cfg.autostart, "partial cfg autostart=yes is true");
+        expect(cfg.is_client(), "partial cfg mode is client");
+        expect(!cfg.has_share_quality(), "partial cfg has no share_quality");
+        expect(!cfg.has_device_id(), "partial cfg has no device_id");
+        expect(!cfg.has_server_ip(), "partial cfg has no server_ip");
+        fs::remove(cfg_path);
+    }
+
+    // Test 4: Comments and blank lines are ignored
+    {
+        auto cfg_path = tmp_dir / "comments.cfg";
+        std::ofstream out(cfg_path);
+        out << "# This is a comment\n";
+        out << "\n";
+        out << "  # Another comment with leading whitespace\n";
+        out << "AUTOSTART=false\n";
+        out << "\n";
+        out << "MODE=server\n";
+        out.close();
+
+        auto result = shareaudio::load_startup_config(cfg_path);
+        expect(result.ok(), "comments cfg loads successfully");
+        expect(!result.value().autostart, "comments cfg autostart=false");
+        expect(result.value().is_server(), "comments cfg mode parsed correctly");
+        fs::remove(cfg_path);
+    }
+
+    // Test 5: Case-insensitive keys
+    {
+        auto cfg_path = tmp_dir / "case.cfg";
+        std::ofstream out(cfg_path);
+        out << "autostart=TRUE\n";
+        out << "Mode=Client\n";
+        out << "Share_Quality=Ultrafast\n";
+        out << "Server_IP=10.0.0.1\n";
+        out.close();
+
+        auto result = shareaudio::load_startup_config(cfg_path);
+        expect(result.ok(), "case cfg loads successfully");
+        auto& cfg = result.value();
+        expect(cfg.autostart, "case cfg autostart TRUE is true");
+        expect(cfg.is_client(), "case cfg mode Client is client");
+        expect(cfg.share_quality == "ultrafast", "case cfg quality lowercased");
+        expect(cfg.server_ip == "10.0.0.1", "case cfg server_ip preserved");
+        fs::remove(cfg_path);
+    }
+
+    // Test 6: Unknown keys are silently ignored
+    {
+        auto cfg_path = tmp_dir / "unknown.cfg";
+        std::ofstream out(cfg_path);
+        out << "AUTOSTART=true\n";
+        out << "UNKNOWN_KEY=some_value\n";
+        out << "MODE=server\n";
+        out.close();
+
+        auto result = shareaudio::load_startup_config(cfg_path);
+        expect(result.ok(), "unknown keys cfg loads successfully");
+        expect(result.value().autostart, "unknown keys cfg autostart works");
+        expect(result.value().is_server(), "unknown keys cfg mode works");
+        fs::remove(cfg_path);
+    }
+
+    fs::remove_all(tmp_dir);
+}
+
 } // namespace
 
 int main()
@@ -482,6 +602,7 @@ int main()
     test_hybrid_broadcast_server();
     test_console_commands();
     test_single_instance();
+    test_startup_config();
 
     if (failures != 0) {
         std::cerr << failures << " test expectation(s) failed.\n";

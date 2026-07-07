@@ -25,6 +25,7 @@ add_library(shareaudio_core
     src/app/Logger.cpp
     src/app/SessionController.cpp
     src/app/SingleInstance.cpp
+    src/app/StartupConfig.cpp
     src/audio/AudioAbstractions.cpp
     src/audio/MiniaudioBackend.cpp
     src/audio/AudioPipeline.cpp

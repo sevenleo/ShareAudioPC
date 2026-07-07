@@ -1,6 +1,7 @@
 #include "gui/MainWindow.h"
 
 #include "app/Config.h"
+#include "app/StartupConfig.h"
 
 #include <QApplication>
 #include <QClipboard>
@@ -63,7 +64,7 @@ QString device_label(const AudioDevice& device)
     return label;
 }
 
-AppConfig load_startup_config()
+AppConfig load_saved_app_config()
 {
     auto loaded = load_config_file(default_config_path());
     if (loaded.ok()) {
@@ -98,7 +99,7 @@ void update_button_style(QPushButton* button, const QString& object_name, const 
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
-    , controller_(load_startup_config())
+    , controller_(load_saved_app_config())
 {
     build_ui();
     setStyleSheet(R"(
@@ -239,6 +240,7 @@ MainWindow::MainWindow(QWidget* parent)
         }
     )");
     refresh_all();
+    apply_startup_config();
 
     refresh_timer_ = new QTimer(this);
     connect(refresh_timer_, &QTimer::timeout, this, [this] {
@@ -827,6 +829,60 @@ QString MainWindow::diagnostics_text() const
         out << "- " << event << "\n";
     }
     return qstr(out.str());
+}
+
+void MainWindow::apply_startup_config()
+{
+    auto cfg_result = load_default_startup_config();
+    if (!cfg_result.ok()) {
+        return; // File doesn't exist or unreadable — silently skip
+    }
+
+    const auto& cfg = cfg_result.value();
+
+    // Pre-fill GUI fields regardless of AUTOSTART
+    if (cfg.has_share_quality()) {
+        auto parsed = cfg.parsed_quality();
+        if (parsed) {
+            select_combo_data(mode_combo_, QVariant::fromValue(static_cast<int>(*parsed)));
+        }
+    }
+    if (cfg.has_device_id()) {
+        select_combo_data(capture_combo_, qstr(cfg.device_id));
+    }
+    if (cfg.has_playback_device_id()) {
+        select_combo_data(playback_combo_, qstr(cfg.playback_device_id));
+    }
+    if (cfg.has_server_ip()) {
+        host_input_->setText(qstr(cfg.server_ip));
+    }
+
+    // Auto-start only if AUTOSTART=true
+    if (!cfg.autostart) {
+        return;
+    }
+
+    // Validate before auto-starting
+    if (!cfg.has_mode()) {
+        // MODE missing — skip autostart, open normally
+        return;
+    }
+
+    if (cfg.is_client() && !cfg.has_server_ip()) {
+        // Client mode without SERVER_IP — skip autostart, open normally
+        return;
+    }
+
+    // Defer auto-start until after the event loop starts so the window is fully visible
+    if (cfg.is_server()) {
+        QTimer::singleShot(200, this, [this] {
+            start_sharing();
+        });
+    } else if (cfg.is_client()) {
+        QTimer::singleShot(200, this, [this] {
+            start_listening();
+        });
+    }
 }
 
 } // namespace shareaudio::gui
