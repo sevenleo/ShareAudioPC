@@ -1,0 +1,156 @@
+# Changelog
+
+All notable project changes should be recorded in this file.
+
+The format follows a simple staged log.
+
+## [Unreleased]
+
+### Changed
+
+- Consolidated project documentation into exactly three files under `docs`: `README.md`, `CHANGELOG.md`, and `PLAN.md`.
+- Merged the relevant content from the previous status, protocol, sync, GUI plan, and original idea documents into `docs/README.md`.
+- Rewrote `docs/PLAN.md` as a pending-work checklist only.
+- Expanded `docs/README.md` into the primary technical reference for protocol, audio modes, pipelines, build, packaging, runtime behavior, and platform compatibility.
+- Audited `docs/README.md` against the current source and corrected overstated claims around Quality/Opus end-to-end readiness, HTTP Opus fallback, browser player mode support, Linux presets, socket options, callback allocation behavior, and automated coverage.
+- Moved pending work and improvement notes out of `docs/README.md` into `docs/PLAN.md`, keeping the README focused on current application behavior.
+
+### Removed
+
+- Removed obsolete consolidated documentation files from `docs`.
+- Removed root-level `README.md` and `CHANGELOG.md`; project documentation now lives under `docs`.
+
+## [0.6.0] - 2026-07-07
+
+### Added
+
+- **Portable Startup Configuration (`shareaudio.cfg`)**: Place a `shareaudio.cfg` file next to the executable to auto-configure and auto-start the application. Supports variables: `AUTOSTART` (master switch), `MODE` (server/client), `SHARE_QUALITY`, `DEVICE_ID`, `PLAYBACK_DEVICE_ID`, and `SERVER_IP`.
+- **CLI Zero-Argument Fallback**: Running `shareaudio_cli` with no arguments now loads `shareaudio.cfg` if present and auto-starts as server or client based on the config. Explicit CLI arguments always override the config file entirely.
+- **GUI Pre-Fill from Config**: The GUI pre-fills the mode combobox, device selections, and server IP field from `shareaudio.cfg` on startup. If `AUTOSTART=true` and the config is valid, the session starts automatically after the window opens.
+- **Graceful Validation**: Invalid or incomplete configs, such as `MODE=client` without `SERVER_IP`, are silently ignored in the GUI, which opens normally without auto-starting.
+- Comprehensive unit tests for config file parsing, covering missing files, full and partial configs, comments, case-insensitivity, and unknown keys.
+
+## [0.5.1] - 2026-07-07
+
+### Fixed
+
+- Optimized GUI window sizing and resizing: increased the default and minimum window sizes by 30% for both Simple and Advanced modes. Simple Mode is now `830x310` with minimum `800x300`; Advanced Mode is now `1100x730` with minimum `1000x600`.
+- Removed fixed maximum sizing constraints so users can resize the GUI window freely in all modes.
+
+## [0.5.0] - 2026-07-07
+
+### Added
+
+- Added full Opus Quality network mode implementation. The transmitter encodes captured audio to Opus frames and prefixes them with 2-byte Big-Endian length headers. The receiver parses length headers, reads exact frame sizes, decodes them back to PCM, and feeds the output into the jitter buffer.
+- Added Quality Mode support to CLI and GUI.
+- Removed the mock Quality Mode errors and enabled the GUI combobox option.
+
+## [0.4.0] - 2026-07-07
+
+### Added
+
+- Added redesigned 3-line Simple Layout:
+  - Line 1: real-time status details, app state, dynamic server/client IP, port, and last message.
+  - Line 2: server start/stop button to transmit audio.
+  - Line 3: client input field for server IP and dynamic connect/disconnect button.
+- Added automatic default device pre-selection. On startup, the default system capture and playback devices are pre-selected in comboboxes and highlighted in device lists.
+
+## [0.3.0] - 2026-07-07
+
+### Added
+
+- Added Windows executable icon by bundling `icon/logo.ico` into the GUI executable.
+- Added Qt resource bundling through `resources.qrc` and CMake AUTORCC for png/svg assets.
+- Added Simple vs Advanced UI toggle, allowing the dashboard to collapse into a basic layout or expand into a full tabbed panel.
+
+### Fixed
+
+- Fixed GUI heap allocator and startup mismatch. Standard library runtime entry-point issues and heap allocator crashes were resolved by using a local MinGW GCC 13.1.0 toolchain and compiling the GUI with `-static-libgcc -static-libstdc++`.
+
+## [0.2.0] - 2026-07-07
+
+### Added
+
+- Added project documentation inventory and current status documentation.
+- Added changelog tracking by implementation stage.
+- Added a current-state note to the original project idea document.
+- Added GUI implementation checklist.
+- Added a Qt-free shared `SessionController` for CLI and GUI runtime behavior.
+- Added optional Qt Widgets GUI target `shareaudio_gui`.
+- Added GUI dashboard source with Share, Listen, Local IPs, Devices, Diagnostics, and Help areas.
+- Added GUI CMake presets for Windows/Linux debug/release builds.
+- Added native `SAL1` stream session header support.
+- Added receiver mode autodetection from the stream session header.
+- Added PCM broadcast behavior that sends the stream header before audio bytes to every receiver.
+- Added simplified user-facing CLI commands:
+  - `shareaudio_cli share`
+  - `shareaudio_cli share --mode ultrafast`
+  - `shareaudio_cli listen <host>`
+  - `shareaudio_cli devices`
+  - `shareaudio_cli ips`
+  - `shareaudio_cli help`
+- Added `--device` and `-d` options to CLI `share` and `listen` commands.
+- Added single-instance enforcement lock using `shareaudio.pid`.
+- Added auto-reconnection loop in receiver thread to reconnect when the transmitter returns.
+- Added printout of local IP addresses when starting a sharing session in the CLI.
+- Added dynamic FetchContent download and compilation configuration for `libopus` v1.4.
+- Added full `libopus` implementation to `OpusEncoder` and `OpusDecoder` wrappers.
+- Added Soundwave visual identity stylesheet to Qt GUI.
+- Added protocol tests for stream header encoding, decoding, and invalid headers.
+- Added broadcast server test coverage for header-before-audio ordering.
+- Added CLI behavior tests for new commands and removed legacy flags.
+- Added real Opus PCM -> Opus -> PCM roundtrip automated unit test coverage.
+- Added single-instance unit test coverage.
+- Added hybrid HTTP/TCP server connection auto-detection with 150ms timeout window.
+- Added server handlers for HTTP endpoints: `/info` JSON metadata, `/stream` keep-alive chunk streaming, and `/` inline HTML5 browser player.
+- Added HTTP client fallback and metadata JSON parsing inside receiver client thread.
+
+### Fixed
+
+- Fixed Windows binary portability by linking MinGW runtime libraries statically.
+- Fixed `sin` compile error in unit tests by including `<cmath>`.
+- Fixed redefinition warning of `NOMINMAX` in `SingleInstance.cpp`.
+
+### Changed
+
+- `share` defaults to Balanced Mode when `--mode` is omitted.
+- `listen <host>` no longer accepts or requires an audio mode argument.
+- `ConsoleUi` now uses the shared session controller instead of owning streaming internals directly.
+- Receiver packet size now comes from the validated stream header.
+- README usage examples were updated to the simplified CLI.
+- Implementation plan was updated to reflect the current CLI and protocol autodetection direction.
+
+### Removed
+
+- Removed legacy CLI command handling from the user-facing parser:
+  - `--status`
+  - `--start-transmitter`
+  - `--connect`
+  - `--transmit-pcm`
+  - `--receive-pcm`
+  - `--list-ips`
+  - `--list-audio-devices`
+
+### Known Incomplete Work At That Stage
+
+- Quality Mode network pipeline integration was still pending.
+- Browser listening was not yet supported by the native TCP protocol.
+- Android/Web compatibility was not yet validated.
+- Linux build/test and real cross-machine audio tests were still pending.
+- GUI build verification was pending until Qt6 Widgets was installed or configured.
+
+## Earlier MVP Work
+
+### Added
+
+- Added C++20/CMake project foundation.
+- Added Windows/Linux CMake presets.
+- Added miniaudio and standalone Asio vendored dependencies.
+- Added project-wide config, logging, and result/error utilities.
+- Added audio capture/playback abstractions and miniaudio backend.
+- Added TCP networking primitives and local loopback self-test.
+- Added PCM transmitter and receiver pipelines.
+- Added fixed-size jitter buffer.
+- Added recent devices storage.
+- Added Opus wrapper shell and Opus packet length helpers.
+- Added automated tests for config, protocol, jitter buffer, storage, local IP matching, audio fakes, TCP, and PCM pipelines.
