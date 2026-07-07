@@ -23,7 +23,7 @@ GUI parity:
 - Devices panel covers `devices`.
 - Share panel covers `share`, `share --mode ultrafast` and custom device.
 - Listen panel covers `listen <host>`.
-- Quality Mode (Opus) is visible but disabled in transmitter (network mode integration pending).
+- Quality Mode (Opus) is fully implemented and integrated in transmitter and receiver.
 - GUI passes selected capture/playback devices to the session controller.
 - **Redesigned 3-Line Simple Mode**: Starts in a compact 640x240 window showing precisely 3 lines: Status (State, dynamic IP info, Port, and last message), Server Transmit button, and Client Receive controls (server IP text field + connect/disconnect button).
 - **Advanced Mode Toggle**: Clicking "Show Advanced Options" resizes the window dynamically to 850x560, exposing quality/device selector comboboxes and the full tabbed dashboard (Network, Hardware, Diagnostics).
@@ -87,7 +87,7 @@ Ultrafast Mode:
 Quality Mode:
 
 - Opus Quality Mode.
-- Encoder/decoder wrapper fully implemented. Network quality pipeline integration pending (Fase 17).
+- Encoder/decoder wrapper and network pipeline fully implemented and integrated (Phase 17). Bitrate set to 128 kbps CBR with 2-byte Big-Endian length headers.
 
 ## Native and Hybrid Protocols
 

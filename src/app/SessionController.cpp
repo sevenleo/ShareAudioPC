@@ -13,9 +13,9 @@ namespace {
 
 constexpr std::size_t max_log_events = 100;
 
-bool pcm_mode_supported(AudioMode mode)
+bool audio_mode_supported(AudioMode mode)
 {
-    return mode == AudioMode::Balanced || mode == AudioMode::Ultrafast;
+    return mode == AudioMode::Balanced || mode == AudioMode::Ultrafast || mode == AudioMode::Quality;
 }
 
 } // namespace
@@ -59,7 +59,7 @@ std::unique_ptr<IAudioPlayback> SessionController::make_playback() const
 
 Result<void> SessionController::start_sharing(AudioMode mode, std::string capture_device_id)
 {
-    if (!pcm_mode_supported(mode)) {
+    if (!audio_mode_supported(mode)) {
         return Result<void>::failure(make_error(ErrorCode::NotSupported, "Quality mode requires Opus implementation."));
     }
 
@@ -373,8 +373,8 @@ Result<void> SessionController::start_listening(std::string host, std::string pl
                 }
             }
 
-            if (header.codec != StreamCodec::PcmS16Le || header.mode == AudioMode::Quality) {
-                set_error("This build can only listen to balanced or ultrafast PCM streams. Quality mode requires Opus implementation.");
+            if (header.codec != StreamCodec::PcmS16Le && header.codec != StreamCodec::Opus) {
+                set_error("This build only supports PCM and Opus streams.");
                 socket->close();
                 break;
             }
@@ -387,7 +387,7 @@ Result<void> SessionController::start_listening(std::string host, std::string pl
                 break; // Fatal error: do not retry
             }
 
-            auto receiver = std::make_unique<PcmReceiverPipeline>(*playback, header.packet_size * 8);
+            auto receiver = std::make_unique<PcmReceiverPipeline>(*playback, header.packet_size * 8, header.mode);
             auto start_playback = receiver->start();
             if (!start_playback.ok()) {
                 set_error("Playback start failed: " + start_playback.error().message);
@@ -414,13 +414,43 @@ Result<void> SessionController::start_listening(std::string host, std::string pl
             const auto packet_size = static_cast<std::size_t>(header.packet_size);
             bool connection_lost = false;
             while (!listener_stop_requested_) {
-                auto packet = socket->receive_exact(packet_size);
-                if (!packet.ok()) {
-                    if (!listener_stop_requested_) {
-                        set_error("Connection lost: " + packet.error().message + ". Retrying...");
-                        connection_lost = true;
+                std::vector<std::uint8_t> raw_payload;
+                if (header.codec == StreamCodec::Opus) {
+                    // Read 2-byte length prefix
+                    auto length_bytes = socket->receive_exact(2);
+                    if (!length_bytes.ok()) {
+                        if (!listener_stop_requested_) {
+                            set_error("Connection lost (length header): " + length_bytes.error().message + ". Retrying...");
+                            connection_lost = true;
+                        }
+                        break;
                     }
-                    break;
+                    auto decoded_len = ProtocolReader::decode_opus_length(length_bytes.value());
+                    if (!decoded_len.ok()) {
+                        set_error("Malformed Opus frame length: " + decoded_len.error().message + ". Retrying...");
+                        connection_lost = true;
+                        break;
+                    }
+                    // Read exact Opus frame bytes
+                    auto frame_bytes = socket->receive_exact(decoded_len.value());
+                    if (!frame_bytes.ok()) {
+                        if (!listener_stop_requested_) {
+                            set_error("Connection lost (Opus frame): " + frame_bytes.error().message + ". Retrying...");
+                            connection_lost = true;
+                        }
+                        break;
+                    }
+                    raw_payload = std::move(frame_bytes.value());
+                } else {
+                    auto pcm_bytes = socket->receive_exact(packet_size);
+                    if (!pcm_bytes.ok()) {
+                        if (!listener_stop_requested_) {
+                            set_error("Connection lost: " + pcm_bytes.error().message + ". Retrying...");
+                            connection_lost = true;
+                        }
+                        break;
+                    }
+                    raw_payload = std::move(pcm_bytes.value());
                 }
 
                 Result<void> received = Result<void>::success();
@@ -428,8 +458,9 @@ Result<void> SessionController::start_listening(std::string host, std::string pl
                 {
                     std::scoped_lock lock(mutex_);
                     if (receiver_) {
-                        received = receiver_->receive_pcm(packet.value());
-                        pumped = receiver_->pump_playback(packet_size);
+                        received = receiver_->receive_pcm(raw_payload);
+                        std::size_t play_bytes = (header.codec == StreamCodec::Opus) ? 3840 : packet_size;
+                        pumped = receiver_->pump_playback(play_bytes);
                     }
                 }
                 if (!received.ok()) {

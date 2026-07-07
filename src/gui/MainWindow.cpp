@@ -344,8 +344,7 @@ void MainWindow::build_ui()
     mode_combo_ = new QComboBox(server_advanced_widget_);
     mode_combo_->addItem("Balanced (Recommended)", QVariant::fromValue(static_cast<int>(AudioMode::Balanced)));
     mode_combo_->addItem("Ultrafast (Low Latency)", QVariant::fromValue(static_cast<int>(AudioMode::Ultrafast)));
-    mode_combo_->addItem("Quality (Opus - Coming Soon)", QVariant::fromValue(static_cast<int>(AudioMode::Quality)));
-    mode_combo_->setItemData(2, false, Qt::UserRole - 1);
+    mode_combo_->addItem("Quality (Opus)", QVariant::fromValue(static_cast<int>(AudioMode::Quality)));
     
     capture_combo_ = new QComboBox(server_advanced_widget_);
     
@@ -738,10 +737,6 @@ void MainWindow::refresh_recent_devices()
 void MainWindow::start_sharing()
 {
     const auto selected = static_cast<AudioMode>(mode_combo_->currentData().toInt());
-    if (selected == AudioMode::Quality) {
-        show_error("Quality mode requires Opus implementation.");
-        return;
-    }
     const auto device_id = std_str(capture_combo_->currentData().toString());
     auto result = controller_.start_sharing(selected, device_id);
     if (!result.ok()) {

@@ -39,8 +39,8 @@ int ConsoleUi::run(const std::vector<std::string>& args)
             }
             if (args[i] == "--mode") {
                 auto parsed = parse_audio_mode(args[i + 1]);
-                if (!parsed || *parsed == AudioMode::Quality) {
-                    std::cerr << "share supports --mode balanced or --mode ultrafast. Quality mode requires Opus implementation.\n";
+                if (!parsed) {
+                    std::cerr << "share supports --mode balanced, ultrafast, or quality.\n";
                     return 2;
                 }
                 mode = *parsed;

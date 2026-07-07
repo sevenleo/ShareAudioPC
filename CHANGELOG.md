@@ -4,6 +4,13 @@ All notable project changes should be recorded in this file.
 
 The format follows a simple staged log.
 
+## [0.5.0] - 2026-07-07
+
+### Added
+
+- Added Full Opus Quality Network Mode Implementation: Completed Phase 17 of the implementation plan. The transmitter now encodes captured audio to Opus frames and prefixes them with 2-byte Big-Endian length headers. The receiver parses length headers, fetches exact frame sizes, decodes them back to PCM, and feeds the output into the jitter buffer, enabling high-quality, low-bandwidth LAN streaming.
+- Added quality mode support to CLI and GUI. Removed the mock errors/limitations and enabled the combobox option in the GUI.
+
 ## [0.4.0] - 2026-07-07
 
 ### Added

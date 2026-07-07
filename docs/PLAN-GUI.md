@@ -94,8 +94,8 @@
 - [x] Core tests for Quality rejection.
 - [x] Core tests for self-connection rejection.
 - [x] CLI regression tests.
-- [ ] GUI construction test (requires Qt6 installed).
-- [ ] GUI button/controller interaction test (requires Qt6 installed).
+- [x] GUI construction test (requires Qt6 installed).
+- [x] GUI button/controller interaction test (requires Qt6 installed).
 - [ ] Manual GUI-to-CLI streaming test.
 - [ ] Manual CLI-to-GUI streaming test.
 - [ ] Manual GUI-to-GUI streaming test.

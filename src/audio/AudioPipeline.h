@@ -2,6 +2,7 @@
 
 #include "audio/IAudioCapture.h"
 #include "audio/IAudioPlayback.h"
+#include "codec/OpusCodec.h"
 #include "protocol/JitterBuffer.h"
 #include "protocol/PcmChunker.h"
 
@@ -33,7 +34,9 @@ public:
 
 private:
     mutable std::mutex mutex_;
+    AudioMode mode_;
     PcmChunker chunker_;
+    OpusEncoder encoder_;
     std::queue<std::vector<std::uint8_t>> packets_;
     std::size_t max_queued_packets_ {};
     TransmitterStats stats_;
@@ -49,7 +52,7 @@ struct ReceiverStats {
 
 class PcmReceiverPipeline {
 public:
-    PcmReceiverPipeline(IAudioPlayback& playback, std::size_t jitter_capacity_bytes);
+    PcmReceiverPipeline(IAudioPlayback& playback, std::size_t jitter_capacity_bytes, AudioMode mode = AudioMode::Balanced);
 
     Result<void> start();
     Result<void> receive_pcm(std::span<const std::uint8_t> bytes);
@@ -64,6 +67,8 @@ private:
     std::size_t bytes_received_ {};
     std::size_t bytes_played_ {};
     std::size_t playback_errors_ {};
+    AudioMode mode_;
+    OpusDecoder decoder_;
 };
 
 } // namespace shareaudio

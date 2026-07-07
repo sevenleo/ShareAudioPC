@@ -207,7 +207,8 @@ void test_session_controller()
     options.recent_devices_path = std::filesystem::temp_directory_path() / "shareaudio-session-recent-test.json";
     shareaudio::SessionController session(config, options);
 
-    expect(session.start_sharing(shareaudio::AudioMode::Quality).error().code == shareaudio::ErrorCode::NotSupported, "session rejects quality sharing");
+    expect(session.start_sharing(shareaudio::AudioMode::Quality).ok(), "session accepts quality sharing");
+    expect(session.stop_sharing().ok(), "session stops quality sharing");
     expect(session.start_sharing(shareaudio::AudioMode::Balanced).ok(), "session starts fake sharing");
     expect(session.start_listening("192.168.1.50").error().code == shareaudio::ErrorCode::InvalidState, "session blocks listening while sharing");
     auto sharing_status = session.status_snapshot();
@@ -446,7 +447,7 @@ void test_console_commands()
 
     expect(ui.run(std::vector<std::string> { "--status" }) == 2, "old --status command is removed");
     expect(ui.run(std::vector<std::string> { "--list-ips" }) == 2, "old --list-ips command is removed");
-    expect(ui.run(std::vector<std::string> { "share", "--mode", "quality" }) == 2, "quality mode is rejected while Opus is unavailable");
+    expect(ui.run(std::vector<std::string> { "share", "--mode", "invalid_mode" }) == 2, "invalid mode is rejected");
     expect(ui.run(std::vector<std::string> { "listen" }) == 2, "listen requires a host");
     expect(ui.run(std::vector<std::string> { "help" }) == 0, "help command succeeds");
 }

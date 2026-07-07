@@ -268,17 +268,17 @@ The implementation stack is:
 - [x] Add tests for malformed Opus frames.
 
 ## Phase 17 - Opus Network Mode
-- [ ] Implement Quality Mode in transmitter.
-- [ ] Encode captured PCM to Opus.
+- [x] Implement Quality Mode in transmitter.
+- [x] Encode captured PCM to Opus.
 - [x] Prefix every Opus frame with 2-byte Big-Endian length.
-- [ ] Send prefixed Opus frames over TCP.
-- [ ] Implement Quality Mode in receiver.
+- [x] Send prefixed Opus frames over TCP.
+- [x] Implement Quality Mode in receiver.
 - [x] Read 2-byte Big-Endian length.
-- [ ] Read exact Opus frame bytes.
-- [ ] Decode Opus frame into PCM.
-- [ ] Send decoded PCM into jitter buffer.
+- [x] Read exact Opus frame bytes.
+- [x] Decode Opus frame into PCM.
+- [x] Send decoded PCM into jitter buffer.
 - [x] Handle invalid frame length.
-- [ ] Handle decoder failure without crashing.
+- [x] Handle decoder failure without crashing.
 - [ ] Verify Quality Mode Windows to Windows.
 - [ ] Verify Quality Mode Linux to Linux.
 - [ ] Verify Quality Mode Windows to Linux.
