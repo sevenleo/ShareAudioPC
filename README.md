@@ -168,16 +168,22 @@ cmake --build build/windows-debug
 ```
 
 #### Final Release Build (CLI & GUI for Distribution):
-To compile the portable release version and deploy its dependencies, use the matching Qt MinGW toolchain:
+To compile and package the portable release version into the isolated `build/windows-release/final` directory:
 ```powershell
-# Configure release build using the matching Qt compiler
+# 1. Configure the release build using the matching Qt compiler
 cmake --preset windows-release -DCMAKE_C_COMPILER="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/gcc.exe" -DCMAKE_CXX_COMPILER="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/g++.exe" -DCMAKE_MAKE_PROGRAM="d:/GITHUB/ShareAudioPC_2/qt6/Tools/mingw1310_64/bin/mingw32-make.exe" -DCMAKE_PREFIX_PATH="d:/GITHUB/ShareAudioPC_2/qt6/6.6.3/mingw_64"
 
-# Compile all release binaries
+# 2. Compile all release targets (CLI, GUI, and Tests)
 cmake --build build/windows-release --config Release
 
-# Deploy Qt DLL dependencies to make the release folder fully portable
-d:\GITHUB\ShareAudioPC_2\qt6\6.6.3\mingw_64\bin\windeployqt.exe D:\GITHUB\ShareAudioPC_2\build\windows-release\shareaudio_gui.exe
+# 3. Install only the required executables to the isolated 'final/' directory
+cmake --install build/windows-release --config Release
+
+# 4. Clean up unnecessary developer headers/libraries copied by dependencies
+Remove-Item -Recurse -Force build/windows-release/final/lib; Remove-Item -Recurse -Force build/windows-release/final/include
+
+# 5. Deploy size-optimized Qt DLL dependencies
+d:\GITHUB\ShareAudioPC_2\qt6\6.6.3\mingw_64\bin\windeployqt.exe build/windows-release/final/shareaudio_gui.exe --no-compiler-runtime --no-translations --no-system-d3d-compiler --no-opengl-sw --no-ffmpeg --skip-plugin-types sqldrivers,networkinformation
 ```
 
 ---

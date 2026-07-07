@@ -11,7 +11,8 @@
         "SHAREAUDIO_ENABLE_TESTS": "ON",
         "SHAREAUDIO_ENABLE_CONSOLE_UI": "ON",
         "SHAREAUDIO_ENABLE_DESKTOP_UI": "ON",
-        "SHAREAUDIO_ENABLE_OPUS": "ON"
+        "SHAREAUDIO_ENABLE_OPUS": "ON",
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/windows-debug/final"
       },
       "condition": {
         "type": "equals",
@@ -29,7 +30,8 @@
         "SHAREAUDIO_ENABLE_TESTS": "ON",
         "SHAREAUDIO_ENABLE_CONSOLE_UI": "ON",
         "SHAREAUDIO_ENABLE_DESKTOP_UI": "ON",
-        "SHAREAUDIO_ENABLE_OPUS": "ON"
+        "SHAREAUDIO_ENABLE_OPUS": "ON",
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/windows-release/final"
       },
       "condition": {
         "type": "equals",

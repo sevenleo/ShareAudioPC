@@ -131,3 +131,14 @@ if(SHAREAUDIO_ENABLE_TESTS)
     endif()
     add_test(NAME shareaudio_tests COMMAND shareaudio_tests)
 endif()
+
+# Install rules for final packaging
+if(SHAREAUDIO_ENABLE_CONSOLE_UI)
+    install(TARGETS shareaudio_cli DESTINATION .)
+endif()
+
+if(SHAREAUDIO_ENABLE_DESKTOP_UI)
+    install(TARGETS shareaudio_gui DESTINATION .)
+endif()
+
+install(FILES shareaudio.cfg.example DESTINATION .)
