@@ -88,6 +88,7 @@ CMakeFiles/shareaudio_tests.dir/tests/main.cpp.obj
  C:/Strawberry/c/include/c++/13.2.0/bits/shared_ptr.h
  C:/Strawberry/c/include/c++/13.2.0/bits/shared_ptr_atomic.h
  C:/Strawberry/c/include/c++/13.2.0/bits/shared_ptr_base.h
+ C:/Strawberry/c/include/c++/13.2.0/bits/specfun.h
  C:/Strawberry/c/include/c++/13.2.0/bits/sstream.tcc
  C:/Strawberry/c/include/c++/13.2.0/bits/std_abs.h
  C:/Strawberry/c/include/c++/13.2.0/bits/std_function.h
@@ -132,6 +133,7 @@ CMakeFiles/shareaudio_tests.dir/tests/main.cpp.obj
  C:/Strawberry/c/include/c++/13.2.0/chrono
  C:/Strawberry/c/include/c++/13.2.0/climits
  C:/Strawberry/c/include/c++/13.2.0/clocale
+ C:/Strawberry/c/include/c++/13.2.0/cmath
  C:/Strawberry/c/include/c++/13.2.0/codecvt
  C:/Strawberry/c/include/c++/13.2.0/compare
  C:/Strawberry/c/include/c++/13.2.0/concepts
@@ -193,6 +195,18 @@ CMakeFiles/shareaudio_tests.dir/tests/main.cpp.obj
  C:/Strawberry/c/include/c++/13.2.0/string_view
  C:/Strawberry/c/include/c++/13.2.0/system_error
  C:/Strawberry/c/include/c++/13.2.0/thread
+ C:/Strawberry/c/include/c++/13.2.0/tr1/bessel_function.tcc
+ C:/Strawberry/c/include/c++/13.2.0/tr1/beta_function.tcc
+ C:/Strawberry/c/include/c++/13.2.0/tr1/ell_integral.tcc
+ C:/Strawberry/c/include/c++/13.2.0/tr1/exp_integral.tcc
+ C:/Strawberry/c/include/c++/13.2.0/tr1/gamma.tcc
+ C:/Strawberry/c/include/c++/13.2.0/tr1/hypergeometric.tcc
+ C:/Strawberry/c/include/c++/13.2.0/tr1/legendre_function.tcc
+ C:/Strawberry/c/include/c++/13.2.0/tr1/modified_bessel_func.tcc
+ C:/Strawberry/c/include/c++/13.2.0/tr1/poly_hermite.tcc
+ C:/Strawberry/c/include/c++/13.2.0/tr1/poly_laguerre.tcc
+ C:/Strawberry/c/include/c++/13.2.0/tr1/riemann_zeta.tcc
+ C:/Strawberry/c/include/c++/13.2.0/tr1/special_function_util.h
  C:/Strawberry/c/include/c++/13.2.0/tuple
  C:/Strawberry/c/include/c++/13.2.0/type_traits
  C:/Strawberry/c/include/c++/13.2.0/typeinfo
@@ -364,6 +378,7 @@ CMakeFiles/shareaudio_tests.dir/tests/main.cpp.obj
  C:/Strawberry/c/x86_64-w64-mingw32/include/limits.h
  C:/Strawberry/c/x86_64-w64-mingw32/include/locale.h
  C:/Strawberry/c/x86_64-w64-mingw32/include/malloc.h
+ C:/Strawberry/c/x86_64-w64-mingw32/include/math.h
  C:/Strawberry/c/x86_64-w64-mingw32/include/mcx.h
  C:/Strawberry/c/x86_64-w64-mingw32/include/memoryapi.h
  C:/Strawberry/c/x86_64-w64-mingw32/include/minwinbase.h

@@ -28,6 +28,7 @@ public:
 
     Result<void> send_all(std::span<const std::uint8_t> bytes);
     Result<std::vector<std::uint8_t>> receive_exact(std::size_t byte_count);
+    Result<std::vector<std::uint8_t>> receive_with_timeout(std::size_t byte_count, std::uint32_t timeout_ms);
     void close();
     [[nodiscard]] bool valid() const;
 

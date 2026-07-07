@@ -30,6 +30,7 @@ private:
     TcpTransmitterServer server_;
     std::vector<std::shared_ptr<TcpSocket>> clients_;
     BroadcastStats stats_;
+    StreamHeader active_header_ {};
     std::array<std::uint8_t, ProtocolWriter::stream_header_size> stream_header_ {};
 };
 

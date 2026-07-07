@@ -357,6 +357,88 @@ void test_pcm_broadcast_server()
     server.stop();
 }
 
+void test_hybrid_broadcast_server()
+{
+    constexpr std::uint16_t port = 39093;
+    shareaudio::PcmBroadcastServer server;
+    auto started = server.start(port, shareaudio::AudioMode::Balanced);
+    expect(started.ok(), started.ok() ? "hybrid server started" : started.error().message);
+    if (!started.ok()) {
+        return;
+    }
+
+    auto client_info = shareaudio::TcpSocket::connect_to("127.0.0.1", port);
+    expect(client_info.ok(), "info client connected");
+    if (client_info.ok()) {
+        std::string req = "GET /info HTTP/1.1\r\nHost: 127.0.0.1\r\nConnection: close\r\n\r\n";
+        auto sent = client_info.value().send_all(std::span<const std::uint8_t>(reinterpret_cast<const std::uint8_t*>(req.data()), req.size()));
+        expect(sent.ok(), "info request sent");
+
+        std::string res;
+        while (client_info.value().valid() && res.size() < 2048) {
+            auto chunk = client_info.value().receive_exact(1);
+            if (!chunk.ok() || chunk.value().empty()) {
+                break;
+            }
+            res.push_back(static_cast<char>(chunk.value()[0]));
+        }
+        expect(res.find("HTTP/1.1 200 OK") != std::string::npos, "info response is HTTP 200");
+        expect(res.find("\"codec\": \"pcm\"") != std::string::npos, "info JSON contains correct codec");
+        expect(res.find("\"chunkSize\": 2048") != std::string::npos, "info JSON contains correct chunkSize");
+    }
+
+    auto client_stream = shareaudio::TcpSocket::connect_to("127.0.0.1", port);
+    expect(client_stream.ok(), "stream client connected");
+    if (client_stream.ok()) {
+        std::string req = "GET /stream HTTP/1.1\r\nHost: 127.0.0.1\r\nConnection: keep-alive\r\n\r\n";
+        auto sent = client_stream.value().send_all(std::span<const std::uint8_t>(reinterpret_cast<const std::uint8_t*>(req.data()), req.size()));
+        expect(sent.ok(), "stream request sent");
+
+        for (int i = 0; i < 20 && server.stats().connected_clients == 0; ++i) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        }
+
+        std::string headers;
+        while (client_stream.value().valid() && headers.size() < 2048) {
+            auto chunk = client_stream.value().receive_exact(1);
+            if (!chunk.ok() || chunk.value().empty()) {
+                break;
+            }
+            headers.push_back(static_cast<char>(chunk.value()[0]));
+            if (headers.size() >= 4 && headers.substr(headers.size() - 4) == "\r\n\r\n") {
+                break;
+            }
+        }
+        expect(headers.find("HTTP/1.1 200 OK") != std::string::npos, "stream response headers start with 200 OK");
+        expect(headers.find("Content-Type: application/octet-stream") != std::string::npos, "stream content type is octet-stream");
+
+        std::vector<std::uint8_t> test_packet(64, 99);
+        server.broadcast(test_packet);
+
+        auto received = client_stream.value().receive_exact(64);
+        expect(received.ok(), "received packet bytes after HTTP headers");
+        if (received.ok()) {
+            expect(received.value() == test_packet, "received packet content matches sent content exactly");
+        }
+    }
+
+    auto client_native = shareaudio::TcpSocket::connect_to("127.0.0.1", port);
+    expect(client_native.ok(), "native client connected");
+    if (client_native.ok()) {
+        auto header_bytes = client_native.value().receive_exact(shareaudio::ProtocolWriter::stream_header_size);
+        expect(header_bytes.ok(), "native client received SAL1 header after timeout");
+        if (header_bytes.ok()) {
+            auto parsed = shareaudio::ProtocolReader::parse_stream_header(header_bytes.value());
+            expect(parsed.ok(), "parsed SAL1 header successfully");
+            if (parsed.ok()) {
+                expect(parsed.value().mode == shareaudio::AudioMode::Balanced, "SAL1 mode matches server mode");
+            }
+        }
+    }
+
+    server.stop();
+}
+
 void test_console_commands()
 {
     shareaudio::AppController controller;
@@ -396,6 +478,7 @@ int main()
     test_opus_codec();
     test_tcp_loopback();
     test_pcm_broadcast_server();
+    test_hybrid_broadcast_server();
     test_console_commands();
     test_single_instance();
 

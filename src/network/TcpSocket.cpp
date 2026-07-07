@@ -117,6 +117,42 @@ Result<std::vector<std::uint8_t>> TcpSocket::receive_exact(std::size_t byte_coun
     return Result<std::vector<std::uint8_t>>::success(std::move(output));
 }
 
+Result<std::vector<std::uint8_t>> TcpSocket::receive_with_timeout(std::size_t byte_count, std::uint32_t timeout_ms)
+{
+    if (!valid()) {
+        return Result<std::vector<std::uint8_t>>::failure(make_error(ErrorCode::NetworkError, "Cannot receive on a closed socket."));
+    }
+
+    asio::steady_timer timer(*io_);
+    std::vector<std::uint8_t> output(byte_count);
+    asio::error_code read_error = asio::error::would_block;
+
+    asio::async_read(*socket_, asio::buffer(output.data(), output.size()), [&](const asio::error_code& async_error, std::size_t) {
+        read_error = async_error;
+        timer.cancel();
+    });
+
+    timer.expires_after(std::chrono::milliseconds(timeout_ms));
+    timer.async_wait([&](const asio::error_code& timer_error) {
+        if (!timer_error && read_error == asio::error::would_block) {
+            read_error = asio::error::timed_out;
+            asio::error_code ignored;
+            socket_->cancel(ignored);
+        }
+    });
+
+    io_->restart();
+    io_->run();
+
+    if (read_error == asio::error::timed_out) {
+        return Result<std::vector<std::uint8_t>>::failure(make_error(ErrorCode::Timeout, "Receive timed out."));
+    }
+    if (read_error) {
+        return Result<std::vector<std::uint8_t>>::failure(make_error(ErrorCode::NetworkError, asio_error_message("receive_with_timeout", read_error)));
+    }
+    return Result<std::vector<std::uint8_t>>::success(std::move(output));
+}
+
 void TcpSocket::close()
 {
     if (!socket_) {

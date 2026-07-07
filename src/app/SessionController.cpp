@@ -230,9 +230,92 @@ Result<void> SessionController::start_listening(std::string host, std::string pl
                 receiver_socket_ = socket;
             }
 
-            auto header_bytes = socket->receive_exact(ProtocolWriter::stream_header_size);
-            if (!header_bytes.ok()) {
-                set_error("Failed to receive stream header: " + header_bytes.error().message + ". Retrying...");
+            StreamHeader header;
+            bool is_native = false;
+            bool is_http = false;
+            bool http_parse_success = false;
+
+            auto header_bytes = socket->receive_with_timeout(ProtocolWriter::stream_header_size, 300);
+            if (header_bytes.ok()) {
+                auto parsed = ProtocolReader::parse_stream_header(header_bytes.value());
+                if (parsed.ok()) {
+                    header = parsed.value();
+                    is_native = true;
+                }
+            }
+
+            if (!is_native) {
+                socket->close();
+                auto info_conn = TcpSocket::connect_to(host, config_.receiver.port);
+                if (info_conn.ok()) {
+                    auto info_socket = std::make_shared<TcpSocket>(std::move(info_conn.value()));
+                    std::string req = "GET /info HTTP/1.1\r\nHost: " + host + "\r\nConnection: close\r\n\r\n";
+                    auto sent = info_socket->send_all(std::span<const std::uint8_t>(reinterpret_cast<const std::uint8_t*>(req.data()), req.size()));
+                    if (sent.ok()) {
+                        std::string res;
+                        while (info_socket->valid() && res.size() < 4096) {
+                            auto byte = info_socket->receive_with_timeout(1, 1000);
+                            if (!byte.ok() || byte.value().empty()) {
+                                break;
+                            }
+                            res.push_back(static_cast<char>(byte.value()[0]));
+                        }
+
+                        auto separator = res.find("\r\n\r\n");
+                        if (separator != std::string::npos) {
+                            std::string body = res.substr(separator + 4);
+
+                            std::string codec_val = "pcm";
+                            auto codec_idx = body.find("\"codec\"");
+                            if (codec_idx != std::string::npos) {
+                                auto colon_idx = body.find(":", codec_idx);
+                                if (colon_idx != std::string::npos) {
+                                    auto quote1 = body.find("\"", colon_idx);
+                                    if (quote1 != std::string::npos) {
+                                        auto quote2 = body.find("\"", quote1 + 1);
+                                        if (quote2 != std::string::npos) {
+                                            codec_val = body.substr(quote1 + 1, quote2 - (quote1 + 1));
+                                        }
+                                    }
+                                }
+                            }
+
+                            std::uint32_t chunk_size = 2048;
+                            auto chunk_idx = body.find("\"chunkSize\"");
+                            if (chunk_idx != std::string::npos) {
+                                auto colon_idx = body.find(":", chunk_idx);
+                                if (colon_idx != std::string::npos) {
+                                    std::string val_str;
+                                    for (std::size_t i = colon_idx + 1; i < body.size(); ++i) {
+                                        char c = body[i];
+                                        if (std::isdigit(c)) {
+                                            val_str.push_back(c);
+                                        } else if (!val_str.empty() && (std::isspace(c) || c == ',' || c == '}')) {
+                                            break;
+                                        }
+                                    }
+                                    if (!val_str.empty()) {
+                                        chunk_size = static_cast<std::uint32_t>(std::stoul(val_str));
+                                    }
+                                }
+                            }
+
+                            header.mode = (chunk_size == 1024) ? AudioMode::Ultrafast : AudioMode::Balanced;
+                            header.codec = (codec_val == "opus") ? StreamCodec::Opus : StreamCodec::PcmS16Le;
+                            header.packet_size = chunk_size;
+                            header.channels = 2;
+                            header.bytes_per_sample = 2;
+                            header.sample_rate = 48000;
+                            is_http = true;
+                            http_parse_success = true;
+                        }
+                    }
+                    info_socket->close();
+                }
+            }
+
+            if (!is_native && !http_parse_success) {
+                set_error("Failed to parse stream metadata (SAL1 or HTTP /info). Retrying...");
                 socket->close();
                 for (int i = 0; i < 30 && !listener_stop_requested_; ++i) {
                     std::this_thread::sleep_for(std::chrono::milliseconds(50));
@@ -240,19 +323,60 @@ Result<void> SessionController::start_listening(std::string host, std::string pl
                 continue;
             }
 
-            auto header = ProtocolReader::parse_stream_header(header_bytes.value());
-            if (!header.ok()) {
-                set_error("Invalid stream header: " + header.error().message + ". Retrying...");
-                socket->close();
-                for (int i = 0; i < 30 && !listener_stop_requested_; ++i) {
-                    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+            if (is_http) {
+                auto stream_conn = TcpSocket::connect_to(host, config_.receiver.port);
+                if (!stream_conn.ok()) {
+                    set_error("HTTP stream connection failed: " + stream_conn.error().message + ". Retrying...");
+                    for (int i = 0; i < 30 && !listener_stop_requested_; ++i) {
+                        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                    }
+                    continue;
                 }
-                continue;
+                socket = std::make_shared<TcpSocket>(std::move(stream_conn.value()));
+                {
+                    std::scoped_lock lock(mutex_);
+                    receiver_socket_ = socket;
+                }
+
+                std::string req = "GET /stream HTTP/1.1\r\nHost: " + host + "\r\nConnection: keep-alive\r\n\r\n";
+                auto sent = socket->send_all(std::span<const std::uint8_t>(reinterpret_cast<const std::uint8_t*>(req.data()), req.size()));
+                if (!sent.ok()) {
+                    set_error("HTTP GET /stream request failed: " + sent.error().message + ". Retrying...");
+                    socket->close();
+                    for (int i = 0; i < 30 && !listener_stop_requested_; ++i) {
+                        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                    }
+                    continue;
+                }
+
+                std::string http_res;
+                bool found_sep = false;
+                while (socket->valid() && http_res.size() < 4096) {
+                    auto byte = socket->receive_with_timeout(1, 2000);
+                    if (!byte.ok() || byte.value().empty()) {
+                        break;
+                    }
+                    http_res.push_back(static_cast<char>(byte.value()[0]));
+                    if (http_res.size() >= 4 && http_res.substr(http_res.size() - 4) == "\r\n\r\n") {
+                        found_sep = true;
+                        break;
+                    }
+                }
+
+                if (!found_sep) {
+                    set_error("HTTP stream response headers malformed. Retrying...");
+                    socket->close();
+                    for (int i = 0; i < 30 && !listener_stop_requested_; ++i) {
+                        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                    }
+                    continue;
+                }
             }
-            if (header.value().codec != StreamCodec::PcmS16Le || header.value().mode == AudioMode::Quality) {
+
+            if (header.codec != StreamCodec::PcmS16Le || header.mode == AudioMode::Quality) {
                 set_error("This build can only listen to balanced or ultrafast PCM streams. Quality mode requires Opus implementation.");
                 socket->close();
-                break; // Fatal error: do not retry
+                break;
             }
 
             auto playback = make_playback();
@@ -263,7 +387,7 @@ Result<void> SessionController::start_listening(std::string host, std::string pl
                 break; // Fatal error: do not retry
             }
 
-            auto receiver = std::make_unique<PcmReceiverPipeline>(*playback, header.value().packet_size * 8);
+            auto receiver = std::make_unique<PcmReceiverPipeline>(*playback, header.packet_size * 8);
             auto start_playback = receiver->start();
             if (!start_playback.ok()) {
                 set_error("Playback start failed: " + start_playback.error().message);
@@ -275,10 +399,10 @@ Result<void> SessionController::start_listening(std::string host, std::string pl
                 std::scoped_lock lock(mutex_);
                 playback_ = std::move(playback);
                 receiver_ = std::move(receiver);
-                detected_mode_ = header.value().mode;
+                detected_mode_ = header.mode;
                 has_detected_mode_ = true;
                 mode_ = SessionMode::Listening;
-                config_.receiver.mode = header.value().mode;
+                config_.receiver.mode = header.mode;
                 add_log_locked("Listening session started.");
             }
             {
@@ -287,7 +411,7 @@ Result<void> SessionController::start_listening(std::string host, std::string pl
             }
             state_changed_.notify_all();
 
-            const auto packet_size = static_cast<std::size_t>(header.value().packet_size);
+            const auto packet_size = static_cast<std::size_t>(header.packet_size);
             bool connection_lost = false;
             while (!listener_stop_requested_) {
                 auto packet = socket->receive_exact(packet_size);

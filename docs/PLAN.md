@@ -376,16 +376,16 @@ The implementation stack is:
 - [x] Enable enforce single instance lock on GUI startup.
 
 ## Phase 22 - Compatibility With Android/Web
-- [ ] Obtain the existing Android/Web protocol implementation.
-- [ ] Identify the real mode selection behavior.
-- [ ] Identify whether protocol negotiation exists.
-- [ ] Confirm PCM signedness.
-- [ ] Confirm PCM endianness.
-- [ ] Confirm Opus frame duration.
-- [ ] Confirm packet framing for each mode.
-- [ ] Confirm whether Web client supports raw PCM, Opus, or both.
-- [ ] Add compatibility notes to documentation.
-- [ ] Adjust protocol module only, avoiding audio/network rewrites.
+- [x] Obtain the existing Android/Web protocol implementation.
+- [x] Identify the real mode selection behavior.
+- [x] Identify whether protocol negotiation exists.
+- [x] Confirm PCM signedness.
+- [x] Confirm PCM endianness.
+- [x] Confirm Opus frame duration.
+- [x] Confirm packet framing for each mode.
+- [x] Confirm whether Web client supports raw PCM, Opus, or both.
+- [x] Add compatibility notes to documentation (created docs/SYNC-DESKTOP.md, docs/SYNC-MOBILE.md and docs/PLAN-FULL-SYNC.md).
+- [x] Adjust protocol module only, avoiding audio/network rewrites (implemented hybrid server auto-detection and HTTP client fallback).
 - [ ] Test Windows transmitter to Android receiver.
 - [ ] Test Android transmitter to Windows receiver.
 - [ ] Test Linux transmitter to Android/Web receiver where applicable.

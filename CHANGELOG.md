@@ -2,9 +2,9 @@
 
 All notable project changes should be recorded in this file.
 
-The format follows a simple staged log. Keep new entries under `Unreleased` until a release tag is created.
+The format follows a simple staged log.
 
-## Unreleased
+## [0.2.0] - 2026-07-07
 
 ### Added
 
@@ -38,6 +38,10 @@ The format follows a simple staged log. Keep new entries under `Unreleased` unti
 - Added CLI behavior tests for new commands and removed legacy flags.
 - Added real Opus codec PCM -> Opus -> PCM roundtrip automated unit test coverage.
 - Added single-instance unit test coverage.
+- Added hybrid HTTP/TCP server connection auto-detection with 150ms timeout window.
+- Added server handlers for HTTP endpoints: `/info` JSON metadata, `/stream` keep-alive chunk streaming, and `/` inline HTML5 browser player.
+- Added HTTP client fallback and metadata JSON parsing inside receiver client thread.
+- Added automated integration tests for hybrid HTTP/TCP auto-detection, info route JSON parsing, and fallback streaming.
 
 ### Fixed
 
