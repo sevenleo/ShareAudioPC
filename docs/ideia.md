@@ -1,5 +1,7 @@
 # Prompt de Partida para Portabilidade Windows Nativa (ShareAudioLite)
 
+> **Nota de estado atual:** este arquivo foi preservado como ideia/especificação inicial do projeto. A implementação atual mudou para **C++20 + CMake**, com CLI nativo Windows/Linux, protocolo TCP próprio com cabeçalho `SAL1` e suporte atual apenas aos modos PCM `balanced` e `ultrafast`. Opus/Quality Mode, cliente via browser e compatibilidade Android/Web ainda não estão concluídos. Consulte `README.md`, `docs/CURRENT_STATUS.md`, `docs/PLAN.md` e `CHANGELOG.md` para o estado real do projeto.
+
 Este documento contém a especificação técnica detalhada e o prompt estruturado para criar uma versão nativa do **ShareAudioLite para Windows**. A proposta é que este aplicativo seja totalmente compatível, de forma bidirecional (transmissor e receptor), com as versões Android e Web já existentes no ecossistema do projeto.
 
 Salve esta especificação ou copie e cole o prompt final na sua ferramenta de desenvolvimento ou agente de IA favorito para gerar o código-fonte completo.

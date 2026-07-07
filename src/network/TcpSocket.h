@@ -2,6 +2,8 @@
 
 #include "app/Result.h"
 
+#include <asio.hpp>
+
 #include <atomic>
 #include <cstdint>
 #include <functional>
@@ -13,16 +15,9 @@
 
 namespace shareaudio {
 
-#ifdef _WIN32
-using NativeSocket = std::uintptr_t;
-#else
-using NativeSocket = int;
-#endif
-
 class TcpSocket {
 public:
     TcpSocket();
-    explicit TcpSocket(NativeSocket socket);
     TcpSocket(const TcpSocket&) = delete;
     TcpSocket& operator=(const TcpSocket&) = delete;
     TcpSocket(TcpSocket&& other) noexcept;
@@ -37,7 +32,14 @@ public:
     [[nodiscard]] bool valid() const;
 
 private:
-    NativeSocket socket_;
+    friend class TcpTransmitterServer;
+
+    using Tcp = asio::ip::tcp;
+
+    TcpSocket(std::shared_ptr<asio::io_context> io, std::shared_ptr<Tcp::socket> socket);
+
+    std::shared_ptr<asio::io_context> io_;
+    std::shared_ptr<Tcp::socket> socket_;
 };
 
 class TcpTransmitterServer {
@@ -52,7 +54,8 @@ public:
 private:
     std::atomic_bool running_ { false };
     std::atomic_size_t accepted_clients_ { 0 };
-    NativeSocket listen_socket_ {};
+    std::shared_ptr<asio::io_context> io_;
+    std::unique_ptr<asio::ip::tcp::acceptor> acceptor_;
     std::thread accept_thread_;
     std::mutex client_threads_mutex_;
     std::vector<std::thread> client_threads_;

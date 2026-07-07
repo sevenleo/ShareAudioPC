@@ -1,19 +1,37 @@
-Start testing: Jul 06 20:51 Hora oficial do Brasil
+Start testing: Jul 06 22:02 Hora oficial do Brasil
 ----------------------------------------------------------
 1/1 Testing: shareaudio_tests
 1/1 Test: shareaudio_tests
 Command: "D:/GITHUB/ShareAudioPC_2/build/windows-debug/shareaudio_tests.exe"
 Directory: D:/GITHUB/ShareAudioPC_2/build/windows-debug
-"shareaudio_tests" start time: Jul 06 20:51 Hora oficial do Brasil
+"shareaudio_tests" start time: Jul 06 22:02 Hora oficial do Brasil
 Output:
 ----------------------------------------------------------
+[info] PCM broadcast client connected.
+Unknown command. Use 'shareaudio_cli help'.
+Unknown command. Use 'shareaudio_cli help'.
+share supports --mode balanced or --mode ultrafast. Quality mode requires Opus implementation.
+Usage: shareaudio_cli listen <host>
+ShareAudioLite 0.1.0
+
+Usage:
+  shareaudio_cli share [--mode balanced|ultrafast]
+  shareaudio_cli listen <host>
+  shareaudio_cli devices
+  shareaudio_cli ips
+  shareaudio_cli help
+
+Defaults:
+  share uses balanced mode when --mode is omitted.
+  listen detects the stream mode from the sender.
+  quality mode is hidden until Opus encode/decode is implemented.
 All ShareAudioLite tests passed.
 <end of output>
-Test time =   0.32 sec
+Test time =   0.45 sec
 ----------------------------------------------------------
 Test Passed.
-"shareaudio_tests" end time: Jul 06 20:51 Hora oficial do Brasil
+"shareaudio_tests" end time: Jul 06 22:02 Hora oficial do Brasil
 "shareaudio_tests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Jul 06 20:51 Hora oficial do Brasil
+End testing: Jul 06 22:02 Hora oficial do Brasil

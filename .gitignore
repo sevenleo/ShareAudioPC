@@ -1,0 +1,52 @@
+# Build output
+build/
+out/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+Testing/
+
+# Compiled artifacts
+*.a
+*.ar
+*.dll
+*.dylib
+*.exe
+*.exp
+*.ilk
+*.lib
+*.o
+*.obj
+*.pdb
+*.so
+
+# CMake/Ninja/Make generated files
+*.ninja
+.ninja_deps
+.ninja_log
+Makefile
+compile_commands.json
+
+# Local runtime state
+*.log
+*.tmp
+shareaudiolite*.json
+recent-devices.json
+
+# IDE/editor files
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Vendored repository metadata
+third_party/*/.git/

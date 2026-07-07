@@ -2,101 +2,43 @@
 
 #include "app/Logger.h"
 
-#include <cstring>
-#include <cerrno>
+#include <chrono>
 #include <string>
-
-#ifdef _WIN32
-#ifndef NOMINMAX
-#define NOMINMAX
-#endif
-#include <winsock2.h>
-#include <ws2tcpip.h>
-#else
-#include <arpa/inet.h>
-#include <netdb.h>
-#include <sys/socket.h>
-#include <unistd.h>
-#endif
 
 namespace shareaudio {
 namespace {
 
-#ifdef _WIN32
-constexpr NativeSocket invalid_socket_value = static_cast<NativeSocket>(INVALID_SOCKET);
-#else
-constexpr NativeSocket invalid_socket_value = -1;
-#endif
-
-Result<void> ensure_socket_runtime()
+std::string asio_error_message(const std::string& context, const asio::error_code& error)
 {
-#ifdef _WIN32
-    static bool initialized = false;
-    if (!initialized) {
-        WSADATA data {};
-        if (WSAStartup(MAKEWORD(2, 2), &data) != 0) {
-            return Result<void>::failure(make_error(ErrorCode::NetworkError, "Failed to initialize Winsock."));
-        }
-        initialized = true;
-    }
-#endif
-    return Result<void>::success();
-}
-
-void close_native_socket(NativeSocket socket)
-{
-    if (socket == invalid_socket_value) {
-        return;
-    }
-#ifdef _WIN32
-    closesocket(static_cast<SOCKET>(socket));
-#else
-    close(socket);
-#endif
-}
-
-auto system_socket(NativeSocket socket)
-{
-#ifdef _WIN32
-    return static_cast<SOCKET>(socket);
-#else
-    return socket;
-#endif
-}
-
-std::string last_socket_error_message(const std::string& context)
-{
-#ifdef _WIN32
-    return context + " failed with Winsock error " + std::to_string(WSAGetLastError()) + ".";
-#else
-    return context + " failed: " + std::strerror(errno);
-#endif
+    return context + " failed: " + error.message();
 }
 
 } // namespace
 
 TcpSocket::TcpSocket()
-    : socket_(invalid_socket_value)
+    : io_(std::make_shared<asio::io_context>())
+    , socket_(std::make_shared<Tcp::socket>(*io_))
 {
 }
 
-TcpSocket::TcpSocket(NativeSocket socket)
-    : socket_(socket)
+TcpSocket::TcpSocket(std::shared_ptr<asio::io_context> io, std::shared_ptr<Tcp::socket> socket)
+    : io_(std::move(io))
+    , socket_(std::move(socket))
 {
 }
 
 TcpSocket::TcpSocket(TcpSocket&& other) noexcept
-    : socket_(other.socket_)
+    : io_(std::move(other.io_))
+    , socket_(std::move(other.socket_))
 {
-    other.socket_ = invalid_socket_value;
 }
 
 TcpSocket& TcpSocket::operator=(TcpSocket&& other) noexcept
 {
     if (this != &other) {
         close();
-        socket_ = other.socket_;
-        other.socket_ = invalid_socket_value;
+        io_ = std::move(other.io_);
+        socket_ = std::move(other.socket_);
     }
     return *this;
 }
@@ -108,42 +50,42 @@ TcpSocket::~TcpSocket()
 
 Result<TcpSocket> TcpSocket::connect_to(const std::string& host, std::uint16_t port)
 {
-    auto runtime = ensure_socket_runtime();
-    if (!runtime.ok()) {
-        return Result<TcpSocket>::failure(runtime.error());
+    auto io = std::make_shared<asio::io_context>();
+    auto socket = std::make_shared<Tcp::socket>(*io);
+
+    asio::error_code error;
+    Tcp::resolver resolver(*io);
+    auto endpoints = resolver.resolve(host, std::to_string(port), error);
+    if (error) {
+        return Result<TcpSocket>::failure(make_error(ErrorCode::NetworkError, asio_error_message("resolve", error)));
     }
 
-    addrinfo hints {};
-    hints.ai_family = AF_UNSPEC;
-    hints.ai_socktype = SOCK_STREAM;
+    asio::steady_timer timer(*io);
+    asio::error_code connect_error = asio::error::would_block;
 
-    addrinfo* results = nullptr;
-    const std::string port_text = std::to_string(port);
-    if (getaddrinfo(host.c_str(), port_text.c_str(), &hints, &results) != 0) {
-        return Result<TcpSocket>::failure(make_error(ErrorCode::NetworkError, "Unable to resolve host: " + host));
-    }
+    asio::async_connect(*socket, endpoints, [&](const asio::error_code& async_error, const Tcp::endpoint&) {
+        connect_error = async_error;
+        timer.cancel();
+    });
 
-    NativeSocket connected = invalid_socket_value;
-    for (addrinfo* item = results; item != nullptr; item = item->ai_next) {
-        const auto candidate = static_cast<NativeSocket>(socket(item->ai_family, item->ai_socktype, item->ai_protocol));
-        if (candidate == invalid_socket_value) {
-            continue;
+    timer.expires_after(std::chrono::seconds(5));
+    timer.async_wait([&](const asio::error_code& timer_error) {
+        if (!timer_error && connect_error == asio::error::would_block) {
+            connect_error = asio::error::timed_out;
+            asio::error_code ignored;
+            socket->close(ignored);
         }
+    });
 
-        if (::connect(system_socket(candidate), item->ai_addr, static_cast<int>(item->ai_addrlen)) == 0) {
-            connected = candidate;
-            break;
-        }
-        close_native_socket(candidate);
+    io->run();
+    if (connect_error == asio::error::timed_out) {
+        return Result<TcpSocket>::failure(make_error(ErrorCode::Timeout, "Connection timed out."));
+    }
+    if (connect_error) {
+        return Result<TcpSocket>::failure(make_error(ErrorCode::NetworkError, asio_error_message("connect", connect_error)));
     }
 
-    freeaddrinfo(results);
-
-    if (connected == invalid_socket_value) {
-        return Result<TcpSocket>::failure(make_error(ErrorCode::NetworkError, "Unable to connect to " + host + ":" + port_text));
-    }
-
-    return Result<TcpSocket>::success(TcpSocket(connected));
+    return Result<TcpSocket>::success(TcpSocket(std::move(io), std::move(socket)));
 }
 
 Result<void> TcpSocket::send_all(std::span<const std::uint8_t> bytes)
@@ -152,14 +94,10 @@ Result<void> TcpSocket::send_all(std::span<const std::uint8_t> bytes)
         return Result<void>::failure(make_error(ErrorCode::NetworkError, "Cannot send on a closed socket."));
     }
 
-    std::size_t sent = 0;
-    while (sent < bytes.size()) {
-        const auto remaining = static_cast<int>(bytes.size() - sent);
-        const int rc = send(system_socket(socket_), reinterpret_cast<const char*>(bytes.data() + sent), remaining, 0);
-        if (rc <= 0) {
-            return Result<void>::failure(make_error(ErrorCode::NetworkError, last_socket_error_message("send")));
-        }
-        sent += static_cast<std::size_t>(rc);
+    asio::error_code error;
+    asio::write(*socket_, asio::buffer(bytes.data(), bytes.size()), error);
+    if (error) {
+        return Result<void>::failure(make_error(ErrorCode::NetworkError, asio_error_message("send", error)));
     }
     return Result<void>::success();
 }
@@ -171,82 +109,78 @@ Result<std::vector<std::uint8_t>> TcpSocket::receive_exact(std::size_t byte_coun
     }
 
     std::vector<std::uint8_t> output(byte_count);
-    std::size_t received = 0;
-    while (received < byte_count) {
-        const auto remaining = static_cast<int>(byte_count - received);
-        const int rc = recv(system_socket(socket_), reinterpret_cast<char*>(output.data() + received), remaining, 0);
-        if (rc == 0) {
-            return Result<std::vector<std::uint8_t>>::failure(make_error(ErrorCode::NetworkError, "Socket disconnected before enough bytes were received."));
-        }
-        if (rc < 0) {
-            return Result<std::vector<std::uint8_t>>::failure(make_error(ErrorCode::NetworkError, last_socket_error_message("recv")));
-        }
-        received += static_cast<std::size_t>(rc);
+    asio::error_code error;
+    asio::read(*socket_, asio::buffer(output.data(), output.size()), error);
+    if (error) {
+        return Result<std::vector<std::uint8_t>>::failure(make_error(ErrorCode::NetworkError, asio_error_message("receive", error)));
     }
     return Result<std::vector<std::uint8_t>>::success(std::move(output));
 }
 
 void TcpSocket::close()
 {
-    close_native_socket(socket_);
-    socket_ = invalid_socket_value;
+    if (!socket_) {
+        return;
+    }
+
+    asio::error_code ignored;
+    if (socket_->is_open()) {
+        socket_->shutdown(Tcp::socket::shutdown_both, ignored);
+        socket_->close(ignored);
+    }
 }
 
 bool TcpSocket::valid() const
 {
-    return socket_ != invalid_socket_value;
+    return socket_ && socket_->is_open();
 }
 
 Result<void> TcpTransmitterServer::start(std::uint16_t port, ClientHandler handler)
 {
-    auto runtime = ensure_socket_runtime();
-    if (!runtime.ok()) {
-        return runtime;
-    }
     if (running_) {
         return Result<void>::failure(make_error(ErrorCode::InvalidState, "TCP server is already running."));
     }
 
-    listen_socket_ = static_cast<NativeSocket>(socket(AF_INET, SOCK_STREAM, IPPROTO_TCP));
-    if (listen_socket_ == invalid_socket_value) {
-        return Result<void>::failure(make_error(ErrorCode::NetworkError, last_socket_error_message("socket")));
+    io_ = std::make_shared<asio::io_context>();
+    asio::error_code error;
+    const TcpSocket::Tcp::endpoint endpoint(TcpSocket::Tcp::v4(), port);
+    acceptor_ = std::make_unique<TcpSocket::Tcp::acceptor>(*io_);
+    acceptor_->open(endpoint.protocol(), error);
+    if (error) {
+        return Result<void>::failure(make_error(ErrorCode::NetworkError, asio_error_message("open", error)));
     }
 
-    int yes = 1;
-    setsockopt(system_socket(listen_socket_), SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<const char*>(&yes), sizeof(yes));
-
-    sockaddr_in address {};
-    address.sin_family = AF_INET;
-    address.sin_addr.s_addr = htonl(INADDR_ANY);
-    address.sin_port = htons(port);
-
-    if (bind(system_socket(listen_socket_), reinterpret_cast<sockaddr*>(&address), sizeof(address)) != 0) {
-        close_native_socket(listen_socket_);
-        listen_socket_ = invalid_socket_value;
-        return Result<void>::failure(make_error(ErrorCode::NetworkError, last_socket_error_message("bind")));
+    acceptor_->set_option(TcpSocket::Tcp::acceptor::reuse_address(true), error);
+    if (error) {
+        return Result<void>::failure(make_error(ErrorCode::NetworkError, asio_error_message("set reuse_address", error)));
     }
 
-    if (listen(system_socket(listen_socket_), SOMAXCONN) != 0) {
-        close_native_socket(listen_socket_);
-        listen_socket_ = invalid_socket_value;
-        return Result<void>::failure(make_error(ErrorCode::NetworkError, last_socket_error_message("listen")));
+    acceptor_->bind(endpoint, error);
+    if (error) {
+        return Result<void>::failure(make_error(ErrorCode::NetworkError, asio_error_message("bind", error)));
+    }
+
+    acceptor_->listen(asio::socket_base::max_listen_connections, error);
+    if (error) {
+        return Result<void>::failure(make_error(ErrorCode::NetworkError, asio_error_message("listen", error)));
     }
 
     running_ = true;
     accept_thread_ = std::thread([this, handler = std::move(handler)] {
         while (running_) {
-            sockaddr_storage client_address {};
-            socklen_t client_size = sizeof(client_address);
-            const auto client_socket = static_cast<NativeSocket>(accept(system_socket(listen_socket_), reinterpret_cast<sockaddr*>(&client_address), &client_size));
-            if (client_socket == invalid_socket_value) {
+            auto client_socket = std::make_shared<TcpSocket::Tcp::socket>(*io_);
+            asio::error_code accept_error;
+            acceptor_->accept(*client_socket, accept_error);
+
+            if (accept_error) {
                 if (running_) {
-                    Logger::warning(last_socket_error_message("accept"));
+                    Logger::warning(asio_error_message("accept", accept_error));
                 }
                 continue;
             }
 
             ++accepted_clients_;
-            auto socket = std::make_shared<TcpSocket>(client_socket);
+            std::shared_ptr<TcpSocket> socket(new TcpSocket(io_, std::move(client_socket)));
             std::scoped_lock lock(client_threads_mutex_);
             client_threads_.emplace_back([handler, socket] {
                 handler(socket);
@@ -260,8 +194,15 @@ Result<void> TcpTransmitterServer::start(std::uint16_t port, ClientHandler handl
 void TcpTransmitterServer::stop()
 {
     running_ = false;
-    close_native_socket(listen_socket_);
-    listen_socket_ = invalid_socket_value;
+
+    if (acceptor_) {
+        asio::error_code ignored;
+        acceptor_->cancel(ignored);
+        acceptor_->close(ignored);
+    }
+    if (io_) {
+        io_->stop();
+    }
 
     if (accept_thread_.joinable()) {
         accept_thread_.join();
@@ -274,6 +215,8 @@ void TcpTransmitterServer::stop()
         }
     }
     client_threads_.clear();
+    acceptor_.reset();
+    io_.reset();
 }
 
 bool TcpTransmitterServer::running() const

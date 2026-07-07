@@ -284,6 +284,54 @@ src/audio/AudioAbstractions.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/audio/AudioAbstractions.cpp.s
 .PHONY : src/audio/AudioAbstractions.cpp.s
 
+src/audio/AudioPipeline.obj: src/audio/AudioPipeline.cpp.obj
+.PHONY : src/audio/AudioPipeline.obj
+
+# target to build an object file
+src/audio/AudioPipeline.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/audio/AudioPipeline.cpp.obj
+.PHONY : src/audio/AudioPipeline.cpp.obj
+
+src/audio/AudioPipeline.i: src/audio/AudioPipeline.cpp.i
+.PHONY : src/audio/AudioPipeline.i
+
+# target to preprocess a source file
+src/audio/AudioPipeline.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/audio/AudioPipeline.cpp.i
+.PHONY : src/audio/AudioPipeline.cpp.i
+
+src/audio/AudioPipeline.s: src/audio/AudioPipeline.cpp.s
+.PHONY : src/audio/AudioPipeline.s
+
+# target to generate assembly for a file
+src/audio/AudioPipeline.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/audio/AudioPipeline.cpp.s
+.PHONY : src/audio/AudioPipeline.cpp.s
+
+src/audio/MiniaudioBackend.obj: src/audio/MiniaudioBackend.cpp.obj
+.PHONY : src/audio/MiniaudioBackend.obj
+
+# target to build an object file
+src/audio/MiniaudioBackend.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/audio/MiniaudioBackend.cpp.obj
+.PHONY : src/audio/MiniaudioBackend.cpp.obj
+
+src/audio/MiniaudioBackend.i: src/audio/MiniaudioBackend.cpp.i
+.PHONY : src/audio/MiniaudioBackend.i
+
+# target to preprocess a source file
+src/audio/MiniaudioBackend.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/audio/MiniaudioBackend.cpp.i
+.PHONY : src/audio/MiniaudioBackend.cpp.i
+
+src/audio/MiniaudioBackend.s: src/audio/MiniaudioBackend.cpp.s
+.PHONY : src/audio/MiniaudioBackend.s
+
+# target to generate assembly for a file
+src/audio/MiniaudioBackend.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/audio/MiniaudioBackend.cpp.s
+.PHONY : src/audio/MiniaudioBackend.cpp.s
+
 src/codec/OpusCodec.obj: src/codec/OpusCodec.cpp.obj
 .PHONY : src/codec/OpusCodec.obj
 
@@ -331,6 +379,54 @@ src/main.s: src/main.cpp.s
 src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_cli.dir\build.make CMakeFiles/shareaudio_cli.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
+
+src/network/LoopbackTest.obj: src/network/LoopbackTest.cpp.obj
+.PHONY : src/network/LoopbackTest.obj
+
+# target to build an object file
+src/network/LoopbackTest.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/network/LoopbackTest.cpp.obj
+.PHONY : src/network/LoopbackTest.cpp.obj
+
+src/network/LoopbackTest.i: src/network/LoopbackTest.cpp.i
+.PHONY : src/network/LoopbackTest.i
+
+# target to preprocess a source file
+src/network/LoopbackTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/network/LoopbackTest.cpp.i
+.PHONY : src/network/LoopbackTest.cpp.i
+
+src/network/LoopbackTest.s: src/network/LoopbackTest.cpp.s
+.PHONY : src/network/LoopbackTest.s
+
+# target to generate assembly for a file
+src/network/LoopbackTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/network/LoopbackTest.cpp.s
+.PHONY : src/network/LoopbackTest.cpp.s
+
+src/network/PcmBroadcastServer.obj: src/network/PcmBroadcastServer.cpp.obj
+.PHONY : src/network/PcmBroadcastServer.obj
+
+# target to build an object file
+src/network/PcmBroadcastServer.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/network/PcmBroadcastServer.cpp.obj
+.PHONY : src/network/PcmBroadcastServer.cpp.obj
+
+src/network/PcmBroadcastServer.i: src/network/PcmBroadcastServer.cpp.i
+.PHONY : src/network/PcmBroadcastServer.i
+
+# target to preprocess a source file
+src/network/PcmBroadcastServer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/network/PcmBroadcastServer.cpp.i
+.PHONY : src/network/PcmBroadcastServer.cpp.i
+
+src/network/PcmBroadcastServer.s: src/network/PcmBroadcastServer.cpp.s
+.PHONY : src/network/PcmBroadcastServer.s
+
+# target to generate assembly for a file
+src/network/PcmBroadcastServer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/network/PcmBroadcastServer.cpp.s
+.PHONY : src/network/PcmBroadcastServer.cpp.s
 
 src/network/TcpSocket.obj: src/network/TcpSocket.cpp.obj
 .PHONY : src/network/TcpSocket.obj
@@ -403,6 +499,30 @@ src/protocol/JitterBuffer.s: src/protocol/JitterBuffer.cpp.s
 src/protocol/JitterBuffer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/protocol/JitterBuffer.cpp.s
 .PHONY : src/protocol/JitterBuffer.cpp.s
+
+src/protocol/PcmChunker.obj: src/protocol/PcmChunker.cpp.obj
+.PHONY : src/protocol/PcmChunker.obj
+
+# target to build an object file
+src/protocol/PcmChunker.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/protocol/PcmChunker.cpp.obj
+.PHONY : src/protocol/PcmChunker.cpp.obj
+
+src/protocol/PcmChunker.i: src/protocol/PcmChunker.cpp.i
+.PHONY : src/protocol/PcmChunker.i
+
+# target to preprocess a source file
+src/protocol/PcmChunker.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/protocol/PcmChunker.cpp.i
+.PHONY : src/protocol/PcmChunker.cpp.i
+
+src/protocol/PcmChunker.s: src/protocol/PcmChunker.cpp.s
+.PHONY : src/protocol/PcmChunker.s
+
+# target to generate assembly for a file
+src/protocol/PcmChunker.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\shareaudio_core.dir\build.make CMakeFiles/shareaudio_core.dir/src/protocol/PcmChunker.cpp.s
+.PHONY : src/protocol/PcmChunker.cpp.s
 
 src/protocol/Protocol.obj: src/protocol/Protocol.cpp.obj
 .PHONY : src/protocol/Protocol.obj
@@ -527,12 +647,24 @@ help:
 	@echo ... src/audio/AudioAbstractions.obj
 	@echo ... src/audio/AudioAbstractions.i
 	@echo ... src/audio/AudioAbstractions.s
+	@echo ... src/audio/AudioPipeline.obj
+	@echo ... src/audio/AudioPipeline.i
+	@echo ... src/audio/AudioPipeline.s
+	@echo ... src/audio/MiniaudioBackend.obj
+	@echo ... src/audio/MiniaudioBackend.i
+	@echo ... src/audio/MiniaudioBackend.s
 	@echo ... src/codec/OpusCodec.obj
 	@echo ... src/codec/OpusCodec.i
 	@echo ... src/codec/OpusCodec.s
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s
+	@echo ... src/network/LoopbackTest.obj
+	@echo ... src/network/LoopbackTest.i
+	@echo ... src/network/LoopbackTest.s
+	@echo ... src/network/PcmBroadcastServer.obj
+	@echo ... src/network/PcmBroadcastServer.i
+	@echo ... src/network/PcmBroadcastServer.s
 	@echo ... src/network/TcpSocket.obj
 	@echo ... src/network/TcpSocket.i
 	@echo ... src/network/TcpSocket.s
@@ -542,6 +674,9 @@ help:
 	@echo ... src/protocol/JitterBuffer.obj
 	@echo ... src/protocol/JitterBuffer.i
 	@echo ... src/protocol/JitterBuffer.s
+	@echo ... src/protocol/PcmChunker.obj
+	@echo ... src/protocol/PcmChunker.i
+	@echo ... src/protocol/PcmChunker.s
 	@echo ... src/protocol/Protocol.obj
 	@echo ... src/protocol/Protocol.i
 	@echo ... src/protocol/Protocol.s

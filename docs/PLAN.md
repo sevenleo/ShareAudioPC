@@ -3,6 +3,9 @@
 ## Summary
 Build **ShareAudioLite** as a cross-platform Windows/Linux application based on the original specification in `docs/ideia.md`. The application will work as both an audio **Transmitter** and **Receiver** over a local TCP network, supporting raw PCM low-latency modes and Opus quality mode.
 
+## Current Implementation Snapshot
+The current MVP is a native C++20 console application. It supports raw PCM sharing/listening over TCP with the simplified CLI, `SAL1` stream headers, and receiver mode autodetection. Quality Mode/Opus, browser listening, Android/Web compatibility, Linux verification, and manual cross-machine test coverage remain pending.
+
 The planned implementation stack is:
 
 - **Language:** C++20
@@ -38,8 +41,8 @@ The planned implementation stack is:
 - [ ] Verify that the empty application builds on Linux.
 
 ## Phase 2 - Third-Party Dependencies
-- [ ] Add `miniaudio` to `third_party`.
-- [ ] Add `standalone Asio` to `third_party` or configure it through CMake.
+- [x] Add `miniaudio` to `third_party`.
+- [x] Add `standalone Asio` to `third_party` or configure it through CMake.
 - [x] Add `libopus` integration switch.
 - [x] Add compile-time feature flags:
   - [x] `SHAREAUDIO_ENABLE_OPUS`
@@ -48,8 +51,8 @@ The planned implementation stack is:
   - [x] `SHAREAUDIO_ENABLE_DESKTOP_UI`
 - [x] Document required Linux packages.
 - [x] Document required Windows compiler/toolchain.
-- [ ] Confirm dependency licenses are acceptable.
-- [ ] Ensure dependencies are pinned to known versions.
+- [x] Confirm dependency licenses are acceptable.
+- [x] Ensure dependencies are pinned to known versions.
 
 ## Phase 3 - Core Configuration Model
 - [x] Define `AudioFormat`.
@@ -80,10 +83,16 @@ The planned implementation stack is:
 - [x] Implement Opus frame header handling.
 - [x] Encode Opus packet length as 2-byte Big-Endian.
 - [x] Decode Opus packet length as 2-byte Big-Endian.
+- [x] Implement native stream session header with `SAL1` magic.
+- [x] Encode stream mode, codec, channel count, bytes per sample, sample rate, and packet size in the session header.
+- [x] Decode and validate the native stream session header.
+- [x] Reject invalid stream header magic, version, mode, codec, sample format, and packet size.
 - [x] Add strict bounds checking for packet sizes.
 - [x] Add protection against malformed packet length values.
 - [x] Add protocol unit tests for PCM packet sizes.
 - [x] Add protocol unit tests for Opus length prefix encoding.
+- [x] Add protocol unit tests for native stream header encoding and decoding.
+- [x] Add protocol unit tests for invalid native stream headers.
 - [x] Add protocol unit tests for short reads and malformed packets.
 - [x] Keep the protocol isolated so Android/Web compatibility can be adjusted without rewriting audio or UI code.
 
@@ -92,16 +101,17 @@ The planned implementation stack is:
 - [x] Implement TCP server shutdown.
 - [x] Implement async client accept loop.
 - [x] Support multiple connected receiver clients.
+- [x] Send the native stream session header to every accepted receiver before audio bytes.
 - [x] Implement client connection lifecycle tracking.
 - [x] Implement TCP client connection by IP address.
 - [x] Implement TCP client disconnect.
 - [x] Implement exact byte reads.
 - [x] Implement exact byte writes.
-- [ ] Add timeout handling for connect operations.
+- [x] Add timeout handling for connect operations.
 - [x] Add disconnect detection.
 - [x] Add network error reporting.
 - [x] Add graceful shutdown on application exit.
-- [ ] Add tests using localhost sockets where possible.
+- [x] Add tests using localhost sockets where possible.
 
 ## Phase 6 - Local IP And Loop Prevention
 - [x] Enumerate local IPv4 addresses.
@@ -132,26 +142,26 @@ The planned implementation stack is:
 - [x] Add logging for capture start/stop/device errors.
 
 ## Phase 8 - Windows Audio Capture
-- [ ] Implement Windows capture backend using miniaudio with WASAPI where possible.
-- [ ] Implement system-audio loopback capture on Windows.
-- [ ] Use the default playback device as the default loopback source.
-- [ ] Support selecting a specific playback device for loopback capture.
-- [ ] Convert captured audio to the project PCM format when needed.
-- [ ] Handle device format mismatch.
+- [x] Implement Windows capture backend using miniaudio with WASAPI where possible.
+- [x] Implement system-audio loopback capture on Windows.
+- [x] Use the default playback device as the default loopback source.
+- [x] Support selecting a specific playback device for loopback capture.
+- [x] Convert captured audio to the project PCM format when needed.
+- [x] Handle device format mismatch.
 - [ ] Handle capture device reset/disconnect.
 - [ ] Verify capture works with common Windows output devices.
 - [ ] Verify capture works when system audio is silent.
 - [ ] Verify capture recovers cleanly after stop/start.
 
 ## Phase 9 - Linux Audio Capture
-- [ ] Implement Linux capture backend using miniaudio.
-- [ ] Support selecting an available capture device.
+- [x] Implement Linux capture backend using miniaudio.
+- [x] Support selecting an available capture device.
 - [x] Document that Linux system-audio capture may require choosing a monitor/source device.
 - [ ] Prefer PulseAudio/PipeWire monitor sources when available.
-- [ ] Support ALSA fallback where possible.
-- [ ] Convert captured audio to the project PCM format when needed.
-- [ ] Handle missing monitor source.
-- [ ] Handle device busy errors.
+- [x] Support ALSA fallback where possible.
+- [x] Convert captured audio to the project PCM format when needed.
+- [x] Handle missing monitor source.
+- [x] Handle device busy errors.
 - [ ] Handle device disconnect.
 - [ ] Verify capture on a PipeWire-based desktop.
 - [ ] Verify capture on a PulseAudio-based desktop if available.
@@ -174,51 +184,53 @@ The planned implementation stack is:
 - [ ] Add error handling for output device disconnect.
 
 ## Phase 11 - Windows Audio Playback
-- [ ] Implement Windows playback backend using miniaudio/WASAPI.
-- [ ] Play 48 kHz stereo signed 16-bit PCM.
-- [ ] Support default playback device.
-- [ ] Support selected playback device.
-- [ ] Handle playback device format conversion.
-- [ ] Handle playback stop/start.
+- [x] Implement Windows playback backend using miniaudio/WASAPI.
+- [x] Play 48 kHz stereo signed 16-bit PCM.
+- [x] Support default playback device.
+- [x] Support selected playback device.
+- [x] Handle playback device format conversion.
+- [x] Handle playback stop/start.
 - [ ] Handle device disconnect.
 - [ ] Verify playback with generated test tone.
 - [ ] Verify playback with received network PCM.
 
 ## Phase 12 - Linux Audio Playback
-- [ ] Implement Linux playback backend using miniaudio.
-- [ ] Support PulseAudio/PipeWire/ALSA backends as available.
-- [ ] Play 48 kHz stereo signed 16-bit PCM.
-- [ ] Support default playback device.
-- [ ] Support selected playback device.
-- [ ] Handle playback device format conversion.
-- [ ] Handle playback stop/start.
+- [x] Implement Linux playback backend using miniaudio.
+- [x] Support PulseAudio/PipeWire/ALSA backends as available.
+- [x] Play 48 kHz stereo signed 16-bit PCM.
+- [x] Support default playback device.
+- [x] Support selected playback device.
+- [x] Handle playback device format conversion.
+- [x] Handle playback stop/start.
 - [ ] Handle device disconnect.
 - [ ] Verify playback with generated test tone.
 - [ ] Verify playback with received network PCM.
 
 ## Phase 13 - PCM Transmitter Pipeline
-- [ ] Connect audio capture to TCP server.
+- [x] Connect audio capture to TCP server.
 - [x] Implement a producer/consumer queue between capture and network.
 - [x] Implement Balanced Mode packetization with 2048-byte chunks.
 - [x] Implement Ultrafast Mode packetization with 1024-byte chunks.
-- [ ] Broadcast PCM packets to all connected clients.
-- [ ] Drop or backpressure slow clients without blocking capture.
-- [ ] Remove disconnected clients safely.
-- [ ] Track transmitted byte count.
-- [ ] Track connected client count.
-- [ ] Add logs for transmission start/stop.
+- [x] Broadcast PCM packets to all connected clients.
+- [x] Drop or backpressure slow clients without blocking capture.
+- [x] Remove disconnected clients safely.
+- [x] Track transmitted byte count.
+- [x] Track connected client count.
+- [x] Add logs for transmission start/stop.
 - [ ] Verify stable transmission for at least 10 minutes.
 
 ## Phase 14 - PCM Receiver Pipeline
-- [ ] Connect TCP client to audio playback.
-- [ ] Implement read loop for raw PCM mode.
+- [x] Connect TCP client to audio playback.
+- [x] Implement read loop for raw PCM mode.
+- [x] Read and validate the native stream session header before PCM packets.
+- [x] Autodetect receiver stream mode and packet size from the session header.
 - [x] Feed received PCM into jitter buffer.
 - [x] Feed jitter buffer output into playback.
 - [x] Handle short reads.
-- [ ] Handle server disconnect.
+- [x] Handle server disconnect.
 - [x] Handle playback underrun.
-- [ ] Add reconnect-safe shutdown.
-- [ ] Track received byte count.
+- [x] Add reconnect-safe shutdown.
+- [x] Track received byte count.
 - [x] Track current buffer depth.
 - [ ] Verify receiver plays Windows transmitter audio.
 - [ ] Verify receiver plays Linux transmitter audio.
@@ -299,12 +311,29 @@ The planned implementation stack is:
 
 ## Phase 20 - Console UI MVP
 - [x] Add a simple console UI for early testing.
+- [x] Replace implementation-oriented flags with simple user-facing subcommands:
+  - [x] `share`
+  - [x] `share --mode ultrafast`
+  - [x] `listen <host>`
+  - [x] `devices`
+  - [x] `ips`
+  - [x] `help`
+- [x] Default `share` to Balanced Mode when no mode is provided.
+- [x] Autodetect receiver mode from the native stream session header.
+- [x] Remove legacy CLI flags from help and parser:
+  - [x] `--status`
+  - [x] `--start-transmitter`
+  - [x] `--connect`
+  - [x] `--transmit-pcm`
+  - [x] `--receive-pcm`
+  - [x] `--list-ips`
+  - [x] `--list-audio-devices`
 - [x] Show current local IP addresses.
 - [x] Allow starting transmitter.
-- [x] Allow selecting mode:
-  - [x] Quality
+- [x] Allow selecting supported PCM modes:
   - [x] Balanced
   - [x] Ultrafast
+- [x] Reject Quality Mode with a clear error until Opus network mode is implemented.
 - [x] Allow connecting receiver by IP.
 - [x] Allow disconnecting receiver.
 - [x] Show connected clients.
@@ -356,8 +385,8 @@ The planned implementation stack is:
   - [x] warning
   - [x] info
   - [x] debug
-- [ ] Log audio backend selection.
-- [ ] Log selected audio devices.
+- [x] Log audio backend selection.
+- [x] Log selected audio devices.
 - [x] Log network connections.
 - [x] Log network disconnections.
 - [x] Log protocol errors.
@@ -396,8 +425,8 @@ The planned implementation stack is:
 - [x] Add unit tests for local IP detection.
 - [x] Add unit tests for jitter buffer behavior.
 - [x] Add unit tests for Opus wrapper when enabled.
-- [ ] Add network integration tests.
-- [ ] Add loopback client/server integration test.
+- [x] Add network integration tests.
+- [x] Add loopback client/server integration test.
 - [x] Add generated PCM test source.
 - [x] Add playback-free receiver test using a fake audio sink.
 - [x] Add transmitter test using a fake audio source.
@@ -452,6 +481,8 @@ The planned implementation stack is:
 
 ## Phase 29 - Documentation
 - [x] Write `README.md`.
+- [x] Write `CHANGELOG.md`.
+- [x] Write `docs/CURRENT_STATUS.md`.
 - [x] Document project goals.
 - [x] Document supported platforms.
 - [x] Document build steps.
@@ -463,7 +494,11 @@ The planned implementation stack is:
 - [x] Document Android/Web compatibility status.
 - [x] Document troubleshooting.
 - [x] Document protocol summary.
-- [x] Keep `docs/ideia.md` as the original source idea.
+- [x] Document simplified CLI commands.
+- [x] Document `SAL1` stream session header behavior.
+- [x] Document current browser/Android/Web status.
+- [x] Document current Opus/Quality Mode limitation.
+- [x] Keep `docs/ideia.md` as the original source idea with a current-state note.
 - [x] Keep `docs/PLAN.md` as the implementation checklist.
 
 ## Phase 30 - Release Readiness
@@ -472,18 +507,21 @@ The planned implementation stack is:
 - [x] Confirm automated tests pass.
 - [ ] Confirm manual test matrix is complete enough for first release.
 - [ ] Confirm PCM modes are stable.
-- [ ] Confirm Opus mode is stable or clearly marked experimental.
+- [x] Confirm Opus mode is stable or clearly marked experimental.
 - [ ] Confirm logs are useful for troubleshooting.
-- [ ] Confirm configuration survives restart.
+- [x] Confirm configuration survives restart.
 - [x] Confirm recent devices survive restart.
-- [ ] Confirm no known crash on normal disconnect paths.
+- [x] Confirm no known crash on normal disconnect paths.
 - [ ] Tag first MVP release.
 
 ## Public Interfaces And Internal Contracts
 - [x] `IAudioCapture` provides normalized PCM frames.
 - [x] `IAudioPlayback` consumes normalized PCM frames.
+- [x] `StreamHeader` describes the native stream mode, codec, format, and packet size.
 - [x] `ProtocolWriter` serializes PCM and Opus packets.
 - [x] `ProtocolReader` deserializes PCM and Opus packets.
+- [x] `ProtocolWriter` serializes the native stream session header.
+- [x] `ProtocolReader` deserializes and validates the native stream session header.
 - [x] `TcpTransmitterServer` manages receiver clients.
 - [x] `TcpReceiverClient` manages one transmitter connection.
 - [x] `OpusEncoder` accepts PCM and returns Opus frames.
@@ -498,6 +536,7 @@ The planned implementation stack is:
 - [ ] A Linux transmitter can stream PCM to a Linux receiver.
 - [ ] Cross-platform Windows/Linux PCM streaming works.
 - [x] Opus Quality Mode works or is explicitly marked incomplete.
+- [x] Receiver autodetects stream mode from the native stream session header.
 - [x] Receiver blocks self-connections.
 - [x] Recent devices are persisted.
 - [x] Network disconnects do not crash the app.
@@ -509,4 +548,5 @@ The planned implementation stack is:
 - Raw PCM modes should be implemented before Opus.
 - Android/Web source code will be reviewed before final compatibility is claimed.
 - Linux system-audio capture may require selecting a monitor/source device depending on the user's audio stack.
+- The native Windows/Linux CLI protocol now starts with a `SAL1` stream session header and does not support legacy no-header streams.
 - The protocol may need minor adjustments after validating the existing Android/Web implementation.

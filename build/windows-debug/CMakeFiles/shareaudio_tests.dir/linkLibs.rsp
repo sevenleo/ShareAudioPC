@@ -1,1 +1,1 @@
- libshareaudio_core.a -lws2_32 -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 
+ libshareaudio_core.a -lws2_32 -lmswsock -lole32 -luuid -lwinmm -lavrt -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 

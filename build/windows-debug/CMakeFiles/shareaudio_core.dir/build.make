@@ -143,11 +143,41 @@ CMakeFiles/shareaudio_core.dir/src/audio/AudioAbstractions.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/shareaudio_core.dir/src/audio/AudioAbstractions.cpp.s"
 	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\GITHUB\ShareAudioPC_2\src\audio\AudioAbstractions.cpp -o CMakeFiles\shareaudio_core.dir\src\audio\AudioAbstractions.cpp.s
 
+CMakeFiles/shareaudio_core.dir/src/audio/MiniaudioBackend.cpp.obj: CMakeFiles/shareaudio_core.dir/flags.make
+CMakeFiles/shareaudio_core.dir/src/audio/MiniaudioBackend.cpp.obj: CMakeFiles/shareaudio_core.dir/includes_CXX.rsp
+CMakeFiles/shareaudio_core.dir/src/audio/MiniaudioBackend.cpp.obj: D:/GITHUB/ShareAudioPC_2/src/audio/MiniaudioBackend.cpp
+CMakeFiles/shareaudio_core.dir/src/audio/MiniaudioBackend.cpp.obj: CMakeFiles/shareaudio_core.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/shareaudio_core.dir/src/audio/MiniaudioBackend.cpp.obj"
+	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/shareaudio_core.dir/src/audio/MiniaudioBackend.cpp.obj -MF CMakeFiles\shareaudio_core.dir\src\audio\MiniaudioBackend.cpp.obj.d -o CMakeFiles\shareaudio_core.dir\src\audio\MiniaudioBackend.cpp.obj -c D:\GITHUB\ShareAudioPC_2\src\audio\MiniaudioBackend.cpp
+
+CMakeFiles/shareaudio_core.dir/src/audio/MiniaudioBackend.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/shareaudio_core.dir/src/audio/MiniaudioBackend.cpp.i"
+	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\GITHUB\ShareAudioPC_2\src\audio\MiniaudioBackend.cpp > CMakeFiles\shareaudio_core.dir\src\audio\MiniaudioBackend.cpp.i
+
+CMakeFiles/shareaudio_core.dir/src/audio/MiniaudioBackend.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/shareaudio_core.dir/src/audio/MiniaudioBackend.cpp.s"
+	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\GITHUB\ShareAudioPC_2\src\audio\MiniaudioBackend.cpp -o CMakeFiles\shareaudio_core.dir\src\audio\MiniaudioBackend.cpp.s
+
+CMakeFiles/shareaudio_core.dir/src/audio/AudioPipeline.cpp.obj: CMakeFiles/shareaudio_core.dir/flags.make
+CMakeFiles/shareaudio_core.dir/src/audio/AudioPipeline.cpp.obj: CMakeFiles/shareaudio_core.dir/includes_CXX.rsp
+CMakeFiles/shareaudio_core.dir/src/audio/AudioPipeline.cpp.obj: D:/GITHUB/ShareAudioPC_2/src/audio/AudioPipeline.cpp
+CMakeFiles/shareaudio_core.dir/src/audio/AudioPipeline.cpp.obj: CMakeFiles/shareaudio_core.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/shareaudio_core.dir/src/audio/AudioPipeline.cpp.obj"
+	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/shareaudio_core.dir/src/audio/AudioPipeline.cpp.obj -MF CMakeFiles\shareaudio_core.dir\src\audio\AudioPipeline.cpp.obj.d -o CMakeFiles\shareaudio_core.dir\src\audio\AudioPipeline.cpp.obj -c D:\GITHUB\ShareAudioPC_2\src\audio\AudioPipeline.cpp
+
+CMakeFiles/shareaudio_core.dir/src/audio/AudioPipeline.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/shareaudio_core.dir/src/audio/AudioPipeline.cpp.i"
+	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\GITHUB\ShareAudioPC_2\src\audio\AudioPipeline.cpp > CMakeFiles\shareaudio_core.dir\src\audio\AudioPipeline.cpp.i
+
+CMakeFiles/shareaudio_core.dir/src/audio/AudioPipeline.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/shareaudio_core.dir/src/audio/AudioPipeline.cpp.s"
+	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\GITHUB\ShareAudioPC_2\src\audio\AudioPipeline.cpp -o CMakeFiles\shareaudio_core.dir\src\audio\AudioPipeline.cpp.s
+
 CMakeFiles/shareaudio_core.dir/src/codec/OpusCodec.cpp.obj: CMakeFiles/shareaudio_core.dir/flags.make
 CMakeFiles/shareaudio_core.dir/src/codec/OpusCodec.cpp.obj: CMakeFiles/shareaudio_core.dir/includes_CXX.rsp
 CMakeFiles/shareaudio_core.dir/src/codec/OpusCodec.cpp.obj: D:/GITHUB/ShareAudioPC_2/src/codec/OpusCodec.cpp
 CMakeFiles/shareaudio_core.dir/src/codec/OpusCodec.cpp.obj: CMakeFiles/shareaudio_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/shareaudio_core.dir/src/codec/OpusCodec.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/shareaudio_core.dir/src/codec/OpusCodec.cpp.obj"
 	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/shareaudio_core.dir/src/codec/OpusCodec.cpp.obj -MF CMakeFiles\shareaudio_core.dir\src\codec\OpusCodec.cpp.obj.d -o CMakeFiles\shareaudio_core.dir\src\codec\OpusCodec.cpp.obj -c D:\GITHUB\ShareAudioPC_2\src\codec\OpusCodec.cpp
 
 CMakeFiles/shareaudio_core.dir/src/codec/OpusCodec.cpp.i: cmake_force
@@ -158,11 +188,41 @@ CMakeFiles/shareaudio_core.dir/src/codec/OpusCodec.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/shareaudio_core.dir/src/codec/OpusCodec.cpp.s"
 	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\GITHUB\ShareAudioPC_2\src\codec\OpusCodec.cpp -o CMakeFiles\shareaudio_core.dir\src\codec\OpusCodec.cpp.s
 
+CMakeFiles/shareaudio_core.dir/src/network/LoopbackTest.cpp.obj: CMakeFiles/shareaudio_core.dir/flags.make
+CMakeFiles/shareaudio_core.dir/src/network/LoopbackTest.cpp.obj: CMakeFiles/shareaudio_core.dir/includes_CXX.rsp
+CMakeFiles/shareaudio_core.dir/src/network/LoopbackTest.cpp.obj: D:/GITHUB/ShareAudioPC_2/src/network/LoopbackTest.cpp
+CMakeFiles/shareaudio_core.dir/src/network/LoopbackTest.cpp.obj: CMakeFiles/shareaudio_core.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/shareaudio_core.dir/src/network/LoopbackTest.cpp.obj"
+	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/shareaudio_core.dir/src/network/LoopbackTest.cpp.obj -MF CMakeFiles\shareaudio_core.dir\src\network\LoopbackTest.cpp.obj.d -o CMakeFiles\shareaudio_core.dir\src\network\LoopbackTest.cpp.obj -c D:\GITHUB\ShareAudioPC_2\src\network\LoopbackTest.cpp
+
+CMakeFiles/shareaudio_core.dir/src/network/LoopbackTest.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/shareaudio_core.dir/src/network/LoopbackTest.cpp.i"
+	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\GITHUB\ShareAudioPC_2\src\network\LoopbackTest.cpp > CMakeFiles\shareaudio_core.dir\src\network\LoopbackTest.cpp.i
+
+CMakeFiles/shareaudio_core.dir/src/network/LoopbackTest.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/shareaudio_core.dir/src/network/LoopbackTest.cpp.s"
+	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\GITHUB\ShareAudioPC_2\src\network\LoopbackTest.cpp -o CMakeFiles\shareaudio_core.dir\src\network\LoopbackTest.cpp.s
+
+CMakeFiles/shareaudio_core.dir/src/network/PcmBroadcastServer.cpp.obj: CMakeFiles/shareaudio_core.dir/flags.make
+CMakeFiles/shareaudio_core.dir/src/network/PcmBroadcastServer.cpp.obj: CMakeFiles/shareaudio_core.dir/includes_CXX.rsp
+CMakeFiles/shareaudio_core.dir/src/network/PcmBroadcastServer.cpp.obj: D:/GITHUB/ShareAudioPC_2/src/network/PcmBroadcastServer.cpp
+CMakeFiles/shareaudio_core.dir/src/network/PcmBroadcastServer.cpp.obj: CMakeFiles/shareaudio_core.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/shareaudio_core.dir/src/network/PcmBroadcastServer.cpp.obj"
+	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/shareaudio_core.dir/src/network/PcmBroadcastServer.cpp.obj -MF CMakeFiles\shareaudio_core.dir\src\network\PcmBroadcastServer.cpp.obj.d -o CMakeFiles\shareaudio_core.dir\src\network\PcmBroadcastServer.cpp.obj -c D:\GITHUB\ShareAudioPC_2\src\network\PcmBroadcastServer.cpp
+
+CMakeFiles/shareaudio_core.dir/src/network/PcmBroadcastServer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/shareaudio_core.dir/src/network/PcmBroadcastServer.cpp.i"
+	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\GITHUB\ShareAudioPC_2\src\network\PcmBroadcastServer.cpp > CMakeFiles\shareaudio_core.dir\src\network\PcmBroadcastServer.cpp.i
+
+CMakeFiles/shareaudio_core.dir/src/network/PcmBroadcastServer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/shareaudio_core.dir/src/network/PcmBroadcastServer.cpp.s"
+	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\GITHUB\ShareAudioPC_2\src\network\PcmBroadcastServer.cpp -o CMakeFiles\shareaudio_core.dir\src\network\PcmBroadcastServer.cpp.s
+
 CMakeFiles/shareaudio_core.dir/src/network/TcpSocket.cpp.obj: CMakeFiles/shareaudio_core.dir/flags.make
 CMakeFiles/shareaudio_core.dir/src/network/TcpSocket.cpp.obj: CMakeFiles/shareaudio_core.dir/includes_CXX.rsp
 CMakeFiles/shareaudio_core.dir/src/network/TcpSocket.cpp.obj: D:/GITHUB/ShareAudioPC_2/src/network/TcpSocket.cpp
 CMakeFiles/shareaudio_core.dir/src/network/TcpSocket.cpp.obj: CMakeFiles/shareaudio_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/shareaudio_core.dir/src/network/TcpSocket.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/shareaudio_core.dir/src/network/TcpSocket.cpp.obj"
 	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/shareaudio_core.dir/src/network/TcpSocket.cpp.obj -MF CMakeFiles\shareaudio_core.dir\src\network\TcpSocket.cpp.obj.d -o CMakeFiles\shareaudio_core.dir\src\network\TcpSocket.cpp.obj -c D:\GITHUB\ShareAudioPC_2\src\network\TcpSocket.cpp
 
 CMakeFiles/shareaudio_core.dir/src/network/TcpSocket.cpp.i: cmake_force
@@ -177,7 +237,7 @@ CMakeFiles/shareaudio_core.dir/src/platform/LocalIp.cpp.obj: CMakeFiles/shareaud
 CMakeFiles/shareaudio_core.dir/src/platform/LocalIp.cpp.obj: CMakeFiles/shareaudio_core.dir/includes_CXX.rsp
 CMakeFiles/shareaudio_core.dir/src/platform/LocalIp.cpp.obj: D:/GITHUB/ShareAudioPC_2/src/platform/LocalIp.cpp
 CMakeFiles/shareaudio_core.dir/src/platform/LocalIp.cpp.obj: CMakeFiles/shareaudio_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/shareaudio_core.dir/src/platform/LocalIp.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/shareaudio_core.dir/src/platform/LocalIp.cpp.obj"
 	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/shareaudio_core.dir/src/platform/LocalIp.cpp.obj -MF CMakeFiles\shareaudio_core.dir\src\platform\LocalIp.cpp.obj.d -o CMakeFiles\shareaudio_core.dir\src\platform\LocalIp.cpp.obj -c D:\GITHUB\ShareAudioPC_2\src\platform\LocalIp.cpp
 
 CMakeFiles/shareaudio_core.dir/src/platform/LocalIp.cpp.i: cmake_force
@@ -192,7 +252,7 @@ CMakeFiles/shareaudio_core.dir/src/protocol/JitterBuffer.cpp.obj: CMakeFiles/sha
 CMakeFiles/shareaudio_core.dir/src/protocol/JitterBuffer.cpp.obj: CMakeFiles/shareaudio_core.dir/includes_CXX.rsp
 CMakeFiles/shareaudio_core.dir/src/protocol/JitterBuffer.cpp.obj: D:/GITHUB/ShareAudioPC_2/src/protocol/JitterBuffer.cpp
 CMakeFiles/shareaudio_core.dir/src/protocol/JitterBuffer.cpp.obj: CMakeFiles/shareaudio_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/shareaudio_core.dir/src/protocol/JitterBuffer.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/shareaudio_core.dir/src/protocol/JitterBuffer.cpp.obj"
 	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/shareaudio_core.dir/src/protocol/JitterBuffer.cpp.obj -MF CMakeFiles\shareaudio_core.dir\src\protocol\JitterBuffer.cpp.obj.d -o CMakeFiles\shareaudio_core.dir\src\protocol\JitterBuffer.cpp.obj -c D:\GITHUB\ShareAudioPC_2\src\protocol\JitterBuffer.cpp
 
 CMakeFiles/shareaudio_core.dir/src/protocol/JitterBuffer.cpp.i: cmake_force
@@ -203,11 +263,26 @@ CMakeFiles/shareaudio_core.dir/src/protocol/JitterBuffer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/shareaudio_core.dir/src/protocol/JitterBuffer.cpp.s"
 	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\GITHUB\ShareAudioPC_2\src\protocol\JitterBuffer.cpp -o CMakeFiles\shareaudio_core.dir\src\protocol\JitterBuffer.cpp.s
 
+CMakeFiles/shareaudio_core.dir/src/protocol/PcmChunker.cpp.obj: CMakeFiles/shareaudio_core.dir/flags.make
+CMakeFiles/shareaudio_core.dir/src/protocol/PcmChunker.cpp.obj: CMakeFiles/shareaudio_core.dir/includes_CXX.rsp
+CMakeFiles/shareaudio_core.dir/src/protocol/PcmChunker.cpp.obj: D:/GITHUB/ShareAudioPC_2/src/protocol/PcmChunker.cpp
+CMakeFiles/shareaudio_core.dir/src/protocol/PcmChunker.cpp.obj: CMakeFiles/shareaudio_core.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/shareaudio_core.dir/src/protocol/PcmChunker.cpp.obj"
+	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/shareaudio_core.dir/src/protocol/PcmChunker.cpp.obj -MF CMakeFiles\shareaudio_core.dir\src\protocol\PcmChunker.cpp.obj.d -o CMakeFiles\shareaudio_core.dir\src\protocol\PcmChunker.cpp.obj -c D:\GITHUB\ShareAudioPC_2\src\protocol\PcmChunker.cpp
+
+CMakeFiles/shareaudio_core.dir/src/protocol/PcmChunker.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/shareaudio_core.dir/src/protocol/PcmChunker.cpp.i"
+	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\GITHUB\ShareAudioPC_2\src\protocol\PcmChunker.cpp > CMakeFiles\shareaudio_core.dir\src\protocol\PcmChunker.cpp.i
+
+CMakeFiles/shareaudio_core.dir/src/protocol/PcmChunker.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/shareaudio_core.dir/src/protocol/PcmChunker.cpp.s"
+	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\GITHUB\ShareAudioPC_2\src\protocol\PcmChunker.cpp -o CMakeFiles\shareaudio_core.dir\src\protocol\PcmChunker.cpp.s
+
 CMakeFiles/shareaudio_core.dir/src/protocol/Protocol.cpp.obj: CMakeFiles/shareaudio_core.dir/flags.make
 CMakeFiles/shareaudio_core.dir/src/protocol/Protocol.cpp.obj: CMakeFiles/shareaudio_core.dir/includes_CXX.rsp
 CMakeFiles/shareaudio_core.dir/src/protocol/Protocol.cpp.obj: D:/GITHUB/ShareAudioPC_2/src/protocol/Protocol.cpp
 CMakeFiles/shareaudio_core.dir/src/protocol/Protocol.cpp.obj: CMakeFiles/shareaudio_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/shareaudio_core.dir/src/protocol/Protocol.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/shareaudio_core.dir/src/protocol/Protocol.cpp.obj"
 	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/shareaudio_core.dir/src/protocol/Protocol.cpp.obj -MF CMakeFiles\shareaudio_core.dir\src\protocol\Protocol.cpp.obj.d -o CMakeFiles\shareaudio_core.dir\src\protocol\Protocol.cpp.obj -c D:\GITHUB\ShareAudioPC_2\src\protocol\Protocol.cpp
 
 CMakeFiles/shareaudio_core.dir/src/protocol/Protocol.cpp.i: cmake_force
@@ -222,7 +297,7 @@ CMakeFiles/shareaudio_core.dir/src/storage/RecentDevices.cpp.obj: CMakeFiles/sha
 CMakeFiles/shareaudio_core.dir/src/storage/RecentDevices.cpp.obj: CMakeFiles/shareaudio_core.dir/includes_CXX.rsp
 CMakeFiles/shareaudio_core.dir/src/storage/RecentDevices.cpp.obj: D:/GITHUB/ShareAudioPC_2/src/storage/RecentDevices.cpp
 CMakeFiles/shareaudio_core.dir/src/storage/RecentDevices.cpp.obj: CMakeFiles/shareaudio_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/shareaudio_core.dir/src/storage/RecentDevices.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/shareaudio_core.dir/src/storage/RecentDevices.cpp.obj"
 	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/shareaudio_core.dir/src/storage/RecentDevices.cpp.obj -MF CMakeFiles\shareaudio_core.dir\src\storage\RecentDevices.cpp.obj.d -o CMakeFiles\shareaudio_core.dir\src\storage\RecentDevices.cpp.obj -c D:\GITHUB\ShareAudioPC_2\src\storage\RecentDevices.cpp
 
 CMakeFiles/shareaudio_core.dir/src/storage/RecentDevices.cpp.i: cmake_force
@@ -237,7 +312,7 @@ CMakeFiles/shareaudio_core.dir/src/ui/ConsoleUi.cpp.obj: CMakeFiles/shareaudio_c
 CMakeFiles/shareaudio_core.dir/src/ui/ConsoleUi.cpp.obj: CMakeFiles/shareaudio_core.dir/includes_CXX.rsp
 CMakeFiles/shareaudio_core.dir/src/ui/ConsoleUi.cpp.obj: D:/GITHUB/ShareAudioPC_2/src/ui/ConsoleUi.cpp
 CMakeFiles/shareaudio_core.dir/src/ui/ConsoleUi.cpp.obj: CMakeFiles/shareaudio_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/shareaudio_core.dir/src/ui/ConsoleUi.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/shareaudio_core.dir/src/ui/ConsoleUi.cpp.obj"
 	C:\Strawberry\c\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/shareaudio_core.dir/src/ui/ConsoleUi.cpp.obj -MF CMakeFiles\shareaudio_core.dir\src\ui\ConsoleUi.cpp.obj.d -o CMakeFiles\shareaudio_core.dir\src\ui\ConsoleUi.cpp.obj -c D:\GITHUB\ShareAudioPC_2\src\ui\ConsoleUi.cpp
 
 CMakeFiles/shareaudio_core.dir/src/ui/ConsoleUi.cpp.i: cmake_force
@@ -255,10 +330,15 @@ shareaudio_core_OBJECTS = \
 "CMakeFiles/shareaudio_core.dir/src/app/Config.cpp.obj" \
 "CMakeFiles/shareaudio_core.dir/src/app/Logger.cpp.obj" \
 "CMakeFiles/shareaudio_core.dir/src/audio/AudioAbstractions.cpp.obj" \
+"CMakeFiles/shareaudio_core.dir/src/audio/MiniaudioBackend.cpp.obj" \
+"CMakeFiles/shareaudio_core.dir/src/audio/AudioPipeline.cpp.obj" \
 "CMakeFiles/shareaudio_core.dir/src/codec/OpusCodec.cpp.obj" \
+"CMakeFiles/shareaudio_core.dir/src/network/LoopbackTest.cpp.obj" \
+"CMakeFiles/shareaudio_core.dir/src/network/PcmBroadcastServer.cpp.obj" \
 "CMakeFiles/shareaudio_core.dir/src/network/TcpSocket.cpp.obj" \
 "CMakeFiles/shareaudio_core.dir/src/platform/LocalIp.cpp.obj" \
 "CMakeFiles/shareaudio_core.dir/src/protocol/JitterBuffer.cpp.obj" \
+"CMakeFiles/shareaudio_core.dir/src/protocol/PcmChunker.cpp.obj" \
 "CMakeFiles/shareaudio_core.dir/src/protocol/Protocol.cpp.obj" \
 "CMakeFiles/shareaudio_core.dir/src/storage/RecentDevices.cpp.obj" \
 "CMakeFiles/shareaudio_core.dir/src/ui/ConsoleUi.cpp.obj"
@@ -271,16 +351,21 @@ libshareaudio_core.a: CMakeFiles/shareaudio_core.dir/src/app/AppController.cpp.o
 libshareaudio_core.a: CMakeFiles/shareaudio_core.dir/src/app/Config.cpp.obj
 libshareaudio_core.a: CMakeFiles/shareaudio_core.dir/src/app/Logger.cpp.obj
 libshareaudio_core.a: CMakeFiles/shareaudio_core.dir/src/audio/AudioAbstractions.cpp.obj
+libshareaudio_core.a: CMakeFiles/shareaudio_core.dir/src/audio/MiniaudioBackend.cpp.obj
+libshareaudio_core.a: CMakeFiles/shareaudio_core.dir/src/audio/AudioPipeline.cpp.obj
 libshareaudio_core.a: CMakeFiles/shareaudio_core.dir/src/codec/OpusCodec.cpp.obj
+libshareaudio_core.a: CMakeFiles/shareaudio_core.dir/src/network/LoopbackTest.cpp.obj
+libshareaudio_core.a: CMakeFiles/shareaudio_core.dir/src/network/PcmBroadcastServer.cpp.obj
 libshareaudio_core.a: CMakeFiles/shareaudio_core.dir/src/network/TcpSocket.cpp.obj
 libshareaudio_core.a: CMakeFiles/shareaudio_core.dir/src/platform/LocalIp.cpp.obj
 libshareaudio_core.a: CMakeFiles/shareaudio_core.dir/src/protocol/JitterBuffer.cpp.obj
+libshareaudio_core.a: CMakeFiles/shareaudio_core.dir/src/protocol/PcmChunker.cpp.obj
 libshareaudio_core.a: CMakeFiles/shareaudio_core.dir/src/protocol/Protocol.cpp.obj
 libshareaudio_core.a: CMakeFiles/shareaudio_core.dir/src/storage/RecentDevices.cpp.obj
 libshareaudio_core.a: CMakeFiles/shareaudio_core.dir/src/ui/ConsoleUi.cpp.obj
 libshareaudio_core.a: CMakeFiles/shareaudio_core.dir/build.make
 libshareaudio_core.a: CMakeFiles/shareaudio_core.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX static library libshareaudio_core.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\GITHUB\ShareAudioPC_2\build\windows-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Linking CXX static library libshareaudio_core.a"
 	$(CMAKE_COMMAND) -P CMakeFiles\shareaudio_core.dir\cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\shareaudio_core.dir\link.txt --verbose=$(VERBOSE)
 

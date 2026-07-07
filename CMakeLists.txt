@@ -6,7 +6,10 @@ project(ShareAudioLite
     LANGUAGES CXX
 )
 
+find_package(Threads REQUIRED)
+
 option(SHAREAUDIO_ENABLE_OPUS "Enable libopus-backed Quality Mode codec support" OFF)
+option(SHAREAUDIO_ENABLE_MINIAUDIO "Enable miniaudio-backed real audio capture/playback" ON)
 option(SHAREAUDIO_ENABLE_TESTS "Build automated tests" ON)
 option(SHAREAUDIO_ENABLE_CONSOLE_UI "Build the console UI executable" ON)
 option(SHAREAUDIO_ENABLE_DESKTOP_UI "Build a future desktop UI target" OFF)
@@ -21,10 +24,15 @@ add_library(shareaudio_core
     src/app/Config.cpp
     src/app/Logger.cpp
     src/audio/AudioAbstractions.cpp
+    src/audio/MiniaudioBackend.cpp
+    src/audio/AudioPipeline.cpp
     src/codec/OpusCodec.cpp
+    src/network/LoopbackTest.cpp
+    src/network/PcmBroadcastServer.cpp
     src/network/TcpSocket.cpp
     src/platform/LocalIp.cpp
     src/protocol/JitterBuffer.cpp
+    src/protocol/PcmChunker.cpp
     src/protocol/Protocol.cpp
     src/storage/RecentDevices.cpp
     src/ui/ConsoleUi.cpp
@@ -33,12 +41,16 @@ add_library(shareaudio_core
 target_include_directories(shareaudio_core
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/asio-src/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/third_party/miniaudio-src
 )
 
 target_compile_definitions(shareaudio_core
     PUBLIC
+        ASIO_STANDALONE=1
         SHAREAUDIO_VERSION="${PROJECT_VERSION}"
         SHAREAUDIO_ENABLE_OPUS=$<BOOL:${SHAREAUDIO_ENABLE_OPUS}>
+        SHAREAUDIO_ENABLE_MINIAUDIO=$<BOOL:${SHAREAUDIO_ENABLE_MINIAUDIO}>
         SHAREAUDIO_ENABLE_CONSOLE_UI=$<BOOL:${SHAREAUDIO_ENABLE_CONSOLE_UI}>
         SHAREAUDIO_ENABLE_DESKTOP_UI=$<BOOL:${SHAREAUDIO_ENABLE_DESKTOP_UI}>
 )
@@ -50,8 +62,12 @@ else()
 endif()
 
 if(WIN32)
-    target_link_libraries(shareaudio_core PUBLIC ws2_32)
+    target_link_libraries(shareaudio_core PUBLIC ws2_32 mswsock ole32 uuid winmm avrt)
+else()
+    target_link_libraries(shareaudio_core PUBLIC dl m)
 endif()
+
+target_link_libraries(shareaudio_core PUBLIC Threads::Threads)
 
 if(SHAREAUDIO_ENABLE_OPUS)
     find_package(PkgConfig QUIET)

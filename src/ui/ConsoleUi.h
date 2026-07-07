@@ -14,8 +14,8 @@ public:
 
 private:
     void print_help() const;
-    void print_status() const;
     void print_local_ips() const;
+    void print_audio_devices() const;
 
     AppController& controller_;
 };
