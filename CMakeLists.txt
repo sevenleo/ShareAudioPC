@@ -85,8 +85,14 @@ if(SHAREAUDIO_ENABLE_OPUS)
     set(OPUS_BUILD_TESTING OFF CACHE BOOL "" FORCE)
     set(OPUS_BUILD_PROGRAMS OFF CACHE BOOL "" FORCE)
     set(OPUS_BUILD_EXTRA_DEBUG OFF CACHE BOOL "" FORCE)
+    set(OPUS_INSTALL_PKG_CONFIG_MODULE OFF CACHE BOOL "" FORCE)
+    set(OPUS_INSTALL_CMAKE_CONFIG_MODULE OFF CACHE BOOL "" FORCE)
     
-    FetchContent_MakeAvailable(opus)
+    FetchContent_GetProperties(opus)
+    if(NOT opus_POPULATED)
+        FetchContent_Populate(opus)
+        add_subdirectory(${opus_SOURCE_DIR} ${opus_BINARY_DIR} EXCLUDE_FROM_ALL)
+    endif()
     
     target_link_libraries(shareaudio_core PUBLIC opus)
     target_compile_definitions(shareaudio_core PUBLIC SHAREAUDIO_HAS_LIBOPUS=1)
@@ -132,13 +138,37 @@ if(SHAREAUDIO_ENABLE_TESTS)
     add_test(NAME shareaudio_tests COMMAND shareaudio_tests)
 endif()
 
-# Install rules for final packaging
+# Install rules for portable release packaging
 if(SHAREAUDIO_ENABLE_CONSOLE_UI)
     install(TARGETS shareaudio_cli DESTINATION .)
 endif()
 
 if(SHAREAUDIO_ENABLE_DESKTOP_UI)
     install(TARGETS shareaudio_gui DESTINATION .)
+    if(WIN32)
+        find_program(SHAREAUDIO_WINDEPLOYQT_EXECUTABLE
+            NAMES windeployqt windeployqt.exe
+            HINTS "${CMAKE_PREFIX_PATH}/bin"
+            REQUIRED
+        )
+        install(CODE "
+            execute_process(
+                COMMAND \"${SHAREAUDIO_WINDEPLOYQT_EXECUTABLE}\"
+                    \"\${CMAKE_INSTALL_PREFIX}/shareaudio_gui.exe\"
+                    --no-compiler-runtime
+                    --no-translations
+                    --no-system-d3d-compiler
+                    --no-opengl-sw
+                    --no-ffmpeg
+                    --skip-plugin-types
+                    sqldrivers,networkinformation
+                RESULT_VARIABLE _shareaudio_windeployqt_result
+            )
+            if(NOT _shareaudio_windeployqt_result EQUAL 0)
+                message(FATAL_ERROR \"windeployqt failed with exit code \${_shareaudio_windeployqt_result}\")
+            endif()
+        ")
+    endif()
 endif()
 
 install(FILES shareaudio.cfg.example DESTINATION .)

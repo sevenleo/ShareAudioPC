@@ -813,16 +813,15 @@ cmake --build build/windows-debug
 .\build\windows-debug\shareaudio_tests.exe
 ```
 
-Windows release build with local Qt/MinGW toolchain:
+Windows release build with the local Qt/MinGW toolchain configured by the preset:
 
 ```powershell
-cmake --preset windows-release -DCMAKE_C_COMPILER="./qt6/Tools/mingw1310_64/bin/gcc.exe" -DCMAKE_CXX_COMPILER="./qt6/Tools/mingw1310_64/bin/g++.exe" -DCMAKE_MAKE_PROGRAM="./qt6/Tools/mingw1310_64/bin/mingw32-make.exe" -DCMAKE_PREFIX_PATH="./qt6/6.6.3/mingw_64"
-cmake --build build/windows-release --config Release
+cmake --preset windows-release
+cmake --build --preset windows-release
 cmake --install build/windows-release --config Release
-Remove-Item -Recurse -Force build/windows-release/final/lib
-Remove-Item -Recurse -Force build/windows-release/final/include
-./qt6/6.6.3/mingw_64/bin/windeployqt.exe build/windows-release/final/shareaudio_gui.exe --no-compiler-runtime --no-translations --no-system-d3d-compiler --no-opengl-sw --no-ffmpeg --skip-plugin-types sqldrivers,networkinformation
 ```
+
+The install step creates the portable folder `build/windows-release/release`. It installs `shareaudio_cli.exe`, `shareaudio_gui.exe`, `shareaudio.cfg.example`, and runs `windeployqt.exe` to place the required Qt DLLs/plugins next to the GUI executable.
 
 Last verified Windows debug commands in this workspace:
 
@@ -835,9 +834,7 @@ cmake --build build/windows-debug
 Last verified GUI release path in this workspace:
 
 ```powershell
-cmake --preset windows-release -DCMAKE_C_COMPILER="./qt6/Tools/mingw1310_64/bin/gcc.exe" -DCMAKE_CXX_COMPILER="./qt6/Tools/mingw1310_64/bin/g++.exe" -DCMAKE_MAKE_PROGRAM="./qt6/Tools/mingw1310_64/bin/mingw32-make.exe" -DCMAKE_PREFIX_PATH="./qt6/6.6.3/mingw_64"
-cmake --build build/windows-release --config Release
-./qt6/6.6.3/mingw_64/bin/windeployqt.exe build/windows-release/final/shareaudio_gui.exe --no-compiler-runtime --no-translations --no-system-d3d-compiler --no-opengl-sw --no-ffmpeg --skip-plugin-types sqldrivers,networkinformation
+build/windows-release/release/shareaudio_gui.exe
 ```
 
 Provided presets:
@@ -854,20 +851,14 @@ CLI:
 GUI:
 
 - Depends on Qt DLLs/plugins unless Qt is statically linked.
-- Current packaging path is the full `build/windows-release/final` folder after `windeployqt.exe`.
+- Current packaging path is the full `build/windows-release/release` folder after `cmake --install`.
 - Keep Qt DLLs and platform plugins next to the GUI executable.
-
-Recommended release folder cleanup after `cmake --install`:
-
-```powershell
-Remove-Item -Recurse -Force build/windows-release/final/lib
-Remove-Item -Recurse -Force build/windows-release/final/include
-```
+- Opus is linked statically; development artifacts such as Opus `lib/` and `include/` directories are not part of the portable release folder.
 
 Single-file GUI distribution options:
 
-- Enigma Virtual Box: select `build/windows-release/final/shareaudio_gui.exe`, add all required files/folders from `final/`, and produce a boxed executable such as `shareaudio_gui_boxed.exe`.
-- SFX archive: use 7-Zip or WinRAR to extract `final/` to a temp directory, run `shareaudio_gui.exe`, and clean up on exit.
+- Enigma Virtual Box: select `build/windows-release/release/shareaudio_gui.exe`, add all required files/folders from `release/`, and produce a boxed executable such as `shareaudio_gui_boxed.exe`.
+- SFX archive: use 7-Zip or WinRAR to extract `release/` to a temp directory, run `shareaudio_gui.exe`, and clean up on exit.
 - Static Qt build: rebuild Qt with static configuration and link Qt into the GUI. This is native but slow to set up and can take several hours to compile.
 
 ## Platform Status
@@ -997,9 +988,9 @@ Audio dropouts:
 
 GUI fails on another Windows machine:
 
-- Verify the complete `final/` folder was copied, not only `shareaudio_gui.exe`.
+- Verify the complete `release/` folder was copied, not only `shareaudio_gui.exe`.
 - Verify Qt DLLs and the `platforms/` plugin folder are present.
-- Re-run `windeployqt.exe` on the target release executable.
+- Regenerate the release folder with `cmake --install build/windows-release --config Release`.
 
 Config file does not auto-start:
 
