@@ -19,7 +19,6 @@ This checklist contains only remaining project work. Completed implementation hi
 
 - [ ] Fix Quality Mode transmitter chunking so 20ms PCM frames are emitted to the Opus encoder.
 - [ ] Add automated test proving Quality Mode transmitter produces Opus-framed packets from captured PCM.
-- [ ] Fix or verify HTTP Opus fallback mode inference so `codec=opus` initializes the receiver as Quality/Opus.
 - [ ] Verify Windows transmitter to Windows receiver.
 - [ ] Verify Windows transmitter to Linux receiver.
 - [ ] Verify Linux transmitter to Windows receiver.

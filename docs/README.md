@@ -555,7 +555,7 @@ Desktop receiver fallback:
 HTTP fallback metadata parsing:
 
 - The receiver parses `codec` and `chunkSize` from `/info`.
-- Mode inference is based on `chunkSize == 1024` for Ultrafast and Balanced otherwise.
+- HTTP metadata with `codec` set to `opus` selects Quality mode; PCM metadata uses `chunkSize == 1024` for Ultrafast and Balanced otherwise.
 - Native `SAL1` metadata carries both mode and codec directly.
 
 ## Socket And Network Requirements

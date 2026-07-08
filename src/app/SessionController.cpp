@@ -300,8 +300,10 @@ Result<void> SessionController::start_listening(std::string host, std::string pl
                                 }
                             }
 
-                            header.mode = (chunk_size == 1024) ? AudioMode::Ultrafast : AudioMode::Balanced;
                             header.codec = (codec_val == "opus") ? StreamCodec::Opus : StreamCodec::PcmS16Le;
+                            header.mode = (header.codec == StreamCodec::Opus)
+                                ? AudioMode::Quality
+                                : ((chunk_size == 1024) ? AudioMode::Ultrafast : AudioMode::Balanced);
                             header.packet_size = chunk_size;
                             header.channels = 2;
                             header.bytes_per_sample = 2;

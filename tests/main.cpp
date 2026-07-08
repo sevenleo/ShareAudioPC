@@ -442,6 +442,160 @@ void test_hybrid_broadcast_server()
     server.stop();
 }
 
+void test_session_controller_http_opus_fallback()
+{
+#if SHAREAUDIO_HAS_LIBOPUS
+    constexpr std::uint16_t port = 39094;
+
+    shareaudio::AudioFormat format;
+    shareaudio::OpusEncoder encoder;
+    auto initialized = encoder.initialize(format, shareaudio::Defaults::opus_bitrate_bps);
+    expect(initialized.ok(), initialized.ok() ? "HTTP Opus fallback test encoder initialized" : initialized.error().message);
+    if (!initialized.ok()) {
+        return;
+    }
+
+    std::vector<std::uint8_t> pcm_in(3840);
+    for (std::size_t i = 0; i < pcm_in.size() / 2; ++i) {
+        std::int16_t sample = static_cast<std::int16_t>(1000.0 * sin(2.0 * 3.14159 * 440.0 * i / 48000.0));
+        std::memcpy(&pcm_in[i * 2], &sample, sizeof(sample));
+    }
+
+    auto encoded = encoder.encode(pcm_in);
+    expect(encoded.ok(), encoded.ok() ? "HTTP Opus fallback test frame encoded" : encoded.error().message);
+    if (!encoded.ok()) {
+        return;
+    }
+
+    auto packet = shareaudio::ProtocolWriter::make_opus_packet(encoded.value());
+    expect(packet.ok(), packet.ok() ? "HTTP Opus fallback test packet framed" : packet.error().message);
+    if (!packet.ok()) {
+        return;
+    }
+
+    shareaudio::TcpTransmitterServer server;
+    auto started = server.start(port, [opus_packet = packet.value()](std::shared_ptr<shareaudio::TcpSocket> client) {
+        auto first_bytes = client->receive_with_timeout(4, 200);
+        if (!first_bytes.ok() || first_bytes.value().size() != 4) {
+            client->close();
+            return;
+        }
+
+        std::string request(first_bytes.value().begin(), first_bytes.value().end());
+        if (request != "GET ") {
+            client->close();
+            return;
+        }
+
+        bool found_separator = false;
+        while (client->valid() && request.size() < 4096) {
+            auto byte = client->receive_with_timeout(1, 1000);
+            if (!byte.ok() || byte.value().empty()) {
+                break;
+            }
+            request.push_back(static_cast<char>(byte.value()[0]));
+            if (request.size() >= 4 && request.substr(request.size() - 4) == "\r\n\r\n") {
+                found_separator = true;
+                break;
+            }
+        }
+
+        if (!found_separator) {
+            client->close();
+            return;
+        }
+
+        std::string path = "/";
+        auto space1 = request.find(' ');
+        if (space1 != std::string::npos) {
+            auto space2 = request.find(' ', space1 + 1);
+            if (space2 != std::string::npos) {
+                path = request.substr(space1 + 1, space2 - (space1 + 1));
+            }
+        }
+
+        if (path == "/info") {
+            std::string body = "{\n"
+                "  \"status\": \"streaming\",\n"
+                "  \"connectedClients\": 0,\n"
+                "  \"sampleRate\": 48000,\n"
+                "  \"channels\": 2,\n"
+                "  \"codec\": \"opus\",\n"
+                "  \"bitrate\": 128000,\n"
+                "  \"chunkSize\": 4096\n"
+                "}\n";
+            std::string response = "HTTP/1.1 200 OK\r\n"
+                "Content-Type: application/json\r\n"
+                "Connection: close\r\n"
+                "Content-Length: " + std::to_string(body.size()) + "\r\n"
+                "\r\n" + body;
+            (void)client->send_all(std::span<const std::uint8_t>(reinterpret_cast<const std::uint8_t*>(response.data()), response.size()));
+            client->close();
+            return;
+        }
+
+        if (path == "/stream") {
+            std::string response = "HTTP/1.1 200 OK\r\n"
+                "Content-Type: application/octet-stream\r\n"
+                "Connection: keep-alive\r\n"
+                "Cache-Control: no-cache, no-store, must-revalidate\r\n"
+                "Pragma: no-cache\r\n"
+                "\r\n";
+            auto sent_headers = client->send_all(std::span<const std::uint8_t>(reinterpret_cast<const std::uint8_t*>(response.data()), response.size()));
+            if (!sent_headers.ok()) {
+                client->close();
+                return;
+            }
+
+            for (int i = 0; i < 5 && client->valid(); ++i) {
+                auto sent_packet = client->send_all(opus_packet);
+                if (!sent_packet.ok()) {
+                    break;
+                }
+                std::this_thread::sleep_for(std::chrono::milliseconds(20));
+            }
+            client->close();
+            return;
+        }
+
+        client->close();
+    });
+    expect(started.ok(), started.ok() ? "HTTP Opus fallback server started" : started.error().message);
+    if (!started.ok()) {
+        return;
+    }
+
+    shareaudio::AppConfig config;
+    config.receiver.port = port;
+    config.transmitter.network.port = port;
+    shareaudio::SessionControllerOptions options;
+    options.backend = shareaudio::SessionAudioBackend::Fake;
+    options.allow_self_connection = true;
+    options.recent_devices_path = std::filesystem::temp_directory_path() / "shareaudio-session-http-opus-recent-test.json";
+    shareaudio::SessionController session(config, options);
+    expect(session.start_listening("127.0.0.1").ok(), "session starts HTTP Opus fallback listening");
+
+    bool detected_quality = false;
+    bool received_audio = false;
+    for (int i = 0; i < 80; ++i) {
+        const auto status = session.status_snapshot();
+        detected_quality = status.has_detected_mode && status.detected_mode == shareaudio::AudioMode::Quality;
+        received_audio = status.bytes_received > 0 && status.bytes_played > 0;
+        if (detected_quality && received_audio) {
+            break;
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(25));
+    }
+
+    const auto status = session.status_snapshot();
+    expect(status.has_detected_mode && status.detected_mode == shareaudio::AudioMode::Quality, "HTTP Opus fallback detects quality mode");
+    expect(status.bytes_received > 0, "HTTP Opus fallback receives Opus bytes");
+    expect(status.bytes_played > 0, "HTTP Opus fallback decodes PCM bytes");
+    expect(session.stop_listening().ok(), "session stops HTTP Opus fallback listening");
+    server.stop();
+#endif
+}
+
 void test_console_commands()
 {
     shareaudio::AppController controller;
@@ -600,6 +754,7 @@ int main()
     test_tcp_loopback();
     test_pcm_broadcast_server();
     test_hybrid_broadcast_server();
+    test_session_controller_http_opus_fallback();
     test_console_commands();
     test_single_instance();
     test_startup_config();
