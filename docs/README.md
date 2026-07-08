@@ -821,7 +821,7 @@ cmake --build --preset windows-release
 cmake --install build/windows-release --config Release
 ```
 
-The install step creates the portable folder `build/windows-release/release`. It installs `shareaudio_cli.exe`, `shareaudio_gui.exe`, `shareaudio.cfg.example`, and runs `windeployqt.exe` to place the required Qt DLLs/plugins next to the GUI executable.
+The install step creates the portable folder `release` at the repository root. It installs `shareaudio_cli.exe`, `shareaudio_gui.exe`, `shareaudio.cfg.example`, and runs `windeployqt.exe` to place the required Qt DLLs/plugins next to the GUI executable.
 
 Last verified Windows debug commands in this workspace:
 
@@ -834,7 +834,7 @@ cmake --build build/windows-debug
 Last verified GUI release path in this workspace:
 
 ```powershell
-build/windows-release/release/shareaudio_gui.exe
+release/shareaudio_gui.exe
 ```
 
 Provided presets:
@@ -851,13 +851,13 @@ CLI:
 GUI:
 
 - Depends on Qt DLLs/plugins unless Qt is statically linked.
-- Current packaging path is the full `build/windows-release/release` folder after `cmake --install`.
+- Current packaging path is the full root `release` folder after `cmake --install`.
 - Keep Qt DLLs and platform plugins next to the GUI executable.
 - Opus is linked statically; development artifacts such as Opus `lib/` and `include/` directories are not part of the portable release folder.
 
 Single-file GUI distribution options:
 
-- Enigma Virtual Box: select `build/windows-release/release/shareaudio_gui.exe`, add all required files/folders from `release/`, and produce a boxed executable such as `shareaudio_gui_boxed.exe`.
+- Enigma Virtual Box: select `release/shareaudio_gui.exe`, add all required files/folders from `release/`, and produce a boxed executable such as `shareaudio_gui_boxed.exe`.
 - SFX archive: use 7-Zip or WinRAR to extract `release/` to a temp directory, run `shareaudio_gui.exe`, and clean up on exit.
 - Static Qt build: rebuild Qt with static configuration and link Qt into the GUI. This is native but slow to set up and can take several hours to compile.
 

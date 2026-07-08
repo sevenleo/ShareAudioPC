@@ -14,7 +14,7 @@ The format follows a simple staged log.
 - Expanded `docs/README.md` into the primary technical reference for protocol, audio modes, pipelines, build, packaging, runtime behavior, and platform compatibility.
 - Audited `docs/README.md` against the current source and corrected overstated claims around Quality/Opus end-to-end readiness, HTTP Opus fallback, browser player mode support, Linux presets, socket options, callback allocation behavior, and automated coverage.
 - Moved pending work and improvement notes out of `docs/README.md` into `docs/PLAN.md`, keeping the README focused on current application behavior.
-- Restored and improved portable Windows packaging: `cmake --install` now produces `build/windows-release/release`, runs Qt deployment, and excludes Opus development install artifacts from the portable folder.
+- Restored and improved portable Windows packaging: `cmake --install` now produces the root `release` folder, runs Qt deployment, and excludes Opus development install artifacts from the portable folder.
 
 ### Removed
 
