@@ -3,24 +3,32 @@
 #include "app/Config.h"
 #include "app/StartupConfig.h"
 
+#include <QAction>
 #include <QApplication>
+#include <QCheckBox>
 #include <QClipboard>
 #include <QCloseEvent>
 #include <QComboBox>
+#include <QEvent>
 #include <QIcon>
-#include <QTabWidget>
 #include <QFormLayout>
 #include <QGridLayout>
 #include <QGroupBox>
+#include <QHideEvent>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
 #include <QListWidget>
 #include <QListWidgetItem>
+#include <QMenu>
 #include <QMessageBox>
 #include <QPlainTextEdit>
 #include <QPushButton>
+#include <QSignalBlocker>
+#include <QShowEvent>
 #include <QStyle>
+#include <QSystemTrayIcon>
+#include <QTabWidget>
 #include <QTimer>
 #include <QVBoxLayout>
 #include <QVariant>
@@ -126,6 +134,35 @@ MainWindow::MainWindow(QWidget* parent)
         QLabel {
             color: #BAC7DE;
             font-size: 12px;
+        }
+        QCheckBox {
+            color: #BAC7DE;
+            font-size: 12px;
+            spacing: 8px;
+        }
+        QCheckBox:disabled {
+            color: #718096;
+        }
+        QWidget#footerBar {
+            background-color: #0A0F1D;
+            border-top: 1px solid #25335A;
+        }
+        QCheckBox#trayModeCheckbox {
+            color: #FFFFFF;
+            font-size: 14px;
+            font-weight: bold;
+            spacing: 10px;
+            padding: 7px 10px;
+        }
+        QCheckBox#trayModeCheckbox:hover {
+            color: #1DF09A;
+        }
+        QCheckBox#trayModeCheckbox:disabled {
+            color: #718096;
+        }
+        QCheckBox#trayModeCheckbox::indicator {
+            width: 18px;
+            height: 18px;
         }
         QLineEdit {
             background-color: #0A0F1D;
@@ -255,11 +292,53 @@ MainWindow::~MainWindow()
     controller_.stop();
 }
 
+bool MainWindow::should_start_hidden() const
+{
+    return start_hidden_ && tray_available_;
+}
+
 void MainWindow::closeEvent(QCloseEvent* event)
 {
+    if (!force_exit_ && tray_mode_ && tray_available_) {
+        save_config_file(default_config_path(), controller_.config_snapshot());
+        hide_to_tray();
+        event->ignore();
+        return;
+    }
+
     save_config_file(default_config_path(), controller_.config_snapshot());
     controller_.stop();
     event->accept();
+}
+
+void MainWindow::changeEvent(QEvent* event)
+{
+    QMainWindow::changeEvent(event);
+
+    if (event->type() != QEvent::WindowStateChange) {
+        return;
+    }
+
+    update_tray_actions();
+    if (tray_mode_ && tray_available_ && isMinimized()) {
+        QTimer::singleShot(0, this, [this] {
+            if (tray_mode_ && tray_available_ && isMinimized()) {
+                hide_to_tray();
+            }
+        });
+    }
+}
+
+void MainWindow::showEvent(QShowEvent* event)
+{
+    QMainWindow::showEvent(event);
+    update_tray_actions();
+}
+
+void MainWindow::hideEvent(QHideEvent* event)
+{
+    QMainWindow::hideEvent(event);
+    update_tray_actions();
 }
 
 void MainWindow::build_ui()
@@ -525,9 +604,135 @@ void MainWindow::build_ui()
     tabs_->addTab(diag_tab, "Diagnostics & Help");
 
     root->addWidget(tabs_);
+
+    auto* footer_widget = new QWidget(central);
+    footer_widget->setObjectName("footerBar");
+    auto* footer_layout = new QHBoxLayout(footer_widget);
+    footer_layout->setContentsMargins(8, 4, 8, 0);
+    footer_layout->setSpacing(10);
+    footer_layout->addStretch(1);
+
+    tray_mode_checkbox_ = new QCheckBox("Minimize to tray", footer_widget);
+    tray_mode_checkbox_->setObjectName("trayModeCheckbox");
+    tray_mode_checkbox_->setToolTip("Hide the window in the system tray when minimized or closed.");
+    connect(tray_mode_checkbox_, &QCheckBox::toggled, this, [this](bool checked) {
+        set_tray_mode(checked);
+    });
+    footer_layout->addWidget(tray_mode_checkbox_);
+    root->addWidget(footer_widget);
+
     setCentralWidget(central);
 
+    setup_tray();
     update_layout_visibility();
+}
+
+void MainWindow::setup_tray()
+{
+    tray_available_ = QSystemTrayIcon::isSystemTrayAvailable();
+    if (!tray_available_) {
+        if (tray_mode_checkbox_) {
+            tray_mode_checkbox_->setEnabled(false);
+            tray_mode_checkbox_->setToolTip("System tray is not available.");
+        }
+        return;
+    }
+
+    tray_icon_ = new QSystemTrayIcon(QIcon(":/icon/logo.png"), this);
+    tray_icon_->setToolTip("ShareAudioLite");
+
+    tray_menu_ = new QMenu(this);
+    toggle_window_action_ = tray_menu_->addAction("Show Window");
+    connect(toggle_window_action_, &QAction::triggered, this, [this] {
+        toggle_window_visibility();
+    });
+
+    tray_mode_action_ = tray_menu_->addAction("Minimize to tray");
+    tray_mode_action_->setCheckable(true);
+    connect(tray_mode_action_, &QAction::toggled, this, [this](bool checked) {
+        set_tray_mode(checked);
+    });
+
+    tray_menu_->addSeparator();
+    exit_action_ = tray_menu_->addAction("Exit");
+    connect(exit_action_, &QAction::triggered, this, [this] {
+        exit_from_tray();
+    });
+
+    tray_icon_->setContextMenu(tray_menu_);
+    connect(tray_icon_, &QSystemTrayIcon::activated, this, [this](QSystemTrayIcon::ActivationReason reason) {
+        if (reason == QSystemTrayIcon::Trigger || reason == QSystemTrayIcon::DoubleClick) {
+            show_from_tray();
+        }
+    });
+
+    tray_icon_->show();
+    update_tray_actions();
+}
+
+void MainWindow::set_tray_mode(bool enabled)
+{
+    tray_mode_ = enabled && tray_available_;
+
+    if (tray_mode_checkbox_ && tray_mode_checkbox_->isChecked() != tray_mode_) {
+        const QSignalBlocker blocker(tray_mode_checkbox_);
+        tray_mode_checkbox_->setChecked(tray_mode_);
+    }
+    if (tray_mode_action_ && tray_mode_action_->isChecked() != tray_mode_) {
+        const QSignalBlocker blocker(tray_mode_action_);
+        tray_mode_action_->setChecked(tray_mode_);
+    }
+
+    update_tray_actions();
+}
+
+void MainWindow::show_from_tray()
+{
+    showNormal();
+    raise();
+    activateWindow();
+    update_tray_actions();
+}
+
+void MainWindow::hide_to_tray()
+{
+    if (!tray_available_) {
+        return;
+    }
+
+    hide();
+    update_tray_actions();
+}
+
+void MainWindow::toggle_window_visibility()
+{
+    if (isVisible() && !isMinimized()) {
+        hide_to_tray();
+    } else {
+        show_from_tray();
+    }
+}
+
+void MainWindow::exit_from_tray()
+{
+    force_exit_ = true;
+    close();
+    QApplication::quit();
+}
+
+void MainWindow::update_tray_actions()
+{
+    if (!tray_available_) {
+        return;
+    }
+
+    if (toggle_window_action_) {
+        toggle_window_action_->setText(isVisible() && !isMinimized() ? "Hide Window" : "Show Window");
+    }
+    if (tray_icon_) {
+        const auto status = controller_.status_snapshot();
+        tray_icon_->setToolTip(QStringLiteral("ShareAudioLite - ") + session_mode_label(status.mode));
+    }
 }
 
 void MainWindow::update_layout_visibility()
@@ -543,16 +748,16 @@ void MainWindow::update_layout_visibility()
     }
 
     if (advanced_mode_) {
-        setMinimumSize(1000, 600);
+        setMinimumSize(1000, 640);
         setMaximumSize(16777215, 16777215);
-        resize(1100, 730);
+        resize(1100, 760);
         if (toggle_mode_button_) {
             toggle_mode_button_->setText("Hide Advanced Options");
         }
     } else {
-        setMinimumSize(800, 300);
+        setMinimumSize(800, 340);
         setMaximumSize(16777215, 16777215);
-        resize(830, 310);
+        resize(830, 350);
         if (toggle_mode_button_) {
             toggle_mode_button_->setText("Show Advanced Options");
         }
@@ -639,6 +844,7 @@ void MainWindow::refresh_status()
     }
     log_view_->setPlainText(logs);
     refresh_recent_devices();
+    update_tray_actions();
 }
 
 void MainWindow::refresh_ips()
@@ -840,6 +1046,9 @@ void MainWindow::apply_startup_config()
     }
 
     const auto& cfg = cfg_result.value();
+
+    set_tray_mode(cfg.traymode || cfg.startintray);
+    start_hidden_ = cfg.startintray && tray_mode_ && tray_available_;
 
     // Pre-fill GUI fields regardless of AUTOSTART
     if (cfg.has_audio_mode()) {

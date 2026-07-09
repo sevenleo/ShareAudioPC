@@ -11,6 +11,8 @@ namespace shareaudio {
 
 struct StartupConfig {
     bool autostart { false };
+    bool traymode { false };
+    bool startintray { false };
     std::string mode;               // "server" or "client"
     std::string audio_mode;         // "balanced", "fast", or "efficient"
     std::string device_id;          // capture device id

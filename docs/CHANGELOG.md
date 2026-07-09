@@ -18,6 +18,8 @@ The format follows a simple staged log.
 - Fixed HTTP Opus fallback so `codec="opus"` metadata initializes the receiver as Efficient/Opus instead of Balanced PCM.
 - Fixed Efficient AudioMode transmitter chunking so desktop transmitters feed exact 20ms PCM frames into the Opus encoder and emit length-prefixed Opus packets.
 - Renamed the public selector to `AudioMode`, changed the CLI flag to `--audio-mode`, changed startup config to `AUDIO_MODE`, and standardized values to `balanced`, `fast`, and `efficient`.
+- Added GUI system tray support with `TRAYMODE` and `STARTINTRAY` startup config keys.
+- Moved the GUI `Minimize to tray` control to a larger fixed footer visible in both simple and advanced modes.
 - Updated CLI/GUI help text and project documentation to match the current Efficient/Opus, browser route, Android/Web, and `docs/BUILD.md` behavior.
 
 ### Removed

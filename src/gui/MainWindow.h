@@ -5,13 +5,20 @@
 #include <QMainWindow>
 
 class QCloseEvent;
+class QAction;
+class QCheckBox;
 class QComboBox;
+class QEvent;
 class QFormLayout;
+class QHideEvent;
 class QLabel;
 class QLineEdit;
 class QListWidget;
+class QMenu;
 class QPlainTextEdit;
 class QPushButton;
+class QShowEvent;
+class QSystemTrayIcon;
 class QTabWidget;
 class QTimer;
 
@@ -22,12 +29,24 @@ public:
     explicit MainWindow(QWidget* parent = nullptr);
     ~MainWindow() override;
 
+    [[nodiscard]] bool should_start_hidden() const;
+
 protected:
     void closeEvent(QCloseEvent* event) override;
+    void changeEvent(QEvent* event) override;
+    void showEvent(QShowEvent* event) override;
+    void hideEvent(QHideEvent* event) override;
 
 private:
     void build_ui();
+    void setup_tray();
     void update_layout_visibility();
+    void set_tray_mode(bool enabled);
+    void show_from_tray();
+    void hide_to_tray();
+    void toggle_window_visibility();
+    void exit_from_tray();
+    void update_tray_actions();
     void refresh_all();
     void refresh_status();
     void refresh_ips();
@@ -69,6 +88,7 @@ private:
     QListWidget* playback_devices_list_ {};
     QListWidget* recent_devices_list_ {};
     QPlainTextEdit* log_view_ {};
+    QCheckBox* tray_mode_checkbox_ {};
 
     QPushButton* start_share_button_ {};
     QPushButton* connect_button_ {};
@@ -77,9 +97,18 @@ private:
     QTabWidget* tabs_ {};
     QFormLayout* share_form_ {};
     QFormLayout* listen_form_ {};
+    QSystemTrayIcon* tray_icon_ {};
+    QMenu* tray_menu_ {};
+    QAction* toggle_window_action_ {};
+    QAction* tray_mode_action_ {};
+    QAction* exit_action_ {};
     QWidget* server_advanced_widget_ {};
     QWidget* client_advanced_widget_ {};
     bool advanced_mode_ { false };
+    bool tray_available_ { false };
+    bool tray_mode_ { false };
+    bool start_hidden_ { false };
+    bool force_exit_ { false };
 };
 
 } // namespace shareaudio::gui

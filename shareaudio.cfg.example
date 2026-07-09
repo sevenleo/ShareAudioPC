@@ -7,6 +7,16 @@
 # will only pre-fill fields in the GUI and will not auto-start any sessions.
 AUTOSTART=false
 
+# TRAYMODE (true | false)
+# GUI only. If true, minimizing or closing the GUI window hides it in the
+# system tray instead of ending the app.
+TRAYMODE=false
+
+# STARTINTRAY (true | false)
+# GUI only. If true, the GUI starts hidden in the system tray. This also
+# enables tray mode for the current run.
+STARTINTRAY=false
+
 # MODE (server | client)
 # Configures the mode for autostart.
 # - 'server': starts sharing system audio.

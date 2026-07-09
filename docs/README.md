@@ -30,7 +30,7 @@ Current implementation:
 - Persistence: recent devices and config JSON helpers.
 - Portable startup config: `shareaudio.cfg` next to executable.
 - Single-instance behavior: PID lock file handling.
-- GUI: Qt Widgets, simple/advanced layout, embedded icon/resources, default device pre-selection.
+- GUI: Qt Widgets, simple/advanced layout, system tray support, embedded icon/resources, default device pre-selection.
 
 Implemented components include:
 
@@ -160,20 +160,22 @@ The GUI uses the same Qt-free `SessionController` as the CLI. It is not a separa
 Simple Mode:
 
 - Opens as a compact 3-line window.
-- Default size: `830x310`.
-- Minimum size: `800x300`.
+- Default size: `830x350`.
+- Minimum size: `800x340`.
 - Line 1: app state, dynamic server/client IP context, TCP port, last message.
 - Line 2: server start/stop sharing button.
 - Line 3: client host/IP text field and connect/disconnect button.
+- Fixed footer: runtime `Minimize to tray` control.
 
 Advanced Mode:
 
 - Expands to a full dashboard.
-- Default size: `1100x730`.
-- Minimum size: `1000x600`.
+- Default size: `1100x760`.
+- Minimum size: `1000x640`.
 - Exposes AudioMode selection.
 - Exposes capture and playback device comboboxes.
 - Exposes local IPs, recent devices, diagnostics, stats, and help/about areas.
+- Keeps the `Minimize to tray` footer visible independent of the selected tab.
 
 GUI behavior:
 
@@ -188,6 +190,7 @@ GUI behavior:
 - The GUI passes selected capture/playback devices to the shared session controller.
 - The GUI embeds `logo.ico` through Windows resources.
 - The GUI embeds `logo.png` and `logo.svg` through Qt resources and CMake AUTORCC.
+- The GUI can keep running in the system tray when minimized or closed if tray mode is enabled.
 - The theme uses a dark Soundwave identity with green share actions, blue connect actions, and red stop actions.
 
 ## Portable Startup Configuration
@@ -201,6 +204,8 @@ Example:
 # Place this next to shareaudio_cli.exe or shareaudio_gui.exe.
 
 AUTOSTART=true
+TRAYMODE=false
+STARTINTRAY=false
 MODE=server
 AUDIO_MODE=balanced
 DEVICE_ID=
@@ -213,6 +218,8 @@ Supported keys:
 | Key | Required | Values | Used by | Meaning |
 | --- | --- | --- | --- | --- |
 | `AUTOSTART` | no | `true`, `false`, `yes`, `no`, etc. | CLI/GUI | Master switch for automatic session start. |
+| `TRAYMODE` | no | `true`, `false`, `yes`, `no`, etc. | GUI | Hides the GUI in the system tray when minimized or closed. |
+| `STARTINTRAY` | no | `true`, `false`, `yes`, `no`, etc. | GUI | Starts the GUI hidden in the system tray and enables tray mode for the current run. |
 | `MODE` | when autostarting | `server`, `client` | CLI/GUI | Chooses transmitter or receiver role. |
 | `AUDIO_MODE` | no | `balanced`, `fast`, `efficient` | server | Chooses AudioMode for sharing. |
 | `DEVICE_ID` | no | device id string | server | Capture/loopback source id. |
@@ -222,14 +229,20 @@ Supported keys:
 GUI config behavior:
 
 - Existing values prefill fields even if `AUTOSTART=false`.
-- If `AUTOSTART=true` and the config is valid, the GUI starts the selected session after the window opens.
+- If `AUTOSTART=true` and the config is valid, the GUI starts the selected session after the Qt event loop starts.
+- If `TRAYMODE=true`, minimizing or closing the GUI window hides it in the system tray and keeps the app running.
+- If `STARTINTRAY=true`, the GUI starts hidden in the system tray when the system tray is available; this also enables tray mode for the current run.
+- If the system tray is unavailable, tray options are ignored and the GUI opens normally.
+- The tray menu exposes `Show Window`/`Hide Window`, a runtime-only `Minimize to tray` toggle, and `Exit`.
+- `Exit` from the tray menu is the explicit way to close the GUI while tray mode is active.
 - Invalid or incomplete config opens the GUI normally without autostart.
-- Users can change values at runtime through the GUI.
+- Users can change tray mode at runtime through the GUI or tray menu; this does not rewrite `shareaudio.cfg`.
 
 CLI config behavior:
 
 - With no arguments, `shareaudio_cli` attempts to load `shareaudio.cfg`.
 - With explicit arguments, `shareaudio.cfg` is ignored entirely.
+- GUI-only keys such as `TRAYMODE` and `STARTINTRAY` are ignored by the CLI execution flow.
 - To change CLI config behavior, stop the process, edit `shareaudio.cfg`, and run again.
 
 Invalid config examples:
@@ -1003,6 +1016,12 @@ Config file does not auto-start:
 - Confirm `MODE=server` or `MODE=client`.
 - For client mode, confirm `SERVER_IP` is present.
 - Confirm explicit CLI arguments are not bypassing the config file.
+
+GUI does not start in the tray:
+
+- Confirm `STARTINTRAY=true`.
+- Confirm the file is beside `shareaudio_gui.exe`.
+- Confirm the operating system exposes a system tray to Qt.
 
 ## Historical Note
 

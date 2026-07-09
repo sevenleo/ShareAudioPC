@@ -700,6 +700,8 @@ void test_startup_config()
         auto result = shareaudio::load_startup_config(tmp_dir / "nonexistent.cfg");
         expect(result.ok(), "missing cfg file returns success");
         expect(!result.value().autostart, "missing cfg has autostart=false");
+        expect(!result.value().traymode, "missing cfg has traymode=false");
+        expect(!result.value().startintray, "missing cfg has startintray=false");
         expect(result.value().mode.empty(), "missing cfg has empty mode");
     }
 
@@ -709,6 +711,8 @@ void test_startup_config()
         std::ofstream out(cfg_path);
         out << "# ShareAudioLite test config\n";
         out << "AUTOSTART=true\n";
+        out << "TRAYMODE=true\n";
+        out << "STARTINTRAY=true\n";
         out << "MODE=server\n";
         out << "AUDIO_MODE=efficient\n";
         out << "DEVICE_ID=my_capture_device\n";
@@ -720,6 +724,8 @@ void test_startup_config()
         expect(result.ok(), "full cfg loads successfully");
         auto& cfg = result.value();
         expect(cfg.autostart, "full cfg autostart is true");
+        expect(cfg.traymode, "full cfg traymode is true");
+        expect(cfg.startintray, "full cfg startintray is true");
         expect(cfg.is_server(), "full cfg mode is server");
         expect(cfg.audio_mode == "efficient", "full cfg audio_mode is efficient");
         expect(cfg.device_id == "my_capture_device", "full cfg device_id matches");
@@ -742,6 +748,8 @@ void test_startup_config()
         expect(result.ok(), "partial cfg loads successfully");
         auto& cfg = result.value();
         expect(cfg.autostart, "partial cfg autostart=yes is true");
+        expect(!cfg.traymode, "partial cfg traymode defaults false");
+        expect(!cfg.startintray, "partial cfg startintray defaults false");
         expect(cfg.is_client(), "partial cfg mode is client");
         expect(!cfg.has_audio_mode(), "partial cfg has no audio_mode");
         expect(!cfg.has_device_id(), "partial cfg has no device_id");
@@ -773,6 +781,8 @@ void test_startup_config()
         auto cfg_path = tmp_dir / "case.cfg";
         std::ofstream out(cfg_path);
         out << "autostart=TRUE\n";
+        out << "TrayMode=ON\n";
+        out << "StartInTray=1\n";
         out << "Mode=Client\n";
         out << "Audio_Mode=Fast\n";
         out << "Server_IP=10.0.0.1\n";
@@ -782,6 +792,8 @@ void test_startup_config()
         expect(result.ok(), "case cfg loads successfully");
         auto& cfg = result.value();
         expect(cfg.autostart, "case cfg autostart TRUE is true");
+        expect(cfg.traymode, "case cfg traymode ON is true");
+        expect(cfg.startintray, "case cfg startintray 1 is true");
         expect(cfg.is_client(), "case cfg mode Client is client");
         expect(cfg.audio_mode == "fast", "case cfg audio_mode lowercased");
         expect(cfg.server_ip == "10.0.0.1", "case cfg server_ip preserved");
@@ -803,7 +815,24 @@ void test_startup_config()
         fs::remove(cfg_path);
     }
 
-    // Test 7: Unknown keys are silently ignored
+    // Test 7: False boolean values remain false
+    {
+        auto cfg_path = tmp_dir / "false-bools.cfg";
+        std::ofstream out(cfg_path);
+        out << "AUTOSTART=false\n";
+        out << "TRAYMODE=no\n";
+        out << "STARTINTRAY=off\n";
+        out.close();
+
+        auto result = shareaudio::load_startup_config(cfg_path);
+        expect(result.ok(), "false bool cfg loads successfully");
+        expect(!result.value().autostart, "false bool cfg autostart is false");
+        expect(!result.value().traymode, "false bool cfg traymode is false");
+        expect(!result.value().startintray, "false bool cfg startintray is false");
+        fs::remove(cfg_path);
+    }
+
+    // Test 8: Unknown keys are silently ignored
     {
         auto cfg_path = tmp_dir / "unknown.cfg";
         std::ofstream out(cfg_path);

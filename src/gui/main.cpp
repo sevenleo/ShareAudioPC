@@ -9,6 +9,8 @@ int main(int argc, char** argv)
 
     QApplication app(argc, argv);
     shareaudio::gui::MainWindow window;
-    window.show();
+    if (!window.should_start_hidden()) {
+        window.show();
+    }
     return app.exec();
 }

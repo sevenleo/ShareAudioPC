@@ -37,6 +37,12 @@ std::string to_lower(std::string s)
     return s;
 }
 
+bool parse_bool(std::string value)
+{
+    value = to_lower(trim(value));
+    return value == "true" || value == "1" || value == "yes" || value == "on";
+}
+
 } // namespace
 
 std::optional<AudioMode> StartupConfig::parsed_audio_mode() const
@@ -81,8 +87,11 @@ Result<StartupConfig> load_startup_config(const std::filesystem::path& cfg_path)
         auto value = trim(line.substr(eq_pos + 1));
 
         if (key == "autostart") {
-            auto lv = to_lower(value);
-            config.autostart = (lv == "true" || lv == "1" || lv == "yes" || lv == "on");
+            config.autostart = parse_bool(value);
+        } else if (key == "traymode") {
+            config.traymode = parse_bool(value);
+        } else if (key == "startintray") {
+            config.startintray = parse_bool(value);
         } else if (key == "mode") {
             config.mode = to_lower(value);
         } else if (key == "audio_mode") {
