@@ -8,7 +8,7 @@ project(ShareAudioLite
 
 find_package(Threads REQUIRED)
 
-option(SHAREAUDIO_ENABLE_OPUS "Enable libopus-backed Quality Mode codec support" OFF)
+option(SHAREAUDIO_ENABLE_OPUS "Enable libopus-backed Efficient AudioMode codec support" OFF)
 option(SHAREAUDIO_ENABLE_MINIAUDIO "Enable miniaudio-backed real audio capture/playback" ON)
 option(SHAREAUDIO_ENABLE_TESTS "Build automated tests" ON)
 option(SHAREAUDIO_ENABLE_CONSOLE_UI "Build the console UI executable" ON)

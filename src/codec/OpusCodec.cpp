@@ -29,7 +29,6 @@ Result<void> OpusEncoder::initialize(const AudioFormat& format, int bitrate_bps)
 
     format_ = format;
     bitrate_bps_ = bitrate_bps;
-    initialized_ = true;
 
 #if SHAREAUDIO_HAS_LIBOPUS
     int error = OPUS_OK;
@@ -58,6 +57,7 @@ Result<void> OpusEncoder::initialize(const AudioFormat& format, int bitrate_bps)
         return Result<void>::failure(make_error(ErrorCode::CodecError, "Failed to configure Opus CBR: error code " + std::to_string(error)));
     }
 
+    initialized_ = true;
     return Result<void>::success();
 #else
     return Result<void>::failure(make_error(ErrorCode::NotSupported, "libopus is not linked in this build."));
@@ -126,7 +126,6 @@ Result<void> OpusDecoder::initialize(const AudioFormat& format)
     }
 
     format_ = format;
-    initialized_ = true;
 
 #if SHAREAUDIO_HAS_LIBOPUS
     int error = OPUS_OK;
@@ -139,6 +138,7 @@ Result<void> OpusDecoder::initialize(const AudioFormat& format)
         state_ = nullptr;
         return Result<void>::failure(make_error(ErrorCode::CodecError, "Failed to create Opus decoder: error code " + std::to_string(error)));
     }
+    initialized_ = true;
     return Result<void>::success();
 #else
     return Result<void>::failure(make_error(ErrorCode::NotSupported, "libopus is not linked in this build."));

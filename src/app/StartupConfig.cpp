@@ -39,12 +39,12 @@ std::string to_lower(std::string s)
 
 } // namespace
 
-std::optional<AudioMode> StartupConfig::parsed_quality() const
+std::optional<AudioMode> StartupConfig::parsed_audio_mode() const
 {
-    if (share_quality.empty()) {
+    if (audio_mode.empty()) {
         return std::nullopt;
     }
-    return parse_audio_mode(share_quality);
+    return parse_audio_mode(audio_mode);
 }
 
 Result<StartupConfig> load_startup_config(const std::filesystem::path& cfg_path)
@@ -85,8 +85,8 @@ Result<StartupConfig> load_startup_config(const std::filesystem::path& cfg_path)
             config.autostart = (lv == "true" || lv == "1" || lv == "yes" || lv == "on");
         } else if (key == "mode") {
             config.mode = to_lower(value);
-        } else if (key == "share_quality") {
-            config.share_quality = to_lower(value);
+        } else if (key == "audio_mode") {
+            config.audio_mode = to_lower(value);
         } else if (key == "device_id") {
             config.device_id = value; // Device IDs are case-sensitive
         } else if (key == "playback_device_id") {

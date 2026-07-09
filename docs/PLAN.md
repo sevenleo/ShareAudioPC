@@ -17,22 +17,20 @@ This checklist contains only remaining project work. Completed implementation hi
 
 ## Manual Windows/Linux Streaming Tests
 
-- [ ] Fix Quality Mode transmitter chunking so 20ms PCM frames are emitted to the Opus encoder.
-- [ ] Add automated test proving Quality Mode transmitter produces Opus-framed packets from captured PCM.
 - [ ] Verify Windows transmitter to Windows receiver.
 - [ ] Verify Windows transmitter to Linux receiver.
 - [ ] Verify Linux transmitter to Windows receiver.
 - [ ] Verify Linux transmitter to Linux receiver.
 - [ ] Verify Balanced Mode over wired LAN.
 - [ ] Verify Balanced Mode over Wi-Fi.
-- [ ] Verify Ultrafast Mode over wired LAN.
-- [ ] Verify Ultrafast Mode over Wi-Fi.
-- [ ] Verify Quality Mode over wired LAN.
-- [ ] Verify Quality Mode over Wi-Fi.
-- [ ] Verify Quality Mode Windows to Windows.
-- [ ] Verify Quality Mode Linux to Linux.
-- [ ] Verify Quality Mode Windows to Linux.
-- [ ] Verify Quality Mode Linux to Windows.
+- [ ] Verify Fast AudioMode over wired LAN.
+- [ ] Verify Fast AudioMode over Wi-Fi.
+- [ ] Verify Efficient AudioMode over wired LAN.
+- [ ] Verify Efficient AudioMode over Wi-Fi.
+- [ ] Verify Efficient AudioMode Windows to Windows.
+- [ ] Verify Efficient AudioMode Linux to Linux.
+- [ ] Verify Efficient AudioMode Windows to Linux.
+- [ ] Verify Efficient AudioMode Linux to Windows.
 - [ ] Verify multiple receiver clients.
 - [ ] Verify Windows playback with a generated test tone.
 
@@ -49,7 +47,6 @@ This checklist contains only remaining project work. Completed implementation hi
 
 ## GUI And CLI Manual Tests
 
-- [ ] Update GUI Help/About text so it matches the current code paths for Quality/Opus, browser route, and Android/Web compatibility.
 - [ ] Run manual GUI-to-CLI streaming test.
 - [ ] Run manual CLI-to-GUI streaming test.
 - [ ] Run manual GUI-to-GUI streaming test.
@@ -62,7 +59,6 @@ This checklist contains only remaining project work. Completed implementation hi
 ## Reliability And Long-Running Behavior
 
 - [ ] Validate or intentionally ignore non-zero `SAL1` reserved byte with an explicit protocol decision and test coverage.
-- [ ] Add a dedicated automated test for receiver-side HTTP fallback (`/info` then `/stream`).
 - [ ] Verify stable transmission for at least 10 minutes.
 - [ ] Verify a long-running session of at least 1 hour.
 - [ ] Verify receiver disconnect during playback.
@@ -85,8 +81,8 @@ This checklist contains only remaining project work. Completed implementation hi
 - [ ] Add per-client send timeout or asynchronous write queue if slow receivers can block broadcast too long.
 - [ ] Reduce allocations and lock contention in the capture-callback-triggered transmitter path.
 - [ ] Measure approximate end-to-end latency in Balanced Mode.
-- [ ] Measure approximate end-to-end latency in Ultrafast Mode.
-- [ ] Measure approximate end-to-end latency in Quality Mode.
+- [ ] Measure approximate end-to-end latency in Fast AudioMode.
+- [ ] Measure approximate end-to-end latency in Efficient AudioMode.
 - [ ] Measure CPU usage while transmitting PCM.
 - [ ] Measure CPU usage while transmitting Opus.
 - [ ] Measure memory usage during long sessions.

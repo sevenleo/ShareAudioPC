@@ -8,14 +8,17 @@ The format follows a simple staged log.
 
 ### Changed
 
-- Consolidated project documentation into exactly three files under `docs`: `README.md`, `CHANGELOG.md`, and `PLAN.md`.
+- Consolidated project documentation under `docs`: `README.md`, `CHANGELOG.md`, `PLAN.md`, and the command-only `BUILD.md`.
 - Merged the relevant content from the previous status, protocol, sync, GUI plan, and original idea documents into `docs/README.md`.
 - Rewrote `docs/PLAN.md` as a pending-work checklist only.
 - Expanded `docs/README.md` into the primary technical reference for protocol, audio modes, pipelines, build, packaging, runtime behavior, and platform compatibility.
-- Audited `docs/README.md` against the current source and corrected overstated claims around Quality/Opus end-to-end readiness, HTTP Opus fallback, browser player mode support, Linux presets, socket options, callback allocation behavior, and automated coverage.
+- Audited `docs/README.md` against the current source and corrected overstated claims around Efficient/Opus end-to-end readiness, HTTP Opus fallback, browser player mode support, Linux presets, socket options, callback allocation behavior, and automated coverage.
 - Moved pending work and improvement notes out of `docs/README.md` into `docs/PLAN.md`, keeping the README focused on current application behavior.
 - Restored and improved portable Windows packaging: `cmake --install` now produces the root `release` folder, runs Qt deployment, and excludes Opus development install artifacts from the portable folder.
-- Fixed HTTP Opus fallback so `codec="opus"` metadata initializes the receiver as Quality/Opus instead of Balanced PCM.
+- Fixed HTTP Opus fallback so `codec="opus"` metadata initializes the receiver as Efficient/Opus instead of Balanced PCM.
+- Fixed Efficient AudioMode transmitter chunking so desktop transmitters feed exact 20ms PCM frames into the Opus encoder and emit length-prefixed Opus packets.
+- Renamed the public selector to `AudioMode`, changed the CLI flag to `--audio-mode`, changed startup config to `AUDIO_MODE`, and standardized values to `balanced`, `fast`, and `efficient`.
+- Updated CLI/GUI help text and project documentation to match the current Efficient/Opus, browser route, Android/Web, and `docs/BUILD.md` behavior.
 
 ### Removed
 
@@ -26,7 +29,7 @@ The format follows a simple staged log.
 
 ### Added
 
-- **Portable Startup Configuration (`shareaudio.cfg`)**: Place a `shareaudio.cfg` file next to the executable to auto-configure and auto-start the application. Supports variables: `AUTOSTART` (master switch), `MODE` (server/client), `SHARE_QUALITY`, `DEVICE_ID`, `PLAYBACK_DEVICE_ID`, and `SERVER_IP`.
+- **Portable Startup Configuration (`shareaudio.cfg`)**: Place a `shareaudio.cfg` file next to the executable to auto-configure and auto-start the application. Supports variables: `AUTOSTART` (master switch), `MODE` (server/client), `AUDIO_MODE`, `DEVICE_ID`, `PLAYBACK_DEVICE_ID`, and `SERVER_IP`.
 - **CLI Zero-Argument Fallback**: Running `shareaudio_cli` with no arguments now loads `shareaudio.cfg` if present and auto-starts as server or client based on the config. Explicit CLI arguments always override the config file entirely.
 - **GUI Pre-Fill from Config**: The GUI pre-fills the mode combobox, device selections, and server IP field from `shareaudio.cfg` on startup. If `AUTOSTART=true` and the config is valid, the session starts automatically after the window opens.
 - **Graceful Validation**: Invalid or incomplete configs, such as `MODE=client` without `SERVER_IP`, are silently ignored in the GUI, which opens normally without auto-starting.
@@ -43,9 +46,9 @@ The format follows a simple staged log.
 
 ### Added
 
-- Added full Opus Quality network mode implementation. The transmitter encodes captured audio to Opus frames and prefixes them with 2-byte Big-Endian length headers. The receiver parses length headers, reads exact frame sizes, decodes them back to PCM, and feeds the output into the jitter buffer.
-- Added Quality Mode support to CLI and GUI.
-- Removed the mock Quality Mode errors and enabled the GUI combobox option.
+- Added full Opus Efficient AudioMode network implementation. The transmitter encodes captured audio to Opus frames and prefixes them with 2-byte Big-Endian length headers. The receiver parses length headers, reads exact frame sizes, decodes them back to PCM, and feeds the output into the jitter buffer.
+- Added Efficient AudioMode support to CLI and GUI.
+- Removed the mock Efficient AudioMode errors and enabled the GUI combobox option.
 
 ## [0.4.0] - 2026-07-07
 
@@ -86,7 +89,7 @@ The format follows a simple staged log.
 - Added PCM broadcast behavior that sends the stream header before audio bytes to every receiver.
 - Added simplified user-facing CLI commands:
   - `shareaudio_cli share`
-  - `shareaudio_cli share --mode ultrafast`
+  - `shareaudio_cli share --audio-mode fast`
   - `shareaudio_cli listen <host>`
   - `shareaudio_cli devices`
   - `shareaudio_cli ips`
@@ -115,7 +118,7 @@ The format follows a simple staged log.
 
 ### Changed
 
-- `share` defaults to Balanced Mode when `--mode` is omitted.
+- `share` defaults to Balanced AudioMode when `--audio-mode` is omitted.
 - `listen <host>` no longer accepts or requires an audio mode argument.
 - `ConsoleUi` now uses the shared session controller instead of owning streaming internals directly.
 - Receiver packet size now comes from the validated stream header.
@@ -135,7 +138,7 @@ The format follows a simple staged log.
 
 ### Known Incomplete Work At That Stage
 
-- Quality Mode network pipeline integration was still pending.
+- Efficient AudioMode network pipeline integration was still pending.
 - Browser listening was not yet supported by the native TCP protocol.
 - Android/Web compatibility was not yet validated.
 - Linux build/test and real cross-machine audio tests were still pending.

@@ -5,7 +5,12 @@
 namespace shareaudio {
 
 PcmChunker::PcmChunker(AudioMode mode)
-    : packet_size_(packet_size_for_mode(mode))
+    : PcmChunker(packet_size_for_mode(mode))
+{
+}
+
+PcmChunker::PcmChunker(std::size_t packet_size)
+    : packet_size_(packet_size)
 {
 }
 

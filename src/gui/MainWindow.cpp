@@ -345,8 +345,8 @@ void MainWindow::build_ui()
 
     mode_combo_ = new QComboBox(server_advanced_widget_);
     mode_combo_->addItem("Balanced (Recommended)", QVariant::fromValue(static_cast<int>(AudioMode::Balanced)));
-    mode_combo_->addItem("Ultrafast (Low Latency)", QVariant::fromValue(static_cast<int>(AudioMode::Ultrafast)));
-    mode_combo_->addItem("Quality (Opus)", QVariant::fromValue(static_cast<int>(AudioMode::Quality)));
+    mode_combo_->addItem("Fast (Low Latency)", QVariant::fromValue(static_cast<int>(AudioMode::Fast)));
+    mode_combo_->addItem("Efficient (Low Data)", QVariant::fromValue(static_cast<int>(AudioMode::Efficient)));
     
     capture_combo_ = new QComboBox(server_advanced_widget_);
     
@@ -355,7 +355,7 @@ void MainWindow::build_ui()
 
     share_form_ = new QFormLayout();
     share_form_->setSpacing(6);
-    share_form_->addRow("Quality Mode:", mode_combo_);
+    share_form_->addRow("AudioMode:", mode_combo_);
     share_form_->addRow("Audio Device:", capture_combo_);
     share_form_->addRow("Clients:", clients_label_);
 
@@ -792,9 +792,10 @@ void MainWindow::show_help()
         this,
         "ShareAudioLite Help",
         "Share starts a transmitter on TCP port 8080.\n"
-        "Balanced is the default mode. Ultrafast uses smaller PCM packets.\n"
-        "Listen connects to another machine and autodetects the stream mode from the SAL1 header.\n"
-        "Quality/Opus, browser listening, and Android/Web compatibility are not available yet.");
+        "Balanced is the default AudioMode. Fast uses smaller PCM packets.\n"
+        "Efficient uses Opus when this build is linked with libopus.\n"
+        "Listen connects to another machine and autodetects the stream mode from SAL1 or HTTP metadata.\n"
+        "Browser/mobile compatibility is exposed through /info, /stream, and the browser player route.");
 }
 
 void MainWindow::show_error(const QString& message)
@@ -841,8 +842,8 @@ void MainWindow::apply_startup_config()
     const auto& cfg = cfg_result.value();
 
     // Pre-fill GUI fields regardless of AUTOSTART
-    if (cfg.has_share_quality()) {
-        auto parsed = cfg.parsed_quality();
+    if (cfg.has_audio_mode()) {
+        auto parsed = cfg.parsed_audio_mode();
         if (parsed) {
             select_combo_data(mode_combo_, QVariant::fromValue(static_cast<int>(*parsed)));
         }

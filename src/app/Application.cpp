@@ -26,9 +26,9 @@ int Application::run(int argc, char** argv)
             if (cfg.autostart) {
                 if (cfg.is_server()) {
                     args.push_back("share");
-                    if (cfg.has_share_quality()) {
-                        args.push_back("--mode");
-                        args.push_back(cfg.share_quality);
+                    if (cfg.has_audio_mode()) {
+                        args.push_back("--audio-mode");
+                        args.push_back(cfg.audio_mode);
                     }
                     if (cfg.has_device_id()) {
                         args.push_back("--device");
@@ -61,4 +61,3 @@ int Application::run(int argc, char** argv)
 }
 
 } // namespace shareaudio
-

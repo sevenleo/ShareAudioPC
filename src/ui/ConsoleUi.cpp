@@ -37,10 +37,10 @@ int ConsoleUi::run(const std::vector<std::string>& args)
                 std::cerr << "Missing value for argument: " << args[i] << "\n";
                 return 2;
             }
-            if (args[i] == "--mode") {
+            if (args[i] == "--audio-mode") {
                 auto parsed = parse_audio_mode(args[i + 1]);
                 if (!parsed) {
-                    std::cerr << "share supports --mode balanced, ultrafast, or quality.\n";
+                    std::cerr << "share supports --audio-mode balanced, fast, or efficient.\n";
                     return 2;
                 }
                 mode = *parsed;
@@ -48,7 +48,7 @@ int ConsoleUi::run(const std::vector<std::string>& args)
                 capture_device_id = args[i + 1];
             } else {
                 std::cerr << "Unknown argument: " << args[i] << "\n";
-                std::cerr << "Usage: shareaudio_cli share [--mode balanced|ultrafast] [--device <device_id>]\n";
+                std::cerr << "Usage: shareaudio_cli share [--audio-mode balanced|fast|efficient] [--device <device_id>]\n";
                 return 2;
             }
         }
@@ -138,15 +138,15 @@ void ConsoleUi::print_help() const
     std::cout
         << "ShareAudioLite " << SHAREAUDIO_VERSION << "\n\n"
         << "Usage:\n"
-        << "  shareaudio_cli share [--mode balanced|ultrafast] [--device <device_id>]\n"
+        << "  shareaudio_cli share [--audio-mode balanced|fast|efficient] [--device <device_id>]\n"
         << "  shareaudio_cli listen <host> [--device <device_id>]\n"
         << "  shareaudio_cli devices\n"
         << "  shareaudio_cli ips\n"
         << "  shareaudio_cli help\n\n"
         << "Defaults:\n"
-        << "  share uses balanced mode when --mode is omitted.\n"
+        << "  share uses balanced AudioMode when --audio-mode is omitted.\n"
         << "  listen detects the stream mode from the sender.\n"
-        << "  quality mode is hidden until Opus encode/decode is implemented.\n";
+        << "  efficient AudioMode uses Opus when this build is linked with libopus.\n";
 }
 
 void ConsoleUi::print_audio_devices() const

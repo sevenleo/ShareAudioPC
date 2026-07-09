@@ -12,6 +12,7 @@ namespace shareaudio {
 class PcmChunker {
 public:
     explicit PcmChunker(AudioMode mode);
+    explicit PcmChunker(std::size_t packet_size);
 
     void push(std::span<const std::uint8_t> bytes);
     [[nodiscard]] bool has_packet() const;

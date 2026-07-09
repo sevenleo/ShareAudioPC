@@ -14,9 +14,9 @@ enum class SampleFormat {
 };
 
 enum class AudioMode {
-    Quality,
     Balanced,
-    Ultrafast
+    Fast,
+    Efficient
 };
 
 struct Defaults {
@@ -25,9 +25,10 @@ struct Defaults {
     static constexpr int channel_count = 2;
     static constexpr int bytes_per_sample = 2;
     static constexpr std::size_t balanced_packet_bytes = 2048;
-    static constexpr std::size_t ultrafast_packet_bytes = 1024;
+    static constexpr std::size_t fast_packet_bytes = 1024;
     static constexpr int opus_bitrate_bps = 128000;
     static constexpr std::size_t opus_frame_size_samples = 960;
+    static constexpr std::size_t opus_pcm_frame_bytes = opus_frame_size_samples * channel_count * bytes_per_sample;
     static constexpr std::size_t max_opus_frame_bytes = 4096;
 };
 

@@ -13,9 +13,9 @@ std::uint8_t mode_to_wire(AudioMode mode)
     switch (mode) {
     case AudioMode::Balanced:
         return 1;
-    case AudioMode::Ultrafast:
+    case AudioMode::Fast:
         return 2;
-    case AudioMode::Quality:
+    case AudioMode::Efficient:
         return 3;
     }
     return 1;
@@ -27,9 +27,9 @@ Result<AudioMode> mode_from_wire(std::uint8_t value)
     case 1:
         return Result<AudioMode>::success(AudioMode::Balanced);
     case 2:
-        return Result<AudioMode>::success(AudioMode::Ultrafast);
+        return Result<AudioMode>::success(AudioMode::Fast);
     case 3:
-        return Result<AudioMode>::success(AudioMode::Quality);
+        return Result<AudioMode>::success(AudioMode::Efficient);
     default:
         return Result<AudioMode>::failure(make_error(ErrorCode::ProtocolError, "Unknown stream mode in session header."));
     }
@@ -65,9 +65,9 @@ Result<void> validate_stream_header(const StreamHeader& header)
     if (header.sample_rate != Defaults::sample_rate) {
         return Result<void>::failure(make_error(ErrorCode::ProtocolError, "Unsupported sample rate in session header."));
     }
-    if (header.mode == AudioMode::Quality) {
+    if (header.mode == AudioMode::Efficient) {
         if (header.codec != StreamCodec::Opus) {
-            return Result<void>::failure(make_error(ErrorCode::ProtocolError, "Quality mode must use Opus codec."));
+            return Result<void>::failure(make_error(ErrorCode::ProtocolError, "Efficient mode must use Opus codec."));
         }
         if (header.packet_size == 0 || header.packet_size > Defaults::max_opus_frame_bytes) {
             return Result<void>::failure(make_error(ErrorCode::ProtocolError, "Invalid Opus packet size in session header."));
@@ -111,8 +111,8 @@ Result<std::array<std::uint8_t, ProtocolWriter::stream_header_size>> ProtocolWri
 {
     StreamHeader header;
     header.mode = mode;
-    header.codec = mode == AudioMode::Quality ? StreamCodec::Opus : StreamCodec::PcmS16Le;
-    header.packet_size = mode == AudioMode::Quality ? Defaults::max_opus_frame_bytes : static_cast<std::uint32_t>(packet_size_for_mode(mode));
+    header.codec = mode == AudioMode::Efficient ? StreamCodec::Opus : StreamCodec::PcmS16Le;
+    header.packet_size = mode == AudioMode::Efficient ? Defaults::max_opus_frame_bytes : static_cast<std::uint32_t>(packet_size_for_mode(mode));
     return make_stream_header(header);
 }
 

@@ -23,7 +23,7 @@ Current implementation:
 - Native stream protocol: raw TCP with a 16-byte `SAL1` header.
 - Browser/mobile compatibility: hybrid TCP/HTTP auto-detect with `/info`, `/stream`, and `/`.
 - Audio format: 48 kHz, stereo, signed 16-bit PCM, little-endian.
-- Supported audio mode selection: Balanced, Ultrafast, and Quality. Balanced/Ultrafast are PCM streaming modes. Quality is represented in CLI/GUI/protocol paths and uses the Opus codec components described in the audio mode section.
+- Supported `AudioMode` selection: Balanced, Fast, and Efficient. Balanced/Fast are PCM streaming modes. Efficient uses the Opus codec components described in the AudioMode section.
 - Supported runtime roles: transmitter and receiver.
 - Receiver reconnection: automatic retry loop after transmitter disconnects.
 - Loop prevention: local/self IP connections are rejected.
@@ -96,11 +96,12 @@ Important source files:
 
 ## Repository Documentation Policy
 
-Project documentation is intentionally limited to three files under `docs`:
+Project documentation lives under `docs`:
 
 - `docs/README.md`: full technical reference.
 - `docs/CHANGELOG.md`: recent and staged changes.
 - `docs/PLAN.md`: planned-work checklist only.
+- `docs/BUILD.md`: command-only build reference.
 
 Third-party documentation under `third_party/` belongs to vendored dependencies and is outside this documentation consolidation policy.
 
@@ -114,9 +115,9 @@ Supported commands:
 
 ```bash
 shareaudio_cli share
-shareaudio_cli share --mode balanced
-shareaudio_cli share --mode ultrafast
-shareaudio_cli share --mode quality
+shareaudio_cli share --audio-mode balanced
+shareaudio_cli share --audio-mode fast
+shareaudio_cli share --audio-mode efficient
 shareaudio_cli share --device "playback:1"
 shareaudio_cli listen 192.168.1.150
 shareaudio_cli listen 192.168.1.150 --device "playback:2"
@@ -128,9 +129,9 @@ shareaudio_cli help
 Command behavior:
 
 - `share` starts transmitter mode on TCP port `8080`.
-- `share` defaults to Balanced Mode when `--mode` is omitted.
-- `share --mode ultrafast` uses smaller PCM packets for lower latency.
-- `share --mode quality` selects the Opus/Quality code path.
+- `share` defaults to Balanced AudioMode when `--audio-mode` is omitted.
+- `share --audio-mode fast` uses smaller PCM packets for lower latency.
+- `share --audio-mode efficient` selects the Opus/Efficient code path.
 - `share --device <device_id>` selects a capture/loopback source.
 - `listen <host>` starts receiver mode and autodetects stream mode from `SAL1` or HTTP metadata.
 - `listen <host> --device <device_id>` selects the playback device.
@@ -170,7 +171,7 @@ Advanced Mode:
 - Expands to a full dashboard.
 - Default size: `1100x730`.
 - Minimum size: `1000x600`.
-- Exposes quality mode selection.
+- Exposes AudioMode selection.
 - Exposes capture and playback device comboboxes.
 - Exposes local IPs, recent devices, diagnostics, stats, and help/about areas.
 
@@ -179,7 +180,7 @@ GUI behavior:
 - Help/About covers CLI `help`.
 - Local IPs panel covers CLI `ips`.
 - Devices panel covers CLI `devices`.
-- Share panel covers CLI `share`, `share --mode ...`, and custom capture device selection.
+- Share panel covers CLI `share`, `share --audio-mode ...`, and custom capture device selection.
 - Listen panel covers CLI `listen <host>` and custom playback device selection.
 - The receiver autodetects stream mode from `SAL1` or HTTP metadata.
 - The GUI blocks self-connections like the CLI.
@@ -201,7 +202,7 @@ Example:
 
 AUTOSTART=true
 MODE=server
-SHARE_QUALITY=balanced
+AUDIO_MODE=balanced
 DEVICE_ID=
 PLAYBACK_DEVICE_ID=
 SERVER_IP=192.168.1.100
@@ -213,7 +214,7 @@ Supported keys:
 | --- | --- | --- | --- | --- |
 | `AUTOSTART` | no | `true`, `false`, `yes`, `no`, etc. | CLI/GUI | Master switch for automatic session start. |
 | `MODE` | when autostarting | `server`, `client` | CLI/GUI | Chooses transmitter or receiver role. |
-| `SHARE_QUALITY` | no | `balanced`, `ultrafast`, `quality` | server | Chooses audio mode for sharing. |
+| `AUDIO_MODE` | no | `balanced`, `fast`, `efficient` | server | Chooses AudioMode for sharing. |
 | `DEVICE_ID` | no | device id string | server | Capture/loopback source id. |
 | `PLAYBACK_DEVICE_ID` | no | device id string | client | Playback output id. |
 | `SERVER_IP` | client autostart | host/IP string | client | Transmitter host for receiver mode. |
@@ -235,7 +236,7 @@ Invalid config examples:
 
 - `AUTOSTART=true` and missing/invalid `MODE`.
 - `AUTOSTART=true`, `MODE=client`, and missing `SERVER_IP`.
-- Unknown audio quality values: CLI zero-argument autostart forwards invalid `SHARE_QUALITY` to `share --mode` and exits with a usage error; GUI prefill ignores unparseable `SHARE_QUALITY` and leaves the current/default mode selected.
+- Unknown AudioMode values: CLI zero-argument autostart forwards invalid `AUDIO_MODE` to `share --audio-mode` and exits with a usage error; GUI prefill ignores unparseable `AUDIO_MODE` and leaves the current/default mode selected.
 
 Unknown keys are ignored.
 
@@ -266,11 +267,11 @@ PCM byte stream:
 [L0 low][L0 high][R0 low][R0 high][L1 low][L1 high][R1 low][R1 high]...
 ```
 
-## Audio Modes And Packet Contracts
+## AudioMode Packet Contracts
 
-### Balanced Mode
+### Balanced AudioMode
 
-Balanced Mode is the default raw PCM mode.
+Balanced AudioMode is the default raw PCM mode.
 
 | Field | Value |
 | --- | --- |
@@ -290,9 +291,9 @@ Wire payload after metadata:
 
 There are no per-packet delimiters or application headers in PCM mode. The receiver recursively reads exact packet sizes derived from the `SAL1` header or HTTP metadata.
 
-### Ultrafast Mode
+### Fast AudioMode
 
-Ultrafast Mode is raw PCM with smaller packets.
+Fast AudioMode is raw PCM with smaller packets.
 
 | Field | Value |
 | --- | --- |
@@ -310,11 +311,11 @@ Wire payload after metadata:
 [1024 bytes PCM][1024 bytes PCM][1024 bytes PCM]...
 ```
 
-Ultrafast lowers per-packet audio duration but increases packet scheduling pressure.
+Fast lowers per-packet audio duration but increases packet scheduling pressure.
 
-### Quality Mode
+### Efficient AudioMode
 
-Quality Mode is the Opus-compressed mode represented by the current protocol and codec code. The codebase contains Opus encoder/decoder wrappers, Opus packet framing, `SAL1` metadata support, CLI/GUI mode selection, and receiver-side Opus read/decode branches. The transmitter-side code path uses `PcmTransmitterPipeline` and `PcmChunker` before Opus encoding.
+Efficient AudioMode is the Opus-compressed mode. The codebase contains Opus encoder/decoder wrappers, Opus packet framing, `SAL1` metadata support, CLI/GUI AudioMode selection, transmitter-side Opus packet production, and receiver-side Opus read/decode branches. Efficient AudioMode requires a libopus-enabled build.
 
 | Field | Value |
 | --- | --- |
@@ -369,11 +370,11 @@ Native ShareAudioLite clients use raw TCP. A transmitter sends a fixed 16-byte s
 | ---: | --- | --- | --- | --- |
 | `0-3` | magic | `char[4]` | `0x53 0x41 0x4C 0x31` | ASCII `SAL1` |
 | `4` | version | `uint8_t` | `0x01` | Protocol version |
-| `5` | audio mode | `uint8_t` | `0x01`-`0x03` | Balanced, Ultrafast, Quality |
+| `5` | audio mode | `uint8_t` | `0x01`-`0x03` | Balanced, Fast, Efficient |
 | `6` | codec | `uint8_t` | `0x01`-`0x02` | PCM or Opus |
 | `7` | channels | `uint8_t` | `0x02` | Stereo |
 | `8` | bytes per sample | `uint8_t` | `0x02` | 16-bit samples |
-| `9-10` | packet size | `uint16_t` | big-endian | PCM packet size, or current Opus maximum frame size (`4096`) for Quality |
+| `9-10` | packet size | `uint16_t` | big-endian | PCM packet size, or current Opus maximum frame size (`4096`) for Efficient |
 | `11` | reserved | `uint8_t` | `0x00` | Future use |
 | `12-15` | sample rate | `uint32_t` | `0x00 0x00 0xBB 0x80` | 48000 Hz, big-endian |
 
@@ -383,13 +384,13 @@ Example Balanced header:
 53 41 4C 31 01 01 01 02 02 08 00 00 00 00 BB 80
 ```
 
-Example Ultrafast header:
+Example Fast header:
 
 ```text
 53 41 4C 31 01 02 01 02 02 04 00 00 00 00 BB 80
 ```
 
-Example Quality header:
+Example Efficient header:
 
 ```text
 53 41 4C 31 01 03 02 02 02 10 00 00 00 00 BB 80
@@ -555,7 +556,7 @@ Desktop receiver fallback:
 HTTP fallback metadata parsing:
 
 - The receiver parses `codec` and `chunkSize` from `/info`.
-- HTTP metadata with `codec` set to `opus` selects Quality mode; PCM metadata uses `chunkSize == 1024` for Ultrafast and Balanced otherwise.
+- HTTP metadata with `codec` set to `opus` selects Efficient AudioMode; PCM metadata uses `chunkSize == 1024` for Fast and Balanced otherwise.
 - Native `SAL1` metadata carries both mode and codec directly.
 
 ## Socket And Network Requirements
@@ -609,7 +610,7 @@ Packetization:
 
 - PCM modes use `PcmChunker`.
 - The chunker converts arbitrary callback buffer sizes into exact network chunks.
-- The Quality code path initializes an Opus encoder and wraps encoded frames with `ProtocolWriter::make_opus_packet`.
+- The Efficient code path chunks captured PCM into `3840` byte frames, initializes an Opus encoder, and wraps encoded frames with `ProtocolWriter::make_opus_packet`.
 - Transmitter queue capacity defaults to `256` packets.
 - Queue overflow drops older data to preserve low latency.
 
@@ -698,10 +699,10 @@ Resulting current capacities:
 | Mode | Capacity | Approximate duration |
 | --- | ---: | ---: |
 | Balanced | `8 * 2048 = 16384` bytes | about `85 ms` |
-| Ultrafast | `8 * 1024 = 8192` bytes | about `42 ms` |
-| Quality/native Opus | `8 * 4096 = 32768` bytes of jitter capacity by construction | stores decoded PCM after each Opus receive call; exact duration depends on decoded frame size |
+| Fast | `8 * 1024 = 8192` bytes | about `42 ms` |
+| Efficient/native Opus | `8 * 4096 = 32768` bytes of jitter capacity by construction | stores decoded PCM after each Opus receive call; exact duration depends on decoded frame size |
 
-Older sync notes recommended `15360` decoded PCM bytes for Quality (`4 * 3840`), but the current code does not use that constant.
+Older sync notes recommended `15360` decoded PCM bytes for Efficient (`4 * 3840`), but the current code does not use that constant.
 
 Behavior:
 
@@ -780,7 +781,7 @@ Important build options:
 
 | Option | CMake default | Windows presets | Purpose |
 | --- | --- | --- | --- |
-| `SHAREAUDIO_ENABLE_OPUS` | `OFF` | `ON` | Enables libopus-backed Quality Mode. |
+| `SHAREAUDIO_ENABLE_OPUS` | `OFF` | `ON` | Enables libopus-backed Efficient AudioMode. |
 | `SHAREAUDIO_ENABLE_MINIAUDIO` | `ON` | `ON` | Enables miniaudio-backed real capture/playback. |
 | `SHAREAUDIO_ENABLE_TESTS` | `ON` | `ON` | Builds automated tests. |
 | `SHAREAUDIO_ENABLE_CONSOLE_UI` | `ON` | `ON` | Builds CLI target. |
@@ -949,12 +950,14 @@ Automated tests cover:
 - self-connection rejection;
 - loopback listener autodetection;
 - Opus codec roundtrip when libopus is linked;
+- Efficient transmitter packet production from 20ms PCM frames when libopus is linked;
 - fake audio backends;
 - PCM transmitter/receiver pipeline stats;
 - single-instance lock acquisition/release;
 - basic listener loopback autodetection and stop behavior;
 - hybrid TCP/HTTP auto-detection;
 - `/info` JSON parsing;
+- receiver-side HTTP Opus fallback through `/info` and `/stream`;
 - HTTP `/stream` server route delivery.
 
 ## Troubleshooting
@@ -981,8 +984,8 @@ No audio on Linux transmitter:
 
 Audio dropouts:
 
-- Prefer Balanced or Quality Mode over Ultrafast on unstable Wi-Fi.
-- Check network signal quality.
+- Prefer Balanced or Efficient AudioMode over Fast on unstable Wi-Fi.
+- Check network signal strength.
 - Avoid congested Wi-Fi channels.
 - Keep transmitter and receiver on the same local network segment.
 

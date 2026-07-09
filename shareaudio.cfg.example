@@ -13,12 +13,12 @@ AUTOSTART=false
 # - 'client': connects and listens to the specified SERVER_IP.
 MODE=server
 
-# SHARE_QUALITY (balanced | ultrafast | quality)
-# The audio stream transmission quality mode.
+# AUDIO_MODE (balanced | fast | efficient)
+# The audio stream transmission mode.
 # - 'balanced': standard configuration (2048 bytes packets).
-# - 'ultrafast': ultra low-latency configuration (1024 bytes packets).
-# - 'quality': high-fidelity Opus compressed codec mode.
-SHARE_QUALITY=balanced
+# - 'fast': low-latency configuration (1024 bytes packets).
+# - 'efficient': Opus compressed mode for lower network usage.
+AUDIO_MODE=balanced
 
 # DEVICE_ID (string)
 # Pre-selects a specific hardware capture audio device ID for the transmitter.

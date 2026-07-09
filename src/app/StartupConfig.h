@@ -12,13 +12,13 @@ namespace shareaudio {
 struct StartupConfig {
     bool autostart { false };
     std::string mode;               // "server" or "client"
-    std::string share_quality;      // "balanced", "ultrafast", or "quality"
+    std::string audio_mode;         // "balanced", "fast", or "efficient"
     std::string device_id;          // capture device id
     std::string playback_device_id; // playback device id
     std::string server_ip;          // target server IP for client mode
 
     [[nodiscard]] bool has_mode() const { return !mode.empty(); }
-    [[nodiscard]] bool has_share_quality() const { return !share_quality.empty(); }
+    [[nodiscard]] bool has_audio_mode() const { return !audio_mode.empty(); }
     [[nodiscard]] bool has_device_id() const { return !device_id.empty(); }
     [[nodiscard]] bool has_playback_device_id() const { return !playback_device_id.empty(); }
     [[nodiscard]] bool has_server_ip() const { return !server_ip.empty(); }
@@ -26,7 +26,7 @@ struct StartupConfig {
     [[nodiscard]] bool is_server() const { return mode == "server"; }
     [[nodiscard]] bool is_client() const { return mode == "client"; }
 
-    [[nodiscard]] std::optional<AudioMode> parsed_quality() const;
+    [[nodiscard]] std::optional<AudioMode> parsed_audio_mode() const;
 };
 
 /// Load startup configuration from a KEY=VALUE text file.

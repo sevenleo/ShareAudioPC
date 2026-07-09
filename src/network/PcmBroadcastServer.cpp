@@ -10,8 +10,8 @@ Result<void> PcmBroadcastServer::start(std::uint16_t port, AudioMode mode)
 {
     StreamHeader stream;
     stream.mode = mode;
-    stream.codec = mode == AudioMode::Quality ? StreamCodec::Opus : StreamCodec::PcmS16Le;
-    stream.packet_size = mode == AudioMode::Quality ? Defaults::max_opus_frame_bytes : static_cast<std::uint32_t>(packet_size_for_mode(mode));
+    stream.codec = mode == AudioMode::Efficient ? StreamCodec::Opus : StreamCodec::PcmS16Le;
+    stream.packet_size = mode == AudioMode::Efficient ? Defaults::max_opus_frame_bytes : static_cast<std::uint32_t>(packet_size_for_mode(mode));
     return start(port, stream);
 }
 

@@ -23,6 +23,7 @@
 #include <chrono>
 #include <vector>
 #include <cmath>
+#include <cstring>
 
 namespace {
 
@@ -42,8 +43,17 @@ void test_config()
     expect(shareaudio::validate(config).ok(), "default config is valid");
     expect(config.audio.bytes_per_frame() == 4, "stereo s16 frame is 4 bytes");
     expect(shareaudio::packet_size_for_mode(shareaudio::AudioMode::Balanced) == 2048, "balanced packet size");
-    expect(shareaudio::packet_size_for_mode(shareaudio::AudioMode::Ultrafast) == 1024, "ultrafast packet size");
-    expect(shareaudio::parse_audio_mode("quality") == shareaudio::AudioMode::Quality, "parse quality mode");
+    expect(shareaudio::packet_size_for_mode(shareaudio::AudioMode::Fast) == 1024, "fast packet size");
+    expect(shareaudio::packet_size_for_mode(shareaudio::AudioMode::Efficient) == 0, "efficient is not a raw PCM packet mode");
+    expect(shareaudio::Defaults::opus_pcm_frame_bytes == 3840, "efficient opus PCM input frame is 20 ms");
+    expect(shareaudio::to_string(shareaudio::AudioMode::Balanced) == "balanced", "balanced mode string");
+    expect(shareaudio::to_string(shareaudio::AudioMode::Fast) == "fast", "fast mode string");
+    expect(shareaudio::to_string(shareaudio::AudioMode::Efficient) == "efficient", "efficient mode string");
+    expect(shareaudio::parse_audio_mode("balanced") == shareaudio::AudioMode::Balanced, "parse balanced mode");
+    expect(shareaudio::parse_audio_mode("fast") == shareaudio::AudioMode::Fast, "parse fast mode");
+    expect(shareaudio::parse_audio_mode("efficient") == shareaudio::AudioMode::Efficient, "parse efficient mode");
+    expect(!shareaudio::parse_audio_mode("ultrafast").has_value(), "old ultrafast mode is rejected");
+    expect(!shareaudio::parse_audio_mode("quality").has_value(), "old quality mode is rejected");
 
     config.audio.channels = 1;
     expect(!shareaudio::validate(config).ok(), "mono config is rejected");
@@ -51,14 +61,14 @@ void test_config()
     const auto path = std::filesystem::temp_directory_path() / "shareaudio-config-test.json";
     shareaudio::AppConfig saved;
     saved.receiver.host = "192.168.1.55";
-    saved.transmitter.mode = shareaudio::AudioMode::Ultrafast;
-    saved.receiver.mode = shareaudio::AudioMode::Ultrafast;
+    saved.transmitter.mode = shareaudio::AudioMode::Fast;
+    saved.receiver.mode = shareaudio::AudioMode::Fast;
     expect(shareaudio::save_config_file(path, saved).ok(), "config saves to JSON");
     auto loaded = shareaudio::load_config_file(path);
     expect(loaded.ok(), "config loads from JSON");
     if (loaded.ok()) {
         expect(loaded.value().receiver.host == "192.168.1.55", "loaded config preserves receiver host");
-        expect(loaded.value().transmitter.mode == shareaudio::AudioMode::Ultrafast, "loaded config preserves mode");
+        expect(loaded.value().transmitter.mode == shareaudio::AudioMode::Fast, "loaded config preserves mode");
     }
     std::filesystem::remove(path);
 }
@@ -66,12 +76,13 @@ void test_config()
 void test_protocol()
 {
     std::vector<std::uint8_t> balanced(2048, 1);
-    std::vector<std::uint8_t> ultrafast(1024, 2);
+    std::vector<std::uint8_t> fast(1024, 2);
     std::vector<std::uint8_t> wrong(7, 3);
 
     expect(shareaudio::ProtocolWriter::validate_pcm_packet(shareaudio::AudioMode::Balanced, balanced).ok(), "balanced PCM packet accepted");
-    expect(shareaudio::ProtocolWriter::validate_pcm_packet(shareaudio::AudioMode::Ultrafast, ultrafast).ok(), "ultrafast PCM packet accepted");
+    expect(shareaudio::ProtocolWriter::validate_pcm_packet(shareaudio::AudioMode::Fast, fast).ok(), "fast PCM packet accepted");
     expect(!shareaudio::ProtocolWriter::validate_pcm_packet(shareaudio::AudioMode::Balanced, wrong).ok(), "wrong PCM packet rejected");
+    expect(!shareaudio::ProtocolWriter::validate_pcm_packet(shareaudio::AudioMode::Efficient, std::vector<std::uint8_t>(3840)).ok(), "efficient is rejected as raw PCM packet");
 
     auto header = shareaudio::ProtocolWriter::encode_opus_length(513);
     expect(header[0] == 0x02 && header[1] == 0x01, "opus length is big endian");
@@ -84,12 +95,21 @@ void test_protocol()
     expect(packet.ok(), "opus packet is created");
     expect(packet.value().size() == 22, "opus packet includes 2 byte header");
 
-    auto stream_header = shareaudio::ProtocolWriter::make_stream_header(shareaudio::AudioMode::Ultrafast);
+    auto balanced_header = shareaudio::ProtocolWriter::make_stream_header(shareaudio::AudioMode::Balanced);
+    expect(balanced_header.ok(), "balanced stream header is created");
+    if (balanced_header.ok()) {
+        expect(balanced_header.value()[5] == 0x01, "balanced SAL1 mode id stays 1");
+    }
+
+    auto stream_header = shareaudio::ProtocolWriter::make_stream_header(shareaudio::AudioMode::Fast);
     expect(stream_header.ok(), "stream header is created");
+    if (stream_header.ok()) {
+        expect(stream_header.value()[5] == 0x02, "fast SAL1 mode id stays 2");
+    }
     auto parsed_header = shareaudio::ProtocolReader::parse_stream_header(stream_header.value());
     expect(parsed_header.ok(), "stream header parses");
     if (parsed_header.ok()) {
-        expect(parsed_header.value().mode == shareaudio::AudioMode::Ultrafast, "stream header mode is ultrafast");
+        expect(parsed_header.value().mode == shareaudio::AudioMode::Fast, "stream header mode is fast");
         expect(parsed_header.value().codec == shareaudio::StreamCodec::PcmS16Le, "stream header codec is pcm");
         expect(parsed_header.value().sample_rate == 48000, "stream header sample rate is preserved");
         expect(parsed_header.value().packet_size == 1024, "stream header packet size is preserved");
@@ -103,6 +123,19 @@ void test_protocol()
     invalid_packet_size[9] = 0;
     invalid_packet_size[10] = 9;
     expect(!shareaudio::ProtocolReader::parse_stream_header(invalid_packet_size).ok(), "stream header rejects mismatched packet size");
+
+    auto efficient_header = shareaudio::ProtocolWriter::make_stream_header(shareaudio::AudioMode::Efficient);
+    expect(efficient_header.ok(), "efficient stream header is created");
+    if (efficient_header.ok()) {
+        expect(efficient_header.value()[5] == 0x03, "efficient SAL1 mode id stays 3");
+        auto parsed_efficient = shareaudio::ProtocolReader::parse_stream_header(efficient_header.value());
+        expect(parsed_efficient.ok(), "efficient stream header parses");
+        if (parsed_efficient.ok()) {
+            expect(parsed_efficient.value().mode == shareaudio::AudioMode::Efficient, "efficient stream header mode is efficient");
+            expect(parsed_efficient.value().codec == shareaudio::StreamCodec::Opus, "efficient stream header codec is opus");
+            expect(parsed_efficient.value().packet_size == shareaudio::Defaults::max_opus_frame_bytes, "efficient stream header carries max opus frame bytes");
+        }
+    }
 }
 
 void test_jitter_buffer()
@@ -125,8 +158,8 @@ void test_jitter_buffer()
 
 void test_pcm_chunker()
 {
-    shareaudio::PcmChunker chunker(shareaudio::AudioMode::Ultrafast);
-    expect(chunker.packet_size() == 1024, "ultrafast chunker packet size");
+    shareaudio::PcmChunker chunker(shareaudio::AudioMode::Fast);
+    expect(chunker.packet_size() == 1024, "fast chunker packet size");
     chunker.push(std::vector<std::uint8_t>(1000, 1));
     expect(!chunker.has_packet(), "chunker waits for a full packet");
     chunker.push(std::vector<std::uint8_t>(48, 2));
@@ -136,6 +169,15 @@ void test_pcm_chunker()
     expect(chunker.buffered_bytes() == 24, "chunker keeps remainder bytes");
     chunker.reset();
     expect(chunker.buffered_bytes() == 0, "chunker reset clears bytes");
+
+    shareaudio::PcmChunker opus_chunker(shareaudio::Defaults::opus_pcm_frame_bytes);
+    expect(opus_chunker.packet_size() == 3840, "opus chunker packet size is 20 ms PCM");
+    opus_chunker.push(std::vector<std::uint8_t>(3839, 1));
+    expect(!opus_chunker.has_packet(), "opus chunker waits for a full 20 ms frame");
+    opus_chunker.push(std::vector<std::uint8_t>(1, 2));
+    expect(opus_chunker.has_packet(), "opus chunker has full 20 ms frame");
+    auto opus_pcm = opus_chunker.pop_packet();
+    expect(opus_pcm.size() == shareaudio::Defaults::opus_pcm_frame_bytes, "opus chunker emits exact PCM frame size");
 }
 
 void test_pcm_pipelines()
@@ -161,6 +203,31 @@ void test_pcm_pipelines()
     auto receiver_stats = receiver.stats();
     expect(receiver_stats.bytes_received == 2048, "receiver tracks received bytes");
     expect(receiver_stats.bytes_played == 1024, "receiver tracks played bytes");
+
+    shareaudio::PcmTransmitterPipeline efficient_transmitter(shareaudio::AudioMode::Efficient, 2);
+    std::vector<std::uint8_t> opus_pcm_in(shareaudio::Defaults::opus_pcm_frame_bytes);
+    for (std::size_t i = 0; i < opus_pcm_in.size() / 2; ++i) {
+        std::int16_t sample = static_cast<std::int16_t>(1000.0 * std::sin(2.0 * 3.14159 * 440.0 * i / 48000.0));
+        std::memcpy(&opus_pcm_in[i * 2], &sample, sizeof(sample));
+    }
+    efficient_transmitter.on_captured_pcm(opus_pcm_in);
+    auto efficient_stats = efficient_transmitter.stats();
+#if SHAREAUDIO_HAS_LIBOPUS
+    expect(efficient_stats.packets_produced == 1, "efficient transmitter produces one opus packet from 20 ms PCM");
+    std::vector<std::uint8_t> opus_packet;
+    expect(efficient_transmitter.try_pop_packet(opus_packet), "efficient transmitter pops opus packet");
+    expect(opus_packet.size() > 2, "efficient opus packet includes length and payload");
+    if (opus_packet.size() > 2) {
+        auto opus_len = shareaudio::ProtocolReader::decode_opus_length(std::span<const std::uint8_t>(opus_packet.data(), 2));
+        expect(opus_len.ok(), "efficient opus packet length decodes");
+        if (opus_len.ok()) {
+            expect(static_cast<std::size_t>(opus_len.value()) + 2 == opus_packet.size(), "efficient opus packet length matches payload");
+        }
+    }
+#else
+    expect(efficient_stats.packets_produced == 0, "efficient transmitter produces no packets without libopus");
+    expect(efficient_stats.dropped_packets == 1, "efficient transmitter drops unsupported opus frame without libopus");
+#endif
 }
 
 void test_local_ip()
@@ -192,7 +259,7 @@ void test_recent_devices()
 void test_app_controller()
 {
     shareaudio::AppController controller;
-    expect(controller.set_audio_mode(shareaudio::AudioMode::Ultrafast).ok(), "mode can be set while idle");
+    expect(controller.set_audio_mode(shareaudio::AudioMode::Fast).ok(), "mode can be set while idle");
     expect(controller.start_transmitter().ok(), "transmitter can start");
     expect(!controller.connect_receiver("192.168.1.20").ok(), "receiver cannot start while transmitter active");
     expect(controller.stop_transmitter().ok(), "transmitter can stop");
@@ -209,8 +276,12 @@ void test_session_controller()
     options.recent_devices_path = std::filesystem::temp_directory_path() / "shareaudio-session-recent-test.json";
     shareaudio::SessionController session(config, options);
 
-    expect(session.start_sharing(shareaudio::AudioMode::Quality).ok(), "session accepts quality sharing");
-    expect(session.stop_sharing().ok(), "session stops quality sharing");
+#if SHAREAUDIO_HAS_LIBOPUS
+    expect(session.start_sharing(shareaudio::AudioMode::Efficient).ok(), "session accepts efficient sharing");
+    expect(session.stop_sharing().ok(), "session stops efficient sharing");
+#else
+    expect(!session.start_sharing(shareaudio::AudioMode::Efficient).ok(), "session rejects efficient sharing without libopus");
+#endif
     expect(session.start_sharing(shareaudio::AudioMode::Balanced).ok(), "session starts fake sharing");
     expect(session.start_listening("192.168.1.50").error().code == shareaudio::ErrorCode::InvalidState, "session blocks listening while sharing");
     auto sharing_status = session.status_snapshot();
@@ -575,20 +646,20 @@ void test_session_controller_http_opus_fallback()
     shareaudio::SessionController session(config, options);
     expect(session.start_listening("127.0.0.1").ok(), "session starts HTTP Opus fallback listening");
 
-    bool detected_quality = false;
+    bool detected_efficient = false;
     bool received_audio = false;
     for (int i = 0; i < 80; ++i) {
         const auto status = session.status_snapshot();
-        detected_quality = status.has_detected_mode && status.detected_mode == shareaudio::AudioMode::Quality;
+        detected_efficient = status.has_detected_mode && status.detected_mode == shareaudio::AudioMode::Efficient;
         received_audio = status.bytes_received > 0 && status.bytes_played > 0;
-        if (detected_quality && received_audio) {
+        if (detected_efficient && received_audio) {
             break;
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(25));
     }
 
     const auto status = session.status_snapshot();
-    expect(status.has_detected_mode && status.detected_mode == shareaudio::AudioMode::Quality, "HTTP Opus fallback detects quality mode");
+    expect(status.has_detected_mode && status.detected_mode == shareaudio::AudioMode::Efficient, "HTTP Opus fallback detects efficient AudioMode");
     expect(status.bytes_received > 0, "HTTP Opus fallback receives Opus bytes");
     expect(status.bytes_played > 0, "HTTP Opus fallback decodes PCM bytes");
     expect(session.stop_listening().ok(), "session stops HTTP Opus fallback listening");
@@ -603,7 +674,8 @@ void test_console_commands()
 
     expect(ui.run(std::vector<std::string> { "--status" }) == 2, "old --status command is removed");
     expect(ui.run(std::vector<std::string> { "--list-ips" }) == 2, "old --list-ips command is removed");
-    expect(ui.run(std::vector<std::string> { "share", "--mode", "invalid_mode" }) == 2, "invalid mode is rejected");
+    expect(ui.run(std::vector<std::string> { "share", "--audio-mode", "invalid_mode" }) == 2, "invalid AudioMode is rejected");
+    expect(ui.run(std::vector<std::string> { "share", "--mode", "quality" }) == 2, "old --mode flag is rejected");
     expect(ui.run(std::vector<std::string> { "listen" }) == 2, "listen requires a host");
     expect(ui.run(std::vector<std::string> { "help" }) == 0, "help command succeeds");
 }
@@ -638,7 +710,7 @@ void test_startup_config()
         out << "# ShareAudioLite test config\n";
         out << "AUTOSTART=true\n";
         out << "MODE=server\n";
-        out << "SHARE_QUALITY=quality\n";
+        out << "AUDIO_MODE=efficient\n";
         out << "DEVICE_ID=my_capture_device\n";
         out << "PLAYBACK_DEVICE_ID=my_playback_device\n";
         out << "SERVER_IP=192.168.1.100\n";
@@ -649,12 +721,12 @@ void test_startup_config()
         auto& cfg = result.value();
         expect(cfg.autostart, "full cfg autostart is true");
         expect(cfg.is_server(), "full cfg mode is server");
-        expect(cfg.share_quality == "quality", "full cfg share_quality is quality");
+        expect(cfg.audio_mode == "efficient", "full cfg audio_mode is efficient");
         expect(cfg.device_id == "my_capture_device", "full cfg device_id matches");
         expect(cfg.playback_device_id == "my_playback_device", "full cfg playback_device_id matches");
         expect(cfg.server_ip == "192.168.1.100", "full cfg server_ip matches");
-        expect(cfg.parsed_quality().has_value(), "full cfg parsed_quality is valid");
-        expect(*cfg.parsed_quality() == shareaudio::AudioMode::Quality, "full cfg parsed_quality is Quality");
+        expect(cfg.parsed_audio_mode().has_value(), "full cfg parsed_audio_mode is valid");
+        expect(*cfg.parsed_audio_mode() == shareaudio::AudioMode::Efficient, "full cfg parsed_audio_mode is Efficient");
         fs::remove(cfg_path);
     }
 
@@ -671,7 +743,7 @@ void test_startup_config()
         auto& cfg = result.value();
         expect(cfg.autostart, "partial cfg autostart=yes is true");
         expect(cfg.is_client(), "partial cfg mode is client");
-        expect(!cfg.has_share_quality(), "partial cfg has no share_quality");
+        expect(!cfg.has_audio_mode(), "partial cfg has no audio_mode");
         expect(!cfg.has_device_id(), "partial cfg has no device_id");
         expect(!cfg.has_server_ip(), "partial cfg has no server_ip");
         fs::remove(cfg_path);
@@ -702,7 +774,7 @@ void test_startup_config()
         std::ofstream out(cfg_path);
         out << "autostart=TRUE\n";
         out << "Mode=Client\n";
-        out << "Share_Quality=Ultrafast\n";
+        out << "Audio_Mode=Fast\n";
         out << "Server_IP=10.0.0.1\n";
         out.close();
 
@@ -711,12 +783,27 @@ void test_startup_config()
         auto& cfg = result.value();
         expect(cfg.autostart, "case cfg autostart TRUE is true");
         expect(cfg.is_client(), "case cfg mode Client is client");
-        expect(cfg.share_quality == "ultrafast", "case cfg quality lowercased");
+        expect(cfg.audio_mode == "fast", "case cfg audio_mode lowercased");
         expect(cfg.server_ip == "10.0.0.1", "case cfg server_ip preserved");
         fs::remove(cfg_path);
     }
 
-    // Test 6: Unknown keys are silently ignored
+    // Test 6: Old SHARE_QUALITY key is ignored
+    {
+        auto cfg_path = tmp_dir / "old-quality-key.cfg";
+        std::ofstream out(cfg_path);
+        out << "AUTOSTART=true\n";
+        out << "MODE=server\n";
+        out << "SHARE_QUALITY=quality\n";
+        out.close();
+
+        auto result = shareaudio::load_startup_config(cfg_path);
+        expect(result.ok(), "old SHARE_QUALITY cfg loads successfully");
+        expect(!result.value().has_audio_mode(), "old SHARE_QUALITY key is ignored");
+        fs::remove(cfg_path);
+    }
+
+    // Test 7: Unknown keys are silently ignored
     {
         auto cfg_path = tmp_dir / "unknown.cfg";
         std::ofstream out(cfg_path);

@@ -15,7 +15,7 @@ constexpr std::size_t max_log_events = 100;
 
 bool audio_mode_supported(AudioMode mode)
 {
-    return mode == AudioMode::Balanced || mode == AudioMode::Ultrafast || mode == AudioMode::Quality;
+    return mode == AudioMode::Balanced || mode == AudioMode::Fast || mode == AudioMode::Efficient;
 }
 
 } // namespace
@@ -60,8 +60,13 @@ std::unique_ptr<IAudioPlayback> SessionController::make_playback() const
 Result<void> SessionController::start_sharing(AudioMode mode, std::string capture_device_id)
 {
     if (!audio_mode_supported(mode)) {
-        return Result<void>::failure(make_error(ErrorCode::NotSupported, "Quality mode requires Opus implementation."));
+        return Result<void>::failure(make_error(ErrorCode::NotSupported, "Unsupported audio mode."));
     }
+#if !SHAREAUDIO_HAS_LIBOPUS
+    if (mode == AudioMode::Efficient) {
+        return Result<void>::failure(make_error(ErrorCode::NotSupported, "Efficient AudioMode requires a libopus-enabled build."));
+    }
+#endif
 
     {
         std::scoped_lock lock(mutex_);
@@ -302,8 +307,8 @@ Result<void> SessionController::start_listening(std::string host, std::string pl
 
                             header.codec = (codec_val == "opus") ? StreamCodec::Opus : StreamCodec::PcmS16Le;
                             header.mode = (header.codec == StreamCodec::Opus)
-                                ? AudioMode::Quality
-                                : ((chunk_size == 1024) ? AudioMode::Ultrafast : AudioMode::Balanced);
+                                ? AudioMode::Efficient
+                                : ((chunk_size == 1024) ? AudioMode::Fast : AudioMode::Balanced);
                             header.packet_size = chunk_size;
                             header.channels = 2;
                             header.bytes_per_sample = 2;
@@ -461,7 +466,7 @@ Result<void> SessionController::start_listening(std::string host, std::string pl
                     std::scoped_lock lock(mutex_);
                     if (receiver_) {
                         received = receiver_->receive_pcm(raw_payload);
-                        std::size_t play_bytes = (header.codec == StreamCodec::Opus) ? 3840 : packet_size;
+                        std::size_t play_bytes = (header.codec == StreamCodec::Opus) ? Defaults::opus_pcm_frame_bytes : packet_size;
                         pumped = receiver_->pump_playback(play_bytes);
                     }
                 }

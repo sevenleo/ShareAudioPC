@@ -48,12 +48,12 @@ int AudioFormat::bytes_per_frame() const
 std::string to_string(AudioMode mode)
 {
     switch (mode) {
-    case AudioMode::Quality:
-        return "quality";
     case AudioMode::Balanced:
         return "balanced";
-    case AudioMode::Ultrafast:
-        return "ultrafast";
+    case AudioMode::Fast:
+        return "fast";
+    case AudioMode::Efficient:
+        return "efficient";
     }
     return "balanced";
 }
@@ -61,14 +61,14 @@ std::string to_string(AudioMode mode)
 std::optional<AudioMode> parse_audio_mode(std::string value)
 {
     value = lower_copy(std::move(value));
-    if (value == "quality") {
-        return AudioMode::Quality;
-    }
     if (value == "balanced") {
         return AudioMode::Balanced;
     }
-    if (value == "ultrafast") {
-        return AudioMode::Ultrafast;
+    if (value == "fast") {
+        return AudioMode::Fast;
+    }
+    if (value == "efficient") {
+        return AudioMode::Efficient;
     }
     return std::nullopt;
 }
@@ -78,9 +78,9 @@ std::size_t packet_size_for_mode(AudioMode mode)
     switch (mode) {
     case AudioMode::Balanced:
         return Defaults::balanced_packet_bytes;
-    case AudioMode::Ultrafast:
-        return Defaults::ultrafast_packet_bytes;
-    case AudioMode::Quality:
+    case AudioMode::Fast:
+        return Defaults::fast_packet_bytes;
+    case AudioMode::Efficient:
         return 0;
     }
     return 0;

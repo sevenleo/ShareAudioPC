@@ -5,19 +5,16 @@ namespace shareaudio {
 
 PcmTransmitterPipeline::PcmTransmitterPipeline(AudioMode mode, std::size_t max_queued_packets)
     : mode_(mode)
-    , chunker_(mode == AudioMode::Quality ? AudioMode::Quality : mode) // quality mode uses 3840 bytes chunker internally
+    , chunker_(mode == AudioMode::Efficient ? Defaults::opus_pcm_frame_bytes : packet_size_for_mode(mode))
     , max_queued_packets_(max_queued_packets)
 {
-    if (mode_ == AudioMode::Quality) {
+    if (mode_ == AudioMode::Efficient) {
         AudioFormat format;
         format.sample_rate = Defaults::sample_rate;
         format.channels = Defaults::channel_count;
         (void)encoder_.initialize(format, Defaults::opus_bitrate_bps);
     }
 }
-
-// Adjust chunker construction: if Quality mode is selected, configure chunker size to 3840 bytes
-// which is exactly 20ms of stereo 16-bit PCM at 48kHz (960 * 2 * 2 = 3840 bytes).
 
 void PcmTransmitterPipeline::on_captured_pcm(std::span<const std::uint8_t> bytes)
 {
@@ -32,7 +29,7 @@ void PcmTransmitterPipeline::on_captured_pcm(std::span<const std::uint8_t> bytes
         }
 
         auto pcm_frame = chunker_.pop_packet();
-        if (mode_ == AudioMode::Quality) {
+        if (mode_ == AudioMode::Efficient) {
             auto encoded = encoder_.encode(pcm_frame);
             if (encoded.ok()) {
                 auto wrapped = ProtocolWriter::make_opus_packet(encoded.value());
@@ -85,7 +82,7 @@ PcmReceiverPipeline::PcmReceiverPipeline(IAudioPlayback& playback, std::size_t j
     , jitter_(jitter_capacity_bytes)
     , mode_(mode)
 {
-    if (mode_ == AudioMode::Quality) {
+    if (mode_ == AudioMode::Efficient) {
         AudioFormat format;
         format.sample_rate = Defaults::sample_rate;
         format.channels = Defaults::channel_count;
@@ -101,7 +98,7 @@ Result<void> PcmReceiverPipeline::start()
 Result<void> PcmReceiverPipeline::receive_pcm(std::span<const std::uint8_t> bytes)
 {
     std::scoped_lock lock(mutex_);
-    if (mode_ == AudioMode::Quality) {
+    if (mode_ == AudioMode::Efficient) {
         auto decoded = decoder_.decode(bytes);
         if (!decoded.ok()) {
             return Result<void>::failure(decoded.error());
