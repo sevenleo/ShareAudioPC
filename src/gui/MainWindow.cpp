@@ -994,14 +994,16 @@ void MainWindow::copy_diagnostics()
 
 void MainWindow::show_help()
 {
+    const QString message = QString("Share starts a transmitter on TCP port %1.\n"
+                                    "Balanced is the default AudioMode. Fast uses smaller PCM packets.\n"
+                                    "Efficient uses Opus when this build is linked with libopus.\n"
+                                    "Listen connects to another machine and autodetects the stream mode from SAL1 or HTTP metadata.\n"
+                                    "Browser/mobile compatibility is exposed through /info, /stream, and the browser player route.")
+                                .arg(Defaults::tcp_port);
     QMessageBox::information(
         this,
         "ShareAudioLite Help",
-        "Share starts a transmitter on TCP port 8080.\n"
-        "Balanced is the default AudioMode. Fast uses smaller PCM packets.\n"
-        "Efficient uses Opus when this build is linked with libopus.\n"
-        "Listen connects to another machine and autodetects the stream mode from SAL1 or HTTP metadata.\n"
-        "Browser/mobile compatibility is exposed through /info, /stream, and the browser player route.");
+        message);
 }
 
 void MainWindow::show_error(const QString& message)

@@ -20,7 +20,7 @@ enum class AudioMode {
 };
 
 struct Defaults {
-    static constexpr std::uint16_t tcp_port = 8080;
+    static constexpr std::uint16_t tcp_port = 33777;
     static constexpr int sample_rate = 48000;
     static constexpr int channel_count = 2;
     static constexpr int bytes_per_sample = 2;

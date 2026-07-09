@@ -10,6 +10,8 @@
 namespace shareaudio {
 namespace {
 
+constexpr int legacy_default_tcp_port = 8080;
+
 std::string lower_copy(std::string value)
 {
     std::ranges::transform(value, value.begin(), [](unsigned char c) {
@@ -167,8 +169,9 @@ Result<AppConfig> load_config_file(const std::filesystem::path& path)
     }
     if (auto port = parse_int_field(json, "port")) {
         if (*port > 0 && *port <= 65535) {
-            config.transmitter.network.port = static_cast<std::uint16_t>(*port);
-            config.receiver.port = static_cast<std::uint16_t>(*port);
+            const auto migrated_port = *port == legacy_default_tcp_port ? Defaults::tcp_port : static_cast<std::uint16_t>(*port);
+            config.transmitter.network.port = migrated_port;
+            config.receiver.port = migrated_port;
         }
     }
 

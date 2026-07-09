@@ -19,7 +19,7 @@ Current implementation:
 - Audio backend: miniaudio.
 - Networking: standalone Asio.
 - Codec: libopus through CMake integration when `SHAREAUDIO_ENABLE_OPUS=ON`.
-- Default TCP port: `8080`.
+- Default TCP port: `33777`.
 - Native stream protocol: raw TCP with a 16-byte `SAL1` header.
 - Browser/mobile compatibility: hybrid TCP/HTTP auto-detect with `/info`, `/stream`, and `/`.
 - Audio format: 48 kHz, stereo, signed 16-bit PCM, little-endian.
@@ -128,7 +128,7 @@ shareaudio_cli help
 
 Command behavior:
 
-- `share` starts transmitter mode on TCP port `8080`.
+- `share` starts transmitter mode on TCP port `33777`.
 - `share` defaults to Balanced AudioMode when `--audio-mode` is omitted.
 - `share --audio-mode fast` uses smaller PCM packets for lower latency.
 - `share --audio-mode efficient` selects the Opus/Efficient code path.
@@ -420,7 +420,7 @@ Transmitter:
 
 Receiver:
 
-- Connect to host on TCP port `8080`.
+- Connect to host on TCP port `33777`.
 - Send no initial request bytes in native probe mode.
 - Read exactly 16 bytes.
 - Validate all mandatory fields.
@@ -493,7 +493,7 @@ Implementation details:
 
 ### HTTP Endpoints
 
-All HTTP endpoints are served on the same port as native TCP, default `8080`.
+All HTTP endpoints are served on the same port as native TCP, default `33777`.
 
 #### `GET /info`
 
@@ -560,7 +560,7 @@ Desktop receiver fallback:
 
 1. Connect silently and attempt native `SAL1` read.
 2. If the socket closes or metadata is not a valid `SAL1` header, close the socket.
-3. Request `http://<host>:8080/info`.
+3. Request `http://<host>:33777/info`.
 4. Parse metadata JSON.
 5. Request `GET /stream HTTP/1.1`.
 6. Discard response headers through `\r\n\r\n`.
@@ -576,8 +576,8 @@ HTTP fallback metadata parsing:
 
 Default network values:
 
-- TCP port: `8080`.
-- Base URL: `http://<SERVER_IP>:8080/`.
+- TCP port: `33777`.
+- Base URL: `http://<SERVER_IP>:33777/`.
 - Native TCP and HTTP share the same port.
 
 Socket option status:
@@ -590,7 +590,7 @@ Operational network behavior:
 - Socket broadcasting happens on `transmitter_worker_`, outside the miniaudio capture callback.
 - Slow receivers are removed on send error.
 - Receiver disconnect cleanup closes the socket and stops/resets playback pipeline objects before retrying.
-- Firewalls must allow inbound TCP on port `8080` for transmitter mode.
+- Firewalls must allow inbound TCP on port `33777` for transmitter mode.
 
 ## Transmitter Pipeline
 
@@ -599,7 +599,7 @@ Transmitter startup path:
 1. User runs `shareaudio_cli share` or clicks start in GUI.
 2. Session controller validates current state.
 3. Capture backend initializes selected/default source.
-4. TCP broadcast server binds to port `8080`.
+4. TCP broadcast server binds to port `33777`.
 5. Audio capture starts.
 6. Captured PCM enters chunking/encoding.
 7. Packets enter transmitter queue.
@@ -913,7 +913,7 @@ Audio:
 Status:
 
 - Browser client path is supported by the embedded `/` route.
-- Browser connects to `http://<IP>:8080/`.
+- Browser connects to `http://<IP>:33777/`.
 - The page uses Web Audio APIs and `/stream` for playback.
 - Current embedded player behavior is Balanced PCM-oriented and assumes `2048` byte chunks.
 
@@ -978,7 +978,7 @@ Automated tests cover:
 Receiver cannot connect:
 
 - Confirm transmitter and receiver are on the same LAN.
-- Confirm transmitter firewall allows inbound TCP `8080`.
+- Confirm transmitter firewall allows inbound TCP `33777`.
 - Confirm the receiver is not trying to connect to its own local IP.
 - Check that the transmitter is in sharing mode.
 

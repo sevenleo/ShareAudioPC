@@ -41,6 +41,9 @@ void test_config()
 {
     shareaudio::AppConfig config;
     expect(shareaudio::validate(config).ok(), "default config is valid");
+    expect(shareaudio::Defaults::tcp_port == 33777, "default TCP port is 33777");
+    expect(config.transmitter.network.port == shareaudio::Defaults::tcp_port, "default transmitter port uses default TCP port");
+    expect(config.receiver.port == shareaudio::Defaults::tcp_port, "default receiver port uses default TCP port");
     expect(config.audio.bytes_per_frame() == 4, "stereo s16 frame is 4 bytes");
     expect(shareaudio::packet_size_for_mode(shareaudio::AudioMode::Balanced) == 2048, "balanced packet size");
     expect(shareaudio::packet_size_for_mode(shareaudio::AudioMode::Fast) == 1024, "fast packet size");
@@ -71,6 +74,38 @@ void test_config()
         expect(loaded.value().transmitter.mode == shareaudio::AudioMode::Fast, "loaded config preserves mode");
     }
     std::filesystem::remove(path);
+
+    const auto legacy_port_path = std::filesystem::temp_directory_path() / "shareaudio-legacy-port-test.json";
+    {
+        std::ofstream out(legacy_port_path);
+        out << "{\n"
+            << "  \"transmitter\": { \"port\": 8080 },\n"
+            << "  \"receiver\": { \"port\": 8080 }\n"
+            << "}\n";
+    }
+    auto legacy_port_loaded = shareaudio::load_config_file(legacy_port_path);
+    expect(legacy_port_loaded.ok(), "legacy port config loads");
+    if (legacy_port_loaded.ok()) {
+        expect(legacy_port_loaded.value().transmitter.network.port == shareaudio::Defaults::tcp_port, "legacy transmitter port migrates to default TCP port");
+        expect(legacy_port_loaded.value().receiver.port == shareaudio::Defaults::tcp_port, "legacy receiver port migrates to default TCP port");
+    }
+    std::filesystem::remove(legacy_port_path);
+
+    const auto custom_port_path = std::filesystem::temp_directory_path() / "shareaudio-custom-port-test.json";
+    {
+        std::ofstream out(custom_port_path);
+        out << "{\n"
+            << "  \"transmitter\": { \"port\": 39095 },\n"
+            << "  \"receiver\": { \"port\": 39095 }\n"
+            << "}\n";
+    }
+    auto custom_port_loaded = shareaudio::load_config_file(custom_port_path);
+    expect(custom_port_loaded.ok(), "custom port config loads");
+    if (custom_port_loaded.ok()) {
+        expect(custom_port_loaded.value().transmitter.network.port == 39095, "custom transmitter port is preserved");
+        expect(custom_port_loaded.value().receiver.port == 39095, "custom receiver port is preserved");
+    }
+    std::filesystem::remove(custom_port_path);
 }
 
 void test_protocol()
