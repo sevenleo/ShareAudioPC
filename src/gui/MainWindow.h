@@ -54,6 +54,8 @@ private:
     void refresh_recent_devices();
     void start_sharing();
     void start_listening();
+    void stop_sharing();
+    void stop_listening();
     void stop_session();
     void copy_selected_ip();
     void copy_diagnostics();

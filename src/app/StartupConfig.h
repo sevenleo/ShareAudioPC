@@ -13,7 +13,7 @@ struct StartupConfig {
     bool autostart { false };
     bool traymode { false };
     bool startintray { false };
-    std::string mode;               // "server" or "client"
+    std::string mode;               // "server", "client", or GUI-only "both"
     std::string audio_mode;         // "balanced", "fast", or "efficient"
     std::string device_id;          // capture device id
     std::string playback_device_id; // playback device id
@@ -27,6 +27,7 @@ struct StartupConfig {
 
     [[nodiscard]] bool is_server() const { return mode == "server"; }
     [[nodiscard]] bool is_client() const { return mode == "client"; }
+    [[nodiscard]] bool is_both() const { return mode == "both"; }
 
     [[nodiscard]] std::optional<AudioMode> parsed_audio_mode() const;
 };

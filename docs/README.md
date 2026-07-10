@@ -1,6 +1,6 @@
 # ShareAudioLite
 
-ShareAudioLite is a native Windows/Linux LAN audio transmitter and receiver for low-latency local-network audio sharing. A machine can run as a transmitter, capturing local system audio and broadcasting it over TCP, or as a receiver, connecting to another transmitter and playing the stream locally.
+ShareAudioLite is a native Windows/Linux LAN audio transmitter and receiver for low-latency local-network audio sharing. A machine can run as a transmitter, capturing local system audio and broadcasting it over TCP, as a receiver, connecting to another transmitter and playing the stream locally, or through the GUI as both at the same time.
 
 The original idea was a Windows-native C#/WinUI application. The current implementation is a native C++20/CMake codebase with:
 
@@ -24,7 +24,7 @@ Current implementation:
 - Browser/mobile compatibility: hybrid TCP/HTTP auto-detect with `/info`, `/stream`, and `/`.
 - Audio format: 48 kHz, stereo, signed 16-bit PCM, little-endian.
 - Supported `AudioMode` selection: Balanced, Fast, and Efficient. Balanced/Fast are PCM streaming modes. Efficient uses the Opus codec components described in the AudioMode section.
-- Supported runtime roles: transmitter and receiver.
+- Supported runtime roles: transmitter, receiver, and GUI simultaneous transmitter/receiver.
 - Receiver reconnection: automatic retry loop after transmitter disconnects.
 - Loop prevention: local/self IP connections are rejected.
 - Persistence: recent devices and config JSON helpers.
@@ -184,6 +184,7 @@ GUI behavior:
 - Devices panel covers CLI `devices`.
 - Share panel covers CLI `share`, `share --audio-mode ...`, and custom capture device selection.
 - Listen panel covers CLI `listen <host>` and custom playback device selection.
+- The GUI can run sharing and receiver sessions at the same time as independent sessions.
 - The receiver autodetects stream mode from `SAL1` or HTTP metadata.
 - The GUI blocks self-connections like the CLI.
 - The GUI pre-selects and highlights default capture/playback devices on startup where available.
@@ -220,16 +221,18 @@ Supported keys:
 | `AUTOSTART` | no | `true`, `false`, `yes`, `no`, etc. | CLI/GUI | Master switch for automatic session start. |
 | `TRAYMODE` | no | `true`, `false`, `yes`, `no`, etc. | GUI | Hides the GUI in the system tray when minimized or closed. |
 | `STARTINTRAY` | no | `true`, `false`, `yes`, `no`, etc. | GUI | Starts the GUI hidden in the system tray and enables tray mode for the current run. |
-| `MODE` | when autostarting | `server`, `client` | CLI/GUI | Chooses transmitter or receiver role. |
+| `MODE` | when autostarting | `server`, `client`, `both` | CLI/GUI | Chooses transmitter, receiver, or GUI simultaneous mode. `both` is GUI-only. |
 | `AUDIO_MODE` | no | `balanced`, `fast`, `efficient` | server | Chooses AudioMode for sharing. |
 | `DEVICE_ID` | no | device id string | server | Capture/loopback source id. |
 | `PLAYBACK_DEVICE_ID` | no | device id string | client | Playback output id. |
-| `SERVER_IP` | client autostart | host/IP string | client | Transmitter host for receiver mode. |
+| `SERVER_IP` | client/both autostart | host/IP string | client/both | Transmitter host for receiver mode. |
 
 GUI config behavior:
 
 - Existing values prefill fields even if `AUTOSTART=false`.
 - If `AUTOSTART=true` and the config is valid, the GUI starts the selected session after the Qt event loop starts.
+- `MODE=both` is GUI-only and starts sharing plus receiver connection to `SERVER_IP`.
+- `MODE=both` requires `SERVER_IP`; without it, the GUI opens normally without autostart.
 - If `TRAYMODE=true`, minimizing or closing the GUI window hides it in the system tray and keeps the app running.
 - If `STARTINTRAY=true`, the GUI starts hidden in the system tray when the system tray is available; this also enables tray mode for the current run.
 - If the system tray is unavailable, tray options are ignored and the GUI opens normally.
@@ -243,12 +246,13 @@ CLI config behavior:
 - With no arguments, `shareaudio_cli` attempts to load `shareaudio.cfg`.
 - With explicit arguments, `shareaudio.cfg` is ignored entirely.
 - GUI-only keys such as `TRAYMODE` and `STARTINTRAY` are ignored by the CLI execution flow.
+- `MODE=both` is rejected by `shareaudio_cli` because simultaneous sharing/listening is currently a GUI feature.
 - To change CLI config behavior, stop the process, edit `shareaudio.cfg`, and run again.
 
 Invalid config examples:
 
 - `AUTOSTART=true` and missing/invalid `MODE`.
-- `AUTOSTART=true`, `MODE=client`, and missing `SERVER_IP`.
+- `AUTOSTART=true`, `MODE=client` or `MODE=both`, and missing `SERVER_IP`.
 - Unknown AudioMode values: CLI zero-argument autostart forwards invalid `AUDIO_MODE` to `share --audio-mode` and exits with a usage error; GUI prefill ignores unparseable `AUDIO_MODE` and leaves the current/default mode selected.
 
 Unknown keys are ignored.
@@ -611,6 +615,7 @@ Windows capture:
 - Default transmitter source is playback loopback.
 - Captures the default playback device unless a device id is selected.
 - Converts captured format to 48 kHz stereo signed 16-bit PCM when needed.
+- When GUI sharing and receiver run together on Windows, playing received audio through the same device captured by loopback can re-capture and retransmit that received audio. Use different devices, avoid connecting to the same machine, or disable one side to prevent feedback/echo.
 
 Linux capture:
 
@@ -958,7 +963,7 @@ Automated tests cover:
 - CLI command behavior for new commands;
 - CLI behavior for removed legacy flags;
 - shared session controller start/stop behavior;
-- simultaneous mode rejection;
+- simultaneous GUI-capable sharing/listening controller behavior;
 - idempotent stop;
 - self-connection rejection;
 - loopback listener autodetection;
@@ -1013,8 +1018,9 @@ Config file does not auto-start:
 - Confirm the file is named exactly `shareaudio.cfg`.
 - Confirm it is beside the executable being run.
 - Confirm `AUTOSTART=true`.
-- Confirm `MODE=server` or `MODE=client`.
-- For client mode, confirm `SERVER_IP` is present.
+- Confirm `MODE=server`, `MODE=client`, or `MODE=both`.
+- For client or both mode, confirm `SERVER_IP` is present.
+- Remember that `MODE=both` is supported by `shareaudio_gui` only.
 - Confirm explicit CLI arguments are not bypassing the config file.
 
 GUI does not start in the tray:

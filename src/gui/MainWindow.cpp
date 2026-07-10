@@ -57,7 +57,21 @@ QString mode_label(AudioMode mode)
 
 QString session_mode_label(SessionMode mode)
 {
-    return qstr(to_string(mode));
+    switch (mode) {
+    case SessionMode::Idle:
+        return "Idle";
+    case SessionMode::Sharing:
+        return "Sharing";
+    case SessionMode::Connecting:
+        return "Connecting";
+    case SessionMode::Listening:
+        return "Listening";
+    case SessionMode::SharingConnecting:
+        return "Sharing + Connecting";
+    case SessionMode::SharingListening:
+        return "Sharing + Listening";
+    }
+    return "Idle";
 }
 
 QString device_label(const AudioDevice& device)
@@ -406,8 +420,8 @@ void MainWindow::build_ui()
     start_share_button_->setObjectName("startShareButton");
     connect(start_share_button_, &QPushButton::clicked, this, [this] {
         const auto status = controller_.status_snapshot();
-        if (status.mode == SessionMode::Sharing) {
-            stop_session();
+        if (status.sharing_active) {
+            stop_sharing();
         } else {
             start_sharing();
         }
@@ -464,8 +478,8 @@ void MainWindow::build_ui()
     connect_button_->setObjectName("connectButton");
     connect(connect_button_, &QPushButton::clicked, this, [this] {
         const auto status = controller_.status_snapshot();
-        if (status.mode == SessionMode::Listening || status.mode == SessionMode::Connecting) {
-            stop_session();
+        if (status.receiver_listening || status.receiver_connecting) {
+            stop_listening();
         } else {
             start_listening();
         }
@@ -780,15 +794,14 @@ void MainWindow::refresh_all()
 void MainWindow::refresh_status()
 {
     const auto status = controller_.status_snapshot();
-    const bool idle = status.mode == SessionMode::Idle;
-    const bool sharing = status.mode == SessionMode::Sharing;
-    const bool listening = status.mode == SessionMode::Listening || status.mode == SessionMode::Connecting;
+    const bool sharing = status.sharing_active;
+    const bool listening = status.receiver_listening || status.receiver_connecting;
 
     state_label_->setText(session_mode_label(status.mode));
     port_label_->setText(QString::number(status.port));
     
     // Format IP info label depending on the mode initiated
-    if (sharing) {
+    auto local_ip_summary = [this]() {
         QString ips_str;
         const auto ips = controller_.list_local_ips();
         if (!ips.empty()) {
@@ -799,7 +812,12 @@ void MainWindow::refresh_status()
         } else {
             ips_str = "No IP found";
         }
-        ip_info_label_->setText(ips_str);
+        return ips_str;
+    };
+
+    if (sharing) {
+        const QString tx = local_ip_summary();
+        ip_info_label_->setText(listening ? QString("TX: %1 | RX: %2").arg(tx, qstr(status.host)) : tx);
     } else if (listening) {
         ip_info_label_->setText(qstr(status.host));
     } else {
@@ -831,12 +849,12 @@ void MainWindow::refresh_status()
         update_button_style(connect_button_, "connectButton", "Connect Receiver");
     }
 
-    start_share_button_->setEnabled(idle || sharing);
-    connect_button_->setEnabled(idle || listening);
-    mode_combo_->setEnabled(idle);
-    capture_combo_->setEnabled(idle);
-    playback_combo_->setEnabled(idle);
-    host_input_->setEnabled(idle);
+    start_share_button_->setEnabled(true);
+    connect_button_->setEnabled(true);
+    mode_combo_->setEnabled(!sharing);
+    capture_combo_->setEnabled(!sharing);
+    playback_combo_->setEnabled(!listening);
+    host_input_->setEnabled(!listening);
 
     QString logs;
     for (const auto& event : status.log_events) {
@@ -972,6 +990,20 @@ void MainWindow::start_listening()
     refresh_status();
 }
 
+void MainWindow::stop_sharing()
+{
+    controller_.stop_sharing();
+    save_config_file(default_config_path(), controller_.config_snapshot());
+    refresh_status();
+}
+
+void MainWindow::stop_listening()
+{
+    controller_.stop_listening();
+    save_config_file(default_config_path(), controller_.config_snapshot());
+    refresh_status();
+}
+
 void MainWindow::stop_session()
 {
     controller_.stop();
@@ -1018,6 +1050,9 @@ QString MainWindow::diagnostics_text() const
     std::ostringstream out;
     out << "ShareAudioLite " << SHAREAUDIO_VERSION << "\n";
     out << "state=" << to_string(status.mode) << "\n";
+    out << "sharing_active=" << (status.sharing_active ? "true" : "false") << "\n";
+    out << "receiver_connecting=" << (status.receiver_connecting ? "true" : "false") << "\n";
+    out << "receiver_listening=" << (status.receiver_listening ? "true" : "false") << "\n";
     out << "port=" << status.port << "\n";
     out << "selected_mode=" << to_string(status.selected_mode) << "\n";
     out << "detected_mode=" << (status.has_detected_mode ? to_string(status.detected_mode) : "-") << "\n";
@@ -1080,8 +1115,8 @@ void MainWindow::apply_startup_config()
         return;
     }
 
-    if (cfg.is_client() && !cfg.has_server_ip()) {
-        // Client mode without SERVER_IP — skip autostart, open normally
+    if ((cfg.is_client() || cfg.is_both()) && !cfg.has_server_ip()) {
+        // Client/both mode without SERVER_IP — skip autostart, open normally
         return;
     }
 
@@ -1092,6 +1127,11 @@ void MainWindow::apply_startup_config()
         });
     } else if (cfg.is_client()) {
         QTimer::singleShot(200, this, [this] {
+            start_listening();
+        });
+    } else if (cfg.is_both()) {
+        QTimer::singleShot(200, this, [this] {
+            start_sharing();
             start_listening();
         });
     }

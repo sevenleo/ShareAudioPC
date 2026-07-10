@@ -318,10 +318,16 @@ void test_session_controller()
     expect(!session.start_sharing(shareaudio::AudioMode::Efficient).ok(), "session rejects efficient sharing without libopus");
 #endif
     expect(session.start_sharing(shareaudio::AudioMode::Balanced).ok(), "session starts fake sharing");
-    expect(session.start_listening("192.168.1.50").error().code == shareaudio::ErrorCode::InvalidState, "session blocks listening while sharing");
+    expect(session.start_listening("192.168.1.50").ok(), "session starts receiver while sharing");
     auto sharing_status = session.status_snapshot();
-    expect(sharing_status.mode == shareaudio::SessionMode::Sharing, "session status is sharing");
-    expect(session.stop_sharing().ok(), "session stops fake sharing");
+    expect(sharing_status.sharing_active, "session status reports active sharing");
+    expect(sharing_status.receiver_connecting, "session status reports receiver connecting during sharing");
+    expect(sharing_status.mode == shareaudio::SessionMode::SharingConnecting, "session status is sharing and connecting");
+    expect(session.stop_sharing().ok(), "session stops fake sharing without stopping receiver");
+    auto receiver_status = session.status_snapshot();
+    expect(!receiver_status.sharing_active, "sharing stop leaves sharing inactive");
+    expect(receiver_status.receiver_connecting, "sharing stop keeps receiver active");
+    expect(session.stop_listening().ok(), "session stops receiver after sharing stop");
     expect(session.stop_sharing().ok(), "session sharing stop is idempotent");
 
     shareaudio::SessionController self_blocking(config, options);
@@ -341,7 +347,7 @@ void test_session_controller_listen_loopback()
 
     shareaudio::AppConfig config;
     config.receiver.port = port;
-    config.transmitter.network.port = port;
+    config.transmitter.network.port = 0;
     shareaudio::SessionControllerOptions options;
     options.backend = shareaudio::SessionAudioBackend::Fake;
     options.allow_self_connection = true;
@@ -360,6 +366,15 @@ void test_session_controller_listen_loopback()
     expect(listening, "session reaches listening state after SAL1 header");
     auto status = session.status_snapshot();
     expect(status.has_detected_mode && status.detected_mode == shareaudio::AudioMode::Balanced, "session autodetects balanced mode");
+    expect(session.start_sharing(shareaudio::AudioMode::Balanced).ok(), "session starts sharing while listening");
+    auto combined_status = session.status_snapshot();
+    expect(combined_status.sharing_active, "combined status reports sharing active");
+    expect(combined_status.receiver_listening, "combined status reports receiver listening");
+    expect(combined_status.mode == shareaudio::SessionMode::SharingListening, "combined status is sharing and listening");
+    expect(session.stop_sharing().ok(), "combined session stops sharing only");
+    auto listen_only_status = session.status_snapshot();
+    expect(!listen_only_status.sharing_active, "sharing stop leaves receiver-only session");
+    expect(listen_only_status.receiver_listening, "receiver remains listening after sharing stop");
     expect(session.stop_listening().ok(), "session stops loopback listening");
     expect(session.stop_listening().ok(), "session listening stop is idempotent");
     server.stop();
@@ -880,6 +895,23 @@ void test_startup_config()
         expect(result.ok(), "unknown keys cfg loads successfully");
         expect(result.value().autostart, "unknown keys cfg autostart works");
         expect(result.value().is_server(), "unknown keys cfg mode works");
+        fs::remove(cfg_path);
+    }
+
+    // Test 9: GUI-only both mode parses correctly
+    {
+        auto cfg_path = tmp_dir / "both.cfg";
+        std::ofstream out(cfg_path);
+        out << "AUTOSTART=true\n";
+        out << "MODE=both\n";
+        out << "SERVER_IP=192.168.1.100\n";
+        out.close();
+
+        auto result = shareaudio::load_startup_config(cfg_path);
+        expect(result.ok(), "both cfg loads successfully");
+        expect(result.value().autostart, "both cfg autostart is true");
+        expect(result.value().is_both(), "both cfg mode parses as both");
+        expect(result.value().server_ip == "192.168.1.100", "both cfg server_ip matches");
         fs::remove(cfg_path);
     }
 

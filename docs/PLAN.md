@@ -55,6 +55,8 @@ This checklist contains only remaining project work. Completed implementation hi
 - [ ] Verify CLI `shareaudio.cfg` zero-argument server autostart in a release folder.
 - [ ] Verify CLI `shareaudio.cfg` zero-argument client autostart in a release folder.
 - [ ] Verify GUI `shareaudio.cfg` field prefill and autostart in a release folder.
+- [ ] Verify GUI simultaneous sharing and receiver operation.
+- [ ] Verify GUI `shareaudio.cfg` `AUTOSTART=true` with `MODE=both` and `SERVER_IP=<ip>`.
 - [ ] Verify GUI `TRAYMODE=true` minimizes to the system tray.
 - [ ] Verify GUI `TRAYMODE=true` close button hides to the system tray without stopping the session.
 - [ ] Verify GUI tray menu restores the window and exits the app.

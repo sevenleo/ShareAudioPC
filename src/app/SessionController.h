@@ -26,7 +26,9 @@ enum class SessionMode {
     Idle,
     Sharing,
     Connecting,
-    Listening
+    Listening,
+    SharingConnecting,
+    SharingListening
 };
 
 enum class SessionAudioBackend {
@@ -42,6 +44,9 @@ struct SessionControllerOptions {
 
 struct SessionStatus {
     SessionMode mode { SessionMode::Idle };
+    bool sharing_active {};
+    bool receiver_connecting {};
+    bool receiver_listening {};
     AudioMode selected_mode { AudioMode::Balanced };
     AudioMode detected_mode { AudioMode::Balanced };
     bool has_detected_mode {};
@@ -88,13 +93,15 @@ private:
     void add_log(std::string message);
     void add_log_locked(const std::string& message);
     void finish_listening();
+    [[nodiscard]] SessionMode derived_mode_locked() const;
 
     mutable std::mutex mutex_;
     std::condition_variable state_changed_;
     AppConfig config_;
     SessionControllerOptions options_;
     RecentDevices recent_;
-    SessionMode mode_ { SessionMode::Idle };
+    bool sharing_active_ {};
+    SessionMode receiver_mode_ { SessionMode::Idle };
     AudioMode detected_mode_ { AudioMode::Balanced };
     bool has_detected_mode_ {};
     std::string last_error_;

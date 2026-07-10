@@ -21,6 +21,7 @@ The format follows a simple staged log.
 - Changed the default communication port from the legacy value to TCP `33777` for native `SAL1` and HTTP fallback routes.
 - Added GUI system tray support with `TRAYMODE` and `STARTINTRAY` startup config keys.
 - Moved the GUI `Minimize to tray` control to a larger fixed footer visible in both simple and advanced modes.
+- Added GUI simultaneous sharing/listening support and GUI-only `shareaudio.cfg` `MODE=both` autostart.
 - Updated CLI/GUI help text and project documentation to match the current Efficient/Opus, browser route, Android/Web, and `docs/BUILD.md` behavior.
 
 ### Removed

@@ -17,10 +17,11 @@ TRAYMODE=false
 # enables tray mode for the current run.
 STARTINTRAY=false
 
-# MODE (server | client)
+# MODE (server | client | both)
 # Configures the mode for autostart.
 # - 'server': starts sharing system audio.
 # - 'client': connects and listens to the specified SERVER_IP.
+# - 'both': GUI only; starts sharing and connects the receiver to SERVER_IP.
 MODE=server
 
 # AUDIO_MODE (balanced | fast | efficient)
@@ -42,5 +43,5 @@ AUDIO_MODE=balanced
 
 # SERVER_IP (string)
 # The IP address or hostname of the transmitter/server to connect to.
-# (This variable is required only when MODE=client)
+# (This variable is required when MODE=client or MODE=both)
 SERVER_IP=192.168.1.100

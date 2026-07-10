@@ -47,8 +47,11 @@ int Application::run(int argc, char** argv)
                         args.push_back(cfg.playback_device_id);
                     }
                     std::cout << "[cfg] Auto-connecting to " << cfg.server_ip << " from shareaudio.cfg\n";
+                } else if (cfg.is_both()) {
+                    std::cerr << "[cfg] MODE=both is supported by shareaudio_gui only.\n";
+                    return 2;
                 } else {
-                    std::cerr << "[cfg] AUTOSTART=true but MODE is missing or invalid in shareaudio.cfg. Use MODE=server or MODE=client.\n";
+                    std::cerr << "[cfg] AUTOSTART=true but MODE is missing or invalid in shareaudio.cfg. Use MODE=server or MODE=client for the CLI; MODE=both is GUI-only.\n";
                     return 2;
                 }
             }

@@ -70,15 +70,16 @@ Result<void> SessionController::start_sharing(AudioMode mode, std::string captur
 
     {
         std::scoped_lock lock(mutex_);
-        if (mode_ != SessionMode::Idle) {
-            return Result<void>::failure(make_error(ErrorCode::InvalidState, "Stop the current session before sharing audio."));
+        if (sharing_active_) {
+            return Result<void>::failure(make_error(ErrorCode::InvalidState, "Sharing session is already running."));
         }
         last_error_.clear();
-        has_detected_mode_ = false;
         config_.transmitter.mode = mode;
-        config_.receiver.mode = mode;
+        if (receiver_mode_ == SessionMode::Idle) {
+            config_.receiver.mode = mode;
+        }
         config_.transmitter.capture_device_id = capture_device_id;
-        mode_ = SessionMode::Sharing;
+        sharing_active_ = true;
         add_log_locked("Starting sharing session.");
     }
 
@@ -136,10 +137,10 @@ Result<void> SessionController::stop_sharing()
 {
     {
         std::scoped_lock lock(mutex_);
-        if (mode_ != SessionMode::Sharing && !capture_ && !server_ && !transmitter_worker_.joinable()) {
+        if (!sharing_active_ && !capture_ && !server_ && !transmitter_worker_.joinable()) {
             return Result<void>::success();
         }
-        mode_ = SessionMode::Idle;
+        sharing_active_ = false;
         add_log_locked("Stopping sharing session.");
     }
 
@@ -156,6 +157,7 @@ Result<void> SessionController::stop_sharing()
 
     SessionStatus completed;
     completed.mode = SessionMode::Idle;
+    completed.sharing_active = false;
     completed.selected_mode = config_.transmitter.mode;
     completed.port = config_.transmitter.network.port;
     if (server_) {
@@ -172,7 +174,16 @@ Result<void> SessionController::stop_sharing()
 
     {
         std::scoped_lock lock(mutex_);
-        last_completed_status_ = completed;
+        last_completed_status_.selected_mode = completed.selected_mode;
+        last_completed_status_.port = completed.port;
+        last_completed_status_.connected_clients = completed.connected_clients;
+        last_completed_status_.bytes_sent = completed.bytes_sent;
+        last_completed_status_.packets_produced = completed.packets_produced;
+        last_completed_status_.dropped_packets = completed.dropped_packets;
+        if (receiver_mode_ == SessionMode::Idle) {
+            last_completed_status_.mode = SessionMode::Idle;
+            last_completed_status_.sharing_active = false;
+        }
         capture_.reset();
         server_.reset();
         transmitter_.reset();
@@ -197,16 +208,28 @@ Result<void> SessionController::start_listening(std::string host, std::string pl
         }
     }
 
+    bool join_stale_listener = false;
     {
         std::scoped_lock lock(mutex_);
-        if (mode_ != SessionMode::Idle) {
-            return Result<void>::failure(make_error(ErrorCode::InvalidState, "Stop the current session before listening."));
+        if (receiver_mode_ == SessionMode::Idle && listener_worker_.joinable()) {
+            listener_stop_requested_ = true;
+            join_stale_listener = true;
+        }
+    }
+    if (join_stale_listener && listener_worker_.joinable()) {
+        listener_worker_.join();
+    }
+
+    {
+        std::scoped_lock lock(mutex_);
+        if (receiver_mode_ != SessionMode::Idle) {
+            return Result<void>::failure(make_error(ErrorCode::InvalidState, "Receiver session is already running."));
         }
         last_error_.clear();
         has_detected_mode_ = false;
         config_.receiver.host = host;
         config_.receiver.playback_device_id = playback_device_id;
-        mode_ = SessionMode::Connecting;
+        receiver_mode_ = SessionMode::Connecting;
         add_log_locked("Connecting to transmitter.");
     }
 
@@ -215,7 +238,7 @@ Result<void> SessionController::start_listening(std::string host, std::string pl
         while (!listener_stop_requested_) {
             {
                 std::scoped_lock lock(mutex_);
-                mode_ = SessionMode::Connecting;
+                receiver_mode_ = SessionMode::Connecting;
                 add_log_locked("Connecting to transmitter...");
             }
             state_changed_.notify_all();
@@ -408,7 +431,7 @@ Result<void> SessionController::start_listening(std::string host, std::string pl
                 receiver_ = std::move(receiver);
                 detected_mode_ = header.mode;
                 has_detected_mode_ = true;
-                mode_ = SessionMode::Listening;
+                receiver_mode_ = SessionMode::Listening;
                 config_.receiver.mode = header.mode;
                 add_log_locked("Listening session started.");
             }
@@ -524,7 +547,7 @@ Result<void> SessionController::stop_listening()
 {
     {
         std::scoped_lock lock(mutex_);
-        if (mode_ != SessionMode::Listening && mode_ != SessionMode::Connecting && !listener_worker_.joinable()) {
+        if (receiver_mode_ == SessionMode::Idle && !listener_worker_.joinable()) {
             return Result<void>::success();
         }
         listener_stop_requested_ = true;
@@ -572,15 +595,18 @@ SessionStatus SessionController::status_snapshot() const
 {
     std::scoped_lock lock(mutex_);
     SessionStatus status;
-    if (mode_ == SessionMode::Idle) {
+    if (!sharing_active_ && receiver_mode_ == SessionMode::Idle) {
         status = last_completed_status_;
     }
-    status.mode = mode_;
+    status.mode = derived_mode_locked();
+    status.sharing_active = sharing_active_;
+    status.receiver_connecting = receiver_mode_ == SessionMode::Connecting;
+    status.receiver_listening = receiver_mode_ == SessionMode::Listening;
     status.selected_mode = config_.transmitter.mode;
     status.detected_mode = detected_mode_;
     status.has_detected_mode = has_detected_mode_;
     status.host = config_.receiver.host;
-    status.port = config_.transmitter.network.port;
+    status.port = sharing_active_ ? config_.transmitter.network.port : config_.receiver.port;
     status.last_error = last_error_;
     status.log_events = log_events_;
 
@@ -621,7 +647,7 @@ bool SessionController::wait_until_idle(std::chrono::milliseconds timeout)
 {
     std::unique_lock lock(mutex_);
     return state_changed_.wait_for(lock, timeout, [this] {
-        return mode_ == SessionMode::Idle;
+        return !sharing_active_ && receiver_mode_ == SessionMode::Idle;
     });
 }
 
@@ -654,6 +680,9 @@ void SessionController::finish_listening()
     {
         std::scoped_lock lock(mutex_);
         completed.mode = SessionMode::Idle;
+        completed.sharing_active = sharing_active_;
+        completed.receiver_connecting = false;
+        completed.receiver_listening = false;
         completed.selected_mode = config_.transmitter.mode;
         completed.detected_mode = detected_mode_;
         completed.has_detected_mode = has_detected_mode_;
@@ -686,11 +715,25 @@ void SessionController::finish_listening()
         playback_.reset();
         receiver_.reset();
         receiver_socket_.reset();
-        mode_ = SessionMode::Idle;
+        receiver_mode_ = SessionMode::Idle;
         last_completed_status_ = completed;
         add_log_locked("Listening session stopped.");
     }
     state_changed_.notify_all();
+}
+
+SessionMode SessionController::derived_mode_locked() const
+{
+    if (sharing_active_) {
+        if (receiver_mode_ == SessionMode::Connecting) {
+            return SessionMode::SharingConnecting;
+        }
+        if (receiver_mode_ == SessionMode::Listening) {
+            return SessionMode::SharingListening;
+        }
+        return SessionMode::Sharing;
+    }
+    return receiver_mode_;
 }
 
 const char* to_string(SessionMode mode)
@@ -704,6 +747,10 @@ const char* to_string(SessionMode mode)
         return "connecting";
     case SessionMode::Listening:
         return "listening";
+    case SessionMode::SharingConnecting:
+        return "sharing_connecting";
+    case SessionMode::SharingListening:
+        return "sharing_listening";
     }
     return "idle";
 }
