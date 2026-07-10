@@ -22,6 +22,9 @@ The format follows a simple staged log.
 - Added GUI system tray support with `TRAYMODE` and `STARTINTRAY` startup config keys.
 - Moved the GUI `Minimize to tray` control to a larger fixed footer visible in both simple and advanced modes.
 - Added GUI simultaneous sharing/listening support and GUI-only `shareaudio.cfg` `MODE=both` autostart.
+- Replaced the root `/` browser page with a Web Receiver that reads `/info`, supports Fast/Balanced PCM, rejects Efficient/Opus, and schedules playback through Web Audio with adaptive drop thresholds.
+- Updated the root Web Receiver page branding to `ShareAudioPC`, refined the embedded page styling, and added a red `Disconnect` button state that aborts the active stream.
+- Added bounded per-client stream send queues so slow HTTP/native receivers do not write synchronously inside the broadcast loop.
 - Updated CLI/GUI help text and project documentation to match the current Efficient/Opus, browser route, Android/Web, and `docs/BUILD.md` behavior.
 
 ### Removed
@@ -111,7 +114,7 @@ The format follows a simple staged log.
 - Added real Opus PCM -> Opus -> PCM roundtrip automated unit test coverage.
 - Added single-instance unit test coverage.
 - Added hybrid HTTP/TCP server connection auto-detection with 150ms timeout window.
-- Added server handlers for HTTP endpoints: `/info` JSON metadata, `/stream` keep-alive chunk streaming, and `/` inline HTML5 browser player.
+- Added server handlers for HTTP endpoints: `/info` JSON metadata, `/stream` continuous keep-alive binary streaming, and `/` inline HTML5 browser player.
 - Added HTTP client fallback and metadata JSON parsing inside receiver client thread.
 
 ### Fixed

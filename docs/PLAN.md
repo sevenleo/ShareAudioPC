@@ -36,14 +36,16 @@ This checklist contains only remaining project work. Completed implementation hi
 
 ## Android/Web Compatibility Tests
 
-- [ ] Update the embedded browser player to read `/info` and adapt packet size/codec, or clearly restrict it in UI to Balanced PCM.
 - [ ] Test Windows transmitter to Android receiver.
 - [ ] Test Android transmitter to Windows receiver.
 - [ ] Test Linux transmitter to Android/Web receiver where applicable.
 - [ ] Test Android/Web transmitter to Linux receiver where applicable.
-- [ ] Test browser playback through `http://<IP>:33777/`.
+- [ ] Test browser playback through `http://<IP>:33777/` with Fast AudioMode.
+- [ ] Test browser playback through `http://<IP>:33777/` with Balanced AudioMode.
+- [ ] Test browser playback through `http://<IP>:33777/` with Efficient AudioMode and confirm the unsupported-mode message is shown.
 - [ ] Test `/info` metadata from a browser or HTTP client during an active stream.
 - [ ] Test `/stream` playback/consumption during an active stream.
+- [ ] Test one browser receiver and one native receiver connected to the same transmitter at the same time.
 
 ## GUI And CLI Manual Tests
 
@@ -84,7 +86,7 @@ This checklist contains only remaining project work. Completed implementation hi
 
 - [ ] Evaluate enabling `TCP_NODELAY` on sockets.
 - [ ] Evaluate explicit socket send/receive buffer sizes such as 64 KB.
-- [ ] Add per-client send timeout or asynchronous write queue if slow receivers can block broadcast too long.
+- [ ] Evaluate adding a per-client write timeout for permanently stuck sockets.
 - [ ] Reduce allocations and lock contention in the capture-callback-triggered transmitter path.
 - [ ] Measure approximate end-to-end latency in Balanced Mode.
 - [ ] Measure approximate end-to-end latency in Fast AudioMode.

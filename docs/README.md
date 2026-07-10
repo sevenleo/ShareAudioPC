@@ -553,10 +553,30 @@ Payload:
 
 - PCM modes: raw PCM blocks without `SAL1`.
 - Opus mode: 2-byte big-endian length prefix plus Opus frame payloads.
+- The response does not use `Content-Length` and does not set `Transfer-Encoding: chunked`; the binary body starts immediately after the HTTP header terminator.
 
 #### `GET /`
 
-Returns a lightweight HTML5 browser player that uses Web Audio APIs to listen directly from the transmitter. The embedded JavaScript player is a Balanced PCM player: it reads `/stream` as signed 16-bit little-endian stereo PCM using `2048` byte packet units.
+Returns the built-in Web Receiver page.
+
+The page:
+
+- calls `/info` before opening `/stream`;
+- supports only PCM modes: Fast and Balanced;
+- rejects Efficient/Opus with an on-page message telling the user to select Fast or Balanced on the transmitter;
+- reads `/stream` as signed 16-bit little-endian stereo PCM at `48000 Hz`;
+- accumulates arbitrary browser fetch chunks until it has complete PCM packets;
+- converts `Int16` samples to `Float32` samples by dividing by `32768.0`;
+- uses Web Audio API playback scheduling with `nextPlayTime` and `audioContext.currentTime`.
+
+Browser playback thresholds:
+
+| AudioMode | PCM packet size | Latency target | Drop threshold |
+| --- | ---: | ---: | ---: |
+| Fast | `1024` bytes | `3 ms` | `20 ms` |
+| Balanced | `2048` bytes | `10 ms` | `45 ms` |
+
+If queued browser playback drifts beyond the active drop threshold, the current PCM packet is dropped and the schedule is moved back near the hardware clock. This prevents delay from accumulating during long browser sessions.
 
 ### HTTP Receiver Fallback
 
@@ -587,6 +607,14 @@ Default network values:
 Socket option status:
 
 - The TCP acceptor sets `SO_REUSEADDR=true` through `asio::socket_base::reuse_address(true)`.
+
+Stream client isolation:
+
+- Each native or HTTP stream client is registered with its own bounded send queue and worker thread.
+- The queue currently holds up to `8` packets per client.
+- A slow client no longer performs synchronous socket writes inside the broadcast loop.
+- If a client's queue is full, the newest packet for that client is skipped while other clients continue receiving data.
+- If a socket write fails, that client is closed and removed from later broadcasts.
 
 Operational network behavior:
 
@@ -919,8 +947,9 @@ Status:
 
 - Browser client path is supported by the embedded `/` route.
 - Browser connects to `http://<IP>:33777/`.
-- The page uses Web Audio APIs and `/stream` for playback.
-- Current embedded player behavior is Balanced PCM-oriented and assumes `2048` byte chunks.
+- The page uses `/info`, `/stream`, and Web Audio APIs for playback.
+- The embedded player supports Fast and Balanced PCM.
+- Efficient/Opus is intentionally not supported by the browser player.
 
 ### Android/Web
 
@@ -938,8 +967,8 @@ Compatibility matrix:
 | Android | Android | PCM/Opus | Native TCP with `SAL1` where implemented. |
 | Desktop | Android | PCM/Opus | Desktop server exposes native `SAL1` and HTTP `/info` + `/stream`. |
 | Android | Desktop | PCM/Opus | Desktop receiver performs native probe, then HTTP fallback. |
-| Desktop | Browser | Balanced PCM | Browser opens `/` and consumes `/stream`; bundled player assumes 2048-byte PCM chunks. |
-| Android | Browser | Balanced PCM where Android serves equivalent HTTP | Browser opens `/` and consumes `/stream`. |
+| Desktop | Browser | Fast/Balanced PCM | Browser opens `/`, reads `/info`, and consumes `/stream`. Efficient/Opus is rejected by the browser page. |
+| Android | Browser | Fast/Balanced PCM where Android serves equivalent HTTP | Browser opens `/`, reads `/info`, and consumes `/stream`. |
 
 ## Automated Verification Coverage
 
@@ -974,9 +1003,11 @@ Automated tests cover:
 - single-instance lock acquisition/release;
 - basic listener loopback autodetection and stop behavior;
 - hybrid TCP/HTTP auto-detection;
+- root `/` Web Receiver page delivery;
 - `/info` JSON parsing;
 - receiver-side HTTP Opus fallback through `/info` and `/stream`;
-- HTTP `/stream` server route delivery.
+- HTTP `/stream` server route delivery;
+- native stream delivery while a slow HTTP stream client is connected.
 
 ## Troubleshooting
 

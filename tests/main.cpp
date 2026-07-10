@@ -511,6 +511,31 @@ void test_hybrid_broadcast_server()
         expect(res.find("\"chunkSize\": 2048") != std::string::npos, "info JSON contains correct chunkSize");
     }
 
+    auto client_page = shareaudio::TcpSocket::connect_to("127.0.0.1", port);
+    expect(client_page.ok(), "web receiver page client connected");
+    if (client_page.ok()) {
+        std::string req = "GET / HTTP/1.1\r\nHost: 127.0.0.1\r\nConnection: close\r\n\r\n";
+        auto sent = client_page.value().send_all(std::span<const std::uint8_t>(reinterpret_cast<const std::uint8_t*>(req.data()), req.size()));
+        expect(sent.ok(), "web receiver page request sent");
+
+        std::string res;
+        while (client_page.value().valid() && res.size() < 20000) {
+            auto chunk = client_page.value().receive_exact(1);
+            if (!chunk.ok() || chunk.value().empty()) {
+                break;
+            }
+            res.push_back(static_cast<char>(chunk.value()[0]));
+        }
+        expect(res.find("ShareAudioPC<br>Web receiver") != std::string::npos, "root page serves the branded web receiver");
+        expect(res.find("fetch('/info'") != std::string::npos, "web receiver page queries /info");
+        expect(res.find("fetch('/stream'") != std::string::npos, "web receiver page opens /stream");
+        expect(res.find("Disconnect") != std::string::npos, "web receiver page includes disconnect button state");
+        expect(res.find("abortController.abort()") != std::string::npos, "web receiver page can abort the stream");
+        expect(res.find("latencyTarget = 0.003") != std::string::npos, "web receiver page includes Fast latency target");
+        expect(res.find("dropThreshold = 0.045") != std::string::npos, "web receiver page includes Balanced drop threshold");
+        expect(res.find("This web receiver supports only Fast and Balanced PCM") != std::string::npos, "web receiver page rejects non-PCM modes");
+    }
+
     auto client_stream = shareaudio::TcpSocket::connect_to("127.0.0.1", port);
     expect(client_stream.ok(), "stream client connected");
     if (client_stream.ok()) {
@@ -535,6 +560,8 @@ void test_hybrid_broadcast_server()
         }
         expect(headers.find("HTTP/1.1 200 OK") != std::string::npos, "stream response headers start with 200 OK");
         expect(headers.find("Content-Type: application/octet-stream") != std::string::npos, "stream content type is octet-stream");
+        expect(headers.find("Content-Length") == std::string::npos, "stream response has no content length");
+        expect(headers.find("Transfer-Encoding") == std::string::npos, "stream response does not use transfer encoding");
 
         std::vector<std::uint8_t> test_packet(64, 99);
         server.broadcast(test_packet);
@@ -546,6 +573,7 @@ void test_hybrid_broadcast_server()
         }
     }
 
+    const auto clients_before_native = server.stats().connected_clients;
     auto client_native = shareaudio::TcpSocket::connect_to("127.0.0.1", port);
     expect(client_native.ok(), "native client connected");
     if (client_native.ok()) {
@@ -557,6 +585,40 @@ void test_hybrid_broadcast_server()
             if (parsed.ok()) {
                 expect(parsed.value().mode == shareaudio::AudioMode::Balanced, "SAL1 mode matches server mode");
             }
+        }
+
+        for (int i = 0; i < 100 && server.stats().connected_clients < clients_before_native + 1; ++i) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        }
+        expect(server.stats().connected_clients >= clients_before_native + 1, "native client registered before broadcast");
+
+        auto slow_stream = shareaudio::TcpSocket::connect_to("127.0.0.1", port);
+        expect(slow_stream.ok(), "slow HTTP stream client connected");
+        if (slow_stream.ok()) {
+            std::string req = "GET /stream HTTP/1.1\r\nHost: 127.0.0.1\r\nConnection: keep-alive\r\n\r\n";
+            auto sent = slow_stream.value().send_all(std::span<const std::uint8_t>(reinterpret_cast<const std::uint8_t*>(req.data()), req.size()));
+            expect(sent.ok(), "slow stream request sent");
+
+            std::string headers;
+            while (slow_stream.value().valid() && headers.size() < 2048) {
+                auto chunk = slow_stream.value().receive_exact(1);
+                if (!chunk.ok() || chunk.value().empty()) {
+                    break;
+                }
+                headers.push_back(static_cast<char>(chunk.value()[0]));
+                if (headers.size() >= 4 && headers.substr(headers.size() - 4) == "\r\n\r\n") {
+                    break;
+                }
+            }
+            expect(headers.find("HTTP/1.1 200 OK") != std::string::npos, "slow stream response headers start with 200 OK");
+        }
+
+        std::vector<std::uint8_t> native_packet(64, 7);
+        server.broadcast(native_packet);
+        auto received = client_native.value().receive_with_timeout(native_packet.size(), 1000);
+        expect(received.ok(), "native client receives packet while HTTP client is slow");
+        if (received.ok()) {
+            expect(received.value() == native_packet, "native packet content is preserved with slow HTTP client");
         }
     }
 

@@ -26,9 +26,14 @@ public:
     [[nodiscard]] bool running() const;
 
 private:
+    struct StreamClient;
+
+    void register_stream_client(std::shared_ptr<TcpSocket> client);
+    [[nodiscard]] std::size_t active_client_count_locked() const;
+
     mutable std::mutex mutex_;
     TcpTransmitterServer server_;
-    std::vector<std::shared_ptr<TcpSocket>> clients_;
+    std::vector<std::shared_ptr<StreamClient>> clients_;
     BroadcastStats stats_;
     StreamHeader active_header_ {};
     std::array<std::uint8_t, ProtocolWriter::stream_header_size> stream_header_ {};
