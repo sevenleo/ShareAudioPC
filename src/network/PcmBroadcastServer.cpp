@@ -233,6 +233,7 @@ std::string web_receiver_html()
     <dl>
       <dt>Mode</dt><dd id="mode">-</dd>
       <dt>Chunk</dt><dd id="chunk">-</dd>
+      <dt>Buffer</dt><dd id="buffer">-</dd>
       <dt>Dropped</dt><dd id="dropped">0</dd>
     </dl>
   </main>
@@ -241,22 +242,65 @@ std::string web_receiver_html()
     const statusText = document.getElementById('status');
     const modeText = document.getElementById('mode');
     const chunkText = document.getElementById('chunk');
+    const bufferText = document.getElementById('buffer');
     const droppedText = document.getElementById('dropped');
 
+    const audioBytesPerSecond = 48000 * 2 * 2;
+    const profiles = {
+      fast: {
+        renderBlockBytes: 2048,
+        initialTarget: 0.040,
+        minTarget: 0.025,
+        maxTarget: 0.120,
+        maxAhead: 0.180,
+        underrunStep: 0.015
+      },
+      balanced: {
+        renderBlockBytes: 4096,
+        initialTarget: 0.080,
+        minTarget: 0.045,
+        maxTarget: 0.220,
+        maxAhead: 0.320,
+        underrunStep: 0.020
+      }
+    };
+
     let audioContext = null;
+    let profile = profiles.balanced;
+    let streamPacketSize = 2048;
     let nextPlayTime = 0;
-    let latencyTarget = 0.010;
-    let dropThreshold = 0.045;
-    let packetSize = 2048;
+    let currentTarget = profile.initialTarget;
     let droppedPackets = 0;
     let abortController = null;
     let isConnected = false;
     let isConnecting = false;
     let disconnectRequested = false;
+    let playbackPrimed = false;
+    let lastInstabilityTime = 0;
+    let lastTargetTrimTime = 0;
 
     function setStatus(message, isError = false) {
       statusText.textContent = message;
       statusText.className = isError ? 'status error' : 'status';
+    }
+
+    function bytesToSeconds(bytes) {
+      return bytes / audioBytesPerSecond;
+    }
+
+    function formatMs(seconds) {
+      return Math.round(seconds * 1000) + ' ms';
+    }
+
+    function prebufferBytes() {
+      const targetBytes = Math.ceil(currentTarget * audioBytesPerSecond);
+      return Math.max(profile.renderBlockBytes, Math.ceil(targetBytes / profile.renderBlockBytes) * profile.renderBlockBytes);
+    }
+
+    function updateBufferMetric(pendingBytes = 0) {
+      const queuedSeconds = audioContext && playbackPrimed ? Math.max(0, nextPlayTime - audioContext.currentTime) : 0;
+      const pendingSeconds = bytesToSeconds(pendingBytes);
+      bufferText.textContent = formatMs(currentTarget) + ' target / ' + formatMs(queuedSeconds + pendingSeconds) + ' buffered';
     }
 
     function setConnected(connected) {
@@ -277,6 +321,8 @@ std::string web_receiver_html()
         audioContext = null;
       }
       nextPlayTime = 0;
+      playbackPrimed = false;
+      bufferText.textContent = '-';
       setStatus('Disconnected.');
       setConnected(false);
     }
@@ -296,33 +342,57 @@ std::string web_receiver_html()
         throw new Error('Unsupported PCM format. Expected 48 kHz stereo.');
       }
 
-      packetSize = Number(info.chunkSize);
-      if (packetSize === 1024) {
-        latencyTarget = 0.003;
-        dropThreshold = 0.020;
+      streamPacketSize = Number(info.chunkSize);
+      if (streamPacketSize === 1024) {
+        profile = profiles.fast;
         modeText.textContent = 'fast';
-      } else if (packetSize === 2048) {
-        latencyTarget = 0.010;
-        dropThreshold = 0.045;
+      } else if (streamPacketSize === 2048) {
+        profile = profiles.balanced;
         modeText.textContent = 'balanced';
       } else {
-        throw new Error('Unsupported PCM chunk size: ' + packetSize);
+        throw new Error('Unsupported PCM chunk size: ' + streamPacketSize);
       }
-      chunkText.textContent = packetSize + ' bytes';
+
+      currentTarget = profile.initialTarget;
+      playbackPrimed = false;
+      nextPlayTime = 0;
+      chunkText.textContent = streamPacketSize + ' B stream / ' + profile.renderBlockBytes + ' B render';
+      updateBufferMetric();
+    }
+
+    function markInstability(now) {
+      lastInstabilityTime = now;
+      lastTargetTrimTime = now;
+    }
+
+    function handleUnderrun(now) {
+      markInstability(now);
+      currentTarget = Math.min(profile.maxTarget, currentTarget + profile.underrunStep);
+      nextPlayTime = now + currentTarget;
+    }
+
+    function maybeAdaptTarget(now) {
+      if (now - lastInstabilityTime >= 10.0 && now - lastTargetTrimTime >= 10.0 && currentTarget > profile.minTarget) {
+        currentTarget = Math.max(profile.minTarget, currentTarget - 0.005);
+        lastTargetTrimTime = now;
+      }
     }
 
     function schedulePacket(packet) {
       const now = audioContext.currentTime;
       if (nextPlayTime < now) {
-        nextPlayTime = now + latencyTarget;
+        handleUnderrun(now);
       }
 
-      if (nextPlayTime - now > dropThreshold) {
+      if (nextPlayTime - now > profile.maxAhead) {
         droppedPackets += 1;
         droppedText.textContent = String(droppedPackets);
-        nextPlayTime = now + latencyTarget;
+        markInstability(now);
+        updateBufferMetric();
         return;
       }
+
+      maybeAdaptTarget(now);
 
       const frameBytes = 4;
       const frameCount = packet.length / frameBytes;
@@ -341,6 +411,7 @@ std::string web_receiver_html()
       source.connect(audioContext.destination);
       source.start(nextPlayTime);
       nextPlayTime += audioBuffer.duration;
+      updateBufferMetric();
     }
 
     async function connectAudio() {
@@ -356,6 +427,8 @@ std::string web_receiver_html()
       connectButton.classList.remove('disconnect');
       droppedPackets = 0;
       droppedText.textContent = '0';
+      bufferText.textContent = '-';
+      playbackPrimed = false;
       setStatus('Loading stream metadata...');
 
       audioContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 48000 });
@@ -376,8 +449,10 @@ std::string web_receiver_html()
 
       const reader = streamResponse.body.getReader();
       let buffer = new Uint8Array(0);
-      nextPlayTime = audioContext.currentTime + latencyTarget;
-      setStatus('Streaming PCM audio.');
+      nextPlayTime = 0;
+      lastInstabilityTime = audioContext.currentTime;
+      lastTargetTrimTime = audioContext.currentTime;
+      setStatus('Buffering PCM audio...');
       isConnecting = false;
       setConnected(true);
 
@@ -387,11 +462,22 @@ std::string web_receiver_html()
           throw new Error('Stream closed.');
         }
         buffer = appendBytes(buffer, result.value);
-        while (buffer.length >= packetSize) {
-          const packet = buffer.slice(0, packetSize);
-          buffer = buffer.slice(packetSize);
+        while (buffer.length >= profile.renderBlockBytes) {
+          if (!playbackPrimed) {
+            if (buffer.length < prebufferBytes()) {
+              updateBufferMetric(buffer.length);
+              break;
+            }
+            nextPlayTime = audioContext.currentTime + Math.min(0.015, currentTarget * 0.25);
+            playbackPrimed = true;
+            setStatus('Streaming PCM audio.');
+          }
+
+          const packet = buffer.slice(0, profile.renderBlockBytes);
+          buffer = buffer.slice(profile.renderBlockBytes);
           schedulePacket(packet);
         }
+        updateBufferMetric(buffer.length);
       }
     }
 

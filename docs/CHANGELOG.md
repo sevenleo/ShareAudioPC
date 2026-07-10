@@ -24,6 +24,7 @@ The format follows a simple staged log.
 - Added GUI simultaneous sharing/listening support and GUI-only `shareaudio.cfg` `MODE=both` autostart.
 - Replaced the root `/` browser page with a Web Receiver that reads `/info`, supports Fast/Balanced PCM, rejects Efficient/Opus, and schedules playback through Web Audio with adaptive drop thresholds.
 - Updated the root Web Receiver page branding to `ShareAudioPC`, refined the embedded page styling, and added a red `Disconnect` button state that aborts the active stream.
+- Reworked Web Receiver jitter handling to use adaptive prebuffering, larger render blocks, stable browser-oriented latency targets, and no timeline reset when dropping over-buffered render blocks.
 - Added bounded per-client stream send queues so slow HTTP/native receivers do not write synchronously inside the broadcast loop.
 - Updated CLI/GUI help text and project documentation to match the current Efficient/Opus, browser route, Android/Web, and `docs/BUILD.md` behavior.
 

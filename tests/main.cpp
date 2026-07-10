@@ -531,8 +531,12 @@ void test_hybrid_broadcast_server()
         expect(res.find("fetch('/stream'") != std::string::npos, "web receiver page opens /stream");
         expect(res.find("Disconnect") != std::string::npos, "web receiver page includes disconnect button state");
         expect(res.find("abortController.abort()") != std::string::npos, "web receiver page can abort the stream");
-        expect(res.find("latencyTarget = 0.003") != std::string::npos, "web receiver page includes Fast latency target");
-        expect(res.find("dropThreshold = 0.045") != std::string::npos, "web receiver page includes Balanced drop threshold");
+        expect(res.find("renderBlockBytes: 2048") != std::string::npos, "web receiver page includes Fast render block");
+        expect(res.find("initialTarget: 0.040") != std::string::npos, "web receiver page includes Fast adaptive target");
+        expect(res.find("renderBlockBytes: 4096") != std::string::npos, "web receiver page includes Balanced render block");
+        expect(res.find("maxAhead: 0.320") != std::string::npos, "web receiver page includes Balanced max scheduled buffer");
+        expect(res.find("prebufferBytes()") != std::string::npos, "web receiver page prebuffers before playback");
+        expect(res.find("maybeAdaptTarget") != std::string::npos, "web receiver page adapts jitter target");
         expect(res.find("This web receiver supports only Fast and Balanced PCM") != std::string::npos, "web receiver page rejects non-PCM modes");
     }
 

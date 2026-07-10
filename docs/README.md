@@ -567,16 +567,19 @@ The page:
 - reads `/stream` as signed 16-bit little-endian stereo PCM at `48000 Hz`;
 - accumulates arbitrary browser fetch chunks until it has complete PCM packets;
 - converts `Int16` samples to `Float32` samples by dividing by `32768.0`;
-- uses Web Audio API playback scheduling with `nextPlayTime` and `audioContext.currentTime`.
+- uses Web Audio API playback scheduling with `nextPlayTime` and `audioContext.currentTime`;
+- uses an adaptive browser jitter target and prebuffers before playback starts.
 
-Browser playback thresholds:
+Browser adaptive playback profile:
 
-| AudioMode | PCM packet size | Latency target | Drop threshold |
-| --- | ---: | ---: | ---: |
-| Fast | `1024` bytes | `3 ms` | `20 ms` |
-| Balanced | `2048` bytes | `10 ms` | `45 ms` |
+| AudioMode | Stream packet | Render block | Initial target | Target range | Max scheduled ahead |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Fast | `1024` bytes | `2048` bytes | `40 ms` | `25-120 ms` | `180 ms` |
+| Balanced | `2048` bytes | `4096` bytes | `80 ms` | `45-220 ms` | `320 ms` |
 
-If queued browser playback drifts beyond the active drop threshold, the current PCM packet is dropped and the schedule is moved back near the hardware clock. This prevents delay from accumulating during long browser sessions.
+If scheduled browser playback gets too far ahead, the current render block is dropped without resetting already scheduled audio. If playback underruns, the target buffer is increased. After 10 seconds without drop or underrun, the target is slowly reduced by `5 ms`. This prioritizes browser stability over matching the lower latency of the native desktop receiver.
+
+The native desktop receiver remains the lowest-latency and most robust receiver path because it uses miniaudio playback and the native jitter buffer instead of browser scheduling.
 
 ### HTTP Receiver Fallback
 

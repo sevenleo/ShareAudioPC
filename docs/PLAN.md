@@ -40,8 +40,8 @@ This checklist contains only remaining project work. Completed implementation hi
 - [ ] Test Android transmitter to Windows receiver.
 - [ ] Test Linux transmitter to Android/Web receiver where applicable.
 - [ ] Test Android/Web transmitter to Linux receiver where applicable.
-- [ ] Test browser playback through `http://<IP>:33777/` with Fast AudioMode.
-- [ ] Test browser playback through `http://<IP>:33777/` with Balanced AudioMode.
+- [ ] Test browser playback through `http://<IP>:33777/` with Fast AudioMode for at least 2 minutes.
+- [ ] Test browser playback through `http://<IP>:33777/` with Balanced AudioMode for at least 2 minutes.
 - [ ] Test browser playback through `http://<IP>:33777/` with Efficient AudioMode and confirm the unsupported-mode message is shown.
 - [ ] Test `/info` metadata from a browser or HTTP client during an active stream.
 - [ ] Test `/stream` playback/consumption during an active stream.
