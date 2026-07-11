@@ -25,21 +25,25 @@ public:
     void stop() override;
     void shutdown() override;
     [[nodiscard]] std::vector<AudioDevice> devices() const override;
+    [[nodiscard]] std::wstring native_output_endpoint_id() const override;
 
 private:
     static void data_callback(ma_device* device, void* output, const void* input, ma_uint32 frame_count);
     static void notification_callback(const ma_device_notification* pNotification);
     void handle_data(const void* input, ma_uint32 frame_count);
+    void update_native_output_endpoint_id(const ma_device& device);
     Result<void> ensure_context();
     Result<ma_device_id> find_device_id(const std::string& id) const;
 
     mutable std::mutex mutex_;
+    mutable std::mutex endpoint_mutex_;
     ma_context context_ {};
     ma_device device_ {};
     bool context_initialized_ {};
     bool device_initialized_ {};
     AudioFormat format_;
     std::string device_id_;
+    std::wstring native_output_endpoint_id_;
     PcmCallback callback_;
 };
 

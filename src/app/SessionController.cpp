@@ -3,6 +3,7 @@
 #include "audio/AudioAbstractions.h"
 #include "audio/MiniaudioBackend.h"
 #include "platform/LocalIp.h"
+#include "platform/SystemVolume.h"
 #include "protocol/Protocol.h"
 
 #include <algorithm>
@@ -16,6 +17,11 @@ constexpr std::size_t max_log_events = 100;
 bool audio_mode_supported(AudioMode mode)
 {
     return mode == AudioMode::Balanced || mode == AudioMode::Fast || mode == AudioMode::Efficient;
+}
+
+bool volume_mode_supported(VolumeMode mode)
+{
+    return mode == VolumeMode::Full || mode == VolumeMode::System;
 }
 
 } // namespace
@@ -57,10 +63,13 @@ std::unique_ptr<IAudioPlayback> SessionController::make_playback() const
 #endif
 }
 
-Result<void> SessionController::start_sharing(AudioMode mode, std::string capture_device_id)
+Result<void> SessionController::start_sharing(AudioMode mode, std::string capture_device_id, VolumeMode volume_mode)
 {
     if (!audio_mode_supported(mode)) {
         return Result<void>::failure(make_error(ErrorCode::NotSupported, "Unsupported audio mode."));
+    }
+    if (!volume_mode_supported(volume_mode)) {
+        return Result<void>::failure(make_error(ErrorCode::NotSupported, "Unsupported volume mode."));
     }
 #if !SHAREAUDIO_HAS_LIBOPUS
     if (mode == AudioMode::Efficient) {
@@ -75,6 +84,7 @@ Result<void> SessionController::start_sharing(AudioMode mode, std::string captur
         }
         last_error_.clear();
         config_.transmitter.mode = mode;
+        config_.transmitter.volume_mode = volume_mode;
         if (receiver_mode_ == SessionMode::Idle) {
             config_.receiver.mode = mode;
         }
@@ -97,7 +107,10 @@ Result<void> SessionController::start_sharing(AudioMode mode, std::string captur
         return Result<void>::failure(start_server.error());
     }
 
-    auto transmitter = std::make_unique<PcmTransmitterPipeline>(mode);
+    const VolumeMode effective_volume_mode = volume_mode == VolumeMode::System && system_volume_supported()
+        ? VolumeMode::System
+        : VolumeMode::Full;
+    auto transmitter = std::make_unique<PcmTransmitterPipeline>(mode, 256, effective_volume_mode);
     auto* transmitter_ptr = transmitter.get();
     auto* server_ptr = server.get();
 
@@ -106,6 +119,21 @@ Result<void> SessionController::start_sharing(AudioMode mode, std::string captur
         capture_ = std::move(capture);
         server_ = std::move(server);
         transmitter_ = std::move(transmitter);
+    }
+
+    system_volume_gain_.store(1.0f, std::memory_order_relaxed);
+    if (volume_mode == VolumeMode::System) {
+        if (system_volume_supported()) {
+            start_volume_monitor(capture_.get(), transmitter_ptr);
+            for (int attempt = 0; attempt < 60 && !volume_monitor_ready_.load(std::memory_order_acquire); ++attempt) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(5));
+            }
+        } else {
+            system_volume_tracking_.store(SystemVolumeTrackingState::Unsupported, std::memory_order_relaxed);
+            add_log("System VolumeMode is Windows-only; transmitting full captured audio.");
+        }
+    } else {
+        system_volume_tracking_.store(SystemVolumeTrackingState::Disabled, std::memory_order_relaxed);
     }
 
     transmitter_running_ = true;
@@ -137,7 +165,7 @@ Result<void> SessionController::stop_sharing()
 {
     {
         std::scoped_lock lock(mutex_);
-        if (!sharing_active_ && !capture_ && !server_ && !transmitter_worker_.joinable()) {
+        if (!sharing_active_ && !capture_ && !server_ && !transmitter_worker_.joinable() && !volume_monitor_worker_.joinable()) {
             return Result<void>::success();
         }
         sharing_active_ = false;
@@ -145,6 +173,7 @@ Result<void> SessionController::stop_sharing()
     }
 
     transmitter_running_ = false;
+    stop_volume_monitor();
     if (capture_) {
         capture_->stop();
     }
@@ -159,6 +188,9 @@ Result<void> SessionController::stop_sharing()
     completed.mode = SessionMode::Idle;
     completed.sharing_active = false;
     completed.selected_mode = config_.transmitter.mode;
+    completed.volume_mode = config_.transmitter.volume_mode;
+    completed.system_volume_gain = system_volume_gain_.load(std::memory_order_relaxed);
+    completed.system_volume_tracking = system_volume_tracking_.load(std::memory_order_relaxed);
     completed.port = config_.transmitter.network.port;
     if (server_) {
         const auto server_stats = server_->stats();
@@ -175,6 +207,9 @@ Result<void> SessionController::stop_sharing()
     {
         std::scoped_lock lock(mutex_);
         last_completed_status_.selected_mode = completed.selected_mode;
+        last_completed_status_.volume_mode = completed.volume_mode;
+        last_completed_status_.system_volume_gain = completed.system_volume_gain;
+        last_completed_status_.system_volume_tracking = completed.system_volume_tracking;
         last_completed_status_.port = completed.port;
         last_completed_status_.connected_clients = completed.connected_clients;
         last_completed_status_.bytes_sent = completed.bytes_sent;
@@ -190,6 +225,19 @@ Result<void> SessionController::stop_sharing()
         add_log_locked("Sharing session stopped.");
     }
     state_changed_.notify_all();
+    return Result<void>::success();
+}
+
+Result<void> SessionController::set_volume_mode(VolumeMode volume_mode)
+{
+    if (!volume_mode_supported(volume_mode)) {
+        return Result<void>::failure(make_error(ErrorCode::NotSupported, "Unsupported volume mode."));
+    }
+    std::scoped_lock lock(mutex_);
+    if (sharing_active_) {
+        return Result<void>::failure(make_error(ErrorCode::InvalidState, "VolumeMode can only be changed while sharing is stopped."));
+    }
+    config_.transmitter.volume_mode = volume_mode;
     return Result<void>::success();
 }
 
@@ -603,6 +651,11 @@ SessionStatus SessionController::status_snapshot() const
     status.receiver_connecting = receiver_mode_ == SessionMode::Connecting;
     status.receiver_listening = receiver_mode_ == SessionMode::Listening;
     status.selected_mode = config_.transmitter.mode;
+    status.volume_mode = config_.transmitter.volume_mode;
+    if (sharing_active_) {
+        status.system_volume_gain = system_volume_gain_.load(std::memory_order_relaxed);
+        status.system_volume_tracking = system_volume_tracking_.load(std::memory_order_relaxed);
+    }
     status.detected_mode = detected_mode_;
     status.has_detected_mode = has_detected_mode_;
     status.host = config_.receiver.host;
@@ -674,6 +727,88 @@ void SessionController::add_log_locked(const std::string& message)
     }
 }
 
+void SessionController::start_volume_monitor(IAudioCapture* capture, PcmTransmitterPipeline* transmitter)
+{
+    stop_volume_monitor();
+    volume_monitor_ready_.store(false, std::memory_order_release);
+    volume_monitor_running_.store(true, std::memory_order_release);
+    system_volume_tracking_.store(SystemVolumeTrackingState::Fallback, std::memory_order_relaxed);
+
+    volume_monitor_worker_ = std::thread([this, capture, transmitter] {
+        SystemVolumeReader reader;
+        std::wstring bound_endpoint;
+        bool has_valid_gain = false;
+        bool failure_logged = false;
+        bool active_logged = false;
+
+        while (volume_monitor_running_.load(std::memory_order_acquire)) {
+            const std::wstring endpoint_id = capture->native_output_endpoint_id();
+            Result<float> gain_result = Result<float>::failure(
+                make_error(ErrorCode::AudioError, "The active WASAPI output endpoint is unavailable."));
+
+            if (!endpoint_id.empty()) {
+                if (endpoint_id != bound_endpoint) {
+                    reader.reset();
+                    auto bound = reader.bind(endpoint_id);
+                    if (bound.ok()) {
+                        bound_endpoint = endpoint_id;
+                    } else {
+                        bound_endpoint.clear();
+                        gain_result = Result<float>::failure(bound.error());
+                    }
+                }
+                if (endpoint_id == bound_endpoint) {
+                    gain_result = reader.read_gain();
+                }
+            }
+
+            if (gain_result.ok()) {
+                const float gain = gain_result.value();
+                transmitter->set_volume_gain(gain);
+                system_volume_gain_.store(gain, std::memory_order_relaxed);
+                system_volume_tracking_.store(SystemVolumeTrackingState::Active, std::memory_order_relaxed);
+                has_valid_gain = true;
+                if (failure_logged) {
+                    add_log("System volume tracking restored.");
+                    failure_logged = false;
+                    active_logged = true;
+                } else if (!active_logged) {
+                    add_log("System volume tracking active.");
+                    active_logged = true;
+                }
+            } else {
+                if (!has_valid_gain) {
+                    transmitter->set_volume_gain(1.0f);
+                    system_volume_gain_.store(1.0f, std::memory_order_relaxed);
+                }
+                system_volume_tracking_.store(SystemVolumeTrackingState::Fallback, std::memory_order_relaxed);
+                if (!failure_logged) {
+                    add_log("System volume tracking unavailable; keeping "
+                        + std::string(has_valid_gain ? "the last valid gain. " : "full volume. ")
+                        + gain_result.error().message);
+                    failure_logged = true;
+                }
+            }
+
+            volume_monitor_ready_.store(true, std::memory_order_release);
+            for (int wait_step = 0;
+                 wait_step < 10 && volume_monitor_running_.load(std::memory_order_acquire);
+                 ++wait_step) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            }
+        }
+    });
+}
+
+void SessionController::stop_volume_monitor()
+{
+    volume_monitor_running_.store(false, std::memory_order_release);
+    if (volume_monitor_worker_.joinable()) {
+        volume_monitor_worker_.join();
+    }
+    volume_monitor_ready_.store(false, std::memory_order_release);
+}
+
 void SessionController::finish_listening()
 {
     SessionStatus completed;
@@ -684,6 +819,9 @@ void SessionController::finish_listening()
         completed.receiver_connecting = false;
         completed.receiver_listening = false;
         completed.selected_mode = config_.transmitter.mode;
+        completed.volume_mode = config_.transmitter.volume_mode;
+        completed.system_volume_gain = system_volume_gain_.load(std::memory_order_relaxed);
+        completed.system_volume_tracking = system_volume_tracking_.load(std::memory_order_relaxed);
         completed.detected_mode = detected_mode_;
         completed.has_detected_mode = has_detected_mode_;
         completed.host = config_.receiver.host;
@@ -753,6 +891,21 @@ const char* to_string(SessionMode mode)
         return "sharing_listening";
     }
     return "idle";
+}
+
+const char* to_string(SystemVolumeTrackingState state)
+{
+    switch (state) {
+    case SystemVolumeTrackingState::Disabled:
+        return "disabled";
+    case SystemVolumeTrackingState::Active:
+        return "active";
+    case SystemVolumeTrackingState::Fallback:
+        return "fallback";
+    case SystemVolumeTrackingState::Unsupported:
+        return "unsupported";
+    }
+    return "disabled";
 }
 
 } // namespace shareaudio

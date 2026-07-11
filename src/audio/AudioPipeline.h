@@ -25,21 +25,34 @@ struct TransmitterStats {
 
 class PcmTransmitterPipeline {
 public:
-    explicit PcmTransmitterPipeline(AudioMode mode, std::size_t max_queued_packets = 256);
+    explicit PcmTransmitterPipeline(
+        AudioMode mode,
+        std::size_t max_queued_packets = 256,
+        VolumeMode volume_mode = VolumeMode::Full);
 
     void on_captured_pcm(std::span<const std::uint8_t> bytes);
+    void set_volume_gain(float gain);
+    [[nodiscard]] float volume_gain() const;
     bool try_pop_packet(std::vector<std::uint8_t>& packet);
     [[nodiscard]] TransmitterStats stats() const;
     void reset();
 
 private:
+    std::vector<std::uint8_t> apply_volume_gain(std::span<const std::uint8_t> bytes);
+
     mutable std::mutex mutex_;
     AudioMode mode_;
+    VolumeMode volume_mode_;
     PcmChunker chunker_;
     OpusEncoder encoder_;
     std::queue<std::vector<std::uint8_t>> packets_;
     std::size_t max_queued_packets_ {};
     TransmitterStats stats_;
+    std::atomic<float> target_volume_gain_ { 1.0f };
+    float applied_volume_gain_ { 1.0f };
+    float ramp_target_gain_ { 1.0f };
+    float ramp_step_ {};
+    std::size_t ramp_frames_remaining_ {};
 };
 
 struct ReceiverStats {

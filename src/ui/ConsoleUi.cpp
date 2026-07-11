@@ -31,6 +31,7 @@ int ConsoleUi::run(const std::vector<std::string>& args)
     }
     if (args[0] == "share") {
         AudioMode mode = AudioMode::Balanced;
+        VolumeMode volume_mode = VolumeMode::Full;
         std::string capture_device_id;
         for (std::size_t i = 1; i < args.size(); i += 2) {
             if (i + 1 >= args.size()) {
@@ -44,11 +45,18 @@ int ConsoleUi::run(const std::vector<std::string>& args)
                     return 2;
                 }
                 mode = *parsed;
+            } else if (args[i] == "--volume-mode") {
+                auto parsed = parse_volume_mode(args[i + 1]);
+                if (!parsed) {
+                    std::cerr << "share supports --volume-mode full or system.\n";
+                    return 2;
+                }
+                volume_mode = *parsed;
             } else if (args[i] == "--device" || args[i] == "-d") {
                 capture_device_id = args[i + 1];
             } else {
                 std::cerr << "Unknown argument: " << args[i] << "\n";
-                std::cerr << "Usage: shareaudio_cli share [--audio-mode balanced|fast|efficient] [--device <device_id>]\n";
+                std::cerr << "Usage: shareaudio_cli share [--audio-mode balanced|fast|efficient] [--volume-mode full|system] [--device <device_id>]\n";
                 return 2;
             }
         }
@@ -60,13 +68,24 @@ int ConsoleUi::run(const std::vector<std::string>& args)
         std::cout << "Available local IP addresses for connection:\n";
         print_local_ips();
 
-        auto start = session_.start_sharing(mode, capture_device_id);
+        auto start = session_.start_sharing(mode, capture_device_id, volume_mode);
         if (!start.ok()) {
             std::cerr << start.error().message << '\n';
             return 2;
         }
+        const auto started_status = session_.status_snapshot();
+        if (started_status.system_volume_tracking == SystemVolumeTrackingState::Unsupported) {
+            std::cerr << "Warning: system VolumeMode is Windows-only; transmitting full captured audio.\n";
+        } else if (started_status.system_volume_tracking == SystemVolumeTrackingState::Fallback) {
+            std::cerr << "Warning: Windows system volume is unavailable; transmitting with fallback gain "
+                      << started_status.system_volume_gain << ".\n";
+        } else if (started_status.system_volume_tracking == SystemVolumeTrackingState::Active) {
+            std::cout << "Following Windows system volume with initial gain "
+                      << started_status.system_volume_gain << ".\n";
+        }
 
-        std::cout << "Sharing on TCP port " << Defaults::tcp_port << " in " << to_string(mode) << " mode. Press Enter to stop.\n";
+        std::cout << "Sharing on TCP port " << Defaults::tcp_port << " in " << to_string(mode)
+                  << " mode with volume mode " << to_string(volume_mode) << ". Press Enter to stop.\n";
         std::string line;
         std::getline(std::cin, line);
 
@@ -138,13 +157,15 @@ void ConsoleUi::print_help() const
     std::cout
         << "ShareAudioLite " << SHAREAUDIO_VERSION << "\n\n"
         << "Usage:\n"
-        << "  shareaudio_cli share [--audio-mode balanced|fast|efficient] [--device <device_id>]\n"
+        << "  shareaudio_cli share [--audio-mode balanced|fast|efficient] [--volume-mode full|system] [--device <device_id>]\n"
         << "  shareaudio_cli listen <host> [--device <device_id>]\n"
         << "  shareaudio_cli devices\n"
         << "  shareaudio_cli ips\n"
         << "  shareaudio_cli help\n\n"
         << "Defaults:\n"
         << "  share uses balanced AudioMode when --audio-mode is omitted.\n"
+        << "  share uses full VolumeMode when --volume-mode is omitted.\n"
+        << "  system VolumeMode follows the Windows output-device master volume; other platforms use full.\n"
         << "  listen detects the stream mode from the sender.\n"
         << "  efficient AudioMode uses Opus when this build is linked with libopus.\n";
 }

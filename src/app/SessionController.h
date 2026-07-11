@@ -36,6 +36,13 @@ enum class SessionAudioBackend {
     Fake
 };
 
+enum class SystemVolumeTrackingState {
+    Disabled,
+    Active,
+    Fallback,
+    Unsupported
+};
+
 struct SessionControllerOptions {
     SessionAudioBackend backend { SessionAudioBackend::Default };
     bool allow_self_connection { false };
@@ -48,6 +55,9 @@ struct SessionStatus {
     bool receiver_connecting {};
     bool receiver_listening {};
     AudioMode selected_mode { AudioMode::Balanced };
+    VolumeMode volume_mode { VolumeMode::Full };
+    float system_volume_gain { 1.0f };
+    SystemVolumeTrackingState system_volume_tracking { SystemVolumeTrackingState::Disabled };
     AudioMode detected_mode { AudioMode::Balanced };
     bool has_detected_mode {};
     std::string host;
@@ -72,7 +82,11 @@ public:
     SessionController(const SessionController&) = delete;
     SessionController& operator=(const SessionController&) = delete;
 
-    Result<void> start_sharing(AudioMode mode, std::string capture_device_id = {});
+    Result<void> start_sharing(
+        AudioMode mode,
+        std::string capture_device_id = {},
+        VolumeMode volume_mode = VolumeMode::Full);
+    Result<void> set_volume_mode(VolumeMode volume_mode);
     Result<void> stop_sharing();
     Result<void> start_listening(std::string host, std::string playback_device_id = {});
     Result<void> stop_listening();
@@ -93,6 +107,8 @@ private:
     void add_log(std::string message);
     void add_log_locked(const std::string& message);
     void finish_listening();
+    void start_volume_monitor(IAudioCapture* capture, PcmTransmitterPipeline* transmitter);
+    void stop_volume_monitor();
     [[nodiscard]] SessionMode derived_mode_locked() const;
 
     mutable std::mutex mutex_;
@@ -115,11 +131,17 @@ private:
     std::unique_ptr<PcmReceiverPipeline> receiver_;
     std::shared_ptr<TcpSocket> receiver_socket_;
     std::thread transmitter_worker_;
+    std::thread volume_monitor_worker_;
     std::thread listener_worker_;
     std::atomic_bool transmitter_running_ { false };
+    std::atomic_bool volume_monitor_running_ { false };
+    std::atomic_bool volume_monitor_ready_ { false };
+    std::atomic<float> system_volume_gain_ { 1.0f };
+    std::atomic<SystemVolumeTrackingState> system_volume_tracking_ { SystemVolumeTrackingState::Disabled };
     std::atomic_bool listener_stop_requested_ { false };
 };
 
 const char* to_string(SessionMode mode);
+const char* to_string(SystemVolumeTrackingState state);
 
 } // namespace shareaudio

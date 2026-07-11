@@ -34,6 +34,7 @@ add_library(shareaudio_core
     src/network/PcmBroadcastServer.cpp
     src/network/TcpSocket.cpp
     src/platform/LocalIp.cpp
+    src/platform/SystemVolume.cpp
     src/protocol/JitterBuffer.cpp
     src/protocol/PcmChunker.cpp
     src/protocol/Protocol.cpp

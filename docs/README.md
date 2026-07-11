@@ -24,6 +24,7 @@ Current implementation:
 - Browser/mobile compatibility: hybrid TCP/HTTP auto-detect with `/info`, `/stream`, and `/`.
 - Audio format: 48 kHz, stereo, signed 16-bit PCM, little-endian.
 - Supported `AudioMode` selection: Balanced, Fast, and Efficient. Balanced/Fast are PCM streaming modes. Efficient uses the Opus codec components described in the AudioMode section.
+- Supported transmitter `VolumeMode`: Full preserves captured samples; Windows-only System follows the selected output endpoint master volume.
 - Supported runtime roles: transmitter, receiver, and GUI simultaneous transmitter/receiver.
 - Receiver reconnection: automatic retry loop after transmitter disconnects.
 - Loop prevention: local/self IP connections are rejected.
@@ -118,6 +119,7 @@ shareaudio_cli share
 shareaudio_cli share --audio-mode balanced
 shareaudio_cli share --audio-mode fast
 shareaudio_cli share --audio-mode efficient
+shareaudio_cli share --volume-mode system
 shareaudio_cli share --device "playback:1"
 shareaudio_cli listen 192.168.1.150
 shareaudio_cli listen 192.168.1.150 --device "playback:2"
@@ -132,6 +134,8 @@ Command behavior:
 - `share` defaults to Balanced AudioMode when `--audio-mode` is omitted.
 - `share --audio-mode fast` uses smaller PCM packets for lower latency.
 - `share --audio-mode efficient` selects the Opus/Efficient code path.
+- `share --volume-mode full` preserves the captured signal and is the default.
+- `share --volume-mode system` applies the Windows output endpoint master volume to transmitted audio. Other platforms continue with Full and print a warning.
 - `share --device <device_id>` selects a capture/loopback source.
 - `listen <host>` starts receiver mode and autodetects stream mode from `SAL1` or HTTP metadata.
 - `listen <host> --device <device_id>` selects the playback device.
@@ -163,7 +167,7 @@ Simple Mode:
 - Default size: `830x350`.
 - Minimum size: `800x340`.
 - Line 1: app state, dynamic server/client IP context, TCP port, last message.
-- Line 2: server start/stop sharing button.
+- Line 2: server start/stop sharing button and the Windows-only `Follow system volume` checkbox.
 - Line 3: client host/IP text field and connect/disconnect button.
 - Fixed footer: runtime `Minimize to tray` control.
 
@@ -182,7 +186,7 @@ GUI behavior:
 - Help/About covers CLI `help`.
 - Local IPs panel covers CLI `ips`.
 - Devices panel covers CLI `devices`.
-- Share panel covers CLI `share`, `share --audio-mode ...`, and custom capture device selection.
+- Share panel covers CLI `share`, `share --audio-mode ...`, `share --volume-mode ...`, and custom capture device selection.
 - Listen panel covers CLI `listen <host>` and custom playback device selection.
 - The GUI can run sharing and receiver sessions at the same time as independent sessions.
 - The receiver autodetects stream mode from `SAL1` or HTTP metadata.
@@ -209,6 +213,7 @@ TRAYMODE=false
 STARTINTRAY=false
 MODE=server
 AUDIO_MODE=balanced
+VOLUME_MODE=full
 DEVICE_ID=
 PLAYBACK_DEVICE_ID=
 SERVER_IP=192.168.1.100
@@ -223,6 +228,7 @@ Supported keys:
 | `STARTINTRAY` | no | `true`, `false`, `yes`, `no`, etc. | GUI | Starts the GUI hidden in the system tray and enables tray mode for the current run. |
 | `MODE` | when autostarting | `server`, `client`, `both` | CLI/GUI | Chooses transmitter, receiver, or GUI simultaneous mode. `both` is GUI-only. |
 | `AUDIO_MODE` | no | `balanced`, `fast`, `efficient` | server | Chooses AudioMode for sharing. |
+| `VOLUME_MODE` | no | `full`, `system` | server | Full preserves captured samples. System follows the selected Windows output endpoint master volume. |
 | `DEVICE_ID` | no | device id string | server | Capture/loopback source id. |
 | `PLAYBACK_DEVICE_ID` | no | device id string | client | Playback output id. |
 | `SERVER_IP` | client/both autostart | host/IP string | client/both | Transmitter host for receiver mode. |
@@ -240,6 +246,8 @@ GUI config behavior:
 - `Exit` from the tray menu is the explicit way to close the GUI while tray mode is active.
 - Invalid or incomplete config opens the GUI normally without autostart.
 - Users can change tray mode at runtime through the GUI or tray menu; this does not rewrite `shareaudio.cfg`.
+- `VOLUME_MODE` pre-fills the Windows `Follow system volume` checkbox even when `AUTOSTART=false`.
+- The GUI stores the checkbox selection in its internal JSON configuration. The checkbox is disabled while sharing is active.
 
 CLI config behavior:
 
@@ -254,8 +262,45 @@ Invalid config examples:
 - `AUTOSTART=true` and missing/invalid `MODE`.
 - `AUTOSTART=true`, `MODE=client` or `MODE=both`, and missing `SERVER_IP`.
 - Unknown AudioMode values: CLI zero-argument autostart forwards invalid `AUDIO_MODE` to `share --audio-mode` and exits with a usage error; GUI prefill ignores unparseable `AUDIO_MODE` and leaves the current/default mode selected.
+- Unknown VolumeMode values: CLI zero-argument autostart forwards invalid `VOLUME_MODE` to `share --volume-mode` and exits with a usage error; GUI prefill ignores unparseable values.
 
 Unknown keys are ignored.
+
+## VolumeMode And Windows System Volume
+
+`VolumeMode` controls transmitter amplitude processing independently of `AudioMode`:
+
+| VolumeMode | Public value | Transmitter behavior |
+| --- | --- | --- |
+| Full | `full` | Sends captured PCM unchanged. This is the default and preserves the previous application behavior. |
+| System | `system` | On Windows, attenuates captured PCM using the master volume and mute state of the output endpoint being captured through WASAPI loopback. |
+
+System VolumeMode is implemented as follows:
+
+1. Miniaudio opens the selected or default WASAPI loopback endpoint.
+2. The capture backend exposes the native endpoint id actually opened, rather than resolving the public `playback:N` index a second time.
+3. A worker polls `IAudioEndpointVolume::GetMasterVolumeLevel` and `GetMute` every `100 ms`.
+4. The endpoint dB level is converted to linear PCM gain with `10^(dB/20)`, clamped to `0.0..1.0`; mute produces `0.0`.
+5. The transmitter applies the same gain to left and right S16LE samples with a `10 ms` linear ramp between changes.
+6. Adjusted PCM enters the normal packetizer. Efficient encodes the adjusted PCM to Opus after gain processing.
+
+The volume worker does not run inside the audio callback and never writes to Windows volume controls. Full VolumeMode bypasses gain processing and forwards the original bytes to the packetizer. System VolumeMode creates an adjusted PCM buffer before packetization.
+
+If the endpoint cannot be read initially, transmission continues at full gain and diagnostics report `fallback`. After a successful read, temporary failures retain the last valid gain. A miniaudio reroute updates the native endpoint id and causes the worker to bind to the new output endpoint. Repeated failures are logged once per failure period.
+
+Diagnostics expose:
+
+```text
+volume_mode=full|system
+system_volume_gain=<0.0..1.0>
+system_volume_tracking=disabled|active|fallback|unsupported
+```
+
+The receiver volume remains independent. Its effective output is the already-adjusted stream multiplied by its own local volume and hardware gain, so the feature mirrors server attenuation but cannot guarantee identical acoustic loudness on different machines.
+
+System tracks endpoint master volume and mute only. It does not transmit volume metadata, modify receiver settings, copy per-application mixer controls, or copy per-channel balance. All native, HTTP, mobile, and browser receivers receive the same adjusted PCM or Opus stream without protocol changes.
+
+On Linux, System is currently unsupported: the GUI hides the checkbox, while CLI/config requests print a warning and use Full behavior. Some Windows devices implement loopback in hardware and may already include endpoint attenuation; System is optional because applying it on such hardware can attenuate the signal twice.
 
 ## Core Audio Format
 
@@ -635,10 +680,11 @@ Transmitter startup path:
 2. Session controller validates current state.
 3. Capture backend initializes selected/default source.
 4. TCP broadcast server binds to port `33777`.
-5. Audio capture starts.
-6. Captured PCM enters chunking/encoding.
-7. Packets enter transmitter queue.
-8. Broadcast worker writes packets to connected clients.
+5. If System VolumeMode is selected, the Core Audio worker resolves the opened endpoint and performs its first volume read.
+6. Audio capture starts.
+7. Captured PCM optionally receives system-volume gain, then enters chunking/encoding.
+8. Packets enter transmitter queue.
+9. Broadcast worker writes packets to connected clients.
 
 Windows capture:
 
@@ -646,6 +692,7 @@ Windows capture:
 - Default transmitter source is playback loopback.
 - Captures the default playback device unless a device id is selected.
 - Converts captured format to 48 kHz stereo signed 16-bit PCM when needed.
+- Optional System VolumeMode follows the selected endpoint master dB level and mute state before packetization.
 - When GUI sharing and receiver run together on Windows, playing received audio through the same device captured by loopback can re-capture and retransmit that received audio. Use different devices, avoid connecting to the same machine, or disable one side to prevent feedback/echo.
 
 Linux capture:
@@ -930,6 +977,7 @@ Audio:
 - Default capture source is the default playback device loopback.
 - Playback uses miniaudio output devices.
 - Device selection is supported.
+- System VolumeMode uses the exact WASAPI endpoint opened for loopback and applies its master volume before PCM packetization or Opus encoding.
 
 ### Linux
 
@@ -943,6 +991,7 @@ Audio:
 - PulseAudio/PipeWire/ALSA support depends on available miniaudio backend.
 - System-audio capture may require manually choosing a monitor/source device.
 - ALSA fallback is supported where possible.
+- System VolumeMode tracking is not implemented; `system` requests retain Full behavior with a warning.
 
 ### Browser
 
@@ -978,6 +1027,7 @@ Compatibility matrix:
 Automated tests cover:
 
 - config validation and persistence;
+- VolumeMode parsing, JSON persistence, dB conversion, PCM scaling, stereo ramping, mute, and fallback state;
 - startup config parsing;
 - protocol packet framing;
 - Opus length prefix encoding/decoding;

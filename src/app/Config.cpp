@@ -75,6 +75,29 @@ std::optional<AudioMode> parse_audio_mode(std::string value)
     return std::nullopt;
 }
 
+std::string to_string(VolumeMode mode)
+{
+    switch (mode) {
+    case VolumeMode::Full:
+        return "full";
+    case VolumeMode::System:
+        return "system";
+    }
+    return "full";
+}
+
+std::optional<VolumeMode> parse_volume_mode(std::string value)
+{
+    value = lower_copy(std::move(value));
+    if (value == "full") {
+        return VolumeMode::Full;
+    }
+    if (value == "system") {
+        return VolumeMode::System;
+    }
+    return std::nullopt;
+}
+
 std::size_t packet_size_for_mode(AudioMode mode)
 {
     switch (mode) {
@@ -113,6 +136,7 @@ std::string to_json(const AppConfig& config)
     out << "  },\n";
     out << "  \"transmitter\": {\n";
     out << "    \"mode\": \"" << to_string(config.transmitter.mode) << "\",\n";
+    out << "    \"volume_mode\": \"" << to_string(config.transmitter.volume_mode) << "\",\n";
     out << "    \"capture_device_id\": \"" << config.transmitter.capture_device_id << "\",\n";
     out << "    \"bind_address\": \"" << config.transmitter.network.bind_address << "\",\n";
     out << "    \"port\": " << config.transmitter.network.port << "\n";
@@ -156,6 +180,11 @@ Result<AppConfig> load_config_file(const std::filesystem::path& path)
         if (auto mode = parse_audio_mode(*transmitter_mode)) {
             config.transmitter.mode = *mode;
             config.receiver.mode = *mode;
+        }
+    }
+    if (auto volume_mode = parse_string_field(json, "volume_mode")) {
+        if (auto mode = parse_volume_mode(*volume_mode)) {
+            config.transmitter.volume_mode = *mode;
         }
     }
     if (auto capture = parse_string_field(json, "capture_device_id")) {

@@ -19,6 +19,11 @@ enum class AudioMode {
     Efficient
 };
 
+enum class VolumeMode {
+    Full,
+    System
+};
+
 struct Defaults {
     static constexpr std::uint16_t tcp_port = 33777;
     static constexpr int sample_rate = 48000;
@@ -47,6 +52,7 @@ struct NetworkConfig {
 
 struct TransmitterConfig {
     AudioMode mode { AudioMode::Balanced };
+    VolumeMode volume_mode { VolumeMode::Full };
     std::string capture_device_id;
     NetworkConfig network;
 };
@@ -66,6 +72,8 @@ struct AppConfig {
 
 std::string to_string(AudioMode mode);
 std::optional<AudioMode> parse_audio_mode(std::string value);
+std::string to_string(VolumeMode mode);
+std::optional<VolumeMode> parse_volume_mode(std::string value);
 std::string to_json(const AppConfig& config);
 Result<AppConfig> load_config_file(const std::filesystem::path& path);
 Result<void> save_config_file(const std::filesystem::path& path, const AppConfig& config);

@@ -7,6 +7,7 @@
 #include "network/LoopbackTest.h"
 #include "network/PcmBroadcastServer.h"
 #include "platform/LocalIp.h"
+#include "platform/SystemVolume.h"
 #include "protocol/JitterBuffer.h"
 #include "protocol/PcmChunker.h"
 #include "protocol/Protocol.h"
@@ -37,6 +38,24 @@ void expect(bool condition, const std::string& message)
     }
 }
 
+std::int16_t pcm_sample_at(const std::vector<std::uint8_t>& pcm, std::size_t byte_offset)
+{
+    const std::uint16_t raw = static_cast<std::uint16_t>(pcm[byte_offset])
+        | (static_cast<std::uint16_t>(pcm[byte_offset + 1]) << 8);
+    return static_cast<std::int16_t>(raw);
+}
+
+std::vector<std::uint8_t> constant_stereo_pcm(std::size_t frame_count, std::int16_t sample)
+{
+    std::vector<std::uint8_t> pcm(frame_count * 4);
+    const auto encoded = static_cast<std::uint16_t>(sample);
+    for (std::size_t offset = 0; offset < pcm.size(); offset += 2) {
+        pcm[offset] = static_cast<std::uint8_t>(encoded & 0xFFu);
+        pcm[offset + 1] = static_cast<std::uint8_t>((encoded >> 8) & 0xFFu);
+    }
+    return pcm;
+}
+
 void test_config()
 {
     shareaudio::AppConfig config;
@@ -45,6 +64,7 @@ void test_config()
     expect(config.transmitter.network.port == shareaudio::Defaults::tcp_port, "default transmitter port uses default TCP port");
     expect(config.receiver.port == shareaudio::Defaults::tcp_port, "default receiver port uses default TCP port");
     expect(config.audio.bytes_per_frame() == 4, "stereo s16 frame is 4 bytes");
+    expect(config.transmitter.volume_mode == shareaudio::VolumeMode::Full, "default VolumeMode is full");
     expect(shareaudio::packet_size_for_mode(shareaudio::AudioMode::Balanced) == 2048, "balanced packet size");
     expect(shareaudio::packet_size_for_mode(shareaudio::AudioMode::Fast) == 1024, "fast packet size");
     expect(shareaudio::packet_size_for_mode(shareaudio::AudioMode::Efficient) == 0, "efficient is not a raw PCM packet mode");
@@ -57,6 +77,11 @@ void test_config()
     expect(shareaudio::parse_audio_mode("efficient") == shareaudio::AudioMode::Efficient, "parse efficient mode");
     expect(!shareaudio::parse_audio_mode("ultrafast").has_value(), "old ultrafast mode is rejected");
     expect(!shareaudio::parse_audio_mode("quality").has_value(), "old quality mode is rejected");
+    expect(shareaudio::to_string(shareaudio::VolumeMode::Full) == "full", "full VolumeMode string");
+    expect(shareaudio::to_string(shareaudio::VolumeMode::System) == "system", "system VolumeMode string");
+    expect(shareaudio::parse_volume_mode("FULL") == shareaudio::VolumeMode::Full, "parse full VolumeMode case-insensitively");
+    expect(shareaudio::parse_volume_mode("System") == shareaudio::VolumeMode::System, "parse system VolumeMode case-insensitively");
+    expect(!shareaudio::parse_volume_mode("automatic").has_value(), "invalid VolumeMode is rejected");
 
     config.audio.channels = 1;
     expect(!shareaudio::validate(config).ok(), "mono config is rejected");
@@ -65,6 +90,7 @@ void test_config()
     shareaudio::AppConfig saved;
     saved.receiver.host = "192.168.1.55";
     saved.transmitter.mode = shareaudio::AudioMode::Fast;
+    saved.transmitter.volume_mode = shareaudio::VolumeMode::System;
     saved.receiver.mode = shareaudio::AudioMode::Fast;
     expect(shareaudio::save_config_file(path, saved).ok(), "config saves to JSON");
     auto loaded = shareaudio::load_config_file(path);
@@ -72,6 +98,7 @@ void test_config()
     if (loaded.ok()) {
         expect(loaded.value().receiver.host == "192.168.1.55", "loaded config preserves receiver host");
         expect(loaded.value().transmitter.mode == shareaudio::AudioMode::Fast, "loaded config preserves mode");
+        expect(loaded.value().transmitter.volume_mode == shareaudio::VolumeMode::System, "loaded config preserves VolumeMode");
     }
     std::filesystem::remove(path);
 
@@ -228,6 +255,37 @@ void test_pcm_pipelines()
     expect(transmitter.try_pop_packet(packet), "transmitter pipeline pops first packet");
     expect(packet.size() == 2048, "transmitter packet is balanced size");
 
+    const auto unchanged_pcm = constant_stereo_pcm(256, -32768);
+    shareaudio::PcmTransmitterPipeline full_volume(shareaudio::AudioMode::Fast, 2, shareaudio::VolumeMode::Full);
+    full_volume.set_volume_gain(0.0f);
+    full_volume.on_captured_pcm(unchanged_pcm);
+    std::vector<std::uint8_t> unchanged_packet;
+    expect(full_volume.try_pop_packet(unchanged_packet), "full VolumeMode emits PCM");
+    expect(unchanged_packet == unchanged_pcm, "full VolumeMode preserves PCM bytes exactly");
+
+    shareaudio::PcmTransmitterPipeline muted_volume(shareaudio::AudioMode::Balanced, 4, shareaudio::VolumeMode::System);
+    muted_volume.set_volume_gain(0.0f);
+    muted_volume.on_captured_pcm(constant_stereo_pcm(1024, 10000));
+    std::vector<std::uint8_t> ramp_packet;
+    std::vector<std::uint8_t> muted_packet;
+    expect(muted_volume.try_pop_packet(ramp_packet), "system VolumeMode emits ramp packet");
+    expect(muted_volume.try_pop_packet(muted_packet), "system VolumeMode emits post-ramp packet");
+    expect(pcm_sample_at(ramp_packet, 0) == 10000, "volume ramp starts at the previous gain");
+    expect(std::abs(pcm_sample_at(ramp_packet, 240 * 4)) > 4500
+        && std::abs(pcm_sample_at(ramp_packet, 240 * 4)) < 5500, "volume ramp reaches approximately half gain at 5 ms");
+    expect(std::all_of(muted_packet.begin(), muted_packet.end(), [](std::uint8_t byte) { return byte == 0; }),
+        "system VolumeMode reaches digital silence after the 10 ms ramp");
+
+    shareaudio::PcmTransmitterPipeline half_volume(shareaudio::AudioMode::Balanced, 4, shareaudio::VolumeMode::System);
+    half_volume.set_volume_gain(0.5f);
+    half_volume.on_captured_pcm(constant_stereo_pcm(1024, 10000));
+    std::vector<std::uint8_t> half_ramp_packet;
+    std::vector<std::uint8_t> half_packet;
+    expect(half_volume.try_pop_packet(half_ramp_packet), "half gain ramp packet is available");
+    expect(half_volume.try_pop_packet(half_packet), "half gain settled packet is available");
+    expect(pcm_sample_at(half_packet, 0) == 5000, "settled system VolumeMode scales positive PCM samples");
+    expect(pcm_sample_at(half_packet, 2) == 5000, "system VolumeMode applies equal gain to both channels");
+
     shareaudio::NullAudioPlayback playback;
     shareaudio::AudioFormat format;
     expect(playback.initialize(format, "null").ok(), "pipeline playback initializes");
@@ -259,10 +317,29 @@ void test_pcm_pipelines()
             expect(static_cast<std::size_t>(opus_len.value()) + 2 == opus_packet.size(), "efficient opus packet length matches payload");
         }
     }
+
+    shareaudio::PcmTransmitterPipeline muted_efficient(
+        shareaudio::AudioMode::Efficient, 4, shareaudio::VolumeMode::System);
+    muted_efficient.set_volume_gain(0.0f);
+    muted_efficient.on_captured_pcm(constant_stereo_pcm(1920, 12000));
+    std::vector<std::uint8_t> ramp_opus_packet;
+    std::vector<std::uint8_t> silent_opus_packet;
+    expect(muted_efficient.try_pop_packet(ramp_opus_packet), "efficient VolumeMode emits ramped Opus packet");
+    expect(muted_efficient.try_pop_packet(silent_opus_packet), "efficient VolumeMode emits settled Opus packet");
+    expect(ramp_opus_packet.size() > 2 && silent_opus_packet.size() > 2,
+        "efficient pipeline keeps valid Opus framing with System VolumeMode");
 #else
     expect(efficient_stats.packets_produced == 0, "efficient transmitter produces no packets without libopus");
     expect(efficient_stats.dropped_packets == 1, "efficient transmitter drops unsupported opus frame without libopus");
 #endif
+}
+
+void test_system_volume_math()
+{
+    expect(std::abs(shareaudio::gain_from_decibels(-6.0f, false) - 0.501187f) < 0.0001f,
+        "minus 6 dB converts to the expected linear PCM gain");
+    expect(shareaudio::gain_from_decibels(-20.0f, true) == 0.0f, "mute overrides the endpoint dB level");
+    expect(shareaudio::gain_from_decibels(6.0f, false) == 1.0f, "positive endpoint gain is clamped to prevent amplification");
 }
 
 void test_local_ip()
@@ -317,10 +394,18 @@ void test_session_controller()
 #else
     expect(!session.start_sharing(shareaudio::AudioMode::Efficient).ok(), "session rejects efficient sharing without libopus");
 #endif
-    expect(session.start_sharing(shareaudio::AudioMode::Balanced).ok(), "session starts fake sharing");
+    expect(session.start_sharing(shareaudio::AudioMode::Balanced, {}, shareaudio::VolumeMode::System).ok(), "session starts fake sharing");
     expect(session.start_listening("192.168.1.50").ok(), "session starts receiver while sharing");
     auto sharing_status = session.status_snapshot();
     expect(sharing_status.sharing_active, "session status reports active sharing");
+    expect(sharing_status.volume_mode == shareaudio::VolumeMode::System, "session status reports system VolumeMode");
+#ifdef _WIN32
+    expect(sharing_status.system_volume_tracking == shareaudio::SystemVolumeTrackingState::Fallback,
+        "fake Windows capture reports system volume fallback");
+#else
+    expect(sharing_status.system_volume_tracking == shareaudio::SystemVolumeTrackingState::Unsupported,
+        "non-Windows system VolumeMode reports unsupported");
+#endif
     expect(sharing_status.receiver_connecting, "session status reports receiver connecting during sharing");
     expect(sharing_status.mode == shareaudio::SessionMode::SharingConnecting, "session status is sharing and connecting");
     expect(session.stop_sharing().ok(), "session stops fake sharing without stopping receiver");
@@ -791,6 +876,7 @@ void test_console_commands()
     expect(ui.run(std::vector<std::string> { "--status" }) == 2, "old --status command is removed");
     expect(ui.run(std::vector<std::string> { "--list-ips" }) == 2, "old --list-ips command is removed");
     expect(ui.run(std::vector<std::string> { "share", "--audio-mode", "invalid_mode" }) == 2, "invalid AudioMode is rejected");
+    expect(ui.run(std::vector<std::string> { "share", "--volume-mode", "invalid_mode" }) == 2, "invalid VolumeMode is rejected");
     expect(ui.run(std::vector<std::string> { "share", "--mode", "quality" }) == 2, "old --mode flag is rejected");
     expect(ui.run(std::vector<std::string> { "listen" }) == 2, "listen requires a host");
     expect(ui.run(std::vector<std::string> { "help" }) == 0, "help command succeeds");
@@ -819,6 +905,7 @@ void test_startup_config()
         expect(!result.value().traymode, "missing cfg has traymode=false");
         expect(!result.value().startintray, "missing cfg has startintray=false");
         expect(result.value().mode.empty(), "missing cfg has empty mode");
+        expect(!result.value().has_volume_mode(), "missing cfg has no VolumeMode override");
     }
 
     // Test 2: Full config file
@@ -831,6 +918,7 @@ void test_startup_config()
         out << "STARTINTRAY=true\n";
         out << "MODE=server\n";
         out << "AUDIO_MODE=efficient\n";
+        out << "VOLUME_MODE=system\n";
         out << "DEVICE_ID=my_capture_device\n";
         out << "PLAYBACK_DEVICE_ID=my_playback_device\n";
         out << "SERVER_IP=192.168.1.100\n";
@@ -844,11 +932,13 @@ void test_startup_config()
         expect(cfg.startintray, "full cfg startintray is true");
         expect(cfg.is_server(), "full cfg mode is server");
         expect(cfg.audio_mode == "efficient", "full cfg audio_mode is efficient");
+        expect(cfg.volume_mode == "system", "full cfg volume_mode is system");
         expect(cfg.device_id == "my_capture_device", "full cfg device_id matches");
         expect(cfg.playback_device_id == "my_playback_device", "full cfg playback_device_id matches");
         expect(cfg.server_ip == "192.168.1.100", "full cfg server_ip matches");
         expect(cfg.parsed_audio_mode().has_value(), "full cfg parsed_audio_mode is valid");
         expect(*cfg.parsed_audio_mode() == shareaudio::AudioMode::Efficient, "full cfg parsed_audio_mode is Efficient");
+        expect(cfg.parsed_volume_mode() == shareaudio::VolumeMode::System, "full cfg parsed_volume_mode is System");
         fs::remove(cfg_path);
     }
 
@@ -901,6 +991,7 @@ void test_startup_config()
         out << "StartInTray=1\n";
         out << "Mode=Client\n";
         out << "Audio_Mode=Fast\n";
+        out << "Volume_Mode=FULL\n";
         out << "Server_IP=10.0.0.1\n";
         out.close();
 
@@ -912,6 +1003,7 @@ void test_startup_config()
         expect(cfg.startintray, "case cfg startintray 1 is true");
         expect(cfg.is_client(), "case cfg mode Client is client");
         expect(cfg.audio_mode == "fast", "case cfg audio_mode lowercased");
+        expect(cfg.volume_mode == "full", "case cfg volume_mode lowercased");
         expect(cfg.server_ip == "10.0.0.1", "case cfg server_ip preserved");
         fs::remove(cfg_path);
     }
@@ -993,6 +1085,7 @@ int main()
     test_jitter_buffer();
     test_pcm_chunker();
     test_pcm_pipelines();
+    test_system_volume_math();
     test_local_ip();
     test_recent_devices();
     test_app_controller();

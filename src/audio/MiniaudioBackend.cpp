@@ -175,6 +175,7 @@ Result<void> MiniaudioCapture::initialize(const AudioFormat& format, std::string
     }
 
     device_initialized_ = true;
+    update_native_output_endpoint_id(device_);
     Logger::info("miniaudio capture initialized.");
     return Result<void>::success();
 }
@@ -212,6 +213,10 @@ void MiniaudioCapture::shutdown()
         ma_context_uninit(&context_);
         context_initialized_ = false;
     }
+    {
+        std::scoped_lock endpoint_lock(endpoint_mutex_);
+        native_output_endpoint_id_.clear();
+    }
 }
 
 std::vector<AudioDevice> MiniaudioCapture::devices() const
@@ -221,6 +226,12 @@ std::vector<AudioDevice> MiniaudioCapture::devices() const
 #else
     return enumerate_devices_for_type(ma_device_type_capture);
 #endif
+}
+
+std::wstring MiniaudioCapture::native_output_endpoint_id() const
+{
+    std::scoped_lock lock(endpoint_mutex_);
+    return native_output_endpoint_id_;
 }
 
 void MiniaudioCapture::data_callback(ma_device* device, void* output, const void* input, ma_uint32 frame_count)
@@ -238,8 +249,25 @@ void MiniaudioCapture::notification_callback(const ma_device_notification* pNoti
     if (pNotification->type == ma_device_notification_type_stopped) {
         Logger::warning("Miniaudio capture device stopped.");
     } else if (pNotification->type == ma_device_notification_type_rerouted) {
+        auto* self = pNotification->pDevice != nullptr
+            ? static_cast<MiniaudioCapture*>(pNotification->pDevice->pUserData)
+            : nullptr;
+        if (self != nullptr) {
+            self->update_native_output_endpoint_id(*pNotification->pDevice);
+        }
         Logger::warning("Miniaudio capture device rerouted/reset.");
     }
+}
+
+void MiniaudioCapture::update_native_output_endpoint_id(const ma_device& device)
+{
+    std::scoped_lock lock(endpoint_mutex_);
+#ifdef _WIN32
+    native_output_endpoint_id_ = device.capture.id.wasapi;
+#else
+    (void)device;
+    native_output_endpoint_id_.clear();
+#endif
 }
 
 void MiniaudioCapture::handle_data(const void* input, ma_uint32 frame_count)

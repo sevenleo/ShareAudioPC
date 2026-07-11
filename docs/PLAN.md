@@ -14,6 +14,7 @@ This checklist contains only remaining project work. Completed implementation hi
 - [ ] Verify Linux playback with a generated test tone.
 - [ ] Verify Linux playback with received network PCM.
 - [ ] Prefer PulseAudio/PipeWire monitor sources automatically when available.
+- [ ] Implement Linux System VolumeMode tracking for the selected monitor/output source.
 
 ## Manual Windows/Linux Streaming Tests
 
@@ -63,6 +64,13 @@ This checklist contains only remaining project work. Completed implementation hi
 - [ ] Verify GUI `TRAYMODE=true` close button hides to the system tray without stopping the session.
 - [ ] Verify GUI tray menu restores the window and exits the app.
 - [ ] Verify GUI `STARTINTRAY=true` starts hidden in the system tray.
+- [ ] Verify Windows GUI `Follow system volume` remains visible in simple and advanced modes.
+- [ ] Verify Full VolumeMode ignores Windows master-volume and mute changes.
+- [ ] Verify System VolumeMode follows Windows master volume at maximum, intermediate, zero, and mute settings.
+- [ ] Verify System VolumeMode with Fast, Balanced, and Efficient AudioModes.
+- [ ] Verify System VolumeMode with the default loopback endpoint and an explicitly selected endpoint.
+- [ ] Verify System VolumeMode rebinds after changing the default Windows output endpoint.
+- [ ] Verify adjusted volume through desktop, mobile, and browser receivers.
 
 ## Reliability And Long-Running Behavior
 

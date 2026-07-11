@@ -30,6 +30,10 @@ int Application::run(int argc, char** argv)
                         args.push_back("--audio-mode");
                         args.push_back(cfg.audio_mode);
                     }
+                    if (cfg.has_volume_mode()) {
+                        args.push_back("--volume-mode");
+                        args.push_back(cfg.volume_mode);
+                    }
                     if (cfg.has_device_id()) {
                         args.push_back("--device");
                         args.push_back(cfg.device_id);

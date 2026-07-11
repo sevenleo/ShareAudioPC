@@ -53,6 +53,14 @@ std::optional<AudioMode> StartupConfig::parsed_audio_mode() const
     return parse_audio_mode(audio_mode);
 }
 
+std::optional<VolumeMode> StartupConfig::parsed_volume_mode() const
+{
+    if (volume_mode.empty()) {
+        return std::nullopt;
+    }
+    return parse_volume_mode(volume_mode);
+}
+
 Result<StartupConfig> load_startup_config(const std::filesystem::path& cfg_path)
 {
     StartupConfig config;
@@ -96,6 +104,8 @@ Result<StartupConfig> load_startup_config(const std::filesystem::path& cfg_path)
             config.mode = to_lower(value);
         } else if (key == "audio_mode") {
             config.audio_mode = to_lower(value);
+        } else if (key == "volume_mode") {
+            config.volume_mode = to_lower(value);
         } else if (key == "device_id") {
             config.device_id = value; // Device IDs are case-sensitive
         } else if (key == "playback_device_id") {

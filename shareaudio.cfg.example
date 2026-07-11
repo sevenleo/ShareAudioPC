@@ -31,6 +31,12 @@ MODE=server
 # - 'efficient': Opus compressed mode for lower network usage.
 AUDIO_MODE=balanced
 
+# VOLUME_MODE (full | system)
+# full keeps the captured signal unchanged.
+# system follows the selected Windows output device master volume.
+# On non-Windows platforms, system falls back to full.
+VOLUME_MODE=full
+
 # DEVICE_ID (string)
 # Pre-selects a specific hardware capture audio device ID for the transmitter.
 # If commented out or empty, it will use the system's default capture device.

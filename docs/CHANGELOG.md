@@ -6,6 +6,13 @@ The format follows a simple staged log.
 
 ## [Unreleased]
 
+### Added
+
+- Added transmitter `VolumeMode` with `full` and Windows-only `system` values across GUI, CLI, internal JSON configuration, and `shareaudio.cfg`.
+- Added read-only Windows Core Audio endpoint-volume tracking, dB-to-linear PCM gain conversion, mute handling, 100 ms polling, reroute rebinding, and a 10 ms stereo gain ramp.
+- Added GUI `Follow system volume` control and diagnostic fields for configured VolumeMode, applied gain, and tracking state.
+- Added automated coverage for VolumeMode parsing/persistence, dB conversion, byte-preserving Full mode, PCM scaling/ramping/mute, Efficient pipeline compatibility, and fallback state.
+
 ### Changed
 
 - Consolidated project documentation under `docs`: `README.md`, `CHANGELOG.md`, `PLAN.md`, and the command-only `BUILD.md`.

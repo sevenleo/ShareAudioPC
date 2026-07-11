@@ -34,6 +34,7 @@
 #include <QVariant>
 #include <QWidget>
 
+#include <iomanip>
 #include <sstream>
 
 namespace shareaudio::gui {
@@ -156,6 +157,11 @@ MainWindow::MainWindow(QWidget* parent)
         }
         QCheckBox:disabled {
             color: #718096;
+        }
+        QCheckBox#followSystemVolumeCheckbox {
+            color: #FFFFFF;
+            font-size: 12px;
+            padding: 4px 2px;
         }
         QWidget#footerBar {
             background-color: #0A0F1D;
@@ -428,6 +434,22 @@ void MainWindow::build_ui()
     });
     server_simple_layout->addWidget(server_title_label);
     server_simple_layout->addWidget(start_share_button_);
+#ifdef _WIN32
+    follow_system_volume_checkbox_ = new QCheckBox("Follow system volume", server_simple_widget);
+    follow_system_volume_checkbox_->setObjectName("followSystemVolumeCheckbox");
+    follow_system_volume_checkbox_->setToolTip(
+        "Scale transmitted audio using the selected Windows output device master volume.");
+    connect(follow_system_volume_checkbox_, &QCheckBox::toggled, this, [this](bool checked) {
+        auto result = controller_.set_volume_mode(checked ? VolumeMode::System : VolumeMode::Full);
+        if (!result.ok()) {
+            const QSignalBlocker blocker(follow_system_volume_checkbox_);
+            follow_system_volume_checkbox_->setChecked(!checked);
+            return;
+        }
+        save_config_file(default_config_path(), controller_.config_snapshot());
+    });
+    server_simple_layout->addWidget(follow_system_volume_checkbox_);
+#endif
     server_layout->addWidget(server_simple_widget);
 
     // Right part (Advanced panel)
@@ -784,6 +806,10 @@ void MainWindow::refresh_all()
     refresh_devices();
     const auto config = controller_.config_snapshot();
     select_combo_data(mode_combo_, QVariant::fromValue(static_cast<int>(config.transmitter.mode)));
+    if (follow_system_volume_checkbox_) {
+        const QSignalBlocker blocker(follow_system_volume_checkbox_);
+        follow_system_volume_checkbox_->setChecked(config.transmitter.volume_mode == VolumeMode::System);
+    }
     if (!config.receiver.host.empty()) {
         host_input_->setText(qstr(config.receiver.host));
     }
@@ -853,6 +879,9 @@ void MainWindow::refresh_status()
     connect_button_->setEnabled(true);
     mode_combo_->setEnabled(!sharing);
     capture_combo_->setEnabled(!sharing);
+    if (follow_system_volume_checkbox_) {
+        follow_system_volume_checkbox_->setEnabled(!sharing);
+    }
     playback_combo_->setEnabled(!listening);
     host_input_->setEnabled(!listening);
 
@@ -964,7 +993,10 @@ void MainWindow::start_sharing()
 {
     const auto selected = static_cast<AudioMode>(mode_combo_->currentData().toInt());
     const auto device_id = std_str(capture_combo_->currentData().toString());
-    auto result = controller_.start_sharing(selected, device_id);
+    const VolumeMode volume_mode = follow_system_volume_checkbox_ != nullptr
+        ? (follow_system_volume_checkbox_->isChecked() ? VolumeMode::System : VolumeMode::Full)
+        : controller_.config_snapshot().transmitter.volume_mode;
+    auto result = controller_.start_sharing(selected, device_id, volume_mode);
     if (!result.ok()) {
         show_error(qstr(result.error().message));
     } else {
@@ -1029,6 +1061,7 @@ void MainWindow::show_help()
     const QString message = QString("Share starts a transmitter on TCP port %1.\n"
                                      "Balanced is the default AudioMode. Fast uses smaller PCM packets.\n"
                                      "Efficient uses Opus when this build is linked with libopus.\n"
+                                     "Follow system volume applies the selected Windows output-device master volume to transmitted audio.\n"
                                      "Listen connects to another machine and autodetects the stream mode from SAL1 or HTTP metadata.\n"
                                      "Browser/mobile compatibility is exposed through /info, /stream, and the browser player at http://<IP>:%1/.")
                                  .arg(Defaults::tcp_port);
@@ -1055,6 +1088,9 @@ QString MainWindow::diagnostics_text() const
     out << "receiver_listening=" << (status.receiver_listening ? "true" : "false") << "\n";
     out << "port=" << status.port << "\n";
     out << "selected_mode=" << to_string(status.selected_mode) << "\n";
+    out << "volume_mode=" << to_string(status.volume_mode) << "\n";
+    out << "system_volume_gain=" << std::fixed << std::setprecision(4) << status.system_volume_gain << "\n";
+    out << "system_volume_tracking=" << to_string(status.system_volume_tracking) << "\n";
     out << "detected_mode=" << (status.has_detected_mode ? to_string(status.detected_mode) : "-") << "\n";
     out << "host=" << status.host << "\n";
     out << "connected_clients=" << status.connected_clients << "\n";
@@ -1092,6 +1128,16 @@ void MainWindow::apply_startup_config()
         auto parsed = cfg.parsed_audio_mode();
         if (parsed) {
             select_combo_data(mode_combo_, QVariant::fromValue(static_cast<int>(*parsed)));
+        }
+    }
+    if (cfg.has_volume_mode()) {
+        auto parsed = cfg.parsed_volume_mode();
+        if (parsed) {
+            (void)controller_.set_volume_mode(*parsed);
+            if (follow_system_volume_checkbox_) {
+                const QSignalBlocker blocker(follow_system_volume_checkbox_);
+                follow_system_volume_checkbox_->setChecked(*parsed == VolumeMode::System);
+            }
         }
     }
     if (cfg.has_device_id()) {

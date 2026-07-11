@@ -12,6 +12,7 @@ public:
     virtual void stop() = 0;
     virtual void shutdown() = 0;
     [[nodiscard]] virtual std::vector<AudioDevice> devices() const = 0;
+    [[nodiscard]] virtual std::wstring native_output_endpoint_id() const { return {}; }
 };
 
 } // namespace shareaudio

@@ -91,6 +91,7 @@ private:
     QListWidget* recent_devices_list_ {};
     QPlainTextEdit* log_view_ {};
     QCheckBox* tray_mode_checkbox_ {};
+    QCheckBox* follow_system_volume_checkbox_ {};
 
     QPushButton* start_share_button_ {};
     QPushButton* connect_button_ {};
