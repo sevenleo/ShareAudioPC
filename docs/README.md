@@ -94,6 +94,7 @@ Important source files:
 - `src/storage/RecentDevices.cpp`: recent device/IP persistence.
 - `src/ui/ConsoleUi.cpp`: CLI commands and help text.
 - `src/gui/MainWindow.cpp`: Qt dashboard, simple/advanced mode, config prefill, and UI actions.
+- `src/gui/Theme.cpp`: static dark-only Signal Studio Qt stylesheet.
 
 ## Repository Documentation Policy
 
@@ -103,6 +104,8 @@ Project documentation lives under `docs`:
 - `docs/CHANGELOG.md`: recent and staged changes.
 - `docs/PLAN.md`: planned-work checklist only.
 - `docs/BUILD.md`: command-only build reference.
+- `docs/DESIGN.md`: product GUI design requirements.
+- `docs/stitch_concept/`: visual concept references; conceptual controls are not runtime requirements.
 
 Third-party documentation under `third_party/` belongs to vendored dependencies and is outside this documentation consolidation policy.
 
@@ -161,25 +164,22 @@ Removed legacy flags:
 
 The GUI uses the same Qt-free `SessionController` as the CLI. It is not a separate runtime implementation.
 
-Simple Mode:
+The GUI is dark-only and uses the Signal Studio visual system: graphite surfaces, neutral idle panels, green Sharing activity/actions, blue Receiver activity/actions, amber connection warnings, and red stop/error states. Its information architecture follows the complete compact GUI established in commit `8df3daec`.
 
-- Opens as a compact 3-line window.
-- Default size: `830x350`.
-- Minimum size: `800x340`.
-- Line 1: app state, dynamic server/client IP context, TCP port, last message.
-- Line 2: server start/stop sharing button and the Windows-only `Follow system volume` checkbox.
-- Line 3: client host/IP text field and connect/disconnect button.
-- Fixed footer: runtime `Minimize to tray` control.
+Simple mode:
 
-Advanced Mode:
+- Opens at a target size of `830x350`, with minimum `800x340` when the screen permits.
+- Keeps the global state, current IP/host, TCP port, latest message, Sharing action, Receiver host/action, `Follow system volume`, and `Minimize to tray` visible.
+- Sharing and Receiver remain independent and can run simultaneously.
 
-- Expands to a full dashboard.
-- Default size: `1100x760`.
-- Minimum size: `1000x640`.
-- Exposes AudioMode selection.
-- Exposes capture and playback device comboboxes.
-- Exposes local IPs, recent devices, diagnostics, stats, and help/about areas.
-- Keeps the `Minimize to tray` footer visible independent of the selected tab.
+Advanced mode:
+
+- Targets `1100x760` with a normal minimum of `1000x640`, clamped to the current screen's available area.
+- Adds the exact AudioMode options `Balanced (Recommended)`, `Fast (Low Latency)`, and `Efficient (Low Data)`.
+- Adds capture/playback device selection, connected-client count, and detected stream mode without duplicating the simple controls.
+- Shows the `Network & Hardware` tab with local IPs, recent hosts, and audio-device lists.
+- Shows the `Diagnostics & Help` tab with real transport counters, event logs, copy diagnostics, and help.
+- Keeps the tray footer visible independently of the selected tab.
 
 GUI behavior:
 
@@ -196,7 +196,8 @@ GUI behavior:
 - The GUI embeds `logo.ico` through Windows resources.
 - The GUI embeds `logo.png` and `logo.svg` through Qt resources and CMake AUTORCC.
 - The GUI can keep running in the system tray when minimized or closed if tray mode is enabled.
-- The theme uses a dark Soundwave identity with green share actions, blue connect actions, and red stop actions.
+- The GUI is dark-only; it does not provide a light-theme preference.
+- The GUI does not display simulated CPU, latency, packet-loss, codec, interface-name, or health values.
 
 ## Portable Startup Configuration
 

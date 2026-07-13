@@ -10,6 +10,7 @@ class QCheckBox;
 class QComboBox;
 class QEvent;
 class QFormLayout;
+class QGroupBox;
 class QHideEvent;
 class QLabel;
 class QLineEdit;
@@ -90,12 +91,14 @@ private:
     QListWidget* playback_devices_list_ {};
     QListWidget* recent_devices_list_ {};
     QPlainTextEdit* log_view_ {};
+    QGroupBox* status_panel_ {};
+    QGroupBox* sharing_panel_ {};
+    QGroupBox* receiver_panel_ {};
     QCheckBox* tray_mode_checkbox_ {};
     QCheckBox* follow_system_volume_checkbox_ {};
 
     QPushButton* start_share_button_ {};
     QPushButton* connect_button_ {};
-    QPushButton* stop_button_ {};
     QPushButton* toggle_mode_button_ {};
     QTabWidget* tabs_ {};
     QFormLayout* share_form_ {};

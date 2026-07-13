@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.24)
 
 project(ShareAudioLite
-    VERSION 0.2.0
+    VERSION 0.4.0
     DESCRIPTION "Cross-platform low-latency LAN audio transmitter and receiver"
     LANGUAGES CXX
 )
@@ -114,6 +114,7 @@ if(SHAREAUDIO_ENABLE_DESKTOP_UI)
     add_executable(shareaudio_gui
         src/gui/main.cpp
         src/gui/MainWindow.cpp
+        src/gui/Theme.cpp
         resources.qrc
         resources.rc
     )
@@ -124,6 +125,7 @@ if(SHAREAUDIO_ENABLE_DESKTOP_UI)
     endif()
     if(WIN32)
         set_target_properties(shareaudio_gui PROPERTIES WIN32_EXECUTABLE TRUE)
+        target_link_libraries(shareaudio_gui PRIVATE Dwmapi)
     endif()
 endif()
 

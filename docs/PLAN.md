@@ -57,13 +57,9 @@ This checklist contains only remaining project work. Completed implementation hi
 - [ ] Verify GUI default playback device selection on a clean Windows profile.
 - [ ] Verify CLI `shareaudio.cfg` zero-argument server autostart in a release folder.
 - [ ] Verify CLI `shareaudio.cfg` zero-argument client autostart in a release folder.
-- [ ] Verify GUI `shareaudio.cfg` field prefill and autostart in a release folder.
-- [ ] Verify GUI simultaneous sharing and receiver operation.
-- [ ] Verify GUI `shareaudio.cfg` `AUTOSTART=true` with `MODE=both` and `SERVER_IP=<ip>`.
-- [ ] Verify GUI `TRAYMODE=true` minimizes to the system tray.
-- [ ] Verify GUI `TRAYMODE=true` close button hides to the system tray without stopping the session.
-- [ ] Verify GUI tray menu restores the window and exits the app.
-- [ ] Verify GUI `STARTINTRAY=true` starts hidden in the system tray.
+- [ ] Verify the restored compact Simple layout at `830x350` and on a `1366x768` display.
+- [ ] Verify the Advanced layout, `Network & Hardware`, and `Diagnostics & Help` tabs at `1366x768` and `1920x1080`.
+- [ ] Verify Signal Studio state styling for idle, sharing, connecting, listening, simultaneous sharing/listening, errors, keyboard focus, and disabled controls.
 - [ ] Verify Windows GUI `Follow system volume` remains visible in simple and advanced modes.
 - [ ] Verify Full VolumeMode ignores Windows master-volume and mute changes.
 - [ ] Verify System VolumeMode follows Windows master volume at maximum, intermediate, zero, and mute settings.

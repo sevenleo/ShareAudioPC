@@ -1,4 +1,5 @@
 #include "gui/MainWindow.h"
+#include "gui/Theme.h"
 
 #include "app/Config.h"
 #include "app/StartupConfig.h"
@@ -13,6 +14,7 @@
 #include <QIcon>
 #include <QFormLayout>
 #include <QGridLayout>
+#include <QGuiApplication>
 #include <QGroupBox>
 #include <QHideEvent>
 #include <QHBoxLayout>
@@ -25,12 +27,18 @@
 #include <QPlainTextEdit>
 #include <QPushButton>
 #include <QSignalBlocker>
+#include <QScreen>
 #include <QShowEvent>
 #include <QStyle>
 #include <QSystemTrayIcon>
 #include <QTabWidget>
 #include <QTimer>
 #include <QVBoxLayout>
+
+#ifdef _WIN32
+#include <dwmapi.h>
+#include <windows.h>
+#endif
 #include <QVariant>
 #include <QWidget>
 
@@ -109,13 +117,27 @@ void select_combo_data(QComboBox* combo, const QVariant& data)
 
 void update_button_style(QPushButton* button, const QString& object_name, const QString& text)
 {
-    button->setText(text);
+    if (button->text() != text) {
+        button->setText(text);
+    }
     if (button->objectName() != object_name) {
         button->setObjectName(object_name);
         button->style()->unpolish(button);
         button->style()->polish(button);
         button->update();
     }
+}
+
+void update_visual_property(QWidget* widget, const char* property, const QVariant& value)
+{
+    if (widget == nullptr || widget->property(property) == value) {
+        return;
+    }
+
+    widget->setProperty(property, value);
+    widget->style()->unpolish(widget);
+    widget->style()->polish(widget);
+    widget->update();
 }
 
 } // namespace
@@ -125,177 +147,7 @@ MainWindow::MainWindow(QWidget* parent)
     , controller_(load_saved_app_config())
 {
     build_ui();
-    setStyleSheet(R"(
-        QMainWindow {
-            background-color: #0A0F1D;
-        }
-        QGroupBox {
-            background-color: #151F3C;
-            color: #FFFFFF;
-            border: 1px solid #25335A;
-            border-radius: 8px;
-            margin-top: 12px;
-            padding-top: 16px;
-            font-weight: bold;
-            font-size: 13px;
-        }
-        QGroupBox::title {
-            subcontrol-origin: margin;
-            subcontrol-position: top left;
-            left: 12px;
-            padding: 0 4px;
-            color: #00A3FF;
-        }
-        QLabel {
-            color: #BAC7DE;
-            font-size: 12px;
-        }
-        QCheckBox {
-            color: #BAC7DE;
-            font-size: 12px;
-            spacing: 8px;
-        }
-        QCheckBox:disabled {
-            color: #718096;
-        }
-        QCheckBox#followSystemVolumeCheckbox {
-            color: #FFFFFF;
-            font-size: 12px;
-            padding: 4px 2px;
-        }
-        QWidget#footerBar {
-            background-color: #0A0F1D;
-            border-top: 1px solid #25335A;
-        }
-        QCheckBox#trayModeCheckbox {
-            color: #FFFFFF;
-            font-size: 14px;
-            font-weight: bold;
-            spacing: 10px;
-            padding: 7px 10px;
-        }
-        QCheckBox#trayModeCheckbox:hover {
-            color: #1DF09A;
-        }
-        QCheckBox#trayModeCheckbox:disabled {
-            color: #718096;
-        }
-        QCheckBox#trayModeCheckbox::indicator {
-            width: 18px;
-            height: 18px;
-        }
-        QLineEdit {
-            background-color: #0A0F1D;
-            color: #FFFFFF;
-            border: 1px solid #25335A;
-            border-radius: 4px;
-            padding: 6px;
-            font-size: 12px;
-        }
-        QLineEdit:focus {
-            border: 1px solid #00A3FF;
-        }
-        QComboBox {
-            background-color: #0A0F1D;
-            color: #FFFFFF;
-            border: 1px solid #25335A;
-            border-radius: 4px;
-            padding: 6px;
-            font-size: 12px;
-            min-width: 140px;
-        }
-        QComboBox:focus {
-            border: 1px solid #00A3FF;
-        }
-        QComboBox QAbstractItemView {
-            background-color: #0A0F1D;
-            color: #FFFFFF;
-            selection-background-color: #1DF09A;
-            selection-color: #0A0F1D;
-        }
-        QPushButton {
-            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #1A73E8, stop:1 #0078FF);
-            color: #FFFFFF;
-            border: none;
-            border-radius: 6px;
-            padding: 8px 16px;
-            font-weight: bold;
-            font-size: 13px;
-        }
-        QPushButton:hover {
-            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #2b82f6, stop:1 #1c85ff);
-        }
-        QPushButton:pressed {
-            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #155bb5, stop:1 #005fcc);
-        }
-        QPushButton:disabled {
-            background-color: #2D3748;
-            color: #718096;
-        }
-        QPushButton#stopButton {
-            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #E53935, stop:1 #D32F2F);
-            color: #FFFFFF;
-        }
-        QPushButton#stopButton:hover {
-            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #ef5350, stop:1 #e53935);
-        }
-        QPushButton#startShareButton {
-            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #1DF09A, stop:1 #00FF88);
-            color: #0A0F1D;
-        }
-        QPushButton#startShareButton:hover {
-            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #33fcae, stop:1 #24ff9c);
-        }
-        QPushButton#connectButton {
-            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #0078FF, stop:1 #00C6FF);
-            color: #FFFFFF;
-        }
-        QPushButton#connectButton:hover {
-            background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #1c88ff, stop:1 #1cd0ff);
-        }
-        QTabWidget::pane {
-            border: 1px solid #25335A;
-            background-color: #151F3C;
-            border-radius: 8px;
-            top: -1px;
-        }
-        QTabBar::tab {
-            background-color: #0A0F1D;
-            color: #BAC7DE;
-            border: 1px solid #25335A;
-            border-bottom-color: none;
-            border-top-left-radius: 4px;
-            border-top-right-radius: 4px;
-            padding: 8px 16px;
-            margin-right: 2px;
-            font-weight: bold;
-        }
-        QTabBar::tab:selected {
-            background-color: #151F3C;
-            color: #FFFFFF;
-            border-bottom-color: #151F3C;
-            font-weight: bold;
-        }
-        QListWidget {
-            background-color: #0A0F1D;
-            color: #E2E8F0;
-            border: 1px solid #25335A;
-            border-radius: 4px;
-            padding: 4px;
-        }
-        QListWidget::item:selected {
-            background-color: #0078FF;
-            color: #FFFFFF;
-        }
-        QPlainTextEdit {
-            background-color: #0A0F1D;
-            color: #A0AEC0;
-            font-family: Consolas, monospace;
-            font-size: 11px;
-            border: 1px solid #25335A;
-            border-radius: 4px;
-        }
-    )");
+    setStyleSheet(dark_theme_stylesheet());
     refresh_all();
     apply_startup_config();
 
@@ -352,6 +204,15 @@ void MainWindow::changeEvent(QEvent* event)
 void MainWindow::showEvent(QShowEvent* event)
 {
     QMainWindow::showEvent(event);
+#ifdef _WIN32
+    const BOOL enabled = TRUE;
+    constexpr DWORD immersive_dark_mode_attribute = 20;
+    DwmSetWindowAttribute(
+        reinterpret_cast<HWND>(winId()),
+        immersive_dark_mode_attribute,
+        &enabled,
+        sizeof(enabled));
+#endif
     update_tray_actions();
 }
 
@@ -363,65 +224,78 @@ void MainWindow::hideEvent(QHideEvent* event)
 
 void MainWindow::build_ui()
 {
-    setWindowTitle("ShareAudioLite");
+    setWindowTitle("ShareAudioPC");
     setWindowIcon(QIcon(":/icon/logo.png"));
     setMinimumSize(800, 300);
 
     auto* central = new QWidget(this);
+    central->setObjectName("centralWorkspace");
     auto* root = new QVBoxLayout(central);
-    root->setContentsMargins(12, 12, 12, 12);
-    root->setSpacing(10);
+    root->setContentsMargins(18, 16, 18, 12);
+    root->setSpacing(12);
 
-    // Global Top Status Indicator (Simple - Line 1)
-    auto* status_card = new QGroupBox("Connection Status", central);
-    auto* status_layout = new QHBoxLayout(status_card);
-    status_layout->setContentsMargins(12, 8, 12, 8);
+    status_panel_ = new QGroupBox("Session Status", central);
+    status_panel_->setObjectName("statusPanel");
+    auto* status_layout = new QVBoxLayout(status_panel_);
+    status_layout->setContentsMargins(16, 10, 16, 10);
+    status_layout->setSpacing(6);
+    auto* status_row = new QHBoxLayout();
+    status_row->setSpacing(8);
     
-    state_label_ = new QLabel("Ready", status_card);
-    state_label_->setStyleSheet("font-weight: bold; font-size: 13px; color: #00FF88;");
+    state_label_ = new QLabel("Ready", status_panel_);
+    state_label_->setObjectName("stateValue");
     
-    ip_info_label_ = new QLabel("-", status_card);
-    ip_info_label_->setStyleSheet("font-weight: bold; color: #00C6FF;");
+    ip_info_label_ = new QLabel("-", status_panel_);
+    ip_info_label_->setObjectName("addressValue");
     
-    port_label_ = new QLabel(QString::number(Defaults::tcp_port), status_card);
-    port_label_->setStyleSheet("font-weight: bold; color: #FFFFFF;");
+    port_label_ = new QLabel(QString::number(Defaults::tcp_port), status_panel_);
+    port_label_->setObjectName("portValue");
     
-    error_label_ = new QLabel("-", status_card);
-    error_label_->setStyleSheet("color: #FF5555;");
+    error_label_ = new QLabel("-", status_panel_);
+    error_label_->setObjectName("errorValue");
     error_label_->setWordWrap(true);
+    error_label_->setVisible(false);
     
-    toggle_mode_button_ = new QPushButton("Show Advanced Options", status_card);
+    toggle_mode_button_ = new QPushButton("Show Advanced Options", status_panel_);
+    toggle_mode_button_->setObjectName("secondaryButton");
     connect(toggle_mode_button_, &QPushButton::clicked, this, [this] {
         advanced_mode_ = !advanced_mode_;
         update_layout_visibility();
     });
     
-    status_layout->addWidget(new QLabel("State:", status_card));
-    status_layout->addWidget(state_label_);
-    status_layout->addWidget(new QLabel("IP/Host:", status_card));
-    status_layout->addWidget(ip_info_label_);
-    status_layout->addWidget(new QLabel("Port:", status_card));
-    status_layout->addWidget(port_label_);
-    status_layout->addWidget(new QLabel("Msg:", status_card));
-    status_layout->addWidget(error_label_, 1);
-    status_layout->addWidget(toggle_mode_button_);
+    auto* state_caption = new QLabel("STATE", status_panel_);
+    state_caption->setObjectName("statusCaption");
+    auto* host_caption = new QLabel("HOST", status_panel_);
+    host_caption->setObjectName("statusCaption");
+    auto* port_caption = new QLabel("PORT", status_panel_);
+    port_caption->setObjectName("statusCaption");
+    status_row->addWidget(state_caption);
+    status_row->addWidget(state_label_);
+    status_row->addSpacing(8);
+    status_row->addWidget(host_caption);
+    status_row->addWidget(ip_info_label_, 1);
+    status_row->addSpacing(8);
+    status_row->addWidget(port_caption);
+    status_row->addWidget(port_label_);
+    status_row->addSpacing(8);
+    status_row->addWidget(toggle_mode_button_);
+    status_layout->addLayout(status_row);
+    status_layout->addWidget(error_label_);
     
-    root->addWidget(status_card);
+    root->addWidget(status_panel_);
 
     // --- LINE 2: Server (Transmitter) Card ---
-    auto* server_card = new QGroupBox("Server (Transmitter)", central);
-    auto* server_layout = new QHBoxLayout(server_card);
-    server_layout->setContentsMargins(12, 8, 12, 8);
-    server_layout->setSpacing(10);
+    sharing_panel_ = new QGroupBox("Sharing (Transmitter)", central);
+    sharing_panel_->setObjectName("sharingPanel");
+    auto* server_layout = new QHBoxLayout(sharing_panel_);
+    server_layout->setContentsMargins(16, 12, 16, 12);
+    server_layout->setSpacing(16);
 
-    // Left part (Always visible): Title and Start/Stop Button
-    auto* server_simple_widget = new QWidget(server_card);
+    auto* server_simple_widget = new QWidget(sharing_panel_);
     auto* server_simple_layout = new QHBoxLayout(server_simple_widget);
     server_simple_layout->setContentsMargins(0, 0, 0, 0);
     server_simple_layout->setSpacing(10);
     
-    auto* server_title_label = new QLabel("Transmit Audio:", server_simple_widget);
-    server_title_label->setStyleSheet("font-weight: bold;");
     start_share_button_ = new QPushButton("Start Sharing", server_simple_widget);
     start_share_button_->setObjectName("startShareButton");
     connect(start_share_button_, &QPushButton::clicked, this, [this] {
@@ -432,7 +306,6 @@ void MainWindow::build_ui()
             start_sharing();
         }
     });
-    server_simple_layout->addWidget(server_title_label);
     server_simple_layout->addWidget(start_share_button_);
 #ifdef _WIN32
     follow_system_volume_checkbox_ = new QCheckBox("Follow system volume", server_simple_widget);
@@ -450,10 +323,11 @@ void MainWindow::build_ui()
     });
     server_simple_layout->addWidget(follow_system_volume_checkbox_);
 #endif
-    server_layout->addWidget(server_simple_widget);
+    server_simple_layout->addStretch(1);
+    server_layout->addWidget(server_simple_widget, 1);
 
     // Right part (Advanced panel)
-    server_advanced_widget_ = new QWidget(server_card);
+    server_advanced_widget_ = new QWidget(sharing_panel_);
     auto* server_adv_layout = new QHBoxLayout(server_advanced_widget_);
     server_adv_layout->setContentsMargins(0, 0, 0, 0);
     server_adv_layout->setSpacing(10);
@@ -466,7 +340,7 @@ void MainWindow::build_ui()
     capture_combo_ = new QComboBox(server_advanced_widget_);
     
     clients_label_ = new QLabel("0", server_advanced_widget_);
-    clients_label_->setStyleSheet("font-weight: bold; color: #FFFFFF;");
+    clients_label_->setObjectName("metricValue");
 
     share_form_ = new QFormLayout();
     share_form_->setSpacing(6);
@@ -475,26 +349,27 @@ void MainWindow::build_ui()
     share_form_->addRow("Clients:", clients_label_);
 
     server_adv_layout->addLayout(share_form_);
-    server_layout->addWidget(server_advanced_widget_);
-    root->addWidget(server_card);
+    server_layout->addWidget(server_advanced_widget_, 2);
+    root->addWidget(sharing_panel_);
 
     // --- LINE 3: Client (Receiver) Card ---
-    auto* listen_card = new QGroupBox("Client (Receiver)", central);
-    auto* listen_layout = new QHBoxLayout(listen_card);
-    listen_layout->setContentsMargins(12, 8, 12, 8);
-    listen_layout->setSpacing(10);
+    receiver_panel_ = new QGroupBox("Receiver", central);
+    receiver_panel_->setObjectName("receiverPanel");
+    auto* listen_layout = new QHBoxLayout(receiver_panel_);
+    listen_layout->setContentsMargins(16, 12, 16, 12);
+    listen_layout->setSpacing(16);
 
-    // Left part (Always visible): Input and Connect Button
-    auto* client_simple_widget = new QWidget(listen_card);
+    auto* client_simple_widget = new QWidget(receiver_panel_);
     auto* client_simple_layout = new QHBoxLayout(client_simple_widget);
     client_simple_layout->setContentsMargins(0, 0, 0, 0);
     client_simple_layout->setSpacing(10);
 
-    auto* client_title_label = new QLabel("Receive Audio:", client_simple_widget);
-    client_title_label->setStyleSheet("font-weight: bold;");
+    auto* client_title_label = new QLabel("Transmitter IP", client_simple_widget);
+    client_title_label->setObjectName("statusCaption");
     
     host_input_ = new QLineEdit(client_simple_widget);
     host_input_->setPlaceholderText("Transmitter IP (e.g. 192.168.1.50)");
+    host_input_->setMinimumWidth(250);
     
     connect_button_ = new QPushButton("Connect Receiver", client_simple_widget);
     connect_button_->setObjectName("connectButton");
@@ -508,12 +383,12 @@ void MainWindow::build_ui()
     });
 
     client_simple_layout->addWidget(client_title_label);
-    client_simple_layout->addWidget(host_input_);
+    client_simple_layout->addWidget(host_input_, 1);
     client_simple_layout->addWidget(connect_button_);
-    listen_layout->addWidget(client_simple_widget);
+    listen_layout->addWidget(client_simple_widget, 1);
 
     // Right part (Advanced panel)
-    client_advanced_widget_ = new QWidget(listen_card);
+    client_advanced_widget_ = new QWidget(receiver_panel_);
     auto* client_adv_layout = new QHBoxLayout(client_advanced_widget_);
     client_adv_layout->setContentsMargins(0, 0, 0, 0);
     client_adv_layout->setSpacing(10);
@@ -521,7 +396,7 @@ void MainWindow::build_ui()
     playback_combo_ = new QComboBox(client_advanced_widget_);
     
     listen_mode_label_ = new QLabel("-", client_advanced_widget_);
-    listen_mode_label_->setStyleSheet("font-weight: bold; color: #FFFFFF;");
+    listen_mode_label_->setObjectName("metricValue");
 
     listen_form_ = new QFormLayout();
     listen_form_->setSpacing(6);
@@ -529,8 +404,8 @@ void MainWindow::build_ui()
     listen_form_->addRow("Stream Mode:", listen_mode_label_);
 
     client_adv_layout->addLayout(listen_form_);
-    listen_layout->addWidget(client_advanced_widget_);
-    root->addWidget(listen_card);
+    listen_layout->addWidget(client_advanced_widget_, 2);
+    root->addWidget(receiver_panel_);
 
     // --- LINE 4: Tabs Widget ---
     tabs_ = new QTabWidget(central);
@@ -554,7 +429,9 @@ void MainWindow::build_ui()
 
     auto* ip_buttons = new QHBoxLayout();
     auto* refresh_ips_button = new QPushButton("Refresh", net_card);
+    refresh_ips_button->setObjectName("secondaryButton");
     auto* copy_ip_button = new QPushButton("Copy Selected IP", net_card);
+    copy_ip_button->setObjectName("secondaryButton");
     connect(refresh_ips_button, &QPushButton::clicked, this, [this] {
         refresh_ips();
     });
@@ -577,6 +454,7 @@ void MainWindow::build_ui()
     capture_devices_list_ = new QListWidget(devices_box);
     playback_devices_list_ = new QListWidget(devices_box);
     auto* refresh_devices_button = new QPushButton("Refresh Devices List", devices_box);
+    refresh_devices_button->setObjectName("secondaryButton");
     connect(refresh_devices_button, &QPushButton::clicked, this, [this] {
         refresh_devices();
     });
@@ -626,7 +504,9 @@ void MainWindow::build_ui()
 
     auto* diag_buttons = new QHBoxLayout();
     auto* copy_diag_button = new QPushButton("Copy Diagnostics to Clipboard", diag_tab);
+    copy_diag_button->setObjectName("secondaryButton");
     auto* help_button = new QPushButton("Help Guide", diag_tab);
+    help_button->setObjectName("secondaryButton");
     connect(copy_diag_button, &QPushButton::clicked, this, [this] {
         copy_diagnostics();
     });
@@ -646,6 +526,9 @@ void MainWindow::build_ui()
     auto* footer_layout = new QHBoxLayout(footer_widget);
     footer_layout->setContentsMargins(8, 4, 8, 0);
     footer_layout->setSpacing(10);
+    auto* footer_version = new QLabel(QStringLiteral("ShareAudioPC v") + SHAREAUDIO_VERSION, footer_widget);
+    footer_version->setObjectName("footerVersion");
+    footer_layout->addWidget(footer_version);
     footer_layout->addStretch(1);
 
     tray_mode_checkbox_ = new QCheckBox("Minimize to tray", footer_widget);
@@ -675,7 +558,7 @@ void MainWindow::setup_tray()
     }
 
     tray_icon_ = new QSystemTrayIcon(QIcon(":/icon/logo.png"), this);
-    tray_icon_->setToolTip("ShareAudioLite");
+    tray_icon_->setToolTip("ShareAudioPC");
 
     tray_menu_ = new QMenu(this);
     toggle_window_action_ = tray_menu_->addAction("Show Window");
@@ -767,7 +650,7 @@ void MainWindow::update_tray_actions()
     }
     if (tray_icon_) {
         const auto status = controller_.status_snapshot();
-        tray_icon_->setToolTip(QStringLiteral("ShareAudioLite - ") + session_mode_label(status.mode));
+        tray_icon_->setToolTip(QStringLiteral("ShareAudioPC - ") + session_mode_label(status.mode));
     }
 }
 
@@ -783,17 +666,34 @@ void MainWindow::update_layout_visibility()
         tabs_->setVisible(advanced_mode_);
     }
 
-    if (advanced_mode_) {
-        setMinimumSize(1000, 640);
+    auto resize_for_mode = [this](const QSize& desired, const QSize& desired_minimum) {
+        QScreen* active_screen = screen();
+        if (active_screen == nullptr) {
+            active_screen = QGuiApplication::primaryScreen();
+        }
+
+        QSize maximum = desired;
+        if (active_screen != nullptr) {
+            const QSize available = active_screen->availableGeometry().size() - QSize(32, 32);
+            maximum = QSize(qMax(640, available.width()), qMax(480, available.height()));
+        }
+
+        const QSize actual = desired.boundedTo(maximum);
+        const QSize minimum(
+            qMin(desired_minimum.width(), actual.width()),
+            qMin(desired_minimum.height(), actual.height()));
+        setMinimumSize(minimum);
         setMaximumSize(16777215, 16777215);
-        resize(1100, 760);
+        resize(actual);
+    };
+
+    if (advanced_mode_) {
+        resize_for_mode(QSize(1100, 760), QSize(1000, 640));
         if (toggle_mode_button_) {
             toggle_mode_button_->setText("Hide Advanced Options");
         }
     } else {
-        setMinimumSize(800, 340);
-        setMaximumSize(16777215, 16777215);
-        resize(830, 350);
+        resize_for_mode(QSize(830, 350), QSize(800, 340));
         if (toggle_mode_button_) {
             toggle_mode_button_->setText("Show Advanced Options");
         }
@@ -822,6 +722,29 @@ void MainWindow::refresh_status()
     const auto status = controller_.status_snapshot();
     const bool sharing = status.sharing_active;
     const bool listening = status.receiver_listening || status.receiver_connecting;
+
+    QString state_tone = "idle";
+    if (sharing && listening) {
+        state_tone = "combined";
+    } else if (sharing) {
+        state_tone = "sharing";
+    } else if (status.receiver_connecting) {
+        state_tone = "connecting";
+    } else if (status.receiver_listening) {
+        state_tone = "listening";
+    } else if (!status.last_error.empty()) {
+        state_tone = "error";
+    }
+    const QString receiver_state = status.receiver_connecting ? "connecting"
+        : (status.receiver_listening ? "active" : "idle");
+    const bool has_error = !status.last_error.empty();
+
+    update_visual_property(status_panel_, "stateTone", state_tone);
+    update_visual_property(state_label_, "tone", state_tone);
+    update_visual_property(sharing_panel_, "active", sharing);
+    update_visual_property(receiver_panel_, "state", receiver_state);
+    update_visual_property(error_label_, "hasError", has_error);
+    error_label_->setVisible(has_error);
 
     state_label_->setText(session_mode_label(status.mode));
     port_label_->setText(QString::number(status.port));
@@ -889,7 +812,9 @@ void MainWindow::refresh_status()
     for (const auto& event : status.log_events) {
         logs += qstr(event) + "\n";
     }
-    log_view_->setPlainText(logs);
+    if (log_view_->toPlainText() != logs) {
+        log_view_->setPlainText(logs);
+    }
     refresh_recent_devices();
     update_tray_actions();
 }
@@ -1067,21 +992,21 @@ void MainWindow::show_help()
                                  .arg(Defaults::tcp_port);
     QMessageBox::information(
         this,
-        "ShareAudioLite Help",
+        "ShareAudioPC Help",
         message);
 }
 
 void MainWindow::show_error(const QString& message)
 {
     error_label_->setText(message);
-    QMessageBox::warning(this, "ShareAudioLite", message);
+    QMessageBox::warning(this, "ShareAudioPC", message);
 }
 
 QString MainWindow::diagnostics_text() const
 {
     const auto status = controller_.status_snapshot();
     std::ostringstream out;
-    out << "ShareAudioLite " << SHAREAUDIO_VERSION << "\n";
+    out << "ShareAudioPC " << SHAREAUDIO_VERSION << "\n";
     out << "state=" << to_string(status.mode) << "\n";
     out << "sharing_active=" << (status.sharing_active ? "true" : "false") << "\n";
     out << "receiver_connecting=" << (status.receiver_connecting ? "true" : "false") << "\n";

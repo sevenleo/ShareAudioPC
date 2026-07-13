@@ -8,6 +8,37 @@ The format follows a simple staged log.
 
 ### Added
 
+- Added a static, offline Signal Studio Qt theme separated from `MainWindow` behavior.
+
+### Changed
+
+- Restored the complete compact Simple/Advanced GUI structure from commit `8df3daec` while retaining current Sharing/Receiver, VolumeMode, autostart, and tray behavior.
+- Restored the exact public AudioMode labels and a single source of truth for host, mode, capture device, playback device, and session controls.
+- Updated advanced sizing to target the established desktop dimensions while clamping the window to the current screen's available area.
+- Refined the dark GUI into the Signal Studio visual system: graphite surfaces, restrained active-state panel accents, solid semantic session actions, and stronger focus/disabled contrast.
+
+### Removed
+
+- Removed the sidebar/stacked-page experiment, duplicate controls, viewport-scaled fonts, emoji navigation, simulated CPU/latency/packet-loss values, fixed codec badges, invented interface names, and conceptual engine actions.
+
+## [0.4.0] - 2026-07-12
+
+### Added
+- **Dynamic Layout Matrix (Grid-based Rearrangement)**: Implemented adaptive card layouts in `MainWindow` (`rearrange_layouts`) for Simple, Advanced, and Hardware pages using `QGridLayout`. On windows wider than 800px (or 1000px for Advanced), cards arrange in multi-column matrices. On narrower widths, layouts stack vertically.
+- **Dynamic Font & UI Element Scaling**: Added runtime recalculation of font sizes, padding, margins, and button heights (`scale_ui_elements`) based on the window proportions, resolving text cutoffs, large elements, and overlapping labels on resize.
+- **Dynamic Resize Handling**: Hooked resize events (`resizeEvent`) to trigger the dynamic scaling and card layout matrices instantly during window resizing.
+
+## [0.3.1] - 2026-07-12
+
+### Fixed
+
+- **GUI Memory Safety (Heap Corruption Fix)**: Resolved a critical access violation (`0xC0000005` / heap corruption) in the active nodes list widget update. Memory allocation and deallocation for `QListWidgetItem` objects are now delegated entirely to the Qt library binary boundary (using `addItem` and `item` queries) to avoid DLL/EXE allocator mismatches on Windows.
+- **GUI Startup Null-Safety**: Fixed instant crashes on launch when auto-starting server or receiver modes. Added robust pointer validation checks for system volume checkboxes, playback combo boxes, and capture combo boxes.
+- **Dynamic Element Scaling**: Improved layouts so that the horizontal segmented profile buttons, IP scan buttons, and diagnostics control buttons scale proportionally and expand to fill available horizontal width. Added vertical stretches to keep card layouts cleanly aligned.
+- **Style Contrast Correction**: Explicitly styled all `QLabel` text color to light gray (`#E5E2E1`), resolving unreadable black text issues against the dark background theme on light Windows system configurations.
+
+### Added
+
 - Added transmitter `VolumeMode` with `full` and Windows-only `system` values across GUI, CLI, internal JSON configuration, and `shareaudio.cfg`.
 - Added read-only Windows Core Audio endpoint-volume tracking, dB-to-linear PCM gain conversion, mute handling, 100 ms polling, reroute rebinding, and a 10 ms stereo gain ramp.
 - Added GUI `Follow system volume` control and diagnostic fields for configured VolumeMode, applied gain, and tracking state.
@@ -15,6 +46,8 @@ The format follows a simple staged log.
 
 ### Changed
 
+- Rebuilt the Qt GUI as a clean, stacked-page dark-charcoal console matching the "Obsidian Industrial" concept, implementing dedicated Workspace layout states (Simple/Advanced), horizontal segmented profile selectors, and dynamic metrics.
+- Rebranded visible GUI titles, tray tooltips, dialogs, and copied diagnostics as `ShareAudioPC`.
 - Consolidated project documentation under `docs`: `README.md`, `CHANGELOG.md`, `PLAN.md`, and the command-only `BUILD.md`.
 - Merged the relevant content from the previous status, protocol, sync, GUI plan, and original idea documents into `docs/README.md`.
 - Rewrote `docs/PLAN.md` as a pending-work checklist only.
