@@ -1,6 +1,8 @@
-# ShareAudioLite
+# ShareAudioPC
 
-ShareAudioLite is a native Windows/Linux LAN audio transmitter and receiver for low-latency local-network audio sharing. A machine can run as a transmitter, capturing local system audio and broadcasting it over TCP, as a receiver, connecting to another transmitter and playing the stream locally, or through the GUI as both at the same time.
+ShareAudioPC is the user-facing name of the native Windows/Linux LAN audio transmitter and receiver for low-latency local-network audio sharing. A machine can run as a transmitter, capturing local system audio and broadcasting it over TCP, as a receiver, connecting to another transmitter and playing the stream locally, or through the GUI as both at the same time.
+
+The CMake project identifier and CLI help text still use the historical name `ShareAudioLite`; the GUI title, tray, dialogs, diagnostics, and browser page use `ShareAudioPC`.
 
 The original idea was a Windows-native C#/WinUI application. The current implementation is a native C++20/CMake codebase with:
 
@@ -15,6 +17,7 @@ This file is the consolidated technical reference for the project. Recent change
 Current implementation:
 
 - Language: C++20.
+- Current project version: `0.4.0`.
 - Build system: CMake with Windows presets currently present.
 - Audio backend: miniaudio.
 - Networking: standalone Asio.
@@ -32,6 +35,7 @@ Current implementation:
 - Portable startup config: `shareaudio.cfg` next to executable.
 - Single-instance behavior: PID lock file handling.
 - GUI: Qt Widgets, simple/advanced layout, system tray support, embedded icon/resources, default device pre-selection.
+- GUI visual system: dark-only Signal Studio theme with graphite surfaces, semantic Sharing/Receiver accents, compact controls, and Windows dark title-bar integration.
 
 Implemented components include:
 
@@ -94,7 +98,7 @@ Important source files:
 - `src/storage/RecentDevices.cpp`: recent device/IP persistence.
 - `src/ui/ConsoleUi.cpp`: CLI commands and help text.
 - `src/gui/MainWindow.cpp`: Qt dashboard, simple/advanced mode, config prefill, and UI actions.
-- `src/gui/Theme.cpp`: static dark-only Signal Studio Qt stylesheet.
+- `src/gui/Theme.cpp`: static dark-only Signal Studio Qt stylesheet and state-based GUI styling.
 
 ## Repository Documentation Policy
 
@@ -170,6 +174,8 @@ Simple mode:
 
 - Opens at a target size of `830x350`, with minimum `800x340` when the screen permits.
 - Keeps the global state, current IP/host, TCP port, latest message, Sharing action, Receiver host/action, `Follow system volume`, and `Minimize to tray` visible.
+- Uses a two-level status area: state, host, port, and Advanced toggle share the first row; a real error message appears in a separate highlighted row only when present.
+- Uses one compact action row per service. The panel title identifies the service, so the content does not repeat `Transmit Audio` or `Receive Audio` as competing headings.
 - Sharing and Receiver remain independent and can run simultaneously.
 
 Advanced mode:
@@ -197,6 +203,7 @@ GUI behavior:
 - The GUI embeds `logo.png` and `logo.svg` through Qt resources and CMake AUTORCC.
 - The GUI can keep running in the system tray when minimized or closed if tray mode is enabled.
 - The GUI is dark-only; it does not provide a light-theme preference.
+- On Windows, the GUI requests the native dark title-bar treatment through Desktop Window Manager when available; this does not affect Linux behavior.
 - The GUI does not display simulated CPU, latency, packet-loss, codec, interface-name, or health values.
 
 ## Portable Startup Configuration
@@ -380,6 +387,8 @@ Fast lowers per-packet audio duration but increases packet scheduling pressure.
 
 Efficient AudioMode is the Opus-compressed mode. The codebase contains Opus encoder/decoder wrappers, Opus packet framing, `SAL1` metadata support, CLI/GUI AudioMode selection, transmitter-side Opus packet production, and receiver-side Opus read/decode branches. Efficient AudioMode requires a libopus-enabled build.
 
+When `SHAREAUDIO_ENABLE_OPUS=OFF`, Efficient remains a recognized public AudioMode value but starting a transmitter in that mode fails with a clear libopus-required error. The Windows debug and release presets enable Opus and build the complete Efficient path.
+
 | Field | Value |
 | --- | --- |
 | Audio mode id | `0x03` |
@@ -555,6 +564,7 @@ Required response shape:
 HTTP/1.1 200 OK
 Content-Type: application/json
 Connection: close
+Content-Length: <JSON byte length>
 ```
 
 Example JSON:
@@ -615,6 +625,7 @@ The page:
 - converts `Int16` samples to `Float32` samples by dividing by `32768.0`;
 - uses Web Audio API playback scheduling with `nextPlayTime` and `audioContext.currentTime`;
 - uses an adaptive browser jitter target and prebuffers before playback starts.
+- is served directly at `/`; there is no separate `/web` route in the current implementation.
 
 Browser adaptive playback profile:
 
@@ -969,8 +980,10 @@ Status:
 - CLI release builds can produce portable executables.
 - GUI release build verified with MinGW 13.1.0 and Qt 6.6.3.
 - `windeployqt.exe` packaging verified.
+- The portable install includes the GUI executable, Qt runtime/plugins, CLI executable, and `shareaudio.cfg.example` in the root `release` directory.
 - `logo.ico` is embedded in the GUI executable.
 - Qt resources are embedded through AUTORCC.
+- The Windows GUI links `Dwmapi` for the native dark title-bar request; the rest of the GUI theme remains implemented in Qt stylesheet code.
 
 Audio:
 

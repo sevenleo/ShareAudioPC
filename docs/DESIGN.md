@@ -15,6 +15,99 @@ Both functions may be active simultaneously. This is not a relay application and
 
 The default TCP port is **33777**. The application uses English labels and controls.
 
+## Workspace Modes And Window Structure
+
+The GUI is one desktop workspace with two presentation modes. **Simple** and **Advanced** are not separate applications and must not create separate navigation flows. Advanced mode reveals additional controls inside the same Sharing and Receiver areas and reveals the diagnostic tabs below them.
+
+The common window structure is:
+
+1. **Session Status** at the top.
+2. **Sharing (Transmitter)** panel.
+3. **Receiver** panel.
+4. Advanced-only tab area.
+5. Persistent footer with application version and **Minimize to tray**.
+
+The Sharing and Receiver panels are independent. Both action buttons must remain available at the same time, including when both sessions are active. Starting or stopping one service must not hide, disable, or replace the controls of the other service.
+
+### Simple Mode
+
+Simple Mode is the default compact workspace for frequent everyday operation. It must allow a user to start transmitting or connect to a transmitter without opening another screen or understanding advanced audio settings.
+
+Target dimensions are approximately `830x350`, with a minimum of `800x340` when the display permits. The layout must remain readable at laptop resolutions such as `1366x768`.
+
+Simple Mode must show:
+
+- **Session Status** with the current state, IP/host context, TCP port `33777`, and the Advanced mode toggle.
+- A separate inline error row only when a real error or connection message exists; errors must not compress the state, host, and port into an unreadable single line.
+- **Sharing (Transmitter)** with the primary button `Start Sharing`, changing to `Stop Sharing` while active.
+- On Windows, the checkbox `Follow system volume` in the Sharing panel.
+- **Receiver** with the `Transmitter IP` field and the primary button `Connect Receiver`, changing to `Disconnect` while connecting or listening.
+- The footer checkbox `Minimize to tray`, always visible regardless of the current mode.
+- The button `Show Advanced Options`, changing to `Hide Advanced Options` in Advanced Mode.
+
+Simple Mode must not display the Network & Hardware or Diagnostics & Help tabs. It must not duplicate AudioMode, device selectors, host fields, or session buttons in a second location.
+
+### Advanced Mode
+
+Advanced Mode is the full operational workspace for setup, device selection, troubleshooting, and monitoring. It preserves the complete Simple Mode action surface at the top and adds detailed controls without replacing the primary buttons.
+
+Target dimensions are approximately `1100x760`, with a normal minimum of `1000x640`, clamped to the available display area. The layout must remain usable at `1366x768` and `1920x1080`.
+
+Advanced Mode must show the same **Session Status**, **Sharing (Transmitter)**, **Receiver**, and footer elements as Simple Mode. The additional controls are:
+
+- Sharing `AudioMode` selector with exactly:
+  - `Balanced (Recommended)`;
+  - `Fast (Low Latency)`;
+  - `Efficient (Low Data)`.
+- Sharing `Audio Device` selector for the capture/loopback source.
+- Sharing `Clients` value showing the connected receiver count.
+- Receiver `Audio Speaker` selector for the playback output.
+- Receiver `Stream Mode` value showing the detected sender mode, or `-` before metadata is available.
+- The `Network & Hardware` tab.
+- The `Diagnostics & Help` tab.
+
+Controls must be disabled only according to the session they affect:
+
+- While Sharing is active, disable AudioMode, capture device, and Follow system volume controls; Receiver controls remain usable.
+- While Receiver is connecting or listening, disable the transmitter host field and playback device selector; Sharing controls remain usable.
+- Start/Stop Sharing and Connect/Disconnect remain independent toggle actions.
+
+## Expected Screens, Buttons, And Options
+
+The following inventory is the minimum functional surface expected in the design. Visual concepts may improve grouping and hierarchy, but must not remove or invent these controls.
+
+| Area or screen | Required controls and information |
+| --- | --- |
+| Session Status | State, IP/Host, Port, current error/message, `Show Advanced Options` / `Hide Advanced Options` |
+| Sharing (Transmitter) | `Start Sharing` / `Stop Sharing`, Windows-only `Follow system volume`, `AudioMode`, `Audio Device`, `Clients` |
+| Receiver | `Transmitter IP`, `Connect Receiver` / `Disconnect`, `Audio Speaker`, `Stream Mode` |
+| Network & Hardware | Local IP list, `Refresh`, `Copy Selected IP`, recent hosts, capture source list, playback output list, `Refresh Devices List` |
+| Diagnostics & Help | Bytes Sent, Packets Produced, Packets Dropped, Bytes Received, Bytes Played, Jitter Buffer Bytes, Playback Underruns, event log, `Copy Diagnostics to Clipboard`, `Help Guide` |
+| Footer | Application version and `Minimize to tray` |
+| System tray | `Show Window` / `Hide Window`, checkable `Minimize to tray`, `Exit` |
+
+The design must include visual states for every toggle action:
+
+- `Start Sharing` and `Connect Receiver` when idle;
+- `Stop Sharing` and `Disconnect` when active;
+- connecting state for Receiver;
+- disabled device and AudioMode controls while their session is active;
+- system tray hidden state and restored window state;
+- unavailable device, invalid configuration, refused connection, timeout, and self-connection error.
+
+## GUI State Labels
+
+The overall status value uses these stable English labels:
+
+- `Idle`: neither service is active;
+- `Sharing`: transmitter active and Receiver idle;
+- `Connecting`: Receiver is attempting to connect and Sharing is idle;
+- `Listening`: Receiver is connected and playing while Sharing is idle;
+- `Sharing + Connecting`: Sharing active while Receiver is connecting;
+- `Sharing + Listening`: both Sharing and Receiver active.
+
+Sharing and Receiver should also have independent visual indicators so a combined state never looks like one ambiguous session. The overall state text is informational; the panel-level action and state are the authoritative interaction points.
+
 ## Required Screens And States
 
 Design the following as one coherent desktop application:
