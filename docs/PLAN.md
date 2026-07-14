@@ -57,8 +57,8 @@ This checklist contains only remaining project work. Completed implementation hi
 - [ ] Verify GUI default playback device selection on a clean Windows profile.
 - [ ] Verify CLI `shareaudio.cfg` zero-argument server autostart in a release folder.
 - [ ] Verify CLI `shareaudio.cfg` zero-argument client autostart in a release folder.
-- [ ] Verify the light Simple layout at `1086x660`, minimum `920x620`, and on a `1366x768` display.
-- [ ] Verify the light Advanced layout at `1366x900`, minimum `1180x760`, and with reduced-width responsive stacking.
+- [ ] Verify the light Simple layout at `1280x760`, minimum `920x620`, and on a `1366x768` display.
+- [ ] Verify the light Advanced layout at `1440x960`, minimum `1180x760`, and with reduced-width responsive stacking.
 - [ ] Verify `Network & Hardware`, `Diagnostics & Help`, and `General` tabs at `1366x768`, `1920x1080`, and reduced-width responsive stacking.
 - [ ] Verify GUI state styling for idle, sharing, connecting, listening, simultaneous sharing/listening, errors, keyboard focus, and disabled controls.
 - [ ] Verify Windows GUI `Follow system volume` remains visible in simple and advanced modes.

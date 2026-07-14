@@ -172,7 +172,7 @@ The GUI uses a light desktop workspace inspired by native Qt/Windows utility app
 
 Simple mode:
 
-- Opens at a target size of `1086x660`, with minimum `920x620` when the screen permits.
+- Opens at a target size of `1280x760`, with minimum `920x620` when the screen permits.
 - Keeps the global state, local IP, TCP port, receiver summary, latest error row, Sharing action, Receiver host/action, `Follow system volume`, and `Minimize to tray` visible.
 - Uses a flat status strip plus a separate highlighted error row only when a real error exists.
 - Uses two equal primary panels: `SHARING (Transmitter)` on the left and `RECEIVER` on the right.
@@ -180,7 +180,7 @@ Simple mode:
 
 Advanced mode:
 
-- Targets `1366x900` with a normal minimum of `1180x760`, clamped to the current screen's available area.
+- Targets `1440x960` with a normal minimum of `1180x760`, clamped to the current screen's available area.
 - Uses responsive matrix layouts: Sharing and Receiver stay side by side when there is enough width and stack vertically when the window becomes narrow; advanced tab sections also stack to avoid overlap.
 - Adds the exact AudioMode options `Balanced (Recommended)`, `Fast (Low Latency)`, and `Efficient (Low Data)`.
 - Adds capture/playback device selection, refresh actions, connected-client count, detected stream mode, current applied system-volume gain, and an informational volume slider without moving the primary Simple controls.

@@ -316,8 +316,8 @@ void MainWindow::build_ui()
     content_widget_ = new QWidget(content_scroll_);
     content_widget_->setObjectName("contentWorkspace");
     auto* root = new QVBoxLayout(content_widget_);
-    root->setContentsMargins(18, 14, 18, 16);
-    root->setSpacing(16);
+    root->setContentsMargins(18, 10, 18, 10);
+    root->setSpacing(12);
 
     status_panel_ = new QGroupBox(central);
     status_panel_->setObjectName("statusPanel");
@@ -367,15 +367,15 @@ void MainWindow::build_ui()
     primary_area_->setObjectName("primarySessionArea");
     primary_layout_ = new QGridLayout(primary_area_);
     primary_layout_->setContentsMargins(0, 0, 0, 0);
-    primary_layout_->setHorizontalSpacing(16);
-    primary_layout_->setVerticalSpacing(16);
+    primary_layout_->setHorizontalSpacing(12);
+    primary_layout_->setVerticalSpacing(12);
 
     sharing_panel_ = new QGroupBox(primary_area_);
     sharing_panel_->setObjectName("sharingPanel");
     sharing_panel_->setMinimumWidth(520);
     auto* server_layout = new QVBoxLayout(sharing_panel_);
-    server_layout->setContentsMargins(24, 18, 24, 20);
-    server_layout->setSpacing(16);
+    server_layout->setContentsMargins(20, 14, 20, 14);
+    server_layout->setSpacing(12);
 
     auto* server_title_row = new QHBoxLayout();
     server_title_row->addWidget(make_panel_title("Audio", "SHARING (Transmitter)", "sharing", sharing_panel_));
@@ -402,8 +402,10 @@ void MainWindow::build_ui()
     server_layout->addWidget(start_share_button_, 0, Qt::AlignLeft);
 
     auto* share_summary = new QGridLayout();
-    share_summary->setHorizontalSpacing(28);
-    share_summary->setVerticalSpacing(12);
+    share_summary->setHorizontalSpacing(12);
+    share_summary->setVerticalSpacing(10);
+    share_summary->setColumnMinimumWidth(0, 118);
+    share_summary->setColumnStretch(1, 1);
     share_summary->addWidget(make_caption("Mode:", sharing_panel_), 0, 0);
     share_mode_summary_label_ = make_value("-", sharing_panel_);
     share_mode_summary_label_->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Preferred);
@@ -438,7 +440,7 @@ void MainWindow::build_ui()
     auto* server_adv_layout = new QGridLayout(server_advanced_widget_);
     server_adv_layout->setContentsMargins(0, 0, 0, 0);
     server_adv_layout->setHorizontalSpacing(12);
-    server_adv_layout->setVerticalSpacing(12);
+    server_adv_layout->setVerticalSpacing(10);
     server_adv_layout->setColumnMinimumWidth(0, 118);
     server_adv_layout->setColumnStretch(1, 1);
 
@@ -483,8 +485,8 @@ void MainWindow::build_ui()
     receiver_panel_->setObjectName("receiverPanel");
     receiver_panel_->setMinimumWidth(520);
     auto* listen_layout = new QVBoxLayout(receiver_panel_);
-    listen_layout->setContentsMargins(24, 18, 24, 20);
-    listen_layout->setSpacing(16);
+    listen_layout->setContentsMargins(20, 14, 20, 14);
+    listen_layout->setSpacing(12);
 
     auto* receiver_title_row = new QHBoxLayout();
     receiver_title_row->addWidget(make_panel_title("Input", "RECEIVER", "receiver", receiver_panel_));
@@ -518,8 +520,8 @@ void MainWindow::build_ui()
     host_input_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     auto* receiver_simple_form = new QGridLayout();
-    receiver_simple_form->setHorizontalSpacing(28);
-    receiver_simple_form->setVerticalSpacing(12);
+    receiver_simple_form->setHorizontalSpacing(12);
+    receiver_simple_form->setVerticalSpacing(10);
     receiver_simple_form->setColumnMinimumWidth(0, 118);
     receiver_simple_form->setColumnStretch(1, 1);
     receiver_simple_form->addWidget(make_caption("Transmitter IP:", receiver_panel_), 0, 0);
@@ -537,7 +539,7 @@ void MainWindow::build_ui()
     auto* client_adv_layout = new QGridLayout(client_advanced_widget_);
     client_adv_layout->setContentsMargins(0, 0, 0, 0);
     client_adv_layout->setHorizontalSpacing(12);
-    client_adv_layout->setVerticalSpacing(12);
+    client_adv_layout->setVerticalSpacing(10);
     client_adv_layout->setColumnMinimumWidth(0, 118);
     client_adv_layout->setColumnStretch(1, 1);
 
@@ -919,14 +921,14 @@ void MainWindow::update_layout_visibility()
 
     if (advanced_mode_) {
         setWindowTitle("ShareAudioPC - Advanced Mode");
-        resize_for_mode(QSize(1366, 900), QSize(1180, 760));
+        resize_for_mode(QSize(1440, 960), QSize(1180, 760));
         if (toggle_mode_button_) {
             toggle_mode_button_->setText("Simple Mode");
             toggle_mode_button_->setIcon(style()->standardIcon(QStyle::SP_ArrowBack));
         }
     } else {
         setWindowTitle("ShareAudioPC");
-        resize_for_mode(QSize(1086, 660), QSize(920, 620));
+        resize_for_mode(QSize(1280, 760), QSize(920, 620));
         if (toggle_mode_button_) {
             toggle_mode_button_->setText("Advanced");
             toggle_mode_button_->setIcon(style()->standardIcon(QStyle::SP_FileDialogDetailedView));
