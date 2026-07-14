@@ -4,7 +4,7 @@
 
 namespace shareaudio::gui {
 
-[[nodiscard]] QString dark_theme_stylesheet();
+[[nodiscard]] QString app_theme_stylesheet();
 
 } // namespace shareaudio::gui
 

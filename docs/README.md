@@ -35,7 +35,7 @@ Current implementation:
 - Portable startup config: `shareaudio.cfg` next to executable.
 - Single-instance behavior: PID lock file handling.
 - GUI: Qt Widgets, simple/advanced layout, system tray support, embedded icon/resources, default device pre-selection.
-- GUI visual system: dark-only Signal Studio theme with graphite surfaces, semantic Sharing/Receiver accents, compact controls, and Windows dark title-bar integration.
+- GUI visual system: light Qt desktop workspace with a flat status strip, two equal Sharing/Receiver panels, semantic green/blue/red accents, advanced tabs, and a persistent footer.
 
 Implemented components include:
 
@@ -98,7 +98,7 @@ Important source files:
 - `src/storage/RecentDevices.cpp`: recent device/IP persistence.
 - `src/ui/ConsoleUi.cpp`: CLI commands and help text.
 - `src/gui/MainWindow.cpp`: Qt dashboard, simple/advanced mode, config prefill, and UI actions.
-- `src/gui/Theme.cpp`: static dark-only Signal Studio Qt stylesheet and state-based GUI styling.
+- `src/gui/Theme.cpp`: static Qt stylesheet for the light desktop GUI and state-based GUI styling.
 
 ## Repository Documentation Policy
 
@@ -168,24 +168,25 @@ Removed legacy flags:
 
 The GUI uses the same Qt-free `SessionController` as the CLI. It is not a separate runtime implementation.
 
-The GUI is dark-only and uses the Signal Studio visual system: graphite surfaces, neutral idle panels, green Sharing activity/actions, blue Receiver activity/actions, amber connection warnings, and red stop/error states. Its information architecture follows the complete compact GUI established in commit `8df3daec`.
+The GUI uses a light desktop workspace inspired by native Qt/Windows utility applications: a flat global status strip, two equal primary Sharing/Receiver panels, semantic green Sharing accents, blue Receiver accents, amber connection warnings, and red stop/error states. Advanced mode extends the same top-level workspace instead of replacing it.
 
 Simple mode:
 
-- Opens at a target size of `830x350`, with minimum `800x340` when the screen permits.
-- Keeps the global state, current IP/host, TCP port, latest message, Sharing action, Receiver host/action, `Follow system volume`, and `Minimize to tray` visible.
-- Uses a two-level status area: state, host, port, and Advanced toggle share the first row; a real error message appears in a separate highlighted row only when present.
-- Uses one compact action row per service. The panel title identifies the service, so the content does not repeat `Transmit Audio` or `Receive Audio` as competing headings.
+- Opens at a target size of `1086x660`, with minimum `920x620` when the screen permits.
+- Keeps the global state, local IP, TCP port, receiver summary, latest error row, Sharing action, Receiver host/action, `Follow system volume`, and `Minimize to tray` visible.
+- Uses a flat status strip plus a separate highlighted error row only when a real error exists.
+- Uses two equal primary panels: `SHARING (Transmitter)` on the left and `RECEIVER` on the right.
 - Sharing and Receiver remain independent and can run simultaneously.
 
 Advanced mode:
 
-- Targets `1100x760` with a normal minimum of `1000x640`, clamped to the current screen's available area.
+- Targets `1366x900` with a normal minimum of `1180x760`, clamped to the current screen's available area.
+- Uses responsive matrix layouts: Sharing and Receiver stay side by side when there is enough width and stack vertically when the window becomes narrow; advanced tab sections also stack to avoid overlap.
 - Adds the exact AudioMode options `Balanced (Recommended)`, `Fast (Low Latency)`, and `Efficient (Low Data)`.
-- Adds capture/playback device selection, connected-client count, and detected stream mode without duplicating the simple controls.
+- Adds capture/playback device selection, refresh actions, connected-client count, detected stream mode, current applied system-volume gain, and an informational volume slider without moving the primary Simple controls.
 - Shows the `Network & Hardware` tab with local IPs, recent hosts, and audio-device lists.
 - Shows the `Diagnostics & Help` tab with real transport counters, event logs, copy diagnostics, and help.
-- Keeps the tray footer visible independently of the selected tab.
+- Adds a `General` tab with application metadata and keeps the tray/footer actions visible independently of the selected tab.
 
 GUI behavior:
 
@@ -202,8 +203,8 @@ GUI behavior:
 - The GUI embeds `logo.ico` through Windows resources.
 - The GUI embeds `logo.png` and `logo.svg` through Qt resources and CMake AUTORCC.
 - The GUI can keep running in the system tray when minimized or closed if tray mode is enabled.
-- The GUI is dark-only; it does not provide a light-theme preference.
-- On Windows, the GUI requests the native dark title-bar treatment through Desktop Window Manager when available; this does not affect Linux behavior.
+- The GUI currently ships one light theme; it does not provide a runtime theme preference.
+- On Windows, the GUI explicitly keeps the native title bar in light mode through Desktop Window Manager when available; this does not affect Linux behavior.
 - The GUI does not display simulated CPU, latency, packet-loss, codec, interface-name, or health values.
 
 ## Portable Startup Configuration
@@ -983,7 +984,7 @@ Status:
 - The portable install includes the GUI executable, Qt runtime/plugins, CLI executable, and `shareaudio.cfg.example` in the root `release` directory.
 - `logo.ico` is embedded in the GUI executable.
 - Qt resources are embedded through AUTORCC.
-- The Windows GUI links `Dwmapi` for the native dark title-bar request; the rest of the GUI theme remains implemented in Qt stylesheet code.
+- The Windows GUI links `Dwmapi` for native title-bar appearance control; the rest of the GUI theme remains implemented in Qt stylesheet code.
 
 Audio:
 

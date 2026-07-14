@@ -8,14 +8,15 @@ The format follows a simple staged log.
 
 ### Added
 
-- Added a static, offline Signal Studio Qt theme separated from `MainWindow` behavior.
+- Added a static Qt GUI theme separated from `MainWindow` behavior.
 
 ### Changed
 
 - Restored the complete compact Simple/Advanced GUI structure from commit `8df3daec` while retaining current Sharing/Receiver, VolumeMode, autostart, and tray behavior.
 - Restored the exact public AudioMode labels and a single source of truth for host, mode, capture device, playback device, and session controls.
 - Updated advanced sizing to target the established desktop dimensions while clamping the window to the current screen's available area.
-- Refined the dark GUI into the Signal Studio visual system: graphite surfaces, restrained active-state panel accents, solid semantic session actions, and stronger focus/disabled contrast.
+- Reworked the GUI into a light desktop workspace with a flat status strip, two equal Sharing/Receiver panels, semantic panel accents, advanced tabs below the primary controls, and persistent footer actions.
+- Added responsive matrix layouts and a scrollable content workspace so Sharing/Receiver panels and advanced tab sections stack instead of overlapping when the window is reduced.
 
 ### Removed
 

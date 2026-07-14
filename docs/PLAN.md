@@ -57,9 +57,10 @@ This checklist contains only remaining project work. Completed implementation hi
 - [ ] Verify GUI default playback device selection on a clean Windows profile.
 - [ ] Verify CLI `shareaudio.cfg` zero-argument server autostart in a release folder.
 - [ ] Verify CLI `shareaudio.cfg` zero-argument client autostart in a release folder.
-- [ ] Verify the restored compact Simple layout at `830x350` and on a `1366x768` display.
-- [ ] Verify the Advanced layout, `Network & Hardware`, and `Diagnostics & Help` tabs at `1366x768` and `1920x1080`.
-- [ ] Verify Signal Studio state styling for idle, sharing, connecting, listening, simultaneous sharing/listening, errors, keyboard focus, and disabled controls.
+- [ ] Verify the light Simple layout at `1086x660`, minimum `920x620`, and on a `1366x768` display.
+- [ ] Verify the light Advanced layout at `1366x900`, minimum `1180x760`, and with reduced-width responsive stacking.
+- [ ] Verify `Network & Hardware`, `Diagnostics & Help`, and `General` tabs at `1366x768`, `1920x1080`, and reduced-width responsive stacking.
+- [ ] Verify GUI state styling for idle, sharing, connecting, listening, simultaneous sharing/listening, errors, keyboard focus, and disabled controls.
 - [ ] Verify Windows GUI `Follow system volume` remains visible in simple and advanced modes.
 - [ ] Verify Full VolumeMode ignores Windows master-volume and mute changes.
 - [ ] Verify System VolumeMode follows Windows master volume at maximum, intermediate, zero, and mute settings.
