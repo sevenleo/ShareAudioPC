@@ -19,7 +19,9 @@ public:
     SystemVolumeReader& operator=(const SystemVolumeReader&) = delete;
 
     Result<void> bind(const std::wstring& endpoint_id);
-    Result<float> read_gain() const;
+    Result<float> read_gain(bool ignore_mute = false) const;
+    Result<bool> read_muted() const;
+    Result<void> set_muted(bool muted) const;
     void reset();
 
 private:

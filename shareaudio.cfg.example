@@ -17,6 +17,10 @@ TRAYMODE=false
 # enables tray mode for the current run.
 STARTINTRAY=false
 
+# THEME (light | dark)
+# GUI only. Controls the theme used when the app starts.
+THEME=light
+
 # MODE (server | client | both)
 # Configures the mode for autostart.
 # - 'server': starts sharing system audio.
@@ -36,6 +40,12 @@ AUDIO_MODE=balanced
 # system follows the selected Windows output device master volume.
 # On non-Windows platforms, system falls back to full.
 VOLUME_MODE=full
+
+# MUTE_LOCAL_AUDIO (true | false)
+# GUI/Windows only. Mutes the captured output device during sharing while
+# keeping the loopback stream available to remote clients.
+# When true, this takes priority over VOLUME_MODE=system.
+MUTE_LOCAL_AUDIO=false
 
 # DEVICE_ID (string)
 # Pre-selects a specific hardware capture audio device ID for the transmitter.

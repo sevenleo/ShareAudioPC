@@ -32,6 +32,7 @@ public:
 
     void on_captured_pcm(std::span<const std::uint8_t> bytes);
     void set_volume_gain(float gain);
+    void set_volume_mode(VolumeMode volume_mode);
     [[nodiscard]] float volume_gain() const;
     bool try_pop_packet(std::vector<std::uint8_t>& packet);
     [[nodiscard]] TransmitterStats stats() const;

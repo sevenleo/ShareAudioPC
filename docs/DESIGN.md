@@ -40,7 +40,7 @@ Simple Mode must show:
 - **Session Status** with the current state, IP/host context, TCP port `33777`, and the Advanced mode toggle.
 - A separate inline error row only when a real error or connection message exists; errors must not compress the state, host, and port into an unreadable single line.
 - **Sharing (Transmitter)** with the primary button `Start Sharing`, changing to `Stop Sharing` while active.
-- On Windows, the checkbox `Follow system volume` in the Sharing panel.
+- On Windows, the checkboxes `Follow system volume` and `Mute local audio` in the Sharing panel.
 - **Receiver** with the `Transmitter IP` field and the primary button `Connect Receiver`, changing to `Disconnect` while connecting or listening.
 - The footer checkbox `Minimize to tray`, always visible regardless of the current mode.
 - The button `Show Advanced Options`, changing to `Hide Advanced Options` in Advanced Mode.
@@ -68,7 +68,7 @@ Advanced Mode must show the same **Session Status**, **Sharing (Transmitter)**, 
 
 Controls must be disabled only according to the session they affect:
 
-- While Sharing is active, disable AudioMode, capture device, and Follow system volume controls; Receiver controls remain usable.
+- While Sharing is active, disable AudioMode and capture device controls; `Follow system volume` and `Mute local audio` remain usable, and Receiver controls remain usable.
 - While Receiver is connecting or listening, disable the transmitter host field and playback device selector; Sharing controls remain usable.
 - Start/Stop Sharing and Connect/Disconnect remain independent toggle actions.
 
@@ -79,7 +79,7 @@ The following inventory is the minimum functional surface expected in the design
 | Area or screen | Required controls and information |
 | --- | --- |
 | Session Status | State, IP/Host, Port, current error/message, `Show Advanced Options` / `Hide Advanced Options` |
-| Sharing (Transmitter) | `Start Sharing` / `Stop Sharing`, Windows-only `Follow system volume`, `AudioMode`, `Audio Device`, `Clients` |
+| Sharing (Transmitter) | `Start Sharing` / `Stop Sharing`, Windows-only `Follow system volume` and `Mute local audio`, `AudioMode`, `Audio Device`, `Clients` |
 | Receiver | `Transmitter IP`, `Connect Receiver` / `Disconnect`, `Audio Speaker`, `Stream Mode` |
 | Network & Hardware | Local IP list, `Refresh`, `Copy Selected IP`, recent hosts, capture source list, playback output list, `Refresh Devices List` |
 | Diagnostics & Help | Bytes Sent, Packets Produced, Packets Dropped, Bytes Received, Bytes Played, Jitter Buffer Bytes, Playback Underruns, event log, `Copy Diagnostics to Clipboard`, `Help Guide` |
@@ -118,7 +118,7 @@ Design the following as one coherent desktop application:
    - A clearly separated **Sharing** area with a Start Sharing / Stop Sharing control.
    - A clearly separated **Receiver** area with a transmitter IP input and Connect Receiver / Disconnect control.
    - Both areas must remain usable simultaneously. Starting Sharing must not visually disable Receiver, and vice versa.
-   - On Windows, include the optional checkbox **Follow system volume** in the Sharing area.
+   - On Windows, include the optional checkboxes **Follow system volume** and **Mute local audio** in the Sharing area.
    - A persistent footer control: **Minimize to tray**.
    - A compact control to switch to and from Advanced mode.
 
@@ -131,7 +131,7 @@ Design the following as one coherent desktop application:
        - Efficient (Low Data)
      - Capture/loopback audio device selector.
      - Connected-client count.
-     - Follow system volume checkbox on Windows only.
+     - Follow system volume and Mute local audio checkboxes on Windows only.
    - Add advanced controls for Receiver:
      - Transmitter host/IP field.
      - Playback audio device selector.
@@ -182,6 +182,7 @@ Design the following as one coherent desktop application:
 - The app auto-detects the sender AudioMode.
 - Efficient uses Opus; Balanced and Fast use PCM. Do not imply that Efficient is “highest sound quality.”
 - Windows-only **Follow system volume** applies the selected output endpoint master volume to audio sent by Sharing. It is a runtime option and must be easy to notice without becoming the primary action.
+- Windows-only **Mute local audio** mutes the captured output endpoint while remote transmission continues. It remains available during Sharing and must be presented as an endpoint-wide privacy control, not as echo prevention. It is mutually exclusive with **Follow system volume**; selecting either control clears the other.
 - On Linux, this system-volume option is unavailable.
 - Tray mode is runtime-only. It does not edit the portable configuration file.
 - The app supports portable startup configuration and may automatically start Sharing, Receiver, or both. The configuration editor itself is not currently part of the product and must not be invented as a required screen.

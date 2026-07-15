@@ -173,7 +173,7 @@ The GUI uses a light desktop workspace inspired by native Qt/Windows utility app
 Simple mode:
 
 - Opens at a target size of `1280x760`, with minimum `920x620` when the screen permits.
-- Keeps the global state, local IP, TCP port, receiver summary, latest error row, Sharing action, Receiver host/action, `Follow system volume`, and `Minimize to tray` visible.
+- Keeps the global state, local IP, TCP port, receiver summary, latest error row, Sharing action, Receiver host/action, `Follow system volume`, `Mute local audio`, and `Minimize to tray` visible.
 - Uses a flat status strip plus a separate highlighted error row only when a real error exists.
 - Uses two equal primary panels: `SHARING (Transmitter)` on the left and `RECEIVER` on the right.
 - Sharing and Receiver remain independent and can run simultaneously.
@@ -203,8 +203,8 @@ GUI behavior:
 - The GUI embeds `logo.ico` through Windows resources.
 - The GUI embeds `logo.png` and `logo.svg` through Qt resources and CMake AUTORCC.
 - The GUI can keep running in the system tray when minimized or closed if tray mode is enabled.
-- The GUI currently ships one light theme; it does not provide a runtime theme preference.
-- On Windows, the GUI explicitly keeps the native title bar in light mode through Desktop Window Manager when available; this does not affect Linux behavior.
+- The footer provides a runtime-only `Dark Theme`/`Light Theme` button; it changes colors without changing the active layout or sessions.
+- On Windows, the GUI synchronizes the native title bar with the selected light or dark theme through Desktop Window Manager; on Linux, the desktop environment owns the outer decoration.
 - The GUI does not display simulated CPU, latency, packet-loss, codec, interface-name, or health values.
 
 ## Portable Startup Configuration
@@ -220,10 +220,12 @@ Example:
 AUTOSTART=true
 TRAYMODE=false
 STARTINTRAY=false
+THEME=light
 MODE=server
 AUDIO_MODE=balanced
 VOLUME_MODE=full
 DEVICE_ID=
+MUTE_LOCAL_AUDIO=false
 PLAYBACK_DEVICE_ID=
 SERVER_IP=192.168.1.100
 ```
@@ -236,11 +238,13 @@ Supported keys:
 | `TRAYMODE` | no | `true`, `false`, `yes`, `no`, etc. | GUI | Hides the GUI in the system tray when minimized or closed. |
 | `STARTINTRAY` | no | `true`, `false`, `yes`, `no`, etc. | GUI | Starts the GUI hidden in the system tray and enables tray mode for the current run. |
 | `MODE` | when autostarting | `server`, `client`, `both` | CLI/GUI | Chooses transmitter, receiver, or GUI simultaneous mode. `both` is GUI-only. |
+| `THEME` | no | `light`, `dark` | GUI | Theme applied when the GUI starts; absent or invalid values use light. |
 | `AUDIO_MODE` | no | `balanced`, `fast`, `efficient` | server | Chooses AudioMode for sharing. |
 | `VOLUME_MODE` | no | `full`, `system` | server | Full preserves captured samples. System follows the selected Windows output endpoint master volume. |
 | `DEVICE_ID` | no | device id string | server | Capture/loopback source id. |
 | `PLAYBACK_DEVICE_ID` | no | device id string | client | Playback output id. |
 | `SERVER_IP` | client/both autostart | host/IP string | client/both | Transmitter host for receiver mode. |
+| `MUTE_LOCAL_AUDIO` | no | `true`, `false`, `yes`, `no`, etc. | GUI/Windows | Mutes the captured Windows output endpoint during sharing while preserving the remote stream. |
 
 GUI config behavior:
 
@@ -253,16 +257,18 @@ GUI config behavior:
 - If the system tray is unavailable, tray options are ignored and the GUI opens normally.
 - The tray menu exposes `Show Window`/`Hide Window`, a runtime-only `Minimize to tray` toggle, and `Exit`.
 - `Exit` from the tray menu is the explicit way to close the GUI while tray mode is active.
+- `THEME=light` or `THEME=dark` selects the startup palette. The footer button changes it only for the current execution and never rewrites `shareaudio.cfg`.
 - Invalid or incomplete config opens the GUI normally without autostart.
 - Users can change tray mode at runtime through the GUI or tray menu; this does not rewrite `shareaudio.cfg`.
 - `VOLUME_MODE` pre-fills the Windows `Follow system volume` checkbox even when `AUTOSTART=false`.
-- The GUI stores the checkbox selection in its internal JSON configuration. The checkbox is disabled while sharing is active.
+- The GUI stores the checkbox selection in its internal JSON configuration. On Windows, `Follow system volume` remains available while sharing: enabling starts tracking without interrupting connected receivers; disabling immediately returns the transmitter to Full volume without stopping sharing. The immediate return can produce a small audible step if the current system gain is low.
 
+- `MUTE_LOCAL_AUDIO` pre-fills the Windows GUI checkbox but is not stored in the internal JSON. It can be armed before sharing or toggled while sharing. It is mutually exclusive with `Follow system volume`; enabling either option disables the other, and mute takes priority if both are requested by startup configuration.
 CLI config behavior:
 
 - With no arguments, `shareaudio_cli` attempts to load `shareaudio.cfg`.
 - With explicit arguments, `shareaudio.cfg` is ignored entirely.
-- GUI-only keys such as `TRAYMODE` and `STARTINTRAY` are ignored by the CLI execution flow.
+- GUI-only keys such as `TRAYMODE`, `STARTINTRAY`, `THEME`, and `MUTE_LOCAL_AUDIO` are ignored by the CLI execution flow.
 - `MODE=both` is rejected by `shareaudio_cli` because simultaneous sharing/listening is currently a GUI feature.
 - To change CLI config behavior, stop the process, edit `shareaudio.cfg`, and run again.
 
@@ -295,6 +301,8 @@ System VolumeMode is implemented as follows:
 
 The volume worker does not run inside the audio callback and never writes to Windows volume controls. Full VolumeMode bypasses gain processing and forwards the original bytes to the packetizer. System VolumeMode creates an adjusted PCM buffer before packetization.
 
+The Windows GUI can switch between Full and System VolumeMode during an active sharing session. Switching to System starts the existing endpoint-volume monitor. Switching to Full immediately bypasses gain processing, resets the reported gain to `1.0`, and stops the monitor; sharing and receiver sessions continue independently.
+
 If the endpoint cannot be read initially, transmission continues at full gain and diagnostics report `fallback`. After a successful read, temporary failures retain the last valid gain. A miniaudio reroute updates the native endpoint id and causes the worker to bind to the new output endpoint. Repeated failures are logged once per failure period.
 
 Diagnostics expose:
@@ -310,6 +318,14 @@ The receiver volume remains independent. Its effective output is the already-adj
 System tracks endpoint master volume and mute only. It does not transmit volume metadata, modify receiver settings, copy per-application mixer controls, or copy per-channel balance. All native, HTTP, mobile, and browser receivers receive the same adjusted PCM or Opus stream without protocol changes.
 
 On Linux, System is currently unsupported: the GUI hides the checkbox, while CLI/config requests print a warning and use Full behavior. Some Windows devices implement loopback in hardware and may already include endpoint attenuation; System is optional because applying it on such hardware can attenuate the signal twice.
+
+## Mute Local Audio On Windows
+
+The Windows GUI exposes `Mute local audio` beside `Follow system volume`. It uses `IAudioEndpointVolume` to mute the same render endpoint opened for WASAPI loopback while sharing continues to send the captured PCM or Opus stream to remote clients. The option can be selected before sharing or changed during an active sharing session without disconnecting clients.
+
+The mute is endpoint-wide, so it silences every application playing through that device and also silences a local Receiver using that endpoint. It does not stop loopback capture, prevent feedback, or change SAL1/HTTP metadata. `Mute local audio` and `Follow system volume` are mutually exclusive: enabling mute switches VolumeMode to Full, while enabling system-volume tracking restores local audio first.
+
+ShareAudioPC records the endpoint's prior mute state and restores it when the option is cleared, sharing stops, the app exits normally, or capture reroutes to another endpoint. An endpoint that was already muted remains muted. If Windows or another application clears the mute while sharing, ShareAudioPC clears its checkbox and continues streaming. A forced process termination cannot run restoration and may leave the endpoint muted; restore it manually through Windows volume controls.
 
 ## Core Audio Format
 

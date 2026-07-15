@@ -214,7 +214,7 @@ MainWindow::MainWindow(QWidget* parent)
     , controller_(load_saved_app_config())
 {
     build_ui();
-    setStyleSheet(app_theme_stylesheet());
+    apply_theme();
     refresh_all();
     apply_startup_config();
 
@@ -229,6 +229,28 @@ MainWindow::~MainWindow()
 {
     save_config_file(default_config_path(), controller_.config_snapshot());
     controller_.stop();
+}
+
+void MainWindow::apply_theme()
+{
+    setStyleSheet(app_theme_stylesheet(dark_mode_));
+    if (theme_button_) {
+        theme_button_->setText(dark_mode_ ? "Light Theme" : "Dark Theme");
+    }
+    update_native_title_bar();
+}
+
+void MainWindow::update_native_title_bar()
+{
+#ifdef _WIN32
+    const BOOL enabled = dark_mode_ ? TRUE : FALSE;
+    constexpr DWORD immersive_dark_mode_attribute = 20;
+    DwmSetWindowAttribute(
+        reinterpret_cast<HWND>(winId()),
+        immersive_dark_mode_attribute,
+        &enabled,
+        sizeof(enabled));
+#endif
 }
 
 bool MainWindow::should_start_hidden() const
@@ -277,15 +299,7 @@ void MainWindow::resizeEvent(QResizeEvent* event)
 void MainWindow::showEvent(QShowEvent* event)
 {
     QMainWindow::showEvent(event);
-#ifdef _WIN32
-    const BOOL enabled = FALSE;
-    constexpr DWORD immersive_dark_mode_attribute = 20;
-    DwmSetWindowAttribute(
-        reinterpret_cast<HWND>(winId()),
-        immersive_dark_mode_attribute,
-        &enabled,
-        sizeof(enabled));
-#endif
+    update_native_title_bar();
     update_tray_actions();
 }
 
@@ -420,6 +434,7 @@ void MainWindow::build_ui()
     server_layout->addLayout(share_summary);
 
 #ifdef _WIN32
+    auto* audio_options_row = new QHBoxLayout();
     follow_system_volume_checkbox_ = new QCheckBox("Follow system volume (Windows only)", sharing_panel_);
     follow_system_volume_checkbox_->setObjectName("followSystemVolumeCheckbox");
     follow_system_volume_checkbox_->setToolTip(
@@ -431,9 +446,35 @@ void MainWindow::build_ui()
             follow_system_volume_checkbox_->setChecked(!checked);
             return;
         }
+        if (checked && mute_local_audio_checkbox_) {
+            const QSignalBlocker blocker(mute_local_audio_checkbox_);
+            mute_local_audio_checkbox_->setChecked(false);
+        }
         save_config_file(default_config_path(), controller_.config_snapshot());
     });
-    server_layout->addWidget(follow_system_volume_checkbox_);
+    audio_options_row->addWidget(follow_system_volume_checkbox_);
+
+    mute_local_audio_checkbox_ = new QCheckBox("Mute local audio", sharing_panel_);
+    mute_local_audio_checkbox_->setObjectName("muteLocalAudioCheckbox");
+    mute_local_audio_checkbox_->setToolTip(
+        "Mute the selected Windows output device while continuing to stream audio to remote clients.");
+    connect(mute_local_audio_checkbox_, &QCheckBox::toggled, this, [this](bool checked) {
+        const auto result = controller_.set_local_audio_muted(checked);
+        if (!result.ok()) {
+            const QSignalBlocker blocker(mute_local_audio_checkbox_);
+            mute_local_audio_checkbox_->setChecked(!checked);
+            show_error(qstr(result.error().message));
+            return;
+        }
+        if (checked && follow_system_volume_checkbox_) {
+            const QSignalBlocker blocker(follow_system_volume_checkbox_);
+            follow_system_volume_checkbox_->setChecked(false);
+        }
+        save_config_file(default_config_path(), controller_.config_snapshot());
+    });
+    audio_options_row->addWidget(mute_local_audio_checkbox_);
+    audio_options_row->addStretch(1);
+    server_layout->addLayout(audio_options_row);
 #endif
 
     server_advanced_widget_ = new QWidget(sharing_panel_);
@@ -756,6 +797,13 @@ void MainWindow::build_ui()
     footer_layout->addStretch(1);
     footer_layout->addWidget(footer_version);
     toggle_mode_button_ = new QPushButton("Advanced", footer_widget);
+    theme_button_ = new QPushButton("Dark Theme", footer_widget);
+    theme_button_->setObjectName("secondaryButton");
+    connect(theme_button_, &QPushButton::clicked, this, [this] {
+        dark_mode_ = !dark_mode_;
+        apply_theme();
+    });
+    footer_layout->addWidget(theme_button_);
     toggle_mode_button_->setObjectName("secondaryButton");
     toggle_mode_button_->setIcon(style()->standardIcon(QStyle::SP_FileDialogDetailedView));
     connect(toggle_mode_button_, &QPushButton::clicked, this, [this] {
@@ -1086,6 +1134,10 @@ void MainWindow::refresh_status()
         volume_gain_label_->setText(QString("Current system volume: %1%").arg(gain_percent));
         volume_slider_->setValue(gain_percent);
     }
+    if (mute_local_audio_checkbox_) {
+        const QSignalBlocker blocker(mute_local_audio_checkbox_);
+        mute_local_audio_checkbox_->setChecked(status.mute_local_audio_requested);
+    }
 
     // Server button toggle state and text
     if (sharing) {
@@ -1110,7 +1162,10 @@ void MainWindow::refresh_status()
     mode_combo_->setEnabled(!sharing);
     capture_combo_->setEnabled(!sharing);
     if (follow_system_volume_checkbox_) {
-        follow_system_volume_checkbox_->setEnabled(!sharing);
+        follow_system_volume_checkbox_->setEnabled(true);
+    }
+    if (mute_local_audio_checkbox_) {
+        mute_local_audio_checkbox_->setEnabled(true);
     }
     playback_combo_->setEnabled(!listening);
     host_input_->setEnabled(!listening);
@@ -1294,6 +1349,7 @@ void MainWindow::show_help()
                                      "Balanced is the default AudioMode. Fast uses smaller PCM packets.\n"
                                      "Efficient uses Opus when this build is linked with libopus.\n"
                                      "Follow system volume applies the selected Windows output-device master volume to transmitted audio.\n"
+                                     "Mute local audio silences that Windows output device while remote streaming continues.\n"
                                      "Listen connects to another machine and autodetects the stream mode from SAL1 or HTTP metadata.\n"
                                      "Browser/mobile compatibility is exposed through /info, /stream, and the browser player at http://<IP>:%1/.")
                                  .arg(Defaults::tcp_port);
@@ -1323,6 +1379,8 @@ QString MainWindow::diagnostics_text() const
     out << "volume_mode=" << to_string(status.volume_mode) << "\n";
     out << "system_volume_gain=" << std::fixed << std::setprecision(4) << status.system_volume_gain << "\n";
     out << "system_volume_tracking=" << to_string(status.system_volume_tracking) << "\n";
+    out << "mute_local_audio_requested=" << (status.mute_local_audio_requested ? "true" : "false") << "\n";
+    out << "local_audio_muted=" << (status.local_audio_muted ? "true" : "false") << "\n";
     out << "detected_mode=" << (status.has_detected_mode ? to_string(status.detected_mode) : "-") << "\n";
     out << "host=" << status.host << "\n";
     out << "connected_clients=" << status.connected_clients << "\n";
@@ -1352,6 +1410,9 @@ void MainWindow::apply_startup_config()
 
     const auto& cfg = cfg_result.value();
 
+    dark_mode_ = cfg.is_dark_theme();
+    apply_theme();
+
     set_tray_mode(cfg.traymode || cfg.startintray);
     start_hidden_ = cfg.startintray && tray_mode_ && tray_available_;
 
@@ -1370,6 +1431,15 @@ void MainWindow::apply_startup_config()
                 const QSignalBlocker blocker(follow_system_volume_checkbox_);
                 follow_system_volume_checkbox_->setChecked(*parsed == VolumeMode::System);
             }
+        }
+    }
+    if (mute_local_audio_checkbox_) {
+        (void)controller_.set_local_audio_muted(cfg.mute_local_audio);
+        const QSignalBlocker blocker(mute_local_audio_checkbox_);
+        mute_local_audio_checkbox_->setChecked(cfg.mute_local_audio);
+        if (cfg.mute_local_audio && follow_system_volume_checkbox_) {
+            const QSignalBlocker follow_blocker(follow_system_volume_checkbox_);
+            follow_system_volume_checkbox_->setChecked(false);
         }
     }
     if (cfg.has_device_id()) {

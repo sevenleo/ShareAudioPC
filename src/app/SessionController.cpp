@@ -122,16 +122,17 @@ Result<void> SessionController::start_sharing(AudioMode mode, std::string captur
     }
 
     system_volume_gain_.store(1.0f, std::memory_order_relaxed);
-    if (volume_mode == VolumeMode::System) {
-        if (system_volume_supported()) {
-            start_volume_monitor(capture_.get(), transmitter_ptr);
-            for (int attempt = 0; attempt < 60 && !volume_monitor_ready_.load(std::memory_order_acquire); ++attempt) {
-                std::this_thread::sleep_for(std::chrono::milliseconds(5));
-            }
-        } else {
-            system_volume_tracking_.store(SystemVolumeTrackingState::Unsupported, std::memory_order_relaxed);
-            add_log("System VolumeMode is Windows-only; transmitting full captured audio.");
+    local_audio_muted_.store(false, std::memory_order_relaxed);
+    const bool volume_monitor_needed = system_volume_supported()
+        && (volume_mode == VolumeMode::System || mute_local_audio_requested_.load(std::memory_order_relaxed));
+    if (volume_monitor_needed) {
+        start_volume_monitor(capture_.get(), transmitter_ptr);
+        for (int attempt = 0; attempt < 60 && !volume_monitor_ready_.load(std::memory_order_acquire); ++attempt) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(5));
         }
+    } else if (volume_mode == VolumeMode::System) {
+        system_volume_tracking_.store(SystemVolumeTrackingState::Unsupported, std::memory_order_relaxed);
+        add_log("System VolumeMode is Windows-only; transmitting full captured audio.");
     } else {
         system_volume_tracking_.store(SystemVolumeTrackingState::Disabled, std::memory_order_relaxed);
     }
@@ -233,11 +234,107 @@ Result<void> SessionController::set_volume_mode(VolumeMode volume_mode)
     if (!volume_mode_supported(volume_mode)) {
         return Result<void>::failure(make_error(ErrorCode::NotSupported, "Unsupported volume mode."));
     }
-    std::scoped_lock lock(mutex_);
-    if (sharing_active_) {
-        return Result<void>::failure(make_error(ErrorCode::InvalidState, "VolumeMode can only be changed while sharing is stopped."));
+
+    IAudioCapture* capture = nullptr;
+    if (volume_mode == VolumeMode::System
+        && mute_local_audio_requested_.load(std::memory_order_relaxed)) {
+        const auto unmute_result = set_local_audio_muted(false);
+        if (!unmute_result.ok()) {
+            return unmute_result;
+        }
     }
-    config_.transmitter.volume_mode = volume_mode;
+
+    PcmTransmitterPipeline* transmitter = nullptr;
+    bool sharing_active = false;
+    {
+        std::scoped_lock lock(mutex_);
+        if (config_.transmitter.volume_mode == volume_mode) {
+            return Result<void>::success();
+        }
+
+        sharing_active = sharing_active_;
+        capture = capture_.get();
+        transmitter = transmitter_.get();
+        if (sharing_active && (capture == nullptr || transmitter == nullptr)) {
+            return Result<void>::failure(make_error(ErrorCode::InvalidState, "Sharing audio pipeline is unavailable."));
+        }
+
+        config_.transmitter.volume_mode = volume_mode;
+    }
+
+    if (!sharing_active) {
+        return Result<void>::success();
+    }
+
+    if (volume_mode == VolumeMode::Full) {
+        transmitter->set_volume_mode(VolumeMode::Full);
+        system_volume_gain_.store(1.0f, std::memory_order_relaxed);
+        system_volume_tracking_.store(SystemVolumeTrackingState::Disabled, std::memory_order_relaxed);
+        if (!mute_local_audio_requested_.load(std::memory_order_relaxed)) {
+            stop_volume_monitor();
+        } else if (!volume_monitor_running_.load(std::memory_order_acquire)) {
+            start_volume_monitor(capture, transmitter);
+        }
+        add_log("System volume tracking disabled; transmitting full captured audio.");
+    } else if (system_volume_supported()) {
+        transmitter->set_volume_mode(VolumeMode::System);
+        transmitter->set_volume_gain(1.0f);
+        system_volume_gain_.store(1.0f, std::memory_order_relaxed);
+        if (!volume_monitor_running_.load(std::memory_order_acquire)) {
+            start_volume_monitor(capture, transmitter);
+        }
+        add_log("System volume tracking enabled.");
+    } else {
+        transmitter->set_volume_mode(VolumeMode::Full);
+        transmitter->set_volume_gain(1.0f);
+        system_volume_gain_.store(1.0f, std::memory_order_relaxed);
+        system_volume_tracking_.store(SystemVolumeTrackingState::Unsupported, std::memory_order_relaxed);
+        add_log("System VolumeMode is Windows-only; transmitting full captured audio.");
+    }
+
+    state_changed_.notify_all();
+    return Result<void>::success();
+}
+
+Result<void> SessionController::set_local_audio_muted(bool muted)
+{
+    if (muted && !system_volume_supported()) {
+        return Result<void>::failure(make_error(ErrorCode::NotSupported, "Local audio mute is supported on Windows only."));
+    }
+
+    if (muted) {
+        const auto full_volume_result = set_volume_mode(VolumeMode::Full);
+        if (!full_volume_result.ok()) {
+            return full_volume_result;
+        }
+    }
+
+    IAudioCapture* capture = nullptr;
+    PcmTransmitterPipeline* transmitter = nullptr;
+    VolumeMode volume_mode = VolumeMode::Full;
+    bool sharing_active = false;
+    {
+        std::scoped_lock lock(mutex_);
+        sharing_active = sharing_active_;
+        capture = capture_.get();
+        transmitter = transmitter_.get();
+        volume_mode = config_.transmitter.volume_mode;
+        if (sharing_active && (capture == nullptr || transmitter == nullptr)) {
+            return Result<void>::failure(make_error(ErrorCode::InvalidState, "Sharing audio pipeline is unavailable."));
+        }
+        mute_local_audio_requested_.store(muted, std::memory_order_relaxed);
+    }
+
+    if (!sharing_active) {
+        local_audio_muted_.store(false, std::memory_order_relaxed);
+    } else if (muted && !volume_monitor_running_.load(std::memory_order_acquire)) {
+        start_volume_monitor(capture, transmitter);
+    } else if (!muted && volume_mode == VolumeMode::Full) {
+        stop_volume_monitor();
+        system_volume_tracking_.store(SystemVolumeTrackingState::Disabled, std::memory_order_relaxed);
+    }
+
+    state_changed_.notify_all();
     return Result<void>::success();
 }
 
@@ -650,6 +747,8 @@ SessionStatus SessionController::status_snapshot() const
     status.sharing_active = sharing_active_;
     status.receiver_connecting = receiver_mode_ == SessionMode::Connecting;
     status.receiver_listening = receiver_mode_ == SessionMode::Listening;
+    status.mute_local_audio_requested = mute_local_audio_requested_.load(std::memory_order_relaxed);
+    status.local_audio_muted = sharing_active_ && local_audio_muted_.load(std::memory_order_relaxed);
     status.selected_mode = config_.transmitter.mode;
     status.volume_mode = config_.transmitter.volume_mode;
     if (sharing_active_) {
@@ -732,71 +831,152 @@ void SessionController::start_volume_monitor(IAudioCapture* capture, PcmTransmit
     stop_volume_monitor();
     volume_monitor_ready_.store(false, std::memory_order_release);
     volume_monitor_running_.store(true, std::memory_order_release);
-    system_volume_tracking_.store(SystemVolumeTrackingState::Fallback, std::memory_order_relaxed);
 
     volume_monitor_worker_ = std::thread([this, capture, transmitter] {
         SystemVolumeReader reader;
         std::wstring bound_endpoint;
         bool has_valid_gain = false;
-        bool failure_logged = false;
-        bool active_logged = false;
+        bool volume_failure_logged = false;
+        bool volume_active_logged = false;
+        bool mute_applied = false;
+        bool previous_mute = false;
+
+        auto restore_local_audio = [&] {
+            if (!mute_applied) {
+                return;
+            }
+            const auto restored = reader.set_muted(previous_mute);
+            if (!restored.ok()) {
+                add_log("Failed to restore local audio mute state. " + restored.error().message);
+            }
+            mute_applied = false;
+            local_audio_muted_.store(false, std::memory_order_relaxed);
+        };
 
         while (volume_monitor_running_.load(std::memory_order_acquire)) {
+            bool follow_system_volume = false;
+            {
+                std::scoped_lock lock(mutex_);
+                follow_system_volume = config_.transmitter.volume_mode == VolumeMode::System;
+            }
+
             const std::wstring endpoint_id = capture->native_output_endpoint_id();
-            Result<float> gain_result = Result<float>::failure(
+            Result<void> endpoint_result = Result<void>::failure(
                 make_error(ErrorCode::AudioError, "The active WASAPI output endpoint is unavailable."));
 
             if (!endpoint_id.empty()) {
                 if (endpoint_id != bound_endpoint) {
+                    restore_local_audio();
                     reader.reset();
-                    auto bound = reader.bind(endpoint_id);
-                    if (bound.ok()) {
-                        bound_endpoint = endpoint_id;
-                    } else {
-                        bound_endpoint.clear();
-                        gain_result = Result<float>::failure(bound.error());
-                    }
-                }
-                if (endpoint_id == bound_endpoint) {
-                    gain_result = reader.read_gain();
+                    endpoint_result = reader.bind(endpoint_id);
+                    bound_endpoint = endpoint_result.ok() ? endpoint_id : std::wstring {};
+                } else {
+                    endpoint_result = Result<void>::success();
                 }
             }
 
-            if (gain_result.ok()) {
-                const float gain = gain_result.value();
-                transmitter->set_volume_gain(gain);
-                system_volume_gain_.store(gain, std::memory_order_relaxed);
-                system_volume_tracking_.store(SystemVolumeTrackingState::Active, std::memory_order_relaxed);
-                has_valid_gain = true;
-                if (failure_logged) {
-                    add_log("System volume tracking restored.");
-                    failure_logged = false;
-                    active_logged = true;
-                } else if (!active_logged) {
-                    add_log("System volume tracking active.");
-                    active_logged = true;
+            bool mute_requested = mute_local_audio_requested_.load(std::memory_order_relaxed);
+            if (!endpoint_result.ok()) {
+                if (mute_requested) {
+                    mute_local_audio_requested_.store(false, std::memory_order_relaxed);
+                    local_audio_muted_.store(false, std::memory_order_relaxed);
+                    add_log("Local audio mute unavailable; local playback remains enabled. " + endpoint_result.error().message);
+                    mute_requested = false;
+                }
+            } else if (mute_requested && !mute_applied) {
+                const auto previous = reader.read_muted();
+                if (!previous.ok()) {
+                    mute_local_audio_requested_.store(false, std::memory_order_relaxed);
+                    local_audio_muted_.store(false, std::memory_order_relaxed);
+                    add_log("Local audio mute unavailable; local playback remains enabled. " + previous.error().message);
+                    mute_requested = false;
+                } else {
+                    previous_mute = previous.value();
+                    const auto muted = previous_mute ? Result<void>::success() : reader.set_muted(true);
+                    if (muted.ok()) {
+                        mute_applied = true;
+                        local_audio_muted_.store(true, std::memory_order_relaxed);
+                        add_log("Local audio muted; remote streaming remains active.");
+                    } else {
+                        mute_local_audio_requested_.store(false, std::memory_order_relaxed);
+                        local_audio_muted_.store(false, std::memory_order_relaxed);
+                        add_log("Local audio mute unavailable; local playback remains enabled. " + muted.error().message);
+                        mute_requested = false;
+                    }
+                }
+            } else if (mute_requested && mute_applied) {
+                const auto current = reader.read_muted();
+                if (!current.ok()) {
+                    mute_local_audio_requested_.store(false, std::memory_order_relaxed);
+                    restore_local_audio();
+                    add_log("Local audio mute monitoring failed; the option was disabled. " + current.error().message);
+                    mute_requested = false;
+                } else if (!current.value()) {
+                    mute_local_audio_requested_.store(false, std::memory_order_relaxed);
+                    mute_applied = false;
+                    local_audio_muted_.store(false, std::memory_order_relaxed);
+                    add_log("Local audio was unmuted in Windows; the option was disabled.");
+                    mute_requested = false;
+                }
+            } else if (!mute_requested && mute_applied) {
+                restore_local_audio();
+                add_log("Local audio mute state restored.");
+            }
+
+            if (follow_system_volume) {
+                Result<float> gain_result = endpoint_result.ok()
+                    ? reader.read_gain(local_audio_muted_.load(std::memory_order_relaxed))
+                    : Result<float>::failure(endpoint_result.error());
+                if (gain_result.ok()) {
+                    const float gain = gain_result.value();
+                    transmitter->set_volume_gain(gain);
+                    system_volume_gain_.store(gain, std::memory_order_relaxed);
+                    system_volume_tracking_.store(SystemVolumeTrackingState::Active, std::memory_order_relaxed);
+                    has_valid_gain = true;
+                    if (volume_failure_logged) {
+                        add_log("System volume tracking restored.");
+                        volume_failure_logged = false;
+                        volume_active_logged = true;
+                    } else if (!volume_active_logged) {
+                        add_log("System volume tracking active.");
+                        volume_active_logged = true;
+                    }
+                } else {
+                    if (!has_valid_gain) {
+                        transmitter->set_volume_gain(1.0f);
+                        system_volume_gain_.store(1.0f, std::memory_order_relaxed);
+                    }
+                    system_volume_tracking_.store(SystemVolumeTrackingState::Fallback, std::memory_order_relaxed);
+                    if (!volume_failure_logged) {
+                        add_log("System volume tracking unavailable; keeping "
+                            + std::string(has_valid_gain ? "the last valid gain. " : "full volume. ")
+                            + gain_result.error().message);
+                        volume_failure_logged = true;
+                    }
                 }
             } else {
-                if (!has_valid_gain) {
-                    transmitter->set_volume_gain(1.0f);
-                    system_volume_gain_.store(1.0f, std::memory_order_relaxed);
-                }
-                system_volume_tracking_.store(SystemVolumeTrackingState::Fallback, std::memory_order_relaxed);
-                if (!failure_logged) {
-                    add_log("System volume tracking unavailable; keeping "
-                        + std::string(has_valid_gain ? "the last valid gain. " : "full volume. ")
-                        + gain_result.error().message);
-                    failure_logged = true;
-                }
+                has_valid_gain = false;
+                volume_failure_logged = false;
+                volume_active_logged = false;
+                system_volume_gain_.store(1.0f, std::memory_order_relaxed);
+                system_volume_tracking_.store(SystemVolumeTrackingState::Disabled, std::memory_order_relaxed);
             }
 
             volume_monitor_ready_.store(true, std::memory_order_release);
+            if (!follow_system_volume
+                && !mute_local_audio_requested_.load(std::memory_order_relaxed)
+                && !mute_applied) {
+                break;
+            }
             for (int wait_step = 0;
                  wait_step < 10 && volume_monitor_running_.load(std::memory_order_acquire);
                  ++wait_step) {
                 std::this_thread::sleep_for(std::chrono::milliseconds(10));
             }
         }
+
+        restore_local_audio();
+        volume_monitor_running_.store(false, std::memory_order_release);
     });
 }
 

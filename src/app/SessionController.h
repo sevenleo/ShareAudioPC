@@ -54,6 +54,8 @@ struct SessionStatus {
     bool sharing_active {};
     bool receiver_connecting {};
     bool receiver_listening {};
+    bool mute_local_audio_requested {};
+    bool local_audio_muted {};
     AudioMode selected_mode { AudioMode::Balanced };
     VolumeMode volume_mode { VolumeMode::Full };
     float system_volume_gain { 1.0f };
@@ -87,6 +89,7 @@ public:
         std::string capture_device_id = {},
         VolumeMode volume_mode = VolumeMode::Full);
     Result<void> set_volume_mode(VolumeMode volume_mode);
+    Result<void> set_local_audio_muted(bool muted);
     Result<void> stop_sharing();
     Result<void> start_listening(std::string host, std::string playback_device_id = {});
     Result<void> stop_listening();
@@ -138,6 +141,8 @@ private:
     std::atomic_bool volume_monitor_ready_ { false };
     std::atomic<float> system_volume_gain_ { 1.0f };
     std::atomic<SystemVolumeTrackingState> system_volume_tracking_ { SystemVolumeTrackingState::Disabled };
+    std::atomic_bool mute_local_audio_requested_ { false };
+    std::atomic_bool local_audio_muted_ { false };
     std::atomic_bool listener_stop_requested_ { false };
 };
 

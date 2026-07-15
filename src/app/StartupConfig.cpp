@@ -100,6 +100,10 @@ Result<StartupConfig> load_startup_config(const std::filesystem::path& cfg_path)
             config.traymode = parse_bool(value);
         } else if (key == "startintray") {
             config.startintray = parse_bool(value);
+        } else if (key == "mute_local_audio") {
+            config.mute_local_audio = parse_bool(value);
+        } else if (key == "theme") {
+            config.theme = to_lower(value);
         } else if (key == "mode") {
             config.mode = to_lower(value);
         } else if (key == "audio_mode") {

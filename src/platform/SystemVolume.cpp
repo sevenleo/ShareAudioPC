@@ -158,7 +158,7 @@ Result<void> SystemVolumeReader::bind(const std::wstring& endpoint_id)
 #endif
 }
 
-Result<float> SystemVolumeReader::read_gain() const
+Result<float> SystemVolumeReader::read_gain(bool ignore_mute) const
 {
 #ifdef _WIN32
     if (impl_->endpoint_volume == nullptr) {
@@ -166,20 +166,57 @@ Result<float> SystemVolumeReader::read_gain() const
     }
 
     BOOL muted = FALSE;
-    HRESULT result = impl_->endpoint_volume->GetMute(&muted);
-    if (FAILED(result)) {
-        return Result<float>::failure(make_error(ErrorCode::AudioError, hresult_message("IAudioEndpointVolume::GetMute", result)));
+    if (!ignore_mute) {
+        const HRESULT mute_result = impl_->endpoint_volume->GetMute(&muted);
+        if (FAILED(mute_result)) {
+            return Result<float>::failure(make_error(ErrorCode::AudioError, hresult_message("IAudioEndpointVolume::GetMute", mute_result)));
+        }
     }
 
     float decibels = 0.0f;
-    result = impl_->endpoint_volume->GetMasterVolumeLevel(&decibels);
+    const HRESULT result = impl_->endpoint_volume->GetMasterVolumeLevel(&decibels);
     if (FAILED(result)) {
         return Result<float>::failure(make_error(ErrorCode::AudioError, hresult_message("IAudioEndpointVolume::GetMasterVolumeLevel", result)));
     }
 
     return Result<float>::success(gain_from_decibels(decibels, muted != FALSE));
 #else
+    (void)ignore_mute;
     return Result<float>::failure(make_error(ErrorCode::NotSupported, "System volume tracking is supported on Windows only."));
+#endif
+}
+
+Result<bool> SystemVolumeReader::read_muted() const
+{
+#ifdef _WIN32
+    if (impl_->endpoint_volume == nullptr) {
+        return Result<bool>::failure(make_error(ErrorCode::InvalidState, "System volume reader is not bound to an output endpoint."));
+    }
+    BOOL muted = FALSE;
+    const HRESULT result = impl_->endpoint_volume->GetMute(&muted);
+    if (FAILED(result)) {
+        return Result<bool>::failure(make_error(ErrorCode::AudioError, hresult_message("IAudioEndpointVolume::GetMute", result)));
+    }
+    return Result<bool>::success(muted != FALSE);
+#else
+    return Result<bool>::failure(make_error(ErrorCode::NotSupported, "Local audio mute is supported on Windows only."));
+#endif
+}
+
+Result<void> SystemVolumeReader::set_muted(bool muted) const
+{
+#ifdef _WIN32
+    if (impl_->endpoint_volume == nullptr) {
+        return Result<void>::failure(make_error(ErrorCode::InvalidState, "System volume reader is not bound to an output endpoint."));
+    }
+    const HRESULT result = impl_->endpoint_volume->SetMute(muted ? TRUE : FALSE, nullptr);
+    if (FAILED(result)) {
+        return Result<void>::failure(make_error(ErrorCode::AudioError, hresult_message("IAudioEndpointVolume::SetMute", result)));
+    }
+    return Result<void>::success();
+#else
+    (void)muted;
+    return Result<void>::failure(make_error(ErrorCode::NotSupported, "Local audio mute is supported on Windows only."));
 #endif
 }
 

@@ -9,9 +9,13 @@ The format follows a simple staged log.
 ### Added
 
 - Added a static Qt GUI theme separated from `MainWindow` behavior.
+- Added light/dark GUI themes, a runtime footer toggle, `THEME=light|dark` startup configuration, and Windows native title-bar synchronization.
+- Added Windows GUI `Mute local audio` with `MUTE_LOCAL_AUDIO` startup configuration, runtime endpoint muting during sharing, and normal stop/exit/reroute restoration of the previous endpoint mute state.
 
 ### Changed
 
+- Made `Mute local audio` and `Follow system volume` mutually exclusive in the GUI and controller; local mute takes priority when startup configuration requests both.
+- Windows GUI `Follow system volume` can now be toggled during sharing: enabling starts endpoint tracking and disabling immediately restores Full volume without stopping active sharing or receiver sessions.
 - Restored the complete compact Simple/Advanced GUI structure from commit `8df3daec` while retaining current Sharing/Receiver, VolumeMode, autostart, and tray behavior.
 - Restored the exact public AudioMode labels and a single source of truth for host, mode, capture device, playback device, and session controls.
 - Updated advanced sizing to target the established desktop dimensions while clamping the window to the current screen's available area.

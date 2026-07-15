@@ -45,6 +45,8 @@ protected:
 
 private:
     void build_ui();
+    void apply_theme();
+    void update_native_title_bar();
     void setup_tray();
     void update_layout_visibility();
     void set_tray_mode(bool enabled);
@@ -98,6 +100,7 @@ private:
     QComboBox* mode_combo_ {};
     QComboBox* capture_combo_ {};
     QComboBox* playback_combo_ {};
+    QPushButton* theme_button_ {};
     QLineEdit* host_input_ {};
     QListWidget* local_ips_list_ {};
     QListWidget* capture_devices_list_ {};
@@ -112,6 +115,7 @@ private:
     QGroupBox* quick_actions_panel_ {};
     QCheckBox* tray_mode_checkbox_ {};
     QCheckBox* follow_system_volume_checkbox_ {};
+    QCheckBox* mute_local_audio_checkbox_ {};
 
     QPushButton* start_share_button_ {};
     QPushButton* connect_button_ {};
@@ -135,6 +139,7 @@ private:
     QWidget* client_advanced_widget_ {};
     bool advanced_mode_ { false };
     bool tray_available_ { false };
+    bool dark_mode_ { false };
     bool tray_mode_ { false };
     bool start_hidden_ { false };
     bool force_exit_ { false };

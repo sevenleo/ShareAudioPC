@@ -65,6 +65,15 @@ void PcmTransmitterPipeline::on_captured_pcm(std::span<const std::uint8_t> bytes
     stats_.queued_packets = packets_.size();
 }
 
+void PcmTransmitterPipeline::set_volume_mode(VolumeMode volume_mode)
+{
+    std::scoped_lock lock(mutex_);
+    volume_mode_ = volume_mode;
+    if (volume_mode_ == VolumeMode::Full) {
+        target_volume_gain_.store(1.0f, std::memory_order_relaxed);
+    }
+}
+
 void PcmTransmitterPipeline::set_volume_gain(float gain)
 {
     if (!std::isfinite(gain)) {

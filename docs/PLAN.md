@@ -61,7 +61,9 @@ This checklist contains only remaining project work. Completed implementation hi
 - [ ] Verify the light Advanced layout at `1440x960`, minimum `1180x760`, and with reduced-width responsive stacking.
 - [ ] Verify `Network & Hardware`, `Diagnostics & Help`, and `General` tabs at `1366x768`, `1920x1080`, and reduced-width responsive stacking.
 - [ ] Verify GUI state styling for idle, sharing, connecting, listening, simultaneous sharing/listening, errors, keyboard focus, and disabled controls.
+- [ ] Verify `THEME=light|dark` startup, runtime theme toggling, and light/dark focus, hover, disabled, error, Sharing, and Receiver states.
 - [ ] Verify Windows GUI `Follow system volume` remains visible in simple and advanced modes.
+- [ ] Verify toggling `Follow system volume` on and off during active Windows sharing without interrupting connected receivers.
 - [ ] Verify Full VolumeMode ignores Windows master-volume and mute changes.
 - [ ] Verify System VolumeMode follows Windows master volume at maximum, intermediate, zero, and mute settings.
 - [ ] Verify System VolumeMode with Fast, Balanced, and Efficient AudioModes.
@@ -71,6 +73,7 @@ This checklist contains only remaining project work. Completed implementation hi
 
 ## Reliability And Long-Running Behavior
 
+- [ ] Verify Windows `Mute local audio` during active sharing, remote playback, Follow system volume compatibility, external unmute, stop/exit/reroute restoration, and `AUTOSTART=true` configuration.
 - [ ] Validate or intentionally ignore non-zero `SAL1` reserved byte with an explicit protocol decision and test coverage.
 - [ ] Verify stable transmission for at least 10 minutes.
 - [ ] Verify a long-running session of at least 1 hour.

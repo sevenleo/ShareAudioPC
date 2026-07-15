@@ -263,6 +263,18 @@ void test_pcm_pipelines()
     expect(full_volume.try_pop_packet(unchanged_packet), "full VolumeMode emits PCM");
     expect(unchanged_packet == unchanged_pcm, "full VolumeMode preserves PCM bytes exactly");
 
+    shareaudio::PcmTransmitterPipeline runtime_volume(shareaudio::AudioMode::Fast, 4, shareaudio::VolumeMode::System);
+    runtime_volume.set_volume_gain(0.0f);
+    runtime_volume.on_captured_pcm(constant_stereo_pcm(512, 10000));
+    std::vector<std::uint8_t> runtime_ramp_packet;
+    std::vector<std::uint8_t> runtime_muted_packet;
+    expect(runtime_volume.try_pop_packet(runtime_ramp_packet), "runtime system VolumeMode emits ramped PCM");
+    expect(runtime_volume.try_pop_packet(runtime_muted_packet), "runtime system VolumeMode emits muted PCM");
+    runtime_volume.set_volume_mode(shareaudio::VolumeMode::Full);
+    runtime_volume.on_captured_pcm(unchanged_pcm);
+    expect(runtime_volume.try_pop_packet(unchanged_packet), "runtime full VolumeMode emits PCM");
+    expect(unchanged_packet == unchanged_pcm, "runtime full VolumeMode immediately bypasses gain processing");
+
     shareaudio::PcmTransmitterPipeline muted_volume(shareaudio::AudioMode::Balanced, 4, shareaudio::VolumeMode::System);
     muted_volume.set_volume_gain(0.0f);
     muted_volume.on_captured_pcm(constant_stereo_pcm(1024, 10000));
@@ -388,6 +400,25 @@ void test_session_controller()
     options.recent_devices_path = std::filesystem::temp_directory_path() / "shareaudio-session-recent-test.json";
     shareaudio::SessionController session(config, options);
 
+#ifdef _WIN32
+    expect(session.set_local_audio_muted(true).ok(), "local audio mute can be armed while idle");
+    auto armed_mute_status = session.status_snapshot();
+    expect(armed_mute_status.mute_local_audio_requested, "idle local audio mute request is reported");
+    expect(!armed_mute_status.local_audio_muted, "idle local audio remains enabled");
+    expect(session.set_volume_mode(shareaudio::VolumeMode::System).ok(), "system volume can be selected while idle");
+    expect(session.set_local_audio_muted(true).ok(), "local mute overrides system volume while idle");
+    expect(session.config_snapshot().transmitter.volume_mode == shareaudio::VolumeMode::Full,
+        "local mute forces full VolumeMode");
+    expect(session.set_volume_mode(shareaudio::VolumeMode::System).ok(), "system volume can replace local mute");
+    expect(!session.status_snapshot().mute_local_audio_requested,
+        "system volume clears the local mute request");
+    expect(session.config_snapshot().transmitter.volume_mode == shareaudio::VolumeMode::System,
+        "system volume remains selected after clearing local mute");
+    expect(session.set_local_audio_muted(false).ok(), "idle local audio mute can be disarmed");
+#else
+    expect(!session.set_local_audio_muted(true).ok(), "local audio mute is rejected outside Windows");
+#endif
+
 #if SHAREAUDIO_HAS_LIBOPUS
     expect(session.start_sharing(shareaudio::AudioMode::Efficient).ok(), "session accepts efficient sharing");
     expect(session.stop_sharing().ok(), "session stops efficient sharing");
@@ -395,6 +426,17 @@ void test_session_controller()
     expect(!session.start_sharing(shareaudio::AudioMode::Efficient).ok(), "session rejects efficient sharing without libopus");
 #endif
     expect(session.start_sharing(shareaudio::AudioMode::Balanced, {}, shareaudio::VolumeMode::System).ok(), "session starts fake sharing");
+    expect(session.set_volume_mode(shareaudio::VolumeMode::Full).ok(), "session switches to full VolumeMode while sharing");
+    auto full_status = session.status_snapshot();
+    expect(full_status.sharing_active, "runtime VolumeMode change keeps sharing active");
+    expect(full_status.volume_mode == shareaudio::VolumeMode::Full, "runtime full VolumeMode is reported");
+    expect(full_status.system_volume_gain == 1.0f, "runtime full VolumeMode resets gain");
+    expect(full_status.system_volume_tracking == shareaudio::SystemVolumeTrackingState::Disabled,
+        "runtime full VolumeMode disables tracking");
+    expect(session.set_volume_mode(shareaudio::VolumeMode::System).ok(), "session switches to system VolumeMode while sharing");
+    auto system_status = session.status_snapshot();
+    expect(system_status.sharing_active, "runtime system VolumeMode keeps sharing active");
+    expect(system_status.volume_mode == shareaudio::VolumeMode::System, "runtime system VolumeMode is reported");
     expect(session.start_listening("192.168.1.50").ok(), "session starts receiver while sharing");
     auto sharing_status = session.status_snapshot();
     expect(sharing_status.sharing_active, "session status reports active sharing");
@@ -904,6 +946,8 @@ void test_startup_config()
         expect(!result.value().autostart, "missing cfg has autostart=false");
         expect(!result.value().traymode, "missing cfg has traymode=false");
         expect(!result.value().startintray, "missing cfg has startintray=false");
+        expect(!result.value().is_dark_theme(), "missing cfg defaults to light theme");
+        expect(!result.value().mute_local_audio, "missing cfg defaults local audio mute to false");
         expect(result.value().mode.empty(), "missing cfg has empty mode");
         expect(!result.value().has_volume_mode(), "missing cfg has no VolumeMode override");
     }
@@ -918,7 +962,9 @@ void test_startup_config()
         out << "STARTINTRAY=true\n";
         out << "MODE=server\n";
         out << "AUDIO_MODE=efficient\n";
+        out << "THEME=dark\n";
         out << "VOLUME_MODE=system\n";
+        out << "MUTE_LOCAL_AUDIO=true\n";
         out << "DEVICE_ID=my_capture_device\n";
         out << "PLAYBACK_DEVICE_ID=my_playback_device\n";
         out << "SERVER_IP=192.168.1.100\n";
@@ -933,7 +979,9 @@ void test_startup_config()
         expect(cfg.is_server(), "full cfg mode is server");
         expect(cfg.audio_mode == "efficient", "full cfg audio_mode is efficient");
         expect(cfg.volume_mode == "system", "full cfg volume_mode is system");
+        expect(cfg.mute_local_audio, "full cfg enables local audio mute");
         expect(cfg.device_id == "my_capture_device", "full cfg device_id matches");
+        expect(cfg.is_dark_theme(), "full cfg theme is dark");
         expect(cfg.playback_device_id == "my_playback_device", "full cfg playback_device_id matches");
         expect(cfg.server_ip == "192.168.1.100", "full cfg server_ip matches");
         expect(cfg.parsed_audio_mode().has_value(), "full cfg parsed_audio_mode is valid");
@@ -989,21 +1037,25 @@ void test_startup_config()
         out << "autostart=TRUE\n";
         out << "TrayMode=ON\n";
         out << "StartInTray=1\n";
+        out << "Theme=LIGHT\n";
         out << "Mode=Client\n";
         out << "Audio_Mode=Fast\n";
         out << "Volume_Mode=FULL\n";
+        out << "Mute_Local_Audio=ON\n";
         out << "Server_IP=10.0.0.1\n";
         out.close();
 
         auto result = shareaudio::load_startup_config(cfg_path);
         expect(result.ok(), "case cfg loads successfully");
         auto& cfg = result.value();
+        expect(!cfg.is_dark_theme(), "case cfg light theme is not dark");
         expect(cfg.autostart, "case cfg autostart TRUE is true");
         expect(cfg.traymode, "case cfg traymode ON is true");
         expect(cfg.startintray, "case cfg startintray 1 is true");
         expect(cfg.is_client(), "case cfg mode Client is client");
         expect(cfg.audio_mode == "fast", "case cfg audio_mode lowercased");
         expect(cfg.volume_mode == "full", "case cfg volume_mode lowercased");
+        expect(cfg.mute_local_audio, "case cfg local audio mute is true");
         expect(cfg.server_ip == "10.0.0.1", "case cfg server_ip preserved");
         fs::remove(cfg_path);
     }
@@ -1023,13 +1075,15 @@ void test_startup_config()
         fs::remove(cfg_path);
     }
 
-    // Test 7: False boolean values remain false
+    // Test 7: False boolean values and invalid theme fall back safely
     {
         auto cfg_path = tmp_dir / "false-bools.cfg";
         std::ofstream out(cfg_path);
         out << "AUTOSTART=false\n";
         out << "TRAYMODE=no\n";
         out << "STARTINTRAY=off\n";
+        out << "THEME=sepia\n";
+        out << "MUTE_LOCAL_AUDIO=invalid\n";
         out.close();
 
         auto result = shareaudio::load_startup_config(cfg_path);
@@ -1037,9 +1091,10 @@ void test_startup_config()
         expect(!result.value().autostart, "false bool cfg autostart is false");
         expect(!result.value().traymode, "false bool cfg traymode is false");
         expect(!result.value().startintray, "false bool cfg startintray is false");
+        expect(!result.value().is_dark_theme(), "invalid theme falls back to light");
+        expect(!result.value().mute_local_audio, "invalid local audio mute falls back to false");
         fs::remove(cfg_path);
     }
-
     // Test 8: Unknown keys are silently ignored
     {
         auto cfg_path = tmp_dir / "unknown.cfg";
