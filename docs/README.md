@@ -128,8 +128,12 @@ shareaudio_cli share --audio-mode fast
 shareaudio_cli share --audio-mode efficient
 shareaudio_cli share --volume-mode system
 shareaudio_cli share --device "playback:1"
+shareaudio_cli share --background
 shareaudio_cli listen 192.168.1.150
 shareaudio_cli listen 192.168.1.150 --device "playback:2"
+shareaudio_cli listen 192.168.1.150 --background
+shareaudio_cli status
+shareaudio_cli stop
 shareaudio_cli devices
 shareaudio_cli ips
 shareaudio_cli help
@@ -146,6 +150,9 @@ Command behavior:
 - `share --device <device_id>` selects a capture/loopback source.
 - `listen <host>` starts receiver mode and autodetects stream mode from `SAL1` or HTTP metadata.
 - `listen <host> --device <device_id>` selects the playback device.
+- `--background` runs `share` or `listen` without a console window on Windows and appends output to `%APPDATA%\ShareAudioLite\shareaudio.log`.
+- `status` prints `running (PID ...)` or `stopped` without interrupting the active session.
+- `stop` requests graceful shutdown and falls back to terminating an unresponsive verified ShareAudio process after five seconds.
 - `devices` lists capture/playback devices.
 - `ips` lists local IP addresses.
 - `help` prints the user-facing command summary.
@@ -869,9 +876,10 @@ Concurrency contracts:
 
 Single-instance behavior:
 
-- Startup checks a PID lock file, `shareaudio.pid`.
-- Current PID is written for the active instance.
-- If another instance starts, it checks for an older process and attempts to close it.
+- `share` and `listen` serialize startup with a Windows named mutex and write the active PID to `shareaudio.pid`.
+- Starting another `share` or `listen` stops the previous session before the replacement becomes active; informational commands do not stop it.
+- The stop event provides graceful shutdown, with forced termination only after timeout and only when the PID belongs to the same executable.
+- Stale or reused PIDs that point to another executable are removed without terminating that process.
 - PID acquisition and release behavior is covered by tests.
 
 ## Error Handling
@@ -947,7 +955,7 @@ cmake --build --preset windows-release
 cmake --install build/windows-release --config Release
 ```
 
-The install step creates the portable folder `release` at the repository root. It installs `shareaudio_cli.exe`, `shareaudio_gui.exe`, `shareaudio.cfg.example`, and runs `windeployqt.exe` to place the required Qt DLLs/plugins next to the GUI executable.
+The install step creates the portable folder `release` at the repository root. It installs `shareaudio_cli.exe`, `shareaudio_gui.exe`, `shareaudio.cfg.example`, and runs `windeployqt.exe` to place the required Qt DLLs, plugins, and MinGW compiler runtime DLLs next to the GUI executable.
 
 Last verified Windows debug commands in this workspace:
 
@@ -978,7 +986,7 @@ GUI:
 
 - Depends on Qt DLLs/plugins unless Qt is statically linked.
 - Current packaging path is the full root `release` folder after `cmake --install`.
-- Keep Qt DLLs and platform plugins next to the GUI executable.
+- Copy the complete `release` folder to the target computer; the GUI requires its Qt DLLs/plugins and the deployed `libgcc_s_seh-1.dll`, `libstdc++-6.dll`, and `libwinpthread-1.dll` MinGW runtimes.
 - Opus is linked statically; development artifacts such as Opus `lib/` and `include/` directories are not part of the portable release folder.
 
 Single-file GUI distribution options:
@@ -997,7 +1005,7 @@ Status:
 - CLI release builds can produce portable executables.
 - GUI release build verified with MinGW 13.1.0 and Qt 6.6.3.
 - `windeployqt.exe` packaging verified.
-- The portable install includes the GUI executable, Qt runtime/plugins, CLI executable, and `shareaudio.cfg.example` in the root `release` directory.
+- The portable install includes the GUI executable, Qt runtime/plugins, MinGW compiler runtimes, CLI executable, and `shareaudio.cfg.example` in the root `release` directory.
 - `logo.ico` is embedded in the GUI executable.
 - Qt resources are embedded through AUTORCC.
 - The Windows GUI links `Dwmapi` for native title-bar appearance control; the rest of the GUI theme remains implemented in Qt stylesheet code.

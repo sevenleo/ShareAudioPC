@@ -931,6 +931,14 @@ void test_single_instance()
 
     auto res2 = shareaudio::enforce_single_instance();
     expect(res2.ok(), "second single instance lock with same PID succeeds");
+
+    auto running = shareaudio::running_instance_pid();
+    expect(running.ok() && running.value() != 0, "running instance exposes its PID");
+
+    shareaudio::AppController controller;
+    shareaudio::ConsoleUi ui(controller);
+    expect(ui.run(std::vector<std::string> { "status" }) == 0, "status command succeeds");
+    expect(shareaudio::running_instance_pid().value() == running.value(), "status does not stop the running instance");
 }
 
 void test_startup_config()

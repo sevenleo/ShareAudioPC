@@ -1,6 +1,7 @@
 #include "app/Application.h"
 
 #include "app/AppController.h"
+#include "app/SingleInstance.h"
 #include "app/StartupConfig.h"
 #include "ui/ConsoleUi.h"
 
@@ -16,6 +17,27 @@ int Application::run(int argc, char** argv)
     args.reserve(argc > 0 ? static_cast<std::size_t>(argc - 1) : 0);
     for (int i = 1; i < argc; ++i) {
         args.emplace_back(argv[i]);
+    }
+
+    bool background_requested = false;
+    bool background_child = false;
+    std::string ready_event;
+    for (std::size_t i = 0; i < args.size();) {
+        if (args[i] == "--background") {
+            background_requested = true;
+            args.erase(args.begin() + static_cast<std::ptrdiff_t>(i));
+        } else if (args[i] == "--background-child") {
+            background_child = true;
+            args.erase(args.begin() + static_cast<std::ptrdiff_t>(i));
+        } else if (args[i] == "--background-ready-event" && i + 1 < args.size()) {
+            ready_event = args[i + 1];
+            args.erase(args.begin() + static_cast<std::ptrdiff_t>(i), args.begin() + static_cast<std::ptrdiff_t>(i + 2));
+        } else {
+            ++i;
+        }
+    }
+    if (background_child) {
+        configure_background_child(std::move(ready_event));
     }
 
     // If no CLI arguments were provided, try loading shareaudio.cfg
@@ -60,6 +82,21 @@ int Application::run(int argc, char** argv)
                 }
             }
         }
+    }
+
+    if (background_requested && !background_child) {
+        if (args.empty() || (args[0] != "share" && args[0] != "listen")) {
+            std::cerr << "--background requires share, listen, or a valid AUTOSTART configuration.\n";
+            return 2;
+        }
+        auto launched = launch_background_process();
+        if (!launched.ok()) {
+            std::cerr << launched.error().message << '\n';
+            return 2;
+        }
+        std::cout << "Started in background (PID " << launched.value() << "). Log: "
+                  << background_log_path().string() << '\n';
+        return 0;
     }
 
     AppController controller;

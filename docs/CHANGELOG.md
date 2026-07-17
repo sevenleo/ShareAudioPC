@@ -14,6 +14,8 @@ The format follows a simple staged log.
 
 ### Changed
 
+- Added Windows CLI background execution with `--background`, `status`, `stop`, graceful stop events, PID validation, and named-mutex single-instance replacement.
+- Fixed Windows portable packaging so `windeployqt` includes the MinGW compiler runtimes required by the deployed Qt DLLs.
 - Made `Mute local audio` and `Follow system volume` mutually exclusive in the GUI and controller; local mute takes priority when startup configuration requests both.
 - Windows GUI `Follow system volume` can now be toggled during sharing: enabling starts endpoint tracking and disabling immediately restores Full volume without stopping active sharing or receiver sessions.
 - Restored the complete compact Simple/Advanced GUI structure from commit `8df3daec` while retaining current Sharing/Receiver, VolumeMode, autostart, and tray behavior.

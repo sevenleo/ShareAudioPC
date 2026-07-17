@@ -29,6 +29,37 @@ int ConsoleUi::run(const std::vector<std::string>& args)
         print_audio_devices();
         return 0;
     }
+    if (args[0] == "status") {
+        auto running = running_instance_pid();
+        if (!running.ok()) {
+            std::cerr << running.error().message << '\n';
+            return 2;
+        }
+        if (running.value() == 0) {
+            std::cout << "stopped\n";
+        } else {
+            std::cout << "running (PID " << running.value() << ")\n";
+        }
+        return 0;
+    }
+    if (args[0] == "stop") {
+        auto running = running_instance_pid();
+        if (!running.ok()) {
+            std::cerr << running.error().message << '\n';
+            return 2;
+        }
+        if (running.value() == 0) {
+            std::cout << "stopped\n";
+            return 0;
+        }
+        auto stopped = stop_running_instance();
+        if (!stopped.ok()) {
+            std::cerr << stopped.error().message << '\n';
+            return 2;
+        }
+        std::cout << "stopped\n";
+        return 0;
+    }
     if (args[0] == "share") {
         AudioMode mode = AudioMode::Balanced;
         VolumeMode volume_mode = VolumeMode::Full;
@@ -61,8 +92,11 @@ int ConsoleUi::run(const std::vector<std::string>& args)
             }
         }
 
-        // Enforce single instance
-        (void)enforce_single_instance();
+        auto single_instance = enforce_single_instance();
+        if (!single_instance.ok()) {
+            std::cerr << single_instance.error().message << '\n';
+            return 2;
+        }
 
         // Print available local IPs
         std::cout << "Available local IP addresses for connection:\n";
@@ -73,6 +107,7 @@ int ConsoleUi::run(const std::vector<std::string>& args)
             std::cerr << start.error().message << '\n';
             return 2;
         }
+        notify_background_ready();
         const auto started_status = session_.status_snapshot();
         if (started_status.system_volume_tracking == SystemVolumeTrackingState::Unsupported) {
             std::cerr << "Warning: system VolumeMode is Windows-only; transmitting full captured audio.\n";
@@ -85,9 +120,9 @@ int ConsoleUi::run(const std::vector<std::string>& args)
         }
 
         std::cout << "Sharing on TCP port " << Defaults::tcp_port << " in " << to_string(mode)
-                  << " mode with volume mode " << to_string(volume_mode) << ". Press Enter to stop.\n";
-        std::string line;
-        std::getline(std::cin, line);
+                  << " mode with volume mode " << to_string(volume_mode)
+                  << (is_background_child() ? ". Stop with 'shareaudio_cli stop'.\n" : ". Press Enter to stop.\n");
+        wait_for_instance_stop_or_enter();
 
         session_.stop_sharing();
         auto stats = session_.status_snapshot();
@@ -117,17 +152,24 @@ int ConsoleUi::run(const std::vector<std::string>& args)
             }
         }
 
-        // Enforce single instance
-        (void)enforce_single_instance();
+        auto single_instance = enforce_single_instance();
+        if (!single_instance.ok()) {
+            std::cerr << single_instance.error().message << '\n';
+            return 2;
+        }
 
         auto start = session_.start_listening(host, playback_device_id);
         if (!start.ok()) {
             std::cerr << start.error().message << '\n';
             return 2;
         }
+        notify_background_ready();
 
         bool announced = false;
         while (true) {
+            if (instance_stop_requested()) {
+                session_.stop_listening();
+            }
             auto status = session_.status_snapshot();
             if (!announced && status.mode == SessionMode::Listening) {
                 std::cout << "Listening to " << host << ':' << Defaults::tcp_port << " in " << to_string(status.detected_mode)
@@ -157,8 +199,10 @@ void ConsoleUi::print_help() const
     std::cout
         << "ShareAudioLite " << SHAREAUDIO_VERSION << "\n\n"
         << "Usage:\n"
-        << "  shareaudio_cli share [--audio-mode balanced|fast|efficient] [--volume-mode full|system] [--device <device_id>]\n"
-        << "  shareaudio_cli listen <host> [--device <device_id>]\n"
+        << "  shareaudio_cli share [--audio-mode balanced|fast|efficient] [--volume-mode full|system] [--device <device_id>] [--background]\n"
+        << "  shareaudio_cli listen <host> [--device <device_id>] [--background]\n"
+        << "  shareaudio_cli status\n"
+        << "  shareaudio_cli stop\n"
         << "  shareaudio_cli devices\n"
         << "  shareaudio_cli ips\n"
         << "  shareaudio_cli help\n\n"

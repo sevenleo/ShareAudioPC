@@ -158,7 +158,7 @@ if(SHAREAUDIO_ENABLE_DESKTOP_UI)
             execute_process(
                 COMMAND \"${SHAREAUDIO_WINDEPLOYQT_EXECUTABLE}\"
                     \"\${CMAKE_INSTALL_PREFIX}/shareaudio_gui.exe\"
-                    --no-compiler-runtime
+                    --compiler-runtime
                     --no-translations
                     --no-system-d3d-compiler
                     --no-opengl-sw
