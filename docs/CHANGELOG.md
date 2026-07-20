@@ -21,6 +21,8 @@ The format follows a simple staged log.
 
 ### Changed
 
+- Restored the compact three-line GUI layout and original dark visual style from commit `8df3daec`, added a geometry-matched light palette, and retained current volume tracking, local mute, simultaneous sessions, tray, diagnostics, autostart, and theme controls.
+- Removed the static `All good` health claim while preserving the real dynamic state and error fields.
 - Added Windows CLI background execution with `--background`, `status`, `stop`, graceful stop events, PID validation, and named-mutex single-instance replacement.
 - Fixed Windows portable packaging so `windeployqt` includes the MinGW compiler runtimes required by the deployed Qt DLLs.
 - Made `Mute local audio` and `Follow system volume` mutually exclusive in the GUI and controller; local mute takes priority when startup configuration requests both.

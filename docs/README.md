@@ -35,7 +35,7 @@ Current implementation:
 - Portable startup config: `shareaudio.cfg` next to executable.
 - Single-instance behavior: PID lock file handling.
 - GUI: Qt Widgets, simple/advanced layout, system tray support, embedded icon/resources, default device pre-selection.
-- GUI visual system: light Qt desktop workspace with a flat status strip, two equal Sharing/Receiver panels, semantic green/blue/red accents, advanced tabs, and a persistent footer.
+- GUI visual system: compact three-line Qt dashboard restored from commit `8df3daec`, with stacked transmitter/receiver cards, advanced tabs, persistent footer, and matching light/dark palettes.
 
 Implemented components include:
 
@@ -175,20 +175,19 @@ Removed legacy flags:
 
 The GUI uses the same Qt-free `SessionController` as the CLI. It is not a separate runtime implementation.
 
-The GUI uses a light desktop workspace inspired by native Qt/Windows utility applications: a flat global status strip, two equal primary Sharing/Receiver panels, semantic green Sharing accents, blue Receiver accents, amber connection warnings, and red stop/error states. Advanced mode extends the same top-level workspace instead of replacing it.
+The GUI uses the compact Qt dashboard structure from commit `8df3daec`: a connection-status row, a transmitter row, a receiver row, advanced tabs, and a persistent footer. Light and dark themes change only the palette; the dark palette retains the original navy cards, blue accents, gradients, and semantic green/blue/red action states.
 
 Simple mode:
 
-- Opens at a target size of `1280x760`, with minimum `920x620` when the screen permits.
+- Opens at `830x350`, with minimum `800x340`.
 - Keeps the global state, local IP, TCP port, receiver summary, latest error row, Sharing action, Receiver host/action, `Follow system volume`, `Mute local audio`, and `Minimize to tray` visible.
-- Uses a flat status strip plus a separate highlighted error row only when a real error exists.
-- Uses two equal primary panels: `SHARING (Transmitter)` on the left and `RECEIVER` on the right.
+- Uses the original `Connection Status` group followed by stacked `Server (Transmitter)` and `Client (Receiver)` cards.
 - Sharing and Receiver remain independent and can run simultaneously.
 
 Advanced mode:
 
-- Targets `1440x960` with a normal minimum of `1180x760`, clamped to the current screen's available area.
-- Uses responsive matrix layouts: Sharing and Receiver stay side by side when there is enough width and stack vertically when the window becomes narrow; advanced tab sections also stack to avoid overlap.
+- Opens at `1100x760`, with minimum `1000x640`.
+- Extends the same stacked three-line dashboard with the original tabbed advanced area.
 - Adds the exact AudioMode options `Balanced (Recommended)`, `Fast (Low Latency)`, and `Efficient (Low Data)`.
 - Adds capture/playback device selection, refresh actions, connected-client count, detected stream mode, current applied system-volume gain, and an informational volume slider without moving the primary Simple controls.
 - Shows the `Network & Hardware` tab with local IPs, recent hosts, and audio-device lists.
@@ -212,7 +211,7 @@ GUI behavior:
 - The GUI can keep running in the system tray when minimized or closed if tray mode is enabled.
 - The footer provides a runtime-only `Dark Theme`/`Light Theme` button; it changes colors without changing the active layout or sessions.
 - On Windows, the GUI synchronizes the native title bar with the selected light or dark theme through Desktop Window Manager; on Linux, the desktop environment owns the outer decoration.
-- The GUI does not display simulated CPU, latency, packet-loss, codec, or interface-name values. The current status strip still renders the fixed text `All good` as a health label; it is not backed by a health calculation and is tracked in `docs/FIX.md`.
+- The GUI does not display simulated CPU, latency, packet-loss, codec, interface-name, or static health values.
 
 ## Portable Startup Configuration
 
@@ -1180,7 +1179,7 @@ The initial project prompt proposed a C#/.NET/WinUI or WPF Windows application u
 | Diagnostics & Help | Copy Diagnostics | Copies version, state, modes, gain/tracking, mute state, host, counters, IPs, errors, and logs. |
 | Footer/tray | Tray, theme, mode, help | Tray mode hides on minimize/close; theme toggles only for the current process; Advanced/Simple changes visible detail; Help opens the feature summary. |
 
-The fixed `All good` status-strip label is not a calculated health value; see `docs/FIX.md`. State precedence is combined sharing/listening, sharing, connecting, listening, error, then idle. The primary panels stack below the available-width threshold, Network & Hardware panels also stack in a narrow advanced workspace, and the content area scrolls vertically.
+State precedence is combined sharing/listening, sharing, connecting, listening, error, then idle. The transmitter and receiver remain independent stacked rows in both modes; advanced mode reveals their selectors plus the Network & Hardware, Diagnostics & Help, and General tabs.
 
 #### CLI command and output contract
 
