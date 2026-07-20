@@ -33,8 +33,6 @@ QString app_theme_stylesheet(bool dark_mode)
             QPushButton#stopButton:hover { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #EF5350, stop:1 #E53935); }
             QPushButton#startShareButton { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #1DF09A, stop:1 #00FF88); color: #0A0F1D; }
             QPushButton#startShareButton:hover { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #33FCAE, stop:1 #24FF9C); }
-            QPushButton#connectButton { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #0078FF, stop:1 #00C6FF); color: #FFFFFF; }
-            QPushButton#connectButton:hover { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #1C88FF, stop:1 #1CD0FF); }
             QTabWidget::pane { border: 1px solid #25335A; background-color: #151F3C; border-radius: 8px; top: -1px; }
             QTabBar::tab { background-color: #0A0F1D; color: #BAC7DE; border: 1px solid #25335A; border-bottom: none; border-top-left-radius: 4px; border-top-right-radius: 4px; padding: 8px 16px; margin-right: 2px; font-weight: bold; }
             QTabBar::tab:selected { background-color: #151F3C; color: #FFFFFF; border-bottom-color: #151F3C; }
@@ -73,7 +71,6 @@ QString app_theme_stylesheet(bool dark_mode)
         QPushButton:disabled { background-color: #D7DEEA; color: #8995A8; }
         QPushButton#stopButton { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #E53935, stop:1 #C62828); }
         QPushButton#startShareButton { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #20C77A, stop:1 #00A862); color: #FFFFFF; }
-        QPushButton#connectButton { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #0078D4, stop:1 #00A8E8); }
         QTabWidget::pane { border: 1px solid #C9D4E5; background-color: #FFFFFF; border-radius: 8px; top: -1px; }
         QTabBar::tab { background-color: #EAF0F8; color: #43516A; border: 1px solid #C9D4E5; border-bottom: none; border-top-left-radius: 4px; border-top-right-radius: 4px; padding: 8px 16px; margin-right: 2px; font-weight: bold; }
         QTabBar::tab:selected { background-color: #FFFFFF; color: #172033; border-bottom-color: #FFFFFF; }

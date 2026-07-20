@@ -323,6 +323,7 @@ void MainWindow::build_ui()
     server_title_label->setStyleSheet("font-weight: bold;");
     start_share_button_ = new QPushButton("Start Sharing", server_simple_widget);
     start_share_button_->setObjectName("startShareButton");
+    start_share_button_->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
     start_share_button_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     connect(start_share_button_, &QPushButton::clicked, this, [this] {
         const auto status = controller_.status_snapshot();
@@ -433,7 +434,8 @@ void MainWindow::build_ui()
     host_input_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     connect_button_ = new QPushButton("Connect Receiver", client_simple_widget);
-    connect_button_->setObjectName("connectButton");
+    connect_button_->setObjectName("startShareButton");
+    connect_button_->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
     connect_button_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     connect(connect_button_, &QPushButton::clicked, this, [this] {
         const auto status = controller_.status_snapshot();
@@ -444,10 +446,18 @@ void MainWindow::build_ui()
         }
     });
 
+    const int title_width = qMax(server_title_label->sizeHint().width(), client_title_label->sizeHint().width());
+    server_title_label->setFixedWidth(title_width);
+    client_title_label->setFixedWidth(title_width);
+
+    const int action_width = qMax(start_share_button_->sizeHint().width(), connect_button_->sizeHint().width());
+    start_share_button_->setFixedWidth(action_width);
+    connect_button_->setFixedWidth(action_width);
+
     client_simple_layout->addWidget(client_title_label);
-    client_simple_layout->addWidget(host_input_);
     client_simple_layout->addWidget(connect_button_);
-    client_simple_layout->setStretch(1, 1);
+    client_simple_layout->addWidget(host_input_);
+    client_simple_layout->setStretch(2, 1);
     listen_layout->addWidget(client_simple_widget);
 
     // Right part (Advanced panel)
@@ -875,10 +885,10 @@ void MainWindow::refresh_status()
     // Client button toggle state and text
     if (listening) {
         update_button_style(connect_button_, "stopButton", "Disconnect");
-        connect_button_->setIcon(style()->standardIcon(QStyle::SP_BrowserStop));
+        connect_button_->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
     } else {
-        update_button_style(connect_button_, "connectButton", "Connect Receiver");
-        connect_button_->setIcon(style()->standardIcon(QStyle::SP_ArrowDown));
+        update_button_style(connect_button_, "startShareButton", "Connect Receiver");
+        connect_button_->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
     }
 
     start_share_button_->setEnabled(true);

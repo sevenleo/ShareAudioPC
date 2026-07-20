@@ -35,7 +35,7 @@ The format follows a simple staged log.
 
 ### Fixed
 
-- Removed orphaned summary labels that overlapped the advanced AudioMode and playback fields, kept the primary cards compact when maximized, and aligned each Connection Status value beside its label.
+- Removed orphaned summary labels that overlapped the advanced AudioMode and playback fields, kept the primary cards compact when maximized, aligned each Connection Status value beside its label, and standardized the aligned Sharing/Receiver action buttons with matching Play/Stop colors and icons.
 
 ### Removed
 
