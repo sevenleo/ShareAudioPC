@@ -212,7 +212,7 @@ GUI behavior:
 - The GUI can keep running in the system tray when minimized or closed if tray mode is enabled.
 - The footer provides a runtime-only `Dark Theme`/`Light Theme` button; it changes colors without changing the active layout or sessions.
 - On Windows, the GUI synchronizes the native title bar with the selected light or dark theme through Desktop Window Manager; on Linux, the desktop environment owns the outer decoration.
-- The GUI does not display simulated CPU, latency, packet-loss, codec, interface-name, or health values.
+- The GUI does not display simulated CPU, latency, packet-loss, codec, or interface-name values. The current status strip still renders the fixed text `All good` as a health label; it is not backed by a health calculation and is tracked in `docs/FIX.md`.
 
 ## Portable Startup Configuration
 
@@ -1155,3 +1155,43 @@ GUI does not start in the tray:
 ## Historical Note
 
 The initial project prompt proposed a C#/.NET/WinUI or WPF Windows application using WASAPI directly. That document is historical context only. The active implementation contract is the C++20/CMake architecture described in this README.
+
+## Current GUI And CLI Addendum
+
+#### Detailed GUI control reference
+
+| Area | Control | Behavior |
+| --- | --- | --- |
+| Status strip | Status | Shows Ready, Sharing, Connecting, Listening, combined sharing/listening, or an error state from the shared controller. |
+| Status strip | Local IP | Shows the first local address and `(+N more)` for additional addresses, or `No IP found`. |
+| Status strip | Port | Shows the active/default TCP port, normally `33777`. |
+| Status strip | Receiver | Shows the receiver host with `(Connecting)` or `(Listening)` while active; otherwise `-`. |
+| Sharing | Start/Stop Sharing | Starts or stops transmission with the selected AudioMode, capture device, and VolumeMode. Sharing and receiving remain independent. |
+| Sharing | Audio Mode | Advanced mode selects Balanced (Recommended), Fast (Low Latency), or Efficient (Low Data). Efficient requires libopus. |
+| Sharing | Capture Device | Selects the capture/loopback source. The refresh button repopulates capture and playback devices. |
+| Sharing | Follow system volume | Windows-only toggle between System and Full VolumeMode; it remains changeable during sharing. |
+| Sharing | Mute local audio | Windows-only endpoint mute while remote streaming continues; mutually exclusive with system-volume tracking. |
+| Receiver | Transmitter IP | Accepts an IP/hostname; empty input is rejected before connecting. Disabled while listening. |
+| Receiver | Connect/Disconnect | Starts or stops the receiver, which detects SAL1 or HTTP metadata and displays the detected mode. |
+| Receiver | Playback Device | Advanced mode selects the playback output and locks it while listening. |
+| Network & Hardware | IP and recent-host lists | Refreshes local addresses, copies a selected IP, and double-clicks a recent transmitter into the host field without starting a session. |
+| Network & Hardware | Audio Devices | Lists capture sources and playback speakers; refresh updates both lists and selectors. |
+| Diagnostics & Help | Counters/logs | Shows runtime bytes, packets, dropped packets, jitter-buffer bytes, underruns, and controller event logs. |
+| Diagnostics & Help | Copy Diagnostics | Copies version, state, modes, gain/tracking, mute state, host, counters, IPs, errors, and logs. |
+| Footer/tray | Tray, theme, mode, help | Tray mode hides on minimize/close; theme toggles only for the current process; Advanced/Simple changes visible detail; Help opens the feature summary. |
+
+The fixed `All good` status-strip label is not a calculated health value; see `docs/FIX.md`. State precedence is combined sharing/listening, sharing, connecting, listening, error, then idle. The primary panels stack below the available-width threshold, Network & Hardware panels also stack in a narrow advanced workspace, and the content area scrolls vertically.
+
+#### CLI command and output contract
+
+| Command | Options | Behavior |
+| --- | --- | --- |
+| `share` | `--audio-mode balanced|fast|efficient`, `--volume-mode full|system`, `--device <id>`/`-d <id>`, optional `--background` | Acquires the single-instance lock, prints local IPs, starts TCP `33777`, waits for Enter or an instance-stop request, then prints packets, dropped packets, and bytes sent. |
+| `listen <host>` | `--device <id>`/`-d <id>`, optional `--background` | Connects/reconnects, detects SAL1 or HTTP mode, and prints received bytes, played bytes, and underruns when stopped. |
+| `status` | none | Prints `running (PID N)` or `stopped` without interrupting the active session. |
+| `stop` | none | Requests graceful stop, waits up to five seconds, then may terminate an unresponsive verified ShareAudio process. |
+| `devices` | none | Prints capture devices followed by playback devices, including id, name, and `(default)` when applicable. |
+| `ips` | none | Prints one local IP per line. |
+| `help`, `--help`, `-h`, or no arguments | none | Prints the historical `ShareAudioLite` heading, version, syntax, defaults, and Efficient/libopus note. No-argument execution attempts startup-config autostart first. |
+
+`--background` is implemented on Windows for `share` and `listen`. The parent returns after readiness, the child appends output to `%APPDATA%\\ShareAudioLite\\shareaudio.log`, and `status`/`stop` control it. Other platforms report that background execution is unsupported. Missing option values, unknown options, invalid mode values, and invalid command shapes return a usage error. `listen` has no independent AudioMode option: it uses detected stream metadata. The CLI does not expose GUI-only tray, theme, local-mute, or simultaneous `MODE=both` behavior. `--device` means capture device for `share` and playback device for `listen`; IDs come from `devices` and are backend-specific.

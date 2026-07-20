@@ -6,6 +6,13 @@ The format follows a simple staged log.
 
 ## [Unreleased]
 
+### Documentation
+
+- Audited GUI, CLI, startup configuration, and shared-session documentation against the current source.
+- Added detailed GUI control/state and CLI command/output references to `docs/README.md`.
+- Documented the static `All good` status-strip label and tracked its code correction in `docs/FIX.md`.
+- Preserved all historical entries; code findings are recorded separately in `docs/FIX.md`.
+
 ### Added
 
 - Added a static Qt GUI theme separated from `MainWindow` behavior.
