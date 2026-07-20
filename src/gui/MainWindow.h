@@ -77,10 +77,6 @@ private:
     QLabel* ip_info_label_ {};
     QLabel* receiver_summary_label_ {};
     QLabel* clients_label_ {};
-    QLabel* simple_clients_label_ {};
-    QLabel* share_mode_summary_label_ {};
-    QLabel* capture_summary_label_ {};
-    QLabel* playback_summary_label_ {};
     QLabel* bytes_sent_label_ {};
     QLabel* packets_label_ {};
     QLabel* dropped_label_ {};
@@ -89,7 +85,6 @@ private:
     QLabel* bytes_played_label_ {};
     QLabel* buffer_label_ {};
     QLabel* underruns_label_ {};
-    QLabel* receiver_status_label_ {};
     QLabel* volume_gain_label_ {};
 
     QComboBox* mode_combo_ {};
@@ -124,6 +119,7 @@ private:
     QAction* exit_action_ {};
     QWidget* server_advanced_widget_ {};
     QWidget* client_advanced_widget_ {};
+    QWidget* simple_spacer_ {};
     bool advanced_mode_ { false };
     bool tray_available_ { false };
     bool dark_mode_ { false };

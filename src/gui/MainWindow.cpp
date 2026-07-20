@@ -26,6 +26,7 @@
 #include <QPushButton>
 #include <QSignalBlocker>
 #include <QShowEvent>
+#include <QSizePolicy>
 #include <QSlider>
 #include <QStyle>
 #include <QSystemTrayIcon>
@@ -56,19 +57,6 @@ std::string std_str(const QString& value)
 {
     QByteArray bytes = value.toUtf8();
     return std::string(bytes.constData(), static_cast<std::size_t>(bytes.size()));
-}
-
-QString mode_label(AudioMode mode)
-{
-    switch (mode) {
-    case AudioMode::Balanced:
-        return "Balanced";
-    case AudioMode::Fast:
-        return "Fast";
-    case AudioMode::Efficient:
-        return "Efficient";
-    }
-    return qstr(to_string(mode));
 }
 
 QString detected_mode_label(AudioMode mode)
@@ -269,6 +257,7 @@ void MainWindow::build_ui()
 
     // Global Top Status Indicator (Simple - Line 1)
     status_panel_ = new QGroupBox("Connection Status", central);
+    status_panel_->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
     auto* status_layout = new QHBoxLayout(status_panel_);
     status_layout->setContentsMargins(12, 8, 12, 8);
 
@@ -294,22 +283,32 @@ void MainWindow::build_ui()
         update_layout_visibility();
     });
 
-    status_layout->addWidget(new QLabel("State:", status_panel_));
-    status_layout->addWidget(state_label_);
-    status_layout->addWidget(new QLabel("Local IP:", status_panel_));
-    status_layout->addWidget(ip_info_label_);
-    status_layout->addWidget(new QLabel("Port:", status_panel_));
-    status_layout->addWidget(port_label_);
-    status_layout->addWidget(new QLabel("Receiver:", status_panel_));
-    status_layout->addWidget(receiver_summary_label_);
-    status_layout->addWidget(new QLabel("Msg:", status_panel_));
-    status_layout->addWidget(error_label_, 1);
+    auto add_status_field = [status_layout, this](const QString& caption, QLabel* value) {
+        auto* caption_label = new QLabel(caption, status_panel_);
+        caption_label->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
+        value->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
+        status_layout->addWidget(caption_label);
+        status_layout->addWidget(value);
+        status_layout->addSpacing(20);
+    };
+    add_status_field("State:", state_label_);
+    add_status_field("Local IP:", ip_info_label_);
+    add_status_field("Port:", port_label_);
+    add_status_field("Receiver:", receiver_summary_label_);
+
+    auto* message_caption = new QLabel("Msg:", status_panel_);
+    message_caption->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
+    error_label_->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    status_layout->addWidget(message_caption);
+    status_layout->addWidget(error_label_);
+    status_layout->addStretch(1);
     status_layout->addWidget(toggle_mode_button_);
 
     root->addWidget(status_panel_);
 
     // --- LINE 2: Server (Transmitter) Card ---
     sharing_panel_ = new QGroupBox("Server (Transmitter)", central);
+    sharing_panel_->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
     auto* server_layout = new QHBoxLayout(sharing_panel_);
     server_layout->setContentsMargins(12, 8, 12, 8);
     server_layout->setSpacing(10);
@@ -324,6 +323,7 @@ void MainWindow::build_ui()
     server_title_label->setStyleSheet("font-weight: bold;");
     start_share_button_ = new QPushButton("Start Sharing", server_simple_widget);
     start_share_button_->setObjectName("startShareButton");
+    start_share_button_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     connect(start_share_button_, &QPushButton::clicked, this, [this] {
         const auto status = controller_.status_snapshot();
         if (status.sharing_active) {
@@ -374,6 +374,7 @@ void MainWindow::build_ui()
     });
     server_simple_layout->addWidget(mute_local_audio_checkbox_);
 #endif
+    server_simple_layout->addStretch(1);
     server_layout->addWidget(server_simple_widget);
 
     // Right part (Advanced panel)
@@ -405,16 +406,15 @@ void MainWindow::build_ui()
     share_form_->addRow("Volume:", volume_gain_label_);
     share_form_->addRow("", volume_slider_);
 
-    simple_clients_label_ = new QLabel(server_advanced_widget_);
-    share_mode_summary_label_ = new QLabel(server_advanced_widget_);
-    capture_summary_label_ = new QLabel(server_advanced_widget_);
-
     server_adv_layout->addLayout(share_form_);
     server_layout->addWidget(server_advanced_widget_);
+    server_layout->setStretchFactor(server_simple_widget, 3);
+    server_layout->setStretchFactor(server_advanced_widget_, 2);
     root->addWidget(sharing_panel_);
 
     // --- LINE 3: Client (Receiver) Card ---
     receiver_panel_ = new QGroupBox("Client (Receiver)", central);
+    receiver_panel_->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
     auto* listen_layout = new QHBoxLayout(receiver_panel_);
     listen_layout->setContentsMargins(12, 8, 12, 8);
     listen_layout->setSpacing(10);
@@ -430,9 +430,11 @@ void MainWindow::build_ui()
 
     host_input_ = new QLineEdit(client_simple_widget);
     host_input_->setPlaceholderText("Transmitter IP (e.g. 192.168.1.50)");
+    host_input_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     connect_button_ = new QPushButton("Connect Receiver", client_simple_widget);
     connect_button_->setObjectName("connectButton");
+    connect_button_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     connect(connect_button_, &QPushButton::clicked, this, [this] {
         const auto status = controller_.status_snapshot();
         if (status.receiver_listening || status.receiver_connecting) {
@@ -445,6 +447,7 @@ void MainWindow::build_ui()
     client_simple_layout->addWidget(client_title_label);
     client_simple_layout->addWidget(host_input_);
     client_simple_layout->addWidget(connect_button_);
+    client_simple_layout->setStretch(1, 1);
     listen_layout->addWidget(client_simple_widget);
 
     // Right part (Advanced panel)
@@ -463,11 +466,10 @@ void MainWindow::build_ui()
     listen_form_->addRow("Audio Speaker:", playback_combo_);
     listen_form_->addRow("Stream Mode:", listen_mode_label_);
 
-    receiver_status_label_ = new QLabel(client_advanced_widget_);
-    playback_summary_label_ = new QLabel(client_advanced_widget_);
-
     client_adv_layout->addLayout(listen_form_);
     listen_layout->addWidget(client_advanced_widget_);
+    listen_layout->setStretchFactor(client_simple_widget, 3);
+    listen_layout->setStretchFactor(client_advanced_widget_, 2);
     root->addWidget(receiver_panel_);
 
     // --- LINE 4: Tabs Widget ---
@@ -584,10 +586,15 @@ void MainWindow::build_ui()
     general_layout->addRow("Default port:", new QLabel(QString::number(Defaults::tcp_port), general_tab));
     tabs_->addTab(general_tab, "General");
 
-    root->addWidget(tabs_);
+    root->addWidget(tabs_, 1);
+
+    simple_spacer_ = new QWidget(central);
+    simple_spacer_->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    root->addWidget(simple_spacer_, 1);
 
     auto* footer_widget = new QWidget(central);
     footer_widget->setObjectName("footerBar");
+    footer_widget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
     auto* footer_layout = new QHBoxLayout(footer_widget);
     footer_layout->setContentsMargins(8, 4, 8, 0);
     footer_layout->setSpacing(10);
@@ -740,6 +747,9 @@ void MainWindow::update_layout_visibility()
     if (tabs_) {
         tabs_->setVisible(advanced_mode_);
     }
+    if (simple_spacer_) {
+        simple_spacer_->setVisible(!advanced_mode_);
+    }
 
     if (advanced_mode_) {
         setWindowTitle("ShareAudioPC - Advanced Mode");
@@ -834,12 +844,6 @@ void MainWindow::refresh_status()
     clients_label_->setText(QString("%1 client%2 connected")
                                 .arg(status.connected_clients)
                                 .arg(status.connected_clients == 1 ? "" : "s"));
-    simple_clients_label_->setText(QString::number(status.connected_clients));
-    share_mode_summary_label_->setText(mode_label(status.selected_mode));
-    const QString capture_text = capture_combo_->currentText();
-    capture_summary_label_->setText(capture_text.isEmpty() ? "-" : capture_text);
-    const QString playback_text = playback_combo_->currentText();
-    playback_summary_label_->setText(playback_text.isEmpty() ? "-" : playback_text);
     bytes_sent_label_->setText(QString::number(status.bytes_sent));
     packets_label_->setText(QString::number(status.packets_produced));
     dropped_label_->setText(QString::number(status.dropped_packets));
@@ -848,8 +852,6 @@ void MainWindow::refresh_status()
     bytes_played_label_->setText(QString::number(status.bytes_played));
     buffer_label_->setText(QString::number(status.jitter_buffer_depth));
     underruns_label_->setText(QString::number(status.underruns));
-    receiver_status_label_->setText(status.receiver_connecting ? "Connecting" : (status.receiver_listening ? "Listening" : "Idle"));
-    update_visual_property(receiver_status_label_, "tone", receiver_state);
     update_visual_property(listen_mode_label_, "active", status.has_detected_mode);
     if (volume_gain_label_ && volume_slider_) {
         const int gain_percent = qBound(0, static_cast<int>(std::round(status.system_volume_gain * 100.0)), 100);

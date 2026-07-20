@@ -33,6 +33,10 @@ The format follows a simple staged log.
 - Reworked the GUI into a light desktop workspace with a flat status strip, two equal Sharing/Receiver panels, semantic panel accents, advanced tabs below the primary controls, and persistent footer actions.
 - Added responsive matrix layouts and a scrollable content workspace so Sharing/Receiver panels and advanced tab sections stack instead of overlapping when the window is reduced.
 
+### Fixed
+
+- Removed orphaned summary labels that overlapped the advanced AudioMode and playback fields, kept the primary cards compact when maximized, and aligned each Connection Status value beside its label.
+
 ### Removed
 
 - Removed the sidebar/stacked-page experiment, duplicate controls, viewport-scaled fonts, emoji navigation, simulated CPU/latency/packet-loss values, fixed codec badges, invented interface names, and conceptual engine actions.
