@@ -1,9 +1,8 @@
+## 🎧 ShareAudio: Stream real-time audio across network!
 
-## 🎧 ShareAudio: Stream real-time audio seamlessly across network!
-
-> | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 📱 [ShareAudioMobile](https://github.com/sevenleo/ShareAudioMobile/) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 💻 [ShareAudioPC](https://github.com/sevenleo/ShareAudioPC/) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
-> | :---: | :---: |
-> | &nbsp;&nbsp;&nbsp;&nbsp; Android app for phone, tablet & TV &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; Desktop app with GUI & CLI tools &nbsp;&nbsp;&nbsp;&nbsp; |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 📱 [ShareAudioMobile](https://github.com/sevenleo/ShareAudioMobile/) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 💻 [ShareAudioPC](https://github.com/sevenleo/ShareAudioPC/) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+| :---: | :---: |
+| &nbsp;&nbsp;&nbsp;&nbsp; Android app for phone, tablet & TV &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; Desktop app with GUI & CLI tools &nbsp;&nbsp;&nbsp;&nbsp; |
 
 ---
 
