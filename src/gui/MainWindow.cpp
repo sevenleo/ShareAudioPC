@@ -1083,18 +1083,19 @@ void MainWindow::copy_diagnostics()
 
 void MainWindow::show_help()
 {
-    const QString message = QString("Share starts a transmitter on TCP port %1.\n"
-                                     "Balanced is the default AudioMode. Fast uses smaller PCM packets.\n"
-                                     "Efficient uses Opus when this build is linked with libopus.\n"
-                                     "Follow system volume applies the selected Windows output-device master volume to transmitted audio.\n"
-                                     "Mute local audio silences that Windows output device while remote streaming continues.\n"
-                                     "Listen connects to another machine and autodetects the stream mode from SAL1 or HTTP metadata.\n"
-                                     "Browser/mobile compatibility is exposed through /info, /stream, and the browser player at http://<IP>:%1/.")
-                                 .arg(Defaults::tcp_port);
-    QMessageBox::information(
-        this,
-        "ShareAudioPC Help",
-        message);
+    QMessageBox help_box(QMessageBox::Information, "ShareAudioPC Help", {}, QMessageBox::Ok, this);
+    help_box.setStyleSheet(app_theme_stylesheet(dark_mode_));
+    help_box.setTextFormat(Qt::RichText);
+    help_box.setTextInteractionFlags(Qt::TextBrowserInteraction);
+    help_box.setText(
+        "For guides, updates, and support, visit "
+        "<a href=\"https://github.com/sevenleo/ShareAudioPC/\">github.com/sevenleo/ShareAudioPC</a>.");
+    for (auto* label : help_box.findChildren<QLabel*>()) {
+        if (label->text().contains("github.com/sevenleo/ShareAudioPC")) {
+            label->setOpenExternalLinks(true);
+        }
+    }
+    help_box.exec();
 }
 
 void MainWindow::show_error(const QString& message)

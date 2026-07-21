@@ -1208,7 +1208,7 @@ The initial project prompt proposed a C#/.NET/WinUI or WPF Windows application u
 | Network & Hardware | Audio Devices | Lists capture sources and playback speakers; refresh updates both lists and selectors. |
 | Diagnostics & Help | Counters/logs | Shows runtime bytes, packets, dropped packets, jitter-buffer bytes, underruns, and controller event logs. |
 | Diagnostics & Help | Copy Diagnostics | Copies version, state, modes, gain/tracking, mute state, host, counters, IPs, errors, and logs. |
-| Footer/tray | Tray, theme, mode, help | Tray mode hides on minimize/close; theme toggles only for the current process; Advanced/Simple changes visible detail; Help opens the feature summary. |
+| Footer/tray | Tray, theme, mode, help | Tray mode hides on minimize/close; theme toggles only for the current process; Advanced/Simple changes visible detail; Help opens a compact dialog with a clickable link to the official GitHub project page. |
 
 Session-mode precedence is combined sharing/listening, sharing, connecting, listening, then idle. `last_error` is rendered independently in `Msg` and does not replace the session mode. The transmitter and receiver remain independent stacked rows in both modes; advanced mode reveals their selectors plus the Network & Hardware, Diagnostics & Help, and General tabs.
 

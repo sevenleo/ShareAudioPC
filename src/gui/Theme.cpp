@@ -6,7 +6,7 @@ QString app_theme_stylesheet(bool dark_mode)
 {
     if (dark_mode) {
         return QStringLiteral(R"(
-            QMainWindow { background-color: #0A0F1D; }
+            QMainWindow, QMessageBox { background-color: #0A0F1D; }
             QGroupBox { background-color: #151F3C; color: #FFFFFF; border: 1px solid #25335A; border-radius: 8px; margin-top: 12px; padding-top: 16px; font-weight: bold; font-size: 13px; }
             QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top left; left: 12px; padding: 0 4px; color: #00A3FF; }
             QLabel, QCheckBox { color: #BAC7DE; font-size: 12px; }
@@ -46,7 +46,7 @@ QString app_theme_stylesheet(bool dark_mode)
     }
 
     return QStringLiteral(R"(
-        QMainWindow { background-color: #F3F6FB; }
+        QMainWindow, QMessageBox { background-color: #F3F6FB; }
         QGroupBox { background-color: #FFFFFF; color: #172033; border: 1px solid #C9D4E5; border-radius: 8px; margin-top: 12px; padding-top: 16px; font-weight: bold; font-size: 13px; }
         QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top left; left: 12px; padding: 0 4px; color: #006FC9; }
         QLabel, QCheckBox { color: #43516A; font-size: 12px; }

@@ -33,6 +33,7 @@ The format follows a simple staged log.
 
 ### Changed
 
+- Replaced the long GUI Help text with a compact clickable link to the official ShareAudioPC GitHub page for guides, updates, and support; the dialog now applies the active dark or light theme.
 - Restored the compact three-line GUI layout and original dark visual style from commit `8df3daec`, added a geometry-matched light palette, and retained current volume tracking, local mute, simultaneous sessions, tray, diagnostics, autostart, and theme controls.
 - Removed the static `All good` health claim while preserving the real dynamic state and error fields.
 - Added Windows CLI background execution with `--background`, `status`, `stop`, graceful stop events, PID validation, and named-mutex single-instance replacement.
