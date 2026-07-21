@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.24)
 
 project(ShareAudioLite
-    VERSION 0.4.0
+    VERSION 1.0.0
     DESCRIPTION "Cross-platform low-latency LAN audio transmitter and receiver"
     LANGUAGES CXX
 )

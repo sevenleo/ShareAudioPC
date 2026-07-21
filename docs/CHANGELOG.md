@@ -4,6 +4,14 @@ All notable project changes should be recorded in this file.
 
 The format follows a simple staged log.
 
+## [1.0.0] - 2026-07-20
+
+### Release
+
+- Promoted the application version from `0.4.0` to `1.0.0` through the single CMake project-version source.
+- Propagated `1.0.0` to CLI help, GUI footer and General tab, copied diagnostics, and release artifacts.
+- Preserved native `SAL1` protocol version `1`; this release does not change wire compatibility.
+
 ## [Unreleased]
 
 ### Documentation

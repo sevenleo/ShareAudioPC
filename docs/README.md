@@ -17,7 +17,8 @@ This file is the consolidated technical reference for the project. Recent change
 Current implementation:
 
 - Language: C++20.
-- Current project version: `0.4.0`.
+- Current project version: `1.0.0`.
+- Version source: `CMakeLists.txt` defines `PROJECT_VERSION`, which is exported as `SHAREAUDIO_VERSION` and displayed by the CLI, GUI footer, General tab, and copied diagnostics. This application version is independent from the native `SAL1` wire-protocol version, which remains `1` for compatibility.
 - Build system: CMake with Windows presets currently present.
 - Audio backend: miniaudio.
 - Networking: standalone Asio.
