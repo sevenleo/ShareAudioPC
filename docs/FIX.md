@@ -20,16 +20,17 @@ This file contains code-only findings from the documentation audit. The document
 - **Requested implementation:** Add a small platform-appropriate interruption path that sets an existing stop request; let the main loop perform the actual stop. The handler must not do blocking or non-signal-safe work.
 - **Acceptance criteria:** Ctrl+C uses the normal cleanup path, returns a deterministic exit code, and does not leave a stale lock or active audio device.
 
-## 3. Add focused regression coverage for the GUI/CLI contract
+## 3. Add focused GUI widget-contract regression coverage
 
 - **Priority:** P3 — prevent documentation drift.
-- **Locations:** `tests/main.cpp` and relevant controller/parser test seams.
-- **Problem:** Behavior is spread across `MainWindow`, `ConsoleUi`, `Application`, and `SessionController`; source review cannot exercise every state transition.
-- **Requested implementation:** Test CLI mode/volume parsing and usage errors, simultaneous sharing/listening state precedence, `MUTE_LOCAL_AUDIO` versus `VOLUME_MODE=system`, and the diagnostics fields copied by the GUI.
-- **Acceptance criteria:** Tests fail if command syntax, state precedence, startup exclusivity, or diagnostic names drift. Keep coverage focused; add no framework or broad fixture layer.
+- **Locations:** `tests/main.cpp` and a minimal Qt-enabled test seam if GUI construction is made testable.
+- **Problem:** Existing tests already cover CLI AudioMode/VolumeMode parsing and usage errors, simultaneous controller state precedence, startup-config parsing, and local-mute/System-VolumeMode exclusivity. They do not construct `MainWindow`, verify widget text/visibility/alignment, or cover the field names emitted by `diagnostics_text()`.
+- **Requested implementation:** Add one focused GUI contract check for the Simple/Advanced visibility switch, exact Start/Stop/Connect/Disconnect labels, primary button object names/icons, unique advanced form labels, and diagnostics field names. Avoid screenshot frameworks and broad GUI fixtures.
+- **Acceptance criteria:** The check fails if the GUI reintroduces duplicate labels, truncation-prone action sizing, incorrect action states, or diagnostic-key drift.
 
 ## Audit notes
 
-- No implementation file was changed during this review.
+- This audit updates documentation only; runtime implementation changes are tracked separately in the changelog.
 - Existing pending work in `docs/PLAN.md` was preserved.
 - The former fixed `All good` contradiction is resolved; older changelog entries remain historical records.
+- Current automated tests may fail their three single-instance expectations when another `shareaudio_gui` or `shareaudio_cli` process owns the normal `%APPDATA%\ShareAudioLite` state. The documented build flow isolates `APPDATA` under the build directory to avoid that environmental collision.

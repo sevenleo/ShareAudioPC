@@ -12,6 +12,10 @@ The format follows a simple staged log.
 - Added detailed GUI control/state and CLI command/output references to `docs/README.md`.
 - Documented the static `All good` status-strip label and tracked its code correction in `docs/FIX.md`.
 - Preserved all historical entries; code findings are recorded separately in `docs/FIX.md`.
+- Re-audited all maintained Markdown documentation against the restored compact GUI, current Qt theme, controller state model, startup configuration, persistence paths, Windows presets, packaging flow, and automated tests.
+- Documented the current compact/maximized layout behavior, status-field alignment, unique advanced form labels, Server/Client `3:2` proportions, footer/tab height ownership, enlarged aligned action buttons, exact Start/Stop/Connect/Disconnect states, and green Play/red Stop visual convention.
+- Expanded `docs/BUILD.md` with prerequisites, preset behavior, isolated test state, target/package contents, and safe installation guidance while retaining every verified command.
+- Updated the pending manual GUI matrix to the implemented Simple/Advanced dimensions and removed obsolete responsive-matrix expectations.
 
 ### Added
 
@@ -29,17 +33,18 @@ The format follows a simple staged log.
 - Windows GUI `Follow system volume` can now be toggled during sharing: enabling starts endpoint tracking and disabling immediately restores Full volume without stopping active sharing or receiver sessions.
 - Restored the complete compact Simple/Advanced GUI structure from commit `8df3daec` while retaining current Sharing/Receiver, VolumeMode, autostart, and tray behavior.
 - Restored the exact public AudioMode labels and a single source of truth for host, mode, capture device, playback device, and session controls.
-- Updated advanced sizing to target the established desktop dimensions while clamping the window to the current screen's available area.
+- Updated mode sizing to the implemented `830x350` Simple and `1100x760` Advanced targets with `800x340` and `1000x640` minimums. The current implementation requests these values directly and does not clamp against screen geometry.
 - Reworked the GUI into a light desktop workspace with a flat status strip, two equal Sharing/Receiver panels, semantic panel accents, advanced tabs below the primary controls, and persistent footer actions.
-- Added responsive matrix layouts and a scrollable content workspace so Sharing/Receiver panels and advanced tab sections stack instead of overlapping when the window is reduced.
+- An earlier GUI iteration added responsive matrix layouts and a scrollable workspace; the subsequent compact GUI restoration removed that machinery in favor of stacked natural-height groups and advanced tabs.
 
 ### Fixed
 
-- Removed orphaned summary labels that overlapped the advanced AudioMode and playback fields, kept the primary cards compact when maximized, aligned each Connection Status value beside its label, and standardized the aligned Sharing/Receiver action buttons with matching Play/Stop colors and icons.
+- Removed orphaned summary labels that overlapped the advanced AudioMode and playback fields, kept the primary cards compact when maximized, aligned each Connection Status value beside its label, standardized and enlarged the Sharing/Receiver action buttons with matching Play/Stop colors and icons, and shortened their labels to Start/Stop and Connect/Disconnect.
 
 ### Removed
 
 - Removed the sidebar/stacked-page experiment, duplicate controls, viewport-scaled fonts, emoji navigation, simulated CPU/latency/packet-loss values, fixed codec badges, invented interface names, and conceptual engine actions.
+- Removed the complete `docs/stitch_concept` archive, including generated HTML prototypes, screenshots, and superseded Obsidian design notes; the maintained README and design contract now describe the current GUI without competing historical artifacts.
 
 ## [0.4.0] - 2026-07-12
 

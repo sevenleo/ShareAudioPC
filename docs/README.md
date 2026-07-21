@@ -98,7 +98,7 @@ Important source files:
 - `src/storage/RecentDevices.cpp`: recent device/IP persistence.
 - `src/ui/ConsoleUi.cpp`: CLI commands and help text.
 - `src/gui/MainWindow.cpp`: Qt dashboard, simple/advanced mode, config prefill, and UI actions.
-- `src/gui/Theme.cpp`: static Qt stylesheet for the light desktop GUI and state-based GUI styling.
+- `src/gui/Theme.cpp`: static Qt stylesheets for the light and dark palettes, including object-name-based primary Start/Stop button styling.
 
 ## Repository Documentation Policy
 
@@ -109,7 +109,9 @@ Project documentation lives under `docs`:
 - `docs/PLAN.md`: planned-work checklist only.
 - `docs/BUILD.md`: command-only build reference.
 - `docs/DESIGN.md`: product GUI design requirements.
-- `docs/stitch_concept/`: visual concept references; conceptual controls are not runtime requirements.
+- `docs/FIX.md`: verified code findings that remain pending or have been explicitly resolved.
+
+Superseded Stitch HTML prototypes, screenshots, and Obsidian concept notes were removed from the repository. Historical GUI evolution remains recorded in `docs/CHANGELOG.md`; the current implementation contract lives only in the maintained Markdown documents and runtime source.
 
 Third-party documentation under `third_party/` belongs to vendored dependencies and is outside this documentation consolidation policy.
 
@@ -175,14 +177,19 @@ Removed legacy flags:
 
 The GUI uses the same Qt-free `SessionController` as the CLI. It is not a separate runtime implementation.
 
-The GUI uses the compact Qt dashboard structure from commit `8df3daec`: a connection-status row, a transmitter row, a receiver row, advanced tabs, and a persistent footer. Light and dark themes change only the palette; the dark palette retains the original navy cards, blue accents, gradients, and semantic green/blue/red action states.
+The GUI uses the compact Qt dashboard structure restored from commit `8df3daec`: a connection-status row, a transmitter row, a receiver row, advanced tabs, and a persistent footer. Light and dark themes use the same geometry and behavior. Start/Connect actions use the same green Play treatment, Stop/Disconnect use the same red Stop treatment, and secondary actions retain the palette's blue button treatment.
 
 Simple mode:
 
 - Opens at `830x350`, with minimum `800x340`.
-- Keeps the global state, local IP, TCP port, receiver summary, latest error row, Sharing action, Receiver host/action, `Follow system volume`, `Mute local audio`, and `Minimize to tray` visible.
+- Keeps the global state, local IP, TCP port, receiver summary, inline `Msg` field, Sharing action, Receiver host/action, `Follow system volume`, `Mute local audio`, and `Minimize to tray` visible.
 - Uses the original `Connection Status` group followed by stacked `Server (Transmitter)` and `Client (Receiver)` cards.
 - Sharing and Receiver remain independent and can run simultaneously.
+- Keeps the three cards at their natural compact height near the top. A single expanding spacer absorbs excess height and leaves the footer at the bottom when the window is taller than the target size.
+- Places each status value immediately after its caption instead of distributing values across the whole row. A fixed `20 px` gap separates field pairs, and the only expanding gap is before `Show Advanced Options`.
+- Uses the labels `Transmit Audio:` and `Receive Audio:` at the same fixed width. The `Start` and `Connect` buttons therefore begin at the same horizontal coordinate.
+- Uses a shared fixed action width sized to accommodate the longest state label and then doubled for comfortable padding. `Start`, `Stop`, `Connect`, and `Disconnect` do not resize or shift when state changes.
+- Orders the receiver row as label, action button, then flexible transmitter IP field. The IP field receives the remaining horizontal space.
 
 Advanced mode:
 
@@ -193,6 +200,9 @@ Advanced mode:
 - Shows the `Network & Hardware` tab with local IPs, recent hosts, and audio-device lists.
 - Shows the `Diagnostics & Help` tab with real transport counters, event logs, copy diagnostics, and help.
 - Adds a `General` tab with application metadata and keeps the tray/footer actions visible independently of the selected tab.
+- Hides the Simple-mode expanding spacer and lets the advanced tab widget absorb extra vertical height.
+- Splits each Server/Client row in a `3:2` proportion between always-visible primary controls and the advanced form.
+- Uses one `QFormLayout` label per advanced field. `AudioMode`, `Audio Device`, and `Audio Speaker` no longer have legacy summary labels layered over them.
 
 GUI behavior:
 
@@ -212,6 +222,8 @@ GUI behavior:
 - The footer provides a runtime-only `Dark Theme`/`Light Theme` button; it changes colors without changing the active layout or sessions.
 - On Windows, the GUI synchronizes the native title bar with the selected light or dark theme through Desktop Window Manager; on Linux, the desktop environment owns the outer decoration.
 - The GUI does not display simulated CPU, latency, packet-loss, codec, interface-name, or static health values.
+- The status `State` text comes from the shared session mode: `Idle`, `Sharing`, `Connecting`, `Listening`, `Sharing + Connecting`, or `Sharing + Listening`. Errors are shown separately in `Msg`; they do not replace the session mode.
+- The `Msg` value is hidden when `last_error` is empty. The fixed `Msg:` caption remains part of the status layout.
 
 ## Portable Startup Configuration
 
@@ -286,6 +298,20 @@ Invalid config examples:
 - Unknown VolumeMode values: CLI zero-argument autostart forwards invalid `VOLUME_MODE` to `share --volume-mode` and exits with a usage error; GUI prefill ignores unparseable values.
 
 Unknown keys are ignored.
+
+### Portable Configuration Versus Internal Persistence
+
+`shareaudio.cfg` and the internal JSON files serve different purposes and must not be confused:
+
+| Storage | Windows path | Linux path | Purpose |
+| --- | --- | --- | --- |
+| Portable startup configuration | beside the executable as `shareaudio.cfg` | beside the executable as `shareaudio.cfg` | Optional startup overrides, tray/theme behavior, device prefill, and automatic session startup. It is edited by the user and is never rewritten by the application. |
+| Internal application configuration | `%APPDATA%\ShareAudioLite\config.json` | `$HOME/.config/shareaudiolite/config.json` | Automatically persists audio format, selected AudioMode and VolumeMode, selected capture/playback device ids, receiver host, bind address, and port. |
+| Recent transmitter history | `%APPDATA%\ShareAudioLite\recent-devices.json` | `$HOME/.config/shareaudiolite/recent-devices.json` | Stores recent receiver hosts used by `SessionController`; the GUI displays them in `Network & Hardware`. |
+
+If the platform-specific base directory is unavailable, the internal files fall back to the system temporary directory. The historical `ShareAudioLite` directory name remains part of the storage and single-instance compatibility contract even though the GUI branding is `ShareAudioPC`.
+
+The GUI loads internal `config.json` first and then applies valid values from the portable `shareaudio.cfg`. Consequently, portable startup values take precedence for that execution. Runtime changes to AudioMode, VolumeMode, device selection, and receiver host are saved to internal JSON during normal GUI operation and shutdown. Theme, tray mode, start-hidden state, and local endpoint mute are not fields in `AppConfig`, so they are not persisted to the internal JSON; they must be supplied again through `shareaudio.cfg` or selected again at runtime.
 
 ## VolumeMode And Windows System Volume
 
@@ -942,8 +968,9 @@ Windows debug build:
 
 ```powershell
 cmake --preset windows-debug
-cmake --build build/windows-debug
-.\build\windows-debug\shareaudio_tests.exe
+cmake --build --preset windows-debug
+cmake -E make_directory build/windows-debug/test-appdata
+cmake -E env APPDATA="$((Resolve-Path build/windows-debug).Path)\test-appdata" ctest --test-dir build/windows-debug --output-on-failure
 ```
 
 Windows release build with the local Qt/MinGW toolchain configured by the preset:
@@ -960,8 +987,9 @@ Last verified Windows debug commands in this workspace:
 
 ```powershell
 cmake --preset windows-debug
-cmake --build build/windows-debug
-.\build\windows-debug\shareaudio_tests.exe
+cmake --build --preset windows-debug
+cmake -E make_directory build/windows-debug/test-appdata
+cmake -E env APPDATA="$((Resolve-Path build/windows-debug).Path)\test-appdata" ctest --test-dir build/windows-debug --output-on-failure
 ```
 
 Last verified GUI release path in this workspace:
@@ -1161,12 +1189,13 @@ The initial project prompt proposed a C#/.NET/WinUI or WPF Windows application u
 
 | Area | Control | Behavior |
 | --- | --- | --- |
-| Status strip | Status | Shows Ready, Sharing, Connecting, Listening, combined sharing/listening, or an error state from the shared controller. |
+| Status strip | State | Shows `Idle`, `Sharing`, `Connecting`, `Listening`, `Sharing + Connecting`, or `Sharing + Listening` from the shared controller. Errors remain separate from this session mode. |
 | Status strip | Local IP | Shows the first local address and `(+N more)` for additional addresses, or `No IP found`. |
 | Status strip | Port | Shows the active/default TCP port, normally `33777`. |
 | Status strip | Receiver | Shows the receiver host with `(Connecting)` or `(Listening)` while active; otherwise `-`. |
-| Sharing | Start/Stop Sharing | Starts or stops transmission with the selected AudioMode, capture device, and VolumeMode. Sharing and receiving remain independent. |
-| Sharing | Audio Mode | Advanced mode selects Balanced (Recommended), Fast (Low Latency), or Efficient (Low Data). Efficient requires libopus. |
+| Status strip | Msg | Displays `last_error` in the error color when present. Its value widget is hidden when there is no error. |
+| Sharing | Start/Stop | Starts or stops transmission with the selected AudioMode, capture device, and VolumeMode. Sharing and receiving remain independent. |
+| Sharing | AudioMode | Advanced mode selects Balanced (Recommended), Fast (Low Latency), or Efficient (Low Data). Efficient requires libopus. |
 | Sharing | Capture Device | Selects the capture/loopback source. The refresh button repopulates capture and playback devices. |
 | Sharing | Follow system volume | Windows-only toggle between System and Full VolumeMode; it remains changeable during sharing. |
 | Sharing | Mute local audio | Windows-only endpoint mute while remote streaming continues; mutually exclusive with system-volume tracking. |
@@ -1179,7 +1208,7 @@ The initial project prompt proposed a C#/.NET/WinUI or WPF Windows application u
 | Diagnostics & Help | Copy Diagnostics | Copies version, state, modes, gain/tracking, mute state, host, counters, IPs, errors, and logs. |
 | Footer/tray | Tray, theme, mode, help | Tray mode hides on minimize/close; theme toggles only for the current process; Advanced/Simple changes visible detail; Help opens the feature summary. |
 
-State precedence is combined sharing/listening, sharing, connecting, listening, error, then idle. The transmitter and receiver remain independent stacked rows in both modes; advanced mode reveals their selectors plus the Network & Hardware, Diagnostics & Help, and General tabs.
+Session-mode precedence is combined sharing/listening, sharing, connecting, listening, then idle. `last_error` is rendered independently in `Msg` and does not replace the session mode. The transmitter and receiver remain independent stacked rows in both modes; advanced mode reveals their selectors plus the Network & Hardware, Diagnostics & Help, and General tabs.
 
 #### CLI command and output contract
 

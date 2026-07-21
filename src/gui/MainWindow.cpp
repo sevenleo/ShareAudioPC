@@ -321,7 +321,7 @@ void MainWindow::build_ui()
 
     auto* server_title_label = new QLabel("Transmit Audio:", server_simple_widget);
     server_title_label->setStyleSheet("font-weight: bold;");
-    start_share_button_ = new QPushButton("Start Sharing", server_simple_widget);
+    start_share_button_ = new QPushButton("Start", server_simple_widget);
     start_share_button_->setObjectName("startShareButton");
     start_share_button_->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
     start_share_button_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -433,7 +433,7 @@ void MainWindow::build_ui()
     host_input_->setPlaceholderText("Transmitter IP (e.g. 192.168.1.50)");
     host_input_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
-    connect_button_ = new QPushButton("Connect Receiver", client_simple_widget);
+    connect_button_ = new QPushButton("Connect", client_simple_widget);
     connect_button_->setObjectName("startShareButton");
     connect_button_->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
     connect_button_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -450,7 +450,9 @@ void MainWindow::build_ui()
     server_title_label->setFixedWidth(title_width);
     client_title_label->setFixedWidth(title_width);
 
-    const int action_width = qMax(start_share_button_->sizeHint().width(), connect_button_->sizeHint().width());
+    connect_button_->setText("Disconnect");
+    const int action_width = 2 * qMax(start_share_button_->sizeHint().width(), connect_button_->sizeHint().width());
+    connect_button_->setText("Connect");
     start_share_button_->setFixedWidth(action_width);
     connect_button_->setFixedWidth(action_width);
 
@@ -875,10 +877,10 @@ void MainWindow::refresh_status()
 
     // Server button toggle state and text
     if (sharing) {
-        update_button_style(start_share_button_, "stopButton", "Stop Sharing");
+        update_button_style(start_share_button_, "stopButton", "Stop");
         start_share_button_->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
     } else {
-        update_button_style(start_share_button_, "startShareButton", "Start Sharing");
+        update_button_style(start_share_button_, "startShareButton", "Start");
         start_share_button_->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
     }
 
@@ -887,7 +889,7 @@ void MainWindow::refresh_status()
         update_button_style(connect_button_, "stopButton", "Disconnect");
         connect_button_->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
     } else {
-        update_button_style(connect_button_, "startShareButton", "Connect Receiver");
+        update_button_style(connect_button_, "startShareButton", "Connect");
         connect_button_->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
     }
 

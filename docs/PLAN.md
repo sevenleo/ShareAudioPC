@@ -1,4 +1,4 @@
-# ShareAudioLite Pending Plan
+# ShareAudioPC Pending Plan
 
 This checklist contains only remaining project work. Completed implementation history is tracked in `docs/CHANGELOG.md`, and current behavior is documented in `docs/README.md`.
 
@@ -57,10 +57,17 @@ This checklist contains only remaining project work. Completed implementation hi
 - [ ] Verify GUI default playback device selection on a clean Windows profile.
 - [ ] Verify CLI `shareaudio.cfg` zero-argument server autostart in a release folder.
 - [ ] Verify CLI `shareaudio.cfg` zero-argument client autostart in a release folder.
-- [ ] Verify the light Simple layout at `1280x760`, minimum `920x620`, and on a `1366x768` display.
-- [ ] Verify the light Advanced layout at `1440x960`, minimum `1180x760`, and with reduced-width responsive stacking.
-- [ ] Verify `Network & Hardware`, `Diagnostics & Help`, and `General` tabs at `1366x768`, `1920x1080`, and reduced-width responsive stacking.
-- [ ] Verify GUI state styling for idle, sharing, connecting, listening, simultaneous sharing/listening, errors, keyboard focus, and disabled controls.
+- [ ] Verify Simple mode at its `830x350` target, its `800x340` minimum, maximized, and on a `1366x768` display in both themes.
+- [ ] Verify Advanced mode at its `1100x760` target, its `1000x640` minimum, maximized, and at `1366x768` and `1920x1080` in both themes.
+- [ ] Verify the Connection Status, Server, and Client groups remain compact at the top in Simple mode, the footer remains at the bottom, and no excess height is distributed inside the groups.
+- [ ] Verify Advanced mode hides the Simple spacer and lets `Network & Hardware`, `Diagnostics & Help`, and `General` absorb the available vertical space.
+- [ ] Verify `State`, `Local IP`, `Port`, `Receiver`, and `Msg` values remain immediately beside their captions at normal and maximized widths.
+- [ ] Verify `AudioMode`, `Audio Device`, and `Audio Speaker` each have exactly one visible label with no overlap in light and dark themes.
+- [ ] Verify `Start` and `Connect` begin at the same horizontal coordinate, have the same enlarged width, show the green Play icon/state, and never truncate.
+- [ ] Verify `Stop` and `Disconnect` preserve the same width/alignment, show the red Stop icon/state, and never truncate.
+- [ ] Verify the receiver row keeps the Connect/Disconnect action before the flexible transmitter IP field and that the IP field absorbs remaining width.
+- [ ] Verify GUI state text for Idle, Sharing, Connecting, Listening, Sharing + Connecting, and Sharing + Listening; verify errors appear independently in `Msg`.
+- [ ] Verify keyboard focus, hover, pressed, disabled, and error treatment in both themes.
 - [ ] Verify `THEME=light|dark` startup, runtime theme toggling, and light/dark focus, hover, disabled, error, Sharing, and Receiver states.
 - [ ] Verify Windows GUI `Follow system volume` remains visible in simple and advanced modes.
 - [ ] Verify toggling `Follow system volume` on and off during active Windows sharing without interrupting connected receivers.
