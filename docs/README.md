@@ -1,3 +1,13 @@
+
+## 🎧 ShareAudio: Stream real-time audio seamlessly across network!
+
+> | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 📱 [ShareAudioMobile](https://github.com/sevenleo/ShareAudioMobile/) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 💻 [ShareAudioPC](https://github.com/sevenleo/ShareAudioPC/) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+> | :---: | :---: |
+> | &nbsp;&nbsp;&nbsp;&nbsp; Android app for phone, tablet & TV &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp; Desktop app with GUI & CLI tools &nbsp;&nbsp;&nbsp;&nbsp; |
+
+---
+
+
 # ShareAudioPC
 
 ShareAudioPC is the user-facing name of the native Windows/Linux LAN audio transmitter and receiver for low-latency local-network audio sharing. A machine can run as a transmitter, capturing local system audio and broadcasting it over TCP, as a receiver, connecting to another transmitter and playing the stream locally, or through the GUI as both at the same time.
