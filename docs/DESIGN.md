@@ -37,14 +37,14 @@ Target dimensions are approximately `830x350`, with a minimum of `800x340` when 
 
 Simple Mode must show:
 
-- **Connection Status** with `State`, `Local IP`, `Port`, `Receiver`, inline `Msg`, and the Advanced mode toggle.
+- **Connection Status** with `State`, `Local IP`, `Port`, `Receiver`, and inline `Msg`.
 - Status captions and values paired immediately beside each other, with consistent space between field pairs and expansion only before the Advanced mode toggle.
 - The `Msg` value shown only when `last_error` exists. It must not compress the other status fields or replace the session state.
 - **Server (Transmitter)** with the primary button `Start`, changing to `Stop` while active.
 - On Windows, the checkboxes `Follow system volume` and `Mute local audio` in the Sharing panel.
 - **Client (Receiver)** with the primary button `Connect`, changing to `Disconnect` while connecting or listening, followed by the flexible `Transmitter IP` field.
 - The footer checkbox `Minimize to tray`, always visible regardless of the current mode.
-- The button `Show Advanced Options`, changing to `Hide Advanced Options` in Advanced Mode.
+- The footer button `Show Advanced Options`, changing to `Hide Advanced Options` in Advanced Mode, placed between the theme button and `Help` with enough fixed width for either label.
 
 Simple Mode must not display the Network & Hardware or Diagnostics & Help tabs. It must not duplicate AudioMode, device selectors, host fields, or session buttons in a second location.
 
@@ -85,13 +85,13 @@ The following inventory is the minimum functional surface expected in the design
 
 | Area or screen | Required controls and information |
 | --- | --- |
-| Connection Status | State, Local IP, Port, Receiver, Msg, `Show Advanced Options` / `Hide Advanced Options` |
+| Connection Status | State, Local IP, Port, Receiver, Msg |
 | Server (Transmitter) | `Start` / `Stop`, Windows-only `Follow system volume` and `Mute local audio`, `AudioMode`, `Audio Device`, `Clients`, current system volume |
 | Client (Receiver) | `Connect` / `Disconnect`, `Transmitter IP`, `Audio Speaker`, `Stream Mode` |
 | Network & Hardware | Local IP list, `Refresh`, `Copy Selected IP`, recent hosts, capture source list, playback output list, `Refresh Devices List` |
 | Diagnostics & Help | Bytes Sent, Packets Produced, Packets Dropped, Bytes Received, Bytes Played, Jitter Buffer Bytes, Playback Underruns, event log, `Copy Diagnostics to Clipboard`, `Help Guide` |
 | General | Application name, version, and default port |
-| Footer | `Minimize to tray`, application version, `Dark Theme` / `Light Theme`, and `Help` |
+| Footer | `Minimize to tray`, application version, `Dark Theme` / `Light Theme`, fixed-width `Show Advanced Options` / `Hide Advanced Options`, and `Help` |
 | System tray | `Show Window` / `Hide Window`, checkable `Minimize to tray`, `Exit` |
 
 The design must include visual states for every toggle action:

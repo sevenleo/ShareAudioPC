@@ -186,7 +186,7 @@ Simple mode:
 - Uses the original `Connection Status` group followed by stacked `Server (Transmitter)` and `Client (Receiver)` cards.
 - Sharing and Receiver remain independent and can run simultaneously.
 - Keeps the three cards at their natural compact height near the top. A single expanding spacer absorbs excess height and leaves the footer at the bottom when the window is taller than the target size.
-- Places each status value immediately after its caption instead of distributing values across the whole row. A fixed `20 px` gap separates field pairs, and the only expanding gap is before `Show Advanced Options`.
+- Places each status value immediately after its caption instead of distributing values across the whole row. A fixed `20 px` gap separates field pairs; the status row has no action button.
 - Uses the labels `Transmit Audio:` and `Receive Audio:` at the same fixed width. The `Start` and `Connect` buttons therefore begin at the same horizontal coordinate.
 - Uses a shared fixed action width sized to accommodate the longest state label and then doubled for comfortable padding. `Start`, `Stop`, `Connect`, and `Disconnect` do not resize or shift when state changes.
 - Orders the receiver row as label, action button, then flexible transmitter IP field. The IP field receives the remaining horizontal space.
@@ -220,6 +220,7 @@ GUI behavior:
 - The GUI embeds `logo.png` and `logo.svg` through Qt resources and CMake AUTORCC.
 - The GUI can keep running in the system tray when minimized or closed if tray mode is enabled.
 - The footer provides a runtime-only `Dark Theme`/`Light Theme` button; it changes colors without changing the active layout or sessions.
+- The footer places the fixed-width `Show Advanced Options` / `Hide Advanced Options` button between the theme button and `Help`. Its `220 px` width keeps the longer label readable in either state.
 - On Windows, the GUI synchronizes the native title bar with the selected light or dark theme through Desktop Window Manager; on Linux, the desktop environment owns the outer decoration.
 - The GUI does not display simulated CPU, latency, packet-loss, codec, interface-name, or static health values.
 - The status `State` text comes from the shared session mode: `Idle`, `Sharing`, `Connecting`, `Listening`, `Sharing + Connecting`, or `Sharing + Listening`. Errors are shown separately in `Msg`; they do not replace the session mode.

@@ -277,7 +277,8 @@ void MainWindow::build_ui()
     error_label_->setObjectName("errorValue");
     error_label_->setWordWrap(true);
 
-    toggle_mode_button_ = new QPushButton("Show Advanced Options", status_panel_);
+    toggle_mode_button_ = new QPushButton("Show Advanced Options", central);
+    toggle_mode_button_->setFixedWidth(220);
     connect(toggle_mode_button_, &QPushButton::clicked, this, [this] {
         advanced_mode_ = !advanced_mode_;
         update_layout_visibility();
@@ -302,7 +303,6 @@ void MainWindow::build_ui()
     status_layout->addWidget(message_caption);
     status_layout->addWidget(error_label_);
     status_layout->addStretch(1);
-    status_layout->addWidget(toggle_mode_button_);
 
     root->addWidget(status_panel_);
 
@@ -626,6 +626,8 @@ void MainWindow::build_ui()
         apply_theme();
     });
     footer_layout->addWidget(theme_button_);
+
+    footer_layout->addWidget(toggle_mode_button_);
 
     help_footer_button_ = new QPushButton("Help", footer_widget);
     connect(help_footer_button_, &QPushButton::clicked, this, [this] {
