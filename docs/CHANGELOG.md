@@ -14,6 +14,11 @@ The format follows a simple staged log.
 
 ## [Unreleased]
 
+### Fixed
+
+-c Keep one release output
+- `build.bat` removes the obsolete `release-test` package after the release build succeeds.
+
 ### Documentation
 
 - Audited GUI, CLI, startup configuration, and shared-session documentation against the current source.

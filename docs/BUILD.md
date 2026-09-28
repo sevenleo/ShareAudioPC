@@ -27,6 +27,7 @@ build.bat
 4. Runs CTest with that isolated state so a normal user session does not interfere with single-instance tests.
 5. Installs the portable package into the repository-root `release` directory.
 6. Runs `release\shareaudio_cli.exe help` as a final executable smoke check.
+7. Removes the obsolete `release-test` package so `release` is the only portable release directory.
 
 ## Manual PowerShell
 
@@ -37,6 +38,7 @@ cmake -E make_directory build/windows-release/test-appdata
 cmake -E env APPDATA="$((Resolve-Path build/windows-release).Path)\test-appdata" ctest --test-dir build/windows-release --output-on-failure
 cmake --install build/windows-release --config Release
 .\release\shareaudio_cli.exe help
+cmake -E rm -rf release-test
 ```
 
 ## Manual cmd.exe
@@ -48,6 +50,7 @@ cmake -E make_directory build\windows-release\test-appdata
 cmake -E env "APPDATA=%CD%\build\windows-release\test-appdata" ctest --test-dir build/windows-release --output-on-failure
 cmake --install build/windows-release --config Release
 release\shareaudio_cli.exe help
+cmake -E rm -rf release-test
 ```
 
 ## Debug Build

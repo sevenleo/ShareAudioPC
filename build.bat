@@ -21,6 +21,9 @@ if errorlevel 1 goto fail
 release\shareaudio_cli.exe help
 if errorlevel 1 goto fail
 
+cmake -E rm -rf release-test
+if errorlevel 1 goto fail
+
 echo.
 echo Build completed. Portable files are in: %CD%\release
 
